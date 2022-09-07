@@ -168,10 +168,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2022-09-07 20:23:05 / 修改时间：23:35:56" itemprop="dateCreated datePublished" datetime="2022-09-07T20:23:05+08:00">2022-09-07</time>
+              <time title="创建时间：2022-09-07 20:23:05" itemprop="dateCreated datePublished" datetime="2022-09-07T20:23:05+08:00">2022-09-07</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-09-08 00:01:24" itemprop="dateModified" datetime="2022-09-08T00:01:24+08:00">2022-09-08</time>
+              </span>
 
           
 
@@ -205,7 +211,7 @@
 <h4 id="建立博客"><a href="#建立博客" class="headerlink" title="建立博客"></a>建立博客</h4><p>​	在一个磁盘中建立一个文件夹，用于存放博客。例如我在E盘新建一个_blog文件夹，在该文件夹目录下，右键 Git Bash Here。然后执行命令：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo init</span><br></pre></td></tr></table></figure>
 
-<p>![KPV06CXC_6RX&#96;QEU_SN_R49.png](建立博客.assets&#x2F;VduaXUZ8SfAzx5M.png)</p>
+<p><img src="https://s2.loli.net/2022/09/08/flPZTMN6r9SeJpb.png" alt="20220907156146484961.png"></p>
 <pre><code> 执行命令：
 </code></pre>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo s</span><br></pre></td></tr></table></figure>
@@ -227,8 +233,8 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tip:有些主题你更换之后是暂时无法预览的，因为有的主题还需要安装它需要的依赖，这一般都会在主题的文档里面提到，只有安装它的依赖之后才可以正常预览</span><br></pre></td></tr></table></figure>
 
 <h4 id="关于其他设置"><a href="#关于其他设置" class="headerlink" title="关于其他设置"></a>关于其他设置</h4><p>​	在Next主题的文档里面提到了如何更换语言以及更改主题的外观，如下：</p>
-<p><img src="/%E5%BB%BA%E7%AB%8B%E5%8D%9A%E5%AE%A2.assets/DqwxUArFLh9TPmd.png" alt="image-20220907224613052.png"></p>
-<p><img src="/%E5%BB%BA%E7%AB%8B%E5%8D%9A%E5%AE%A2.assets/image-20220907224732227.png" alt="image-20220907224732227"></p>
+<p><img src="https://s2.loli.net/2022/09/07/sUm1V3ycpNShY2i.png" alt="image-20220907224613052.png"></p>
+<p><img src="https://s2.loli.net/2022/09/07/pT6CdcQyLFjkeUb.png" alt="image-20220907224732227.png"></p>
 <p>​	注意前者在 <strong>站点配置文件</strong>_config,yml 下，后者在 <strong>主题配置文件</strong>_config.yml 下</p>
 <p>​	附非最新版本的主题文档中文版</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;http://theme-next.iissnan.com/&gt;</span><br></pre></td></tr></table></figure>
@@ -255,7 +261,7 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$  ssh -T git@github.com</span><br></pre></td></tr></table></figure>
 
 <p>​	在这里复制地址</p>
-<p><img src="/%E5%BB%BA%E7%AB%8B%E5%8D%9A%E5%AE%A2.assets/FCjahXQIlNoKUxO.png" alt="image-20220907225956591.png"></p>
+<p><img src="https://s2.loli.net/2022/09/07/hlIqEWuKp48M1D7.png" alt="FCjahXQIlNoKUxO.png"></p>
 <p>​	打开站点配置文件，修改deploy信息：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  repo: 复制的地址</span><br><span class="line">  branch: master</span><br></pre></td></tr></table></figure>
 
@@ -267,8 +273,11 @@
 
 <p>​	结束后，在项目中点击 Settings</p>
 <p>​	Pages 中，选择master branch</p>
-<p><img src="/%E5%BB%BA%E7%AB%8B%E5%8D%9A%E5%AE%A2.assets/vThyb7e8aAPZctF.png" alt="image-20220907230345545.png"></p>
+<p><img src="https://s2.loli.net/2022/09/07/vThyb7e8aAPZctF.png" alt="image-20220907230345545.png"></p>
 <p>​	完成简易的博客建立</p>
+<h3 id="7-图床"><a href="#7-图床" class="headerlink" title="7. 图床"></a>7. 图床</h3><p>​		关于图片导入，需要上传到图床再链接。如下网址可用 </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;https://sm.ms/&gt;</span><br></pre></td></tr></table></figure>
+
 
       
     </div>
