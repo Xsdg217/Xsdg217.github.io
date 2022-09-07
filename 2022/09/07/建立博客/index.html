@@ -20,28 +20,40 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://example.com/index.html">
+  <meta name="description" content="hexo+Github 博客搭建教程Author: xsdg 1. 写在前面感谢 Huanhao 老师的Blog教程。一直想做个个人博客，今天跟着教程由hexo搭建了一个简单的个人博客，记录一下。 2. 准备安装nodejs1http:&#x2F;&#x2F;nodejs.cn&#x2F;download&#x2F;  ​	选择.msi安装包，一直点Next即可 安装Git1https:&#x2F;&#x2F;git-scm.com&#x2F;  ​	同上，一直点N">
+<meta property="og:type" content="article">
+<meta property="og:title" content="建立博客">
+<meta property="og:url" content="http://example.com/2022/09/07/%E5%BB%BA%E7%AB%8B%E5%8D%9A%E5%AE%A2/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="hexo+Github 博客搭建教程Author: xsdg 1. 写在前面感谢 Huanhao 老师的Blog教程。一直想做个个人博客，今天跟着教程由hexo搭建了一个简单的个人博客，记录一下。 2. 准备安装nodejs1http:&#x2F;&#x2F;nodejs.cn&#x2F;download&#x2F;  ​	选择.msi安装包，一直点Next即可 安装Git1https:&#x2F;&#x2F;git-scm.com&#x2F;  ​	同上，一直点N">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/%E5%BB%BA%E7%AB%8B%E5%8D%9A%E5%AE%A2.assets/image-20220907222458798.png">
+<meta property="og:image" content="http://example.com/%E5%BB%BA%E7%AB%8B%E5%8D%9A%E5%AE%A2.assets/image-20220907224141677.png">
+<meta property="og:image" content="http://example.com/%E5%BB%BA%E7%AB%8B%E5%8D%9A%E5%AE%A2.assets/image-20220907224613052.png">
+<meta property="og:image" content="http://example.com/%E5%BB%BA%E7%AB%8B%E5%8D%9A%E5%AE%A2.assets/image-20220907224732227.png">
+<meta property="og:image" content="http://example.com/%E5%BB%BA%E7%AB%8B%E5%8D%9A%E5%AE%A2.assets/image-20220907230013686.png">
+<meta property="og:image" content="http://example.com/%E5%BB%BA%E7%AB%8B%E5%8D%9A%E5%AE%A2.assets/image-20220907230345545.png">
+<meta property="article:published_time" content="2022-09-07T12:23:05.000Z">
+<meta property="article:modified_time" content="2022-09-07T15:04:31.203Z">
 <meta property="article:author" content="John Doe">
+<meta property="article:tag" content="hexo">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/%E5%BB%BA%E7%AB%8B%E5%8D%9A%E5%AE%A2.assets/image-20220907222458798.png">
 
-<link rel="canonical" href="http://example.com/">
+<link rel="canonical" href="http://example.com/2022/09/07/%E5%BB%BA%E7%AB%8B%E5%8D%9A%E5%AE%A2/">
 
 
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome : true,
-    isPost : false,
+    isHome : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
 
-  <title>Hexo</title>
+  <title>建立博客 | Hexo</title>
   
 
 
@@ -139,9 +151,10 @@
         <div class="content-wrap">
           
 
-          <div class="content index posts-expand">
+          <div class="content post posts-expand">
             
-      
+
+    
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
@@ -157,10 +170,9 @@
       <meta itemprop="name" content="Hexo">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/09/07/%E5%BB%BA%E7%AB%8B%E5%8D%9A%E5%AE%A2/" class="post-title-link" itemprop="url">建立博客</a>
-        </h2>
+        <h1 class="post-title" itemprop="name headline">
+          建立博客
+        </h1>
 
         <div class="post-meta">
             <span class="post-meta-item">
@@ -184,7 +196,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="hexo-Github-博客搭建教程"><a href="#hexo-Github-博客搭建教程" class="headerlink" title="hexo+Github 博客搭建教程"></a>hexo+Github 博客搭建教程</h2><p>Author: xsdg</p>
+        <h2 id="hexo-Github-博客搭建教程"><a href="#hexo-Github-博客搭建教程" class="headerlink" title="hexo+Github 博客搭建教程"></a>hexo+Github 博客搭建教程</h2><p>Author: xsdg</p>
 <h3 id="1-写在前面"><a href="#1-写在前面" class="headerlink" title="1. 写在前面"></a>1. 写在前面</h3><p>感谢 Huanhao 老师的Blog教程。一直想做个个人博客，今天跟着教程由hexo搭建了一个简单的个人博客，记录一下。</p>
 <h3 id="2-准备"><a href="#2-准备" class="headerlink" title="2. 准备"></a>2. 准备</h3><h4 id="安装nodejs"><a href="#安装nodejs" class="headerlink" title="安装nodejs"></a>安装nodejs</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://nodejs.cn/download/</span><br></pre></td></tr></table></figure>
 
@@ -270,150 +282,33 @@
 <p><img src="/%E5%BB%BA%E7%AB%8B%E5%8D%9A%E5%AE%A2.assets/image-20220907230345545.png" alt="image-20220907230345545"></p>
 <p>​	完成简易的博客建立</p>
 
-      
     </div>
 
     
     
     
+
       <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
+          <div class="post-tags">
+              <a href="/tags/hexo/" rel="tag"># hexo</a>
+          </div>
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/09/07/my-first-blog-test/">
+        
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-    </span>
 
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/09/07/my-first-blog-test/" class="post-title-link" itemprop="url">my first blog test</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2022-09-07 19:44:03 / 修改时间：19:50:21" itemprop="dateCreated datePublished" datetime="2022-09-07T19:44:03+08:00">2022-09-07</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>test.</p>
-
-      
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/09/07/my-first-blog-test/" rel="prev" title="my first blog test">
+      <i class="fa fa-chevron-left"></i> my first blog test
+    </a></div>
+      <div class="post-nav-item"></div>
     </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
       </footer>
+    
   </article>
   
   
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/09/07/hello-world/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/09/07/hello-world/" class="post-title-link" itemprop="url">Hello World</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-09-07 16:17:01" itemprop="dateCreated datePublished" datetime="2022-09-07T16:17:01+08:00">2022-09-07</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-
   
 
 
@@ -466,6 +361,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#hexo-Github-%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E6%95%99%E7%A8%8B"><span class="nav-number">1.</span> <span class="nav-text">hexo+Github 博客搭建教程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%86%99%E5%9C%A8%E5%89%8D%E9%9D%A2"><span class="nav-number">1.1.</span> <span class="nav-text">1. 写在前面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%87%86%E5%A4%87"><span class="nav-number">1.2.</span> <span class="nav-text">2. 准备</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%89%E8%A3%85nodejs"><span class="nav-number">1.2.1.</span> <span class="nav-text">安装nodejs</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%89%E8%A3%85Git"><span class="nav-number">1.2.2.</span> <span class="nav-text">安装Git</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%89%E8%A3%85cnpm"><span class="nav-number">1.2.3.</span> <span class="nav-text">安装cnpm</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-Hexo"><span class="nav-number">1.3.</span> <span class="nav-text">3. Hexo</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%89%E8%A3%85hexo"><span class="nav-number">1.3.1.</span> <span class="nav-text">安装hexo</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BB%BA%E7%AB%8B%E5%8D%9A%E5%AE%A2"><span class="nav-number">1.3.2.</span> <span class="nav-text">建立博客</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E6%9B%B4%E6%8D%A2%E4%B8%BB%E9%A2%98%E5%8F%8A%E4%BF%AE%E6%94%B9%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="nav-number">1.4.</span> <span class="nav-text">4.更换主题及修改配置文件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E%E4%B8%BB%E9%A2%98"><span class="nav-number">1.4.1.</span> <span class="nav-text">关于主题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E%E4%B8%8B%E8%BD%BD%E4%B8%BB%E9%A2%98"><span class="nav-number">1.4.2.</span> <span class="nav-text">关于下载主题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="nav-number">1.4.3.</span> <span class="nav-text">关于配置文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E%E5%85%B6%E4%BB%96%E8%AE%BE%E7%BD%AE"><span class="nav-number">1.4.4.</span> <span class="nav-text">关于其他设置</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-%E5%86%99%E5%8D%9A%E5%AE%A2"><span class="nav-number">1.5.</span> <span class="nav-text">5. 写博客</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-%E9%83%A8%E7%BD%B2%E5%8D%9A%E5%AE%A2"><span class="nav-number">1.6.</span> <span class="nav-text">6. 部署博客</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9F%9F%E5%90%8D"><span class="nav-number">1.6.1.</span> <span class="nav-text">域名</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#git%E5%AF%86%E9%92%A5"><span class="nav-number">1.6.2.</span> <span class="nav-text">git密钥</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%8A%E4%BC%A0"><span class="nav-number">1.6.3.</span> <span class="nav-text">上传</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
