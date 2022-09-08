@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>Hello World</title>
+    <url>/2022/09/07/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+]]></content>
+  </entry>
+  <entry>
+    <title>建立博客</title>
+    <url>/2022/09/07/%E5%BB%BA%E7%AB%8B%E5%8D%9A%E5%AE%A2/</url>
+    <content><![CDATA[<h2 id="hexo-Github-博客搭建教程"><a href="#hexo-Github-博客搭建教程" class="headerlink" title="hexo+Github 博客搭建教程"></a>hexo+Github 博客搭建教程</h2><p>Author: xsdg</p>
+<h3 id="1-写在前面"><a href="#1-写在前面" class="headerlink" title="1. 写在前面"></a>1. 写在前面</h3><p>感谢 Huanhao 老师的Blog教程。一直想做个个人博客，今天跟着教程由hexo搭建了一个简单的个人博客，记录一下。</p>
+<h3 id="2-准备"><a href="#2-准备" class="headerlink" title="2. 准备"></a>2. 准备</h3><h4 id="安装nodejs"><a href="#安装nodejs" class="headerlink" title="安装nodejs"></a>安装nodejs</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;http://nodejs.cn/download/&gt;</span><br></pre></td></tr></table></figure>
+
+<p>​	选择.msi安装包，一直点Next即可</p>
+<h4 id="安装Git"><a href="#安装Git" class="headerlink" title="安装Git"></a>安装Git</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;https://git-scm.com/&gt;</span><br></pre></td></tr></table></figure>
+
+<p>​	同上，一直点Next</p>
+<h4 id="安装cnpm"><a href="#安装cnpm" class="headerlink" title="安装cnpm"></a>安装cnpm</h4><p>​	右键点击 Git Bash Here，执行命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm install -g cnpm --registry=https://registry.npm.taobao.org</span><br></pre></td></tr></table></figure>
+
+<p>​	检查安装成功与否：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cnpm -v</span><br></pre></td></tr></table></figure>
+
+<p>​	输出版本号说明安装成功</p>
+<h3 id="3-Hexo"><a href="#3-Hexo" class="headerlink" title="3. Hexo"></a>3. Hexo</h3><h4 id="安装hexo"><a href="#安装hexo" class="headerlink" title="安装hexo"></a>安装hexo</h4><p>​	在git bash中执行命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cnpm install hexo-cli -g</span><br></pre></td></tr></table></figure>
+
+<h4 id="建立博客"><a href="#建立博客" class="headerlink" title="建立博客"></a>建立博客</h4><p>​	在一个磁盘中建立一个文件夹，用于存放博客。例如我在E盘新建一个_blog文件夹，在该文件夹目录下，右键 Git Bash Here。然后执行命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo init</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://s2.loli.net/2022/09/08/flPZTMN6r9SeJpb.png" alt="20220907156146484961.png"></p>
+<pre><code> 执行命令：
+</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo s</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://s2.loli.net/2022/09/07/qlMOa7I9B6Xe2Go.png" alt="image-20220907222458798.png"></p>
+<p>​	打开这个网站，可以看到预设好的网页</p>
+<h3 id="4-更换主题及修改配置文件"><a href="#4-更换主题及修改配置文件" class="headerlink" title="4.更换主题及修改配置文件"></a>4.更换主题及修改配置文件</h3><h4 id="关于主题"><a href="#关于主题" class="headerlink" title="关于主题"></a>关于主题</h4><p>​	hexo主题可在如下网址中找到：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;https://hexo.io/themes/&gt;</span><br></pre></td></tr></table></figure>
+
+<p>​	新手入门的Next主题：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">预览效果：&lt;https://theme-next.org/&gt;</span><br><span class="line"></span><br><span class="line">项目地址：&lt;https://github.com/theme-next/hexo-theme-next&gt;</span><br><span class="line"></span><br><span class="line">配置文档：&lt;https://theme-next.org/docs/getting-started/&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="关于下载主题"><a href="#关于下载主题" class="headerlink" title="关于下载主题"></a>关于下载主题</h4><p>​	打开主题的项目地址后，点击<code>Clone or download</code> ，然后在博客文件夹下面打开git bash，执行命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git clone 复制的地址 themes/主题名字</span><br></pre></td></tr></table></figure>
+
+<h4 id="关于配置文件"><a href="#关于配置文件" class="headerlink" title="关于配置文件"></a>关于配置文件</h4><p>​	在 <code>_blog/</code> 下打开 <code>_config.yml</code>文件，找到<code>themes</code>这一行，然后将主题名字修改为next：</p>
+<p><img src="https://s2.loli.net/2022/09/07/i8zVDl4p5QZkOnE.png" alt="image-20220907224141677.png"></p>
+<p>​	在博客目录git bash，执行 hexo s ，打开浏览地址可以预览效果。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">tip:有些主题你更换之后是暂时无法预览的，因为有的主题还需要安装它需要的依赖，这一般都会在主题的文档里面提到，只有安装它的依赖之后才可以正常预览</span><br></pre></td></tr></table></figure>
+
+<h4 id="关于其他设置"><a href="#关于其他设置" class="headerlink" title="关于其他设置"></a>关于其他设置</h4><p>​	在Next主题的文档里面提到了如何更换语言以及更改主题的外观，如下：</p>
+<p><img src="https://s2.loli.net/2022/09/07/sUm1V3ycpNShY2i.png" alt="image-20220907224613052.png"></p>
+<p><img src="https://s2.loli.net/2022/09/07/pT6CdcQyLFjkeUb.png" alt="image-20220907224732227.png"></p>
+<p>​	注意前者在 <strong>站点配置文件</strong>_config,yml 下，后者在 <strong>主题配置文件</strong>_config.yml 下</p>
+<p>​	附非最新版本的主题文档中文版</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;http://theme-next.iissnan.com/&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="5-写博客"><a href="#5-写博客" class="headerlink" title="5. 写博客"></a>5. 写博客</h3><p>​	在博客根目录下git bash：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo new &quot;test blog&quot;</span><br></pre></td></tr></table></figure>
+
+<p>​	在 source&#x2F;_posts 下会建立markdown文件，编写后保存，在博客根目录下git bash：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo s</span><br></pre></td></tr></table></figure>
+
+<p>​	可以预览写好的博客</p>
+<h3 id="6-部署博客"><a href="#6-部署博客" class="headerlink" title="6. 部署博客"></a>6. 部署博客</h3><h4 id="域名"><a href="#域名" class="headerlink" title="域名"></a>域名</h4><p>​	注册 github 账号</p>
+<p>​	创建一个仓库</p>
+<p>​	仓库名为用户名 + .github.io （必须）</p>
+<h4 id="git密钥"><a href="#git密钥" class="headerlink" title="git密钥"></a>git密钥</h4><p>​	git bash</p>
+<p>​	执行（里面是个人邮箱）：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ ssh-keygen -t rsa -C “your_email@your_email.com“</span><br></pre></td></tr></table></figure>
+
+<p>​	一直回车，然后执行：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ cat ~/.ssh/id_rsa.pub</span><br></pre></td></tr></table></figure>
+
+<p>​	会得到一串密钥，复制好信息，在 Github 个人主页 SSH and GPG keys 中 Add new，粘贴密钥</p>
+<p>​	然后打开git bash，执行：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$  ssh -T git@github.com</span><br></pre></td></tr></table></figure>
+
+<p>​	在这里复制地址</p>
+<p><img src="https://s2.loli.net/2022/09/07/hlIqEWuKp48M1D7.png" alt="FCjahXQIlNoKUxO.png"></p>
+<p>​	打开站点配置文件，修改deploy信息：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  repo: 复制的地址</span><br><span class="line">  branch: master</span><br></pre></td></tr></table></figure>
+
+<p>​	在博客根目录下打开git bash，分别执行：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ git config --global user.name &quot;yourname&quot;</span><br><span class="line">$ git config --global user.email &quot;youremail&quot;</span><br><span class="line">cnpm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
+
+<h4 id="上传"><a href="#上传" class="headerlink" title="上传"></a>上传</h4><p>​	完成以上配置后，即可上传，在博客根目录下git bash，执行：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo g -d</span><br></pre></td></tr></table></figure>
+
+<p>​	结束后，在项目中点击 Settings</p>
+<p>​	Pages 中，选择master branch</p>
+<p><img src="https://s2.loli.net/2022/09/07/vThyb7e8aAPZctF.png" alt="image-20220907230345545.png"></p>
+<p>​	完成简易的博客建立</p>
+<h3 id="7-图床"><a href="#7-图床" class="headerlink" title="7. 图床"></a>7. 图床</h3><p>​		关于图片导入，需要上传到图床再链接。如下网址可用 </p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;https://sm.ms/&gt;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <tags>
+        <tag>hexo</tag>
+      </tags>
+  </entry>
+</search>
