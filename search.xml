@@ -114,4 +114,14 @@
         <tag>hexo</tag>
       </tags>
   </entry>
+  <entry>
+    <title>Vim学习(一)</title>
+    <url>/2022/09/09/Vim%E5%AD%A6%E4%B9%A0-%E4%B8%80/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>​	新手 vim 使用者学习日记。</p>
+<h3 id="VIM-基础操作"><a href="#VIM-基础操作" class="headerlink" title="VIM 基础操作"></a>VIM 基础操作</h3><h5 id=""><a href="#" class="headerlink" title=""></a></h5>]]></content>
+      <tags>
+        <tag>vim</tag>
+        <tag>Linux</tag>
+      </tags>
+  </entry>
 </search>
