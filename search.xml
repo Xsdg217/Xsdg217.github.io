@@ -1,123 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Hello World</title>
-    <url>/2022/09/07/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-]]></content>
-  </entry>
-  <entry>
-    <title>建立博客</title>
-    <url>/2022/09/07/%E5%BB%BA%E7%AB%8B%E5%8D%9A%E5%AE%A2/</url>
-    <content><![CDATA[<h2 id="hexo-Github-博客搭建教程"><a href="#hexo-Github-博客搭建教程" class="headerlink" title="hexo+Github 博客搭建教程"></a>hexo+Github 博客搭建教程</h2><p>Author: xsdg</p>
-<h3 id="1-写在前面"><a href="#1-写在前面" class="headerlink" title="1. 写在前面"></a>1. 写在前面</h3><p>感谢 Huanhao 老师的Blog教程。一直想做个个人博客，今天跟着教程由hexo搭建了一个简单的个人博客，记录一下。</p>
-<h3 id="2-准备"><a href="#2-准备" class="headerlink" title="2. 准备"></a>2. 准备</h3><h4 id="安装nodejs"><a href="#安装nodejs" class="headerlink" title="安装nodejs"></a>安装nodejs</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;http://nodejs.cn/download/&gt;</span><br></pre></td></tr></table></figure>
-
-<p>​	选择.msi安装包，一直点Next即可</p>
-<h4 id="安装Git"><a href="#安装Git" class="headerlink" title="安装Git"></a>安装Git</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;https://git-scm.com/&gt;</span><br></pre></td></tr></table></figure>
-
-<p>​	同上，一直点Next</p>
-<h4 id="安装cnpm"><a href="#安装cnpm" class="headerlink" title="安装cnpm"></a>安装cnpm</h4><p>​	右键点击 Git Bash Here，执行命令：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm install -g cnpm --registry=https://registry.npm.taobao.org</span><br></pre></td></tr></table></figure>
-
-<p>​	检查安装成功与否：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cnpm -v</span><br></pre></td></tr></table></figure>
-
-<p>​	输出版本号说明安装成功</p>
-<h3 id="3-Hexo"><a href="#3-Hexo" class="headerlink" title="3. Hexo"></a>3. Hexo</h3><h4 id="安装hexo"><a href="#安装hexo" class="headerlink" title="安装hexo"></a>安装hexo</h4><p>​	在git bash中执行命令：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cnpm install hexo-cli -g</span><br></pre></td></tr></table></figure>
-
-<h4 id="建立博客"><a href="#建立博客" class="headerlink" title="建立博客"></a>建立博客</h4><p>​	在一个磁盘中建立一个文件夹，用于存放博客。例如我在E盘新建一个_blog文件夹，在该文件夹目录下，右键 Git Bash Here。然后执行命令：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo init</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://s2.loli.net/2022/09/08/flPZTMN6r9SeJpb.png" alt="20220907156146484961.png"></p>
-<pre><code> 执行命令：
-</code></pre>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo s</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://s2.loli.net/2022/09/07/qlMOa7I9B6Xe2Go.png" alt="image-20220907222458798.png"></p>
-<p>​	打开这个网站，可以看到预设好的网页</p>
-<h3 id="4-更换主题及修改配置文件"><a href="#4-更换主题及修改配置文件" class="headerlink" title="4.更换主题及修改配置文件"></a>4.更换主题及修改配置文件</h3><h4 id="关于主题"><a href="#关于主题" class="headerlink" title="关于主题"></a>关于主题</h4><p>​	hexo主题可在如下网址中找到：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;https://hexo.io/themes/&gt;</span><br></pre></td></tr></table></figure>
-
-<p>​	新手入门的Next主题：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">预览效果：&lt;https://theme-next.org/&gt;</span><br><span class="line"></span><br><span class="line">项目地址：&lt;https://github.com/theme-next/hexo-theme-next&gt;</span><br><span class="line"></span><br><span class="line">配置文档：&lt;https://theme-next.org/docs/getting-started/&gt;</span><br></pre></td></tr></table></figure>
-
-<h4 id="关于下载主题"><a href="#关于下载主题" class="headerlink" title="关于下载主题"></a>关于下载主题</h4><p>​	打开主题的项目地址后，点击<code>Clone or download</code> ，然后在博客文件夹下面打开git bash，执行命令：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git clone 复制的地址 themes/主题名字</span><br></pre></td></tr></table></figure>
-
-<h4 id="关于配置文件"><a href="#关于配置文件" class="headerlink" title="关于配置文件"></a>关于配置文件</h4><p>​	在 <code>_blog/</code> 下打开 <code>_config.yml</code>文件，找到<code>themes</code>这一行，然后将主题名字修改为next：</p>
-<p><img src="https://s2.loli.net/2022/09/07/i8zVDl4p5QZkOnE.png" alt="image-20220907224141677.png"></p>
-<p>​	在博客目录git bash，执行 hexo s ，打开浏览地址可以预览效果。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">tip:有些主题你更换之后是暂时无法预览的，因为有的主题还需要安装它需要的依赖，这一般都会在主题的文档里面提到，只有安装它的依赖之后才可以正常预览</span><br></pre></td></tr></table></figure>
-
-<h4 id="关于其他设置"><a href="#关于其他设置" class="headerlink" title="关于其他设置"></a>关于其他设置</h4><p>​	在Next主题的文档里面提到了如何更换语言以及更改主题的外观，如下：</p>
-<p><img src="https://s2.loli.net/2022/09/07/sUm1V3ycpNShY2i.png" alt="image-20220907224613052.png"></p>
-<p><img src="https://s2.loli.net/2022/09/07/pT6CdcQyLFjkeUb.png" alt="image-20220907224732227.png"></p>
-<p>​	注意前者在 <strong>站点配置文件</strong>_config,yml 下，后者在 <strong>主题配置文件</strong>_config.yml 下</p>
-<p>​	附非最新版本的主题文档中文版</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;http://theme-next.iissnan.com/&gt;</span><br></pre></td></tr></table></figure>
-
-<h3 id="5-写博客"><a href="#5-写博客" class="headerlink" title="5. 写博客"></a>5. 写博客</h3><p>​	在博客根目录下git bash：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo new &quot;test blog&quot;</span><br></pre></td></tr></table></figure>
-
-<p>​	在 source&#x2F;_posts 下会建立markdown文件，编写后保存，在博客根目录下git bash：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo s</span><br></pre></td></tr></table></figure>
-
-<p>​	可以预览写好的博客</p>
-<h3 id="6-部署博客"><a href="#6-部署博客" class="headerlink" title="6. 部署博客"></a>6. 部署博客</h3><h4 id="域名"><a href="#域名" class="headerlink" title="域名"></a>域名</h4><p>​	注册 github 账号</p>
-<p>​	创建一个仓库</p>
-<p>​	仓库名为用户名 + .github.io （必须）</p>
-<h4 id="git密钥"><a href="#git密钥" class="headerlink" title="git密钥"></a>git密钥</h4><p>​	git bash</p>
-<p>​	执行（里面是个人邮箱）：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ ssh-keygen -t rsa -C “your_email@your_email.com“</span><br></pre></td></tr></table></figure>
-
-<p>​	一直回车，然后执行：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ cat ~/.ssh/id_rsa.pub</span><br></pre></td></tr></table></figure>
-
-<p>​	会得到一串密钥，复制好信息，在 Github 个人主页 SSH and GPG keys 中 Add new，粘贴密钥</p>
-<p>​	然后打开git bash，执行：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$  ssh -T git@github.com</span><br></pre></td></tr></table></figure>
-
-<p>​	在这里复制地址</p>
-<p><img src="https://s2.loli.net/2022/09/07/hlIqEWuKp48M1D7.png" alt="FCjahXQIlNoKUxO.png"></p>
-<p>​	打开站点配置文件，修改deploy信息：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  repo: 复制的地址</span><br><span class="line">  branch: master</span><br></pre></td></tr></table></figure>
-
-<p>​	在博客根目录下打开git bash，分别执行：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ git config --global user.name &quot;yourname&quot;</span><br><span class="line">$ git config --global user.email &quot;youremail&quot;</span><br><span class="line">cnpm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
-
-<h4 id="上传"><a href="#上传" class="headerlink" title="上传"></a>上传</h4><p>​	完成以上配置后，即可上传，在博客根目录下git bash，执行：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo g -d</span><br></pre></td></tr></table></figure>
-
-<p>​	结束后，在项目中点击 Settings</p>
-<p>​	Pages 中，选择master branch</p>
-<p><img src="https://s2.loli.net/2022/09/07/vThyb7e8aAPZctF.png" alt="image-20220907230345545.png"></p>
-<p>​	完成简易的博客建立</p>
-<h3 id="7-图床"><a href="#7-图床" class="headerlink" title="7. 图床"></a>7. 图床</h3><p>​		关于图片导入，需要上传到图床再链接。如下网址可用 </p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;https://sm.ms/&gt;</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <tags>
-        <tag>hexo</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Exact diagonalization -- Hubbard model</title>
     <url>/2022/10/08/HW_task1_hubbard_with_U1/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p><font size=5>Homework (task 1)</font></p>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><font size=5>Homework (task 1)</font>
+
 <ul>
 <li>write a code for diagonalizing the extended Hubbard model on a 6-site ladder</li>
 </ul>
@@ -133,9 +20,8 @@ $$
 \end{aligned}
 $$
 
-
 <ul>
-<li>take t &#x3D; 1.0, U &#x3D; 1.4, V &#x3D; 0.3, 𝜇 &#x3D; 0.1</li>
+<li>take t = 1.0, U = 1.4, V = 0.3, 𝜇 = 0.1</li>
 </ul>
 <p>(1) show the lowest 20 eigenvalues. please make use of the U(1) symmetry</p>
 <p>(2) calculate $\left\langle n_{i, \sigma}\right\rangle$ for each site and spin using the ground state</p>
@@ -155,16 +41,9 @@ $$
 </li>
 </ul>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> scipy.sparse.linalg <span class="keyword">as</span> LA</span><br><span class="line"></span><br><span class="line"><span class="comment">#参数定义</span></span><br><span class="line"></span><br><span class="line">t = <span class="number">1.0</span></span><br><span class="line">U = <span class="number">1.4</span></span><br><span class="line">V = <span class="number">0.3</span></span><br><span class="line">miu = <span class="number">0.1</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#N is the number of sites, and n is the number of states</span></span><br><span class="line"></span><br><span class="line">N = <span class="number">6</span></span><br><span class="line">n = <span class="number">1</span>&lt;&lt;<span class="number">2</span>*N</span><br><span class="line"></span><br><span class="line"><span class="comment">#最近邻作用和次近邻作用对，方便遍历</span></span><br><span class="line">First_Near = [(<span class="number">0</span>,<span class="number">1</span>),(<span class="number">1</span>,<span class="number">2</span>),(<span class="number">3</span>,<span class="number">4</span>),(<span class="number">4</span>,<span class="number">5</span>),(<span class="number">1</span>,<span class="number">3</span>),(<span class="number">2</span>,<span class="number">4</span>),(<span class="number">1</span>,<span class="number">0</span>),(<span class="number">2</span>,<span class="number">1</span>),(<span class="number">4</span>,<span class="number">3</span>),(<span class="number">5</span>,<span class="number">4</span>),(<span class="number">3</span>,<span class="number">1</span>),(<span class="number">4</span>,<span class="number">2</span>)]</span><br><span class="line">Second_Near = [(<span class="number">0</span>,<span class="number">3</span>),(<span class="number">1</span>,<span class="number">4</span>),(<span class="number">2</span>,<span class="number">5</span>),(<span class="number">2</span>,<span class="number">3</span>)]</span><br></pre></td></tr></table></figure>
-
-
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#一些位操作运算</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">ReadBit</span>(<span class="params">i,n</span>):                           <span class="comment">#读取i的第n位</span></span><br><span class="line">    <span class="keyword">return</span> (i&amp;(<span class="number">1</span>&lt;&lt;n))&gt;&gt;n</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">PopCntBit</span>(<span class="params">i</span>):                           <span class="comment">#计数i态有多少个&quot;1&quot;(自旋个数)</span></span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">bin</span>(i).count(<span class="string">&quot;1&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">SetBit</span>(<span class="params">i,n</span>):                            <span class="comment">#i的第n位设置为&quot;1&quot;</span></span><br><span class="line">    <span class="keyword">return</span> i|(<span class="number">1</span>&lt;&lt;n)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">ClearBit</span>(<span class="params">i,n</span>):                          <span class="comment">#i的第n位设置为&quot;0&quot;</span></span><br><span class="line">    <span class="keyword">return</span> i&amp;~(<span class="number">1</span>&lt;&lt;n)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">PickBit</span>(<span class="params">i,k,n</span>):                         <span class="comment">#从第k位向左走n位 这部分取出来</span></span><br><span class="line">    <span class="keyword">return</span> (i&amp;((<span class="number">2</span>**n-<span class="number">1</span>)&lt;&lt;k))&gt;&gt;k</span><br></pre></td></tr></table></figure>
-
-
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#哈密顿量的第二三四项（对角项），不用考虑态的变化，只需要按照给定的H计算前面的系数即可</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">U_func</span>(<span class="params">state</span>):</span><br><span class="line">    res = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(N):</span><br><span class="line">        res += ReadBit(state,i) &amp; ReadBit(state,i+N)</span><br><span class="line">    <span class="keyword">return</span> res * U</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">V_func</span>(<span class="params">state</span>):</span><br><span class="line">    res = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> (i,j) <span class="keyword">in</span> Second_Near:</span><br><span class="line">        res += (ReadBit(state,i) + ReadBit(state,i+<span class="number">6</span>)) * (ReadBit(state,j) + ReadBit(state,j+<span class="number">6</span>))</span><br><span class="line">    <span class="keyword">return</span> res * V</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">miu_func</span>(<span class="params">state</span>):</span><br><span class="line">    <span class="keyword">return</span> PopCntBit(state) * miu</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#定义产生湮灭算符规则 C(state, site, spin, op)： </span></span><br><span class="line"><span class="comment">#Input: state 为作用的态， site 为位点（0~5），spin为自旋（-0.5/0.5），op为产生or湮灭(1 or 0)</span></span><br><span class="line"><span class="comment">#Output: flag 表示是否存在输出的态(1/0), resstate 表示C算符作用后得到的（不考虑正负的）态， pm为C算符作用后态的正负号（1/-1）</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">C</span>(<span class="params">state, site, spin, op</span>):</span><br><span class="line">    resstate = <span class="number">0</span></span><br><span class="line">    flag = <span class="number">0</span></span><br><span class="line">    pm = <span class="number">0</span></span><br><span class="line">    <span class="keyword">if</span> op <span class="keyword">and</span> spin &gt; <span class="number">0</span>:</span><br><span class="line">        flag = <span class="number">1</span> <span class="keyword">if</span> ReadBit(state,site) == <span class="number">0</span> <span class="keyword">else</span> <span class="number">0</span></span><br><span class="line">        resstate = SetBit(state,site) <span class="keyword">if</span> flag <span class="keyword">else</span> -<span class="number">1</span></span><br><span class="line">        <span class="keyword">if</span> flag:</span><br><span class="line">            pm = -<span class="number">1</span> <span class="keyword">if</span> PopCntBit(PickBit(state,<span class="number">0</span>,site)) % <span class="number">2</span> == <span class="number">1</span> <span class="keyword">else</span> <span class="number">1</span></span><br><span class="line">    <span class="keyword">elif</span> op <span class="keyword">and</span> spin &lt; <span class="number">0</span>:</span><br><span class="line">        flag = <span class="number">1</span> <span class="keyword">if</span> ReadBit(state,site+N) == <span class="number">0</span> <span class="keyword">else</span> <span class="number">0</span></span><br><span class="line">        resstate = SetBit(state,site+N) <span class="keyword">if</span> flag <span class="keyword">else</span> -<span class="number">1</span></span><br><span class="line">        <span class="keyword">if</span> flag:</span><br><span class="line">            pm = -<span class="number">1</span> <span class="keyword">if</span> PopCntBit(PickBit(state,<span class="number">0</span>,site+N)) % <span class="number">2</span> == <span class="number">1</span> <span class="keyword">else</span> <span class="number">1</span></span><br><span class="line">    <span class="keyword">elif</span> <span class="keyword">not</span> op <span class="keyword">and</span> spin &gt; <span class="number">0</span>:</span><br><span class="line">        flag = <span class="number">1</span> <span class="keyword">if</span> ReadBit(state,site) == <span class="number">1</span> <span class="keyword">else</span> <span class="number">0</span></span><br><span class="line">        resstate = ClearBit(state,site) <span class="keyword">if</span> flag <span class="keyword">else</span> -<span class="number">1</span></span><br><span class="line">        <span class="keyword">if</span> flag:</span><br><span class="line">            pm = -<span class="number">1</span> <span class="keyword">if</span> PopCntBit(PickBit(state,<span class="number">0</span>,site)) % <span class="number">2</span> == <span class="number">1</span> <span class="keyword">else</span> <span class="number">1</span></span><br><span class="line">    <span class="keyword">elif</span> <span class="keyword">not</span> op <span class="keyword">and</span> spin &lt; <span class="number">0</span>:</span><br><span class="line">        flag = <span class="number">1</span> <span class="keyword">if</span> ReadBit(state,site+N) == <span class="number">1</span> <span class="keyword">else</span> <span class="number">0</span></span><br><span class="line">        resstate = ClearBit(state,site+N) <span class="keyword">if</span> flag <span class="keyword">else</span> -<span class="number">1</span></span><br><span class="line">        <span class="keyword">if</span> flag:</span><br><span class="line">            pm = -<span class="number">1</span> <span class="keyword">if</span> PopCntBit(PickBit(state,<span class="number">0</span>,site+N)) % <span class="number">2</span> == <span class="number">1</span> <span class="keyword">else</span> <span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> flag,resstate,pm</span><br></pre></td></tr></table></figure>
-
 <ul>
 <li>对于非对角hopping项，我们简单说明一下思路。</li>
 </ul>
@@ -172,39 +51,33 @@ $$
 <li>直接地，若不考虑symm，我们枚举所有的态，对每一态在 First_Near 限制下枚举产生湮灭算符作用后得到的态，然后去检查这两个态之间的转化能否成立。伪代码如下注释：</li>
 </ol>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 不考虑U(1)全遍历，作为伪代码注释放在这里</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">H = np.zeros([n,n])</span></span><br><span class="line"><span class="string"># H 的第二三四项(对角项)计算</span></span><br><span class="line"><span class="string">for i in range(n):</span></span><br><span class="line"><span class="string">    H[i,i] += U_func(i)</span></span><br><span class="line"><span class="string">    H[i,i] -= V_func(i)</span></span><br><span class="line"><span class="string">    H[i,i] -= miu_func(i)</span></span><br><span class="line"><span class="string"># H 的第一项(非对角项)计算</span></span><br><span class="line"><span class="string">for a in range(n):</span></span><br><span class="line"><span class="string">    for (i,j) in First_Near:</span></span><br><span class="line"><span class="string">        for spin in [-0.5,0.5]:</span></span><br><span class="line"><span class="string">            a1flag, a1, a1pm = C(a,j,spin,0)</span></span><br><span class="line"><span class="string">            if a1flag:</span></span><br><span class="line"><span class="string">                bflag, b, bpm = C(a1,i,spin,1)</span></span><br><span class="line"><span class="string">                if bflag:</span></span><br><span class="line"><span class="string">                    H[b,a] = -t * a1pm * bpm</span></span><br><span class="line"><span class="string">            a1flag, a1, a1pm = C(a,i,spin,0)</span></span><br><span class="line"><span class="string">            if a1flag:</span></span><br><span class="line"><span class="string">                bflag, b, bpm = C(a1,j,spin,1)</span></span><br><span class="line"><span class="string">                if bflag:</span></span><br><span class="line"><span class="string">                    H[b,a] = -t * a1pm * bpm</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br></pre></td></tr></table></figure>
-
-<ol start="2">
-<li><p>显然我们这样做是浪费了一些搜索空间和时间的，因为没有考虑物理约束，即 hopping 过程中自旋数不会发生改变。基于这种对称性，我们可以重新对基矢进行排序，或者说将 4096 * 4096 的空间划分为 13 个子空间，分类的依据是自旋个数 n， n &#x3D; 0,1,…12. </p>
-<p> 值得一提的是， 前面不考虑 U(1) 中的基矢顺序就是态对应的十进制数，但是在考虑 U(1) 中的基矢顺序是按照 subspace 来排序的， 这样子哈密顿量 $</p>
+<ol>
+<li><p>显然我们这样做是浪费了一些搜索空间和时间的，因为没有考虑物理约束，即 hopping 过程中自旋数不会发生改变。基于这种对称性，我们可以重新对基矢进行排序，或者说将 4096 * 4096 的空间划分为 13 个子空间，分类的依据是自旋个数 n， n = 0,1,…12. </p>
+<p> 值得一提的是， 前面不考虑 U(1) 中的基矢顺序就是态对应的十进制数，但是在考虑 U(1) 中的基矢顺序是按照 subspace 来排序的， 这样子哈密顿量 $<br>\mathrm{H}=\mathrm{H}_0 \oplus \cdots \oplus \mathrm{H}_n \oplus \cdots \oplus \mathrm{H}_N<br>$ 直和的形式。</p>
+<p> 代码如下：</p>
 </li>
 </ol>
-<p>\mathrm{H}&#x3D;\mathrm{H}_0 \oplus \cdots \oplus \mathrm{H}_n \oplus \cdots \oplus \mathrm{H}_N<br>$ 直和的形式。</p>
-<pre><code>代码如下：
-</code></pre>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#构建一个字典数组 DictFind[i], i代表第i个子空间， 字典内存储的&lt;key,value&gt;对是&lt;态,编号&gt;</span></span><br><span class="line">DictFind = [&#123;&#125; <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">2</span>*N+<span class="number">1</span>)]</span><br><span class="line"></span><br><span class="line"><span class="comment">#预处理构建 DictFind </span></span><br><span class="line">count = np.zeros(<span class="number">2</span>*N+<span class="number">1</span>)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n):</span><br><span class="line">    count[PopCntBit(i)] += <span class="number">1</span> </span><br><span class="line">    DictFind[PopCntBit(i)][i] = count[PopCntBit(i)]</span><br><span class="line"></span><br><span class="line"><span class="comment">#space数组最开始是存放每个subspace的大小，然后为了后面直和操作方便，重定义为subspace大小的累加，即 space(i) += space(i-1)</span></span><br><span class="line">space = np.zeros(<span class="number">2</span>*N+<span class="number">1</span>)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">2</span>*N+<span class="number">1</span>):</span><br><span class="line">    space[i] = <span class="built_in">len</span>(DictFind[i])</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>,<span class="number">2</span>*N+<span class="number">1</span>):</span><br><span class="line">    space[i] = space[i] + space[i-<span class="number">1</span>] </span><br><span class="line"></span><br><span class="line"><span class="comment">#HH 即基于上述规则构建的哈密顿量，我们只需要在每个子空间内check hopping，由于已经建好了Dict，我们的查找是O(1)的</span></span><br><span class="line">HH = np.zeros([n,n])    </span><br><span class="line"><span class="keyword">for</span> SpinNum <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">2</span>*N+<span class="number">1</span>):</span><br><span class="line">    <span class="keyword">for</span> state,index <span class="keyword">in</span> DictFind[SpinNum].items():</span><br><span class="line">        <span class="keyword">for</span> (i,j) <span class="keyword">in</span> First_Near:</span><br><span class="line">            <span class="keyword">for</span> spin <span class="keyword">in</span> [-<span class="number">0.5</span>,<span class="number">0.5</span>]:</span><br><span class="line">                flag1, state1, pm1 = C(state, j, spin, <span class="number">0</span>)</span><br><span class="line">                <span class="keyword">if</span> flag1:</span><br><span class="line">                    flag2, state2,pm2 = C(state1, i, spin, <span class="number">1</span>)</span><br><span class="line">                    <span class="keyword">if</span> flag2:</span><br><span class="line">                        HH[<span class="built_in">int</span>(space[SpinNum-<span class="number">1</span>]+index-<span class="number">1</span>) , <span class="built_in">int</span>(space[SpinNum-<span class="number">1</span>]+DictFind[SpinNum].get(state2)-<span class="number">1</span>)] = -t * pm1 *pm2 <span class="comment"># - 1 for pos adjustion</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#H的对角项</span></span><br><span class="line"><span class="keyword">for</span> SpinNum <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span> , <span class="number">2</span>*N+<span class="number">1</span>):</span><br><span class="line">    <span class="keyword">for</span> state,index <span class="keyword">in</span> DictFind[SpinNum].items():</span><br><span class="line">        pos = <span class="built_in">int</span>(space[SpinNum-<span class="number">1</span>] + index - <span class="number">1</span>)</span><br><span class="line">        HH[pos,pos] += U_func(state)</span><br><span class="line">        HH[pos,pos] -= V_func(state)</span><br><span class="line">        HH[pos,pos] -= miu_func(state)</span><br><span class="line">    </span><br></pre></td></tr></table></figure>
-
 <ul>
 <li>完成 H 后用 scipy.sparse.linalg.eigsh 计算前20个本征值：</li>
 </ul>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># E : eigenvalue; W : eigenstate</span></span><br><span class="line">E,W = LA.eigsh(HH,<span class="number">20</span>,which = <span class="string">&#x27;SA&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(E)</span><br></pre></td></tr></table></figure>
-
 <pre><code>[-6.72233554 -6.72233554 -6.72233554 -6.66948732 -6.66948732 -6.48366037
  -6.44217804 -6.42461287 -6.3983409  -6.3983409  -6.35051543 -6.35051543
  -6.20881398 -6.20881398 -6.05241516 -6.05241516 -6.05241516 -5.95813498
  -5.95813498 -5.94631099]
-</code></pre>
-<ul>
+</code></pre><ul>
 <li><p>得到结果如下：</p>
 <p>  [-6.72233554 -6.72233554 -6.72233554 -6.66948732 -6.66948732 </p>
 <p>  -6.48366037 -6.44217804 -6.42461287 -6.3983409  -6.3983409 </p>
 <p>  -6.35051543 -6.35051543 -6.20881398 -6.20881398 -6.05241516 </p>
 <p>  -6.05241516 -6.05241516 -5.95813498 -5.95813498 -5.94631099]</p>
-</li>
-<li><p>可以看到，基态能量约为 -6.7223， 三重简并。这是符合我们预期的，对于这样一个6-sites存在旋转对称作用的体系。接下来我们计算一下 $\left\langle n_{i, \sigma}\right\rangle$</p>
+<ul>
+<li>可以看到，基态能量约为 -6.7223， 三重简并。这是符合我们预期的，对于这样一个6-sites存在旋转对称作用的体系。接下来我们计算一下 $\left\langle n_{i, \sigma}\right\rangle$</li>
+</ul>
 </li>
 </ul>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#由于三重简并，用n_bar_i，i=1，2，3分别存储三个本征矢量表象下的 &lt;n&gt;，数组顺序为从低位到高位(从右往左)</span></span><br><span class="line">n_bar_1 = np.zeros(<span class="number">2</span>*N)</span><br><span class="line">n_bar_2 = np.zeros(<span class="number">2</span>*N)</span><br><span class="line">n_bar_3 = np.zeros(<span class="number">2</span>*N)</span><br><span class="line"><span class="keyword">for</span> SpinNum <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span> , <span class="number">2</span>*N+<span class="number">1</span>):</span><br><span class="line">    <span class="keyword">for</span> state,index <span class="keyword">in</span> DictFind[SpinNum].items():</span><br><span class="line">        pos = <span class="built_in">int</span>(space[SpinNum-<span class="number">1</span>] + index - <span class="number">1</span>)</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">2</span>*N):</span><br><span class="line">            <span class="keyword">if</span> ReadBit(state,i):</span><br><span class="line">                n_bar_1[i] += np.power(W[:,<span class="number">0</span>][pos],<span class="number">2</span>)</span><br><span class="line">                n_bar_2[i] += np.power(W[:,<span class="number">1</span>][pos],<span class="number">2</span>)</span><br><span class="line">                n_bar_3[i] += np.power(W[:,<span class="number">2</span>][pos],<span class="number">2</span>)</span><br><span class="line"><span class="built_in">print</span>(n_bar_1)</span><br><span class="line"><span class="built_in">print</span>(n_bar_2)</span><br><span class="line"><span class="built_in">print</span>(n_bar_3)</span><br><span class="line"></span><br><span class="line"><span class="comment">#n_bar 为上述三组值的平均值</span></span><br><span class="line">n_bar = np.zeros(<span class="number">2</span>*N)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">2</span>*N):</span><br><span class="line">    n_bar[i] = (n_bar_1[i]+n_bar_2[i]+n_bar_3[i])/<span class="number">3</span></span><br><span class="line"><span class="built_in">print</span>(n_bar)</span><br></pre></td></tr></table></figure>
-
 <pre><code>[0.30471289 0.53758844 0.25223012 0.25223012 0.53758844 0.30471289
  0.68664588 0.43919814 0.77962453 0.77962453 0.43919814 0.68664588]
 [0.50412966 0.4862164  0.52759594 0.52759594 0.4862164  0.50412966
@@ -213,37 +86,123 @@ $$
  0.31316317 0.53541155 0.26389874 0.26389874 0.53541155 0.31316317]
 [0.49567939 0.48839329 0.51592732 0.51592732 0.48839329 0.49567939
  0.49567939 0.48839329 0.51592732 0.51592732 0.48839329 0.49567939]
-</code></pre>
-<ul>
-<li><p>由于三重简并，我们 n_bar_i，i&#x3D;1，2，3 分别存储三个本征矢量表象下的 $\left\langle n_{i, \sigma}\right\rangle$，数组顺序为从低位到高位(从右往左)</p>
+</code></pre><ul>
+<li><p>由于三重简并，我们 n<em>bar_i，i=1，2，3 分别存储三个本征矢量表象下的 $\left\langle n</em>{i, \sigma}\right\rangle$，数组顺序为从低位到高位(从右往左)</p>
 </li>
 <li><p>我们发现每次运行的结果都不一样，这是因为 scipy 的 eigsh 函数的内置算法随机性导致的，每次计算的本征矢量都有所不同，这里我们取了其中一次的计算结果放在这里：</p>
-<ol>
-<li><p>[0.32422012 0.53256315 0.2791668  0.2791668  0.53256315 0.32422012</p>
-<p> 0.66713865 0.44422343 0.75268785 0.75268785 0.44422343 0.66713865]</p>
-</li>
-</ol>
 </li>
 </ul>
-<p>​<br>​    2. [0.69565789 0.43687655 0.79206881 0.79206881 0.43687655 0.69565789<br>​<br>        0.29570088 0.53991004 0.23978584 0.23978584 0.53991004 0.29570088]</p>
-<p>​<br>​    3. [0.46716014 0.49574017 0.47654636 0.47654636 0.49574017 0.46716014<br>​<br>        0.52419863 0.48104641 0.55530828 0.55530828 0.48104641 0.52419863]</p>
+<pre><code>1. [0.32422012 0.53256315 0.2791668  0.2791668  0.53256315 0.32422012
+
+    0.66713865 0.44422343 0.75268785 0.75268785 0.44422343 0.66713865]
+</code></pre><p>​<br>​    2. [0.69565789 0.43687655 0.79206881 0.79206881 0.43687655 0.69565789<br>​<br>​        0.29570088 0.53991004 0.23978584 0.23978584 0.53991004 0.29570088]</p>
+<p>​<br>​    3. [0.46716014 0.49574017 0.47654636 0.47654636 0.49574017 0.46716014<br>​<br>​        0.52419863 0.48104641 0.55530828 0.55530828 0.48104641 0.52419863]</p>
 <ul>
 <li><p>每个数组有 12 个元素，依次表示 : (0,$\uparrow$) , (1,$\uparrow$) , … , (5,$\uparrow$) , (0,$\downarrow$) , … , (5,$\downarrow$) 的 $\left\langle n_{i, \sigma}\right\rangle$</p>
 </li>
-<li><p>尽管如此，我们可以对对应构型的 <n> 取平均，发现得到的 $(n_{bar1} + n_{bar2} +n_{bar3}) &#x2F; 3$ 如下：</p>
+<li><p>尽管如此，我们可以对对应构型的 <n> 取平均，发现得到的 $(n<em>{bar1} + n</em>{bar2} +n_{bar3}) / 3$ 如下：</p>
 <ul>
 <li><p>[0.49567939 0.48839329 0.51592732 0.51592732 0.48839329 0.49567939</p>
 <p>  0.49567939 0.48839329 0.51592732 0.51592732 0.48839329 0.49567939]</p>
 </li>
 </ul>
 </li>
-<li><p>可见对任意的 $i$ 和 $\sigma$, $\left\langle n_{i, \sigma}\right\rangle$ 的期望都约为 $1&#x2F;2$。 在基态的表象下，各位点的占据数趋于半满。</p>
+<li><p>可见对任意的 $i$ 和 $\sigma$, $\left\langle n_{i, \sigma}\right\rangle$ 的期望都约为 $1/2$。 在基态的表象下，各位点的占据数趋于半满。</p>
 </li>
 </ul>
-<p><font size=5>Reference </font></p>
+<font size=5>Reference </font>
+
 <ol>
 <li>Lin, H. Q. “Exact diagonalization of quantum-spin models.” Physical Review B 42.10 (1990): 6561.</li>
 </ol>
+]]></content>
+  </entry>
+  <entry>
+    <title>建立博客</title>
+    <url>/2022/09/07/%E5%BB%BA%E7%AB%8B%E5%8D%9A%E5%AE%A2/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="hexo-Github-博客搭建教程"><a href="#hexo-Github-博客搭建教程" class="headerlink" title="hexo+Github 博客搭建教程"></a>hexo+Github 博客搭建教程</h2><p>Author: xsdg</p>
+<h3 id="1-写在前面"><a href="#1-写在前面" class="headerlink" title="1. 写在前面"></a>1. 写在前面</h3><p>感谢 Huanhao 老师的Blog教程。一直想做个个人博客，今天跟着教程由hexo搭建了一个简单的个人博客，记录一下。</p>
+<h3 id="2-准备"><a href="#2-准备" class="headerlink" title="2. 准备"></a>2. 准备</h3><h4 id="安装nodejs"><a href="#安装nodejs" class="headerlink" title="安装nodejs"></a>安装nodejs</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;http://nodejs.cn/download/&gt;</span><br></pre></td></tr></table></figure>
+<p>​    选择.msi安装包，一直点Next即可</p>
+<h4 id="安装Git"><a href="#安装Git" class="headerlink" title="安装Git"></a>安装Git</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;https://git-scm.com/&gt;</span><br></pre></td></tr></table></figure>
+<p>​    同上，一直点Next</p>
+<h4 id="安装cnpm"><a href="#安装cnpm" class="headerlink" title="安装cnpm"></a>安装cnpm</h4><p>​    右键点击 Git Bash Here，执行命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm install -g cnpm --registry=https://registry.npm.taobao.org</span><br></pre></td></tr></table></figure>
+<p>​    检查安装成功与否：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cnpm -v</span><br></pre></td></tr></table></figure>
+<p>​    输出版本号说明安装成功</p>
+<h3 id="3-Hexo"><a href="#3-Hexo" class="headerlink" title="3. Hexo"></a>3. Hexo</h3><h4 id="安装hexo"><a href="#安装hexo" class="headerlink" title="安装hexo"></a>安装hexo</h4><p>​    在git bash中执行命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cnpm install hexo-cli -g</span><br></pre></td></tr></table></figure>
+<h4 id="建立博客"><a href="#建立博客" class="headerlink" title="建立博客"></a>建立博客</h4><p>​    在一个磁盘中建立一个文件夹，用于存放博客。例如我在E盘新建一个_blog文件夹，在该文件夹目录下，右键 Git Bash Here。然后执行命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo init</span><br></pre></td></tr></table></figure>
+<p><img src="https://s2.loli.net/2022/09/08/flPZTMN6r9SeJpb.png" alt="20220907156146484961.png"></p>
+<pre><code> 执行命令：
+</code></pre><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo s</span><br></pre></td></tr></table></figure>
+<p><img src="https://s2.loli.net/2022/09/07/qlMOa7I9B6Xe2Go.png" alt="image-20220907222458798.png"></p>
+<p>​    打开这个网站，可以看到预设好的网页</p>
+<h3 id="4-更换主题及修改配置文件"><a href="#4-更换主题及修改配置文件" class="headerlink" title="4.更换主题及修改配置文件"></a>4.更换主题及修改配置文件</h3><h4 id="关于主题"><a href="#关于主题" class="headerlink" title="关于主题"></a>关于主题</h4><p>​    hexo主题可在如下网址中找到：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;https://hexo.io/themes/&gt;</span><br></pre></td></tr></table></figure>
+<p>​    新手入门的Next主题：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">预览效果：&lt;https://theme-next.org/&gt;</span><br><span class="line"></span><br><span class="line">项目地址：&lt;https://github.com/theme-next/hexo-theme-next&gt;</span><br><span class="line"></span><br><span class="line">配置文档：&lt;https://theme-next.org/docs/getting-started/&gt;</span><br></pre></td></tr></table></figure>
+<h4 id="关于下载主题"><a href="#关于下载主题" class="headerlink" title="关于下载主题"></a>关于下载主题</h4><p>​    打开主题的项目地址后，点击<code>Clone or download</code> ，然后在博客文件夹下面打开git bash，执行命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git clone 复制的地址 themes/主题名字</span><br></pre></td></tr></table></figure>
+<h4 id="关于配置文件"><a href="#关于配置文件" class="headerlink" title="关于配置文件"></a>关于配置文件</h4><p>​    在 <code>_blog/</code> 下打开 <code>_config.yml</code>文件，找到<code>themes</code>这一行，然后将主题名字修改为next：</p>
+<p><img src="https://s2.loli.net/2022/09/07/i8zVDl4p5QZkOnE.png" alt="image-20220907224141677.png"></p>
+<p>​    在博客目录git bash，执行 hexo s ，打开浏览地址可以预览效果。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">tip:有些主题你更换之后是暂时无法预览的，因为有的主题还需要安装它需要的依赖，这一般都会在主题的文档里面提到，只有安装它的依赖之后才可以正常预览</span><br></pre></td></tr></table></figure>
+<h4 id="关于其他设置"><a href="#关于其他设置" class="headerlink" title="关于其他设置"></a>关于其他设置</h4><p>​    在Next主题的文档里面提到了如何更换语言以及更改主题的外观，如下：</p>
+<p><img src="https://s2.loli.net/2022/09/07/sUm1V3ycpNShY2i.png" alt="image-20220907224613052.png"></p>
+<p><img src="https://s2.loli.net/2022/09/07/pT6CdcQyLFjkeUb.png" alt="image-20220907224732227.png"></p>
+<p>​    注意前者在 <strong>站点配置文件</strong>_config,yml 下，后者在 <strong>主题配置文件</strong>_config.yml 下</p>
+<p>​    附非最新版本的主题文档中文版</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;http://theme-next.iissnan.com/&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="5-写博客"><a href="#5-写博客" class="headerlink" title="5. 写博客"></a>5. 写博客</h3><p>​    在博客根目录下git bash：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo new &quot;test blog&quot;</span><br></pre></td></tr></table></figure>
+<p>​    在 source/_posts 下会建立markdown文件，编写后保存，在博客根目录下git bash：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo s</span><br></pre></td></tr></table></figure>
+<p>​    可以预览写好的博客</p>
+<h3 id="6-部署博客"><a href="#6-部署博客" class="headerlink" title="6. 部署博客"></a>6. 部署博客</h3><h4 id="域名"><a href="#域名" class="headerlink" title="域名"></a>域名</h4><p>​    注册 github 账号</p>
+<p>​    创建一个仓库</p>
+<p>​    仓库名为用户名 + .github.io （必须）</p>
+<h4 id="git密钥"><a href="#git密钥" class="headerlink" title="git密钥"></a>git密钥</h4><p>​    git bash</p>
+<p>​    执行（里面是个人邮箱）：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ ssh-keygen -t rsa -C “your_email@your_email.com“</span><br></pre></td></tr></table></figure>
+<p>​    一直回车，然后执行：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ cat ~/.ssh/id_rsa.pub</span><br></pre></td></tr></table></figure>
+<p>​    会得到一串密钥，复制好信息，在 Github 个人主页 SSH and GPG keys 中 Add new，粘贴密钥</p>
+<p>​    然后打开git bash，执行：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$  ssh -T git@github.com</span><br></pre></td></tr></table></figure>
+<p>​    在这里复制地址</p>
+<p><img src="https://s2.loli.net/2022/09/07/hlIqEWuKp48M1D7.png" alt="FCjahXQIlNoKUxO.png"></p>
+<p>​    打开站点配置文件，修改deploy信息：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  repo: 复制的地址</span><br><span class="line">  branch: master</span><br></pre></td></tr></table></figure>
+<p>​    在博客根目录下打开git bash，分别执行：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ git config --global user.name &quot;yourname&quot;</span><br><span class="line">$ git config --global user.email &quot;youremail&quot;</span><br><span class="line">cnpm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
+<h4 id="上传"><a href="#上传" class="headerlink" title="上传"></a>上传</h4><p>​    完成以上配置后，即可上传，在博客根目录下git bash，执行：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo g -d</span><br></pre></td></tr></table></figure>
+<p>​    结束后，在项目中点击 Settings</p>
+<p>​    Pages 中，选择master branch</p>
+<p><img src="https://s2.loli.net/2022/09/07/vThyb7e8aAPZctF.png" alt="image-20220907230345545.png"></p>
+<p>​    完成简易的博客建立</p>
+<h3 id="7-图床"><a href="#7-图床" class="headerlink" title="7. 图床"></a>7. 图床</h3><p>​        关于图片导入，需要上传到图床再链接。如下网址可用 </p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;https://sm.ms/&gt;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <tags>
+        <tag>hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hello World</title>
+    <url>/2022/09/07/hello-world/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
 ]]></content>
   </entry>
 </search>
