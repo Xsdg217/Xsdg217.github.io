@@ -1,6 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>mathjax</title>
+    <url>/2022/10/08/mathjax/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="Hexo-Next-Theme-如何显示数学公式"><a href="#Hexo-Next-Theme-如何显示数学公式" class="headerlink" title="Hexo Next Theme 如何显示数学公式"></a>Hexo Next Theme 如何显示数学公式</h2><h3 id="1-问题描述"><a href="#1-问题描述" class="headerlink" title="1. 问题描述"></a>1. 问题描述</h3><p>​    在用markdown写文档时，若包含数学公式，渲染会出现一些问题。常用的Markdown编辑器都会集成Mathjax，用来渲染文档中的类<a href="https://so.csdn.net/so/search?q=Latex&amp;spm=1001.2101.3001.7020">Latex</a>格式书写的数学公式，基于Hexo搭建的个人博客，需要对渲染文档进行一些修改。</p>
+<h3 id="2-原因"><a href="#2-原因" class="headerlink" title="2. 原因"></a>2. 原因</h3><p>​    Hexo 默认使用 hexo-renderer-marked 引擎渲染网页，该引擎会把一些特殊的 markdown 符号转换为相应的 html 标签，比如在 markdown 语法中，下划线_代表斜体，会被渲染引擎处理为<em>标签。</p>
+<p>​    因为类 Latex 格式书写的数学公式下划线_表示下标，有特殊的含义，如果被强制转换为<em>标签，那么 MathJax 引擎在渲染数学公式的时候就会出错。类似的语义冲突的符号还包括*, {, }, \\等。</p>
+<h3 id="3-解决方法"><a href="#3-解决方法" class="headerlink" title="3. 解决方法"></a>3. 解决方法</h3><h4 id="1-安装渲染器"><a href="#1-安装渲染器" class="headerlink" title="1. 安装渲染器"></a>1. 安装渲染器</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm uninstall hexo-renderer-marked --save</span><br><span class="line">npm install hexo-renderer-kramed --save</span><br></pre></td></tr></table></figure>
+<h4 id="2-修改配置文件"><a href="#2-修改配置文件" class="headerlink" title="2. 修改配置文件"></a>2. 修改配置文件</h4><p>​    博客根目录下，找到 node_modules\kramed\lib\rules\inline.js，做如下修改</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">//  escape: /^\\([\\`*&#123;&#125;\[\]()#$+\-.!_&gt;])/,</span><br><span class="line">  escape: /^\\([`*\[\]()#$+\-.!_&gt;])/,</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">//  em: /^\b_((?:__|[\s\S])+?)_\b|^\*((?:\*\*|[\s\S])+?)\*(?!\*)/,</span><br><span class="line">  em: /^\*((?:\*\*|[\s\S])+?)\*(?!\*)/,</span><br></pre></td></tr></table></figure>
+<p>​    重新启动 hexo （clean 再 generate）</p>
+<p>​    另外，在主题配置文件中 _config.yml，把 mathjax 的 enable 修改为 true</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">mathjax:</span><br><span class="line">	enable: true</span><br></pre></td></tr></table></figure>
+<h4 id="3-文章渲染标签"><a href="#3-文章渲染标签" class="headerlink" title="3.  文章渲染标签"></a>3.  文章渲染标签</h4><p>​    在文章的Front-matter里打开mathjax开关，如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">title: xxxx</span><br><span class="line">date: xxxx-xx-xx xx:xx:xx</span><br><span class="line">categories: xx</span><br><span class="line">mathjax: true</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>Blog Setting</category>
+      </categories>
+      <tags>
+        <tag>hexo</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Exact diagonalization -- Hubbard model</title>
     <url>/2022/10/08/HW_task1_hubbard_with_U1/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><font size=5>Homework (task 1)</font>
@@ -87,7 +110,7 @@ $$
 [0.49567939 0.48839329 0.51592732 0.51592732 0.48839329 0.49567939
  0.49567939 0.48839329 0.51592732 0.51592732 0.48839329 0.49567939]
 </code></pre><ul>
-<li><p>由于三重简并，我们 n<em>bar_i，i=1，2，3 分别存储三个本征矢量表象下的 $\left\langle n</em>{i, \sigma}\right\rangle$，数组顺序为从低位到高位(从右往左)</p>
+<li><p>由于三重简并，我们 n_bar_i，i=1，2，3 分别存储三个本征矢量表象下的 $\left\langle n_{i, \sigma}\right\rangle$，数组顺序为从低位到高位(从右往左)</p>
 </li>
 <li><p>我们发现每次运行的结果都不一样，这是因为 scipy 的 eigsh 函数的内置算法随机性导致的，每次计算的本征矢量都有所不同，这里我们取了其中一次的计算结果放在这里：</p>
 </li>
@@ -106,7 +129,7 @@ $$
 </code></pre><ul>
 <li><p>每个数组有 12 个元素，依次表示 : (0,$\uparrow$) , (1,$\uparrow$) , … , (5,$\uparrow$) , (0,$\downarrow$) , … , (5,$\downarrow$) 的 $\left\langle n_{i, \sigma}\right\rangle$</p>
 </li>
-<li><p>尽管如此，我们可以对对应构型的 <n> 取平均，发现得到的 $(n<em>{bar1} + n</em>{bar2} +n_{bar3}) / 3$ 如下：</p>
+<li><p>尽管如此，我们可以对对应构型的 <n> 取平均，发现得到的 $(n_{bar1} + n_{bar2} +n_{bar3}) / 3$ 如下：</p>
 <ul>
 <li><p>[0.49567939 0.48839329 0.51592732 0.51592732 0.48839329 0.49567939</p>
 <p>  0.49567939 0.48839329 0.51592732 0.51592732 0.48839329 0.49567939]</p>
@@ -127,10 +150,23 @@ $$
       </categories>
   </entry>
   <entry>
-    <title>建立博客</title>
+    <title>Hello World</title>
+    <url>/2022/09/07/hello-world/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+]]></content>
+  </entry>
+  <entry>
+    <title>Blog Setup</title>
     <url>/2022/09/07/%E5%BB%BA%E7%AB%8B%E5%8D%9A%E5%AE%A2/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="hexo-Github-博客搭建教程"><a href="#hexo-Github-博客搭建教程" class="headerlink" title="hexo+Github 博客搭建教程"></a>hexo+Github 博客搭建教程</h2><p>Author: xsdg</p>
-<h3 id="1-写在前面"><a href="#1-写在前面" class="headerlink" title="1. 写在前面"></a>1. 写在前面</h3><p>感谢 Huanhao 老师的Blog教程。一直想做个个人博客，今天跟着教程由hexo搭建了一个简单的个人博客，记录一下。</p>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="hexo-Github-博客搭建教程"><a href="#hexo-Github-博客搭建教程" class="headerlink" title="hexo+Github 博客搭建教程"></a>hexo+Github 博客搭建教程</h2><h3 id="1-写在前面"><a href="#1-写在前面" class="headerlink" title="1. 写在前面"></a>1. 写在前面</h3><p>感谢 Huanhao 老师的Blog教程。一直想做个个人博客，今天跟着教程由hexo搭建了一个简单的个人博客，记录一下。</p>
 <h3 id="2-准备"><a href="#2-准备" class="headerlink" title="2. 准备"></a>2. 准备</h3><h4 id="安装nodejs"><a href="#安装nodejs" class="headerlink" title="安装nodejs"></a>安装nodejs</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;http://nodejs.cn/download/&gt;</span><br></pre></td></tr></table></figure>
 <p>​    选择.msi安装包，一直点Next即可</p>
 <h4 id="安装Git"><a href="#安装Git" class="headerlink" title="安装Git"></a>安装Git</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;https://git-scm.com/&gt;</span><br></pre></td></tr></table></figure>
@@ -196,22 +232,11 @@ $$
 <h3 id="7-图床"><a href="#7-图床" class="headerlink" title="7. 图床"></a>7. 图床</h3><p>​        关于图片导入，需要上传到图床再链接。如下网址可用 </p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;https://sm.ms/&gt;</span><br></pre></td></tr></table></figure>
 ]]></content>
+      <categories>
+        <category>Blog Setting</category>
+      </categories>
       <tags>
         <tag>hexo</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>Hello World</title>
-    <url>/2022/09/07/hello-world/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-]]></content>
   </entry>
 </search>

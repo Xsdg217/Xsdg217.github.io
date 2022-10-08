@@ -320,7 +320,7 @@ $$
 [0.49567939 0.48839329 0.51592732 0.51592732 0.48839329 0.49567939
  0.49567939 0.48839329 0.51592732 0.51592732 0.48839329 0.49567939]
 </code></pre><ul>
-<li><p>由于三重简并，我们 n<em>bar_i，i=1，2，3 分别存储三个本征矢量表象下的 $\left\langle n</em>{i, \sigma}\right\rangle$，数组顺序为从低位到高位(从右往左)</p>
+<li><p>由于三重简并，我们 n_bar_i，i=1，2，3 分别存储三个本征矢量表象下的 $\left\langle n_{i, \sigma}\right\rangle$，数组顺序为从低位到高位(从右往左)</p>
 </li>
 <li><p>我们发现每次运行的结果都不一样，这是因为 scipy 的 eigsh 函数的内置算法随机性导致的，每次计算的本征矢量都有所不同，这里我们取了其中一次的计算结果放在这里：</p>
 </li>
@@ -339,7 +339,7 @@ $$
 </code></pre><ul>
 <li><p>每个数组有 12 个元素，依次表示 : (0,$\uparrow$) , (1,$\uparrow$) , … , (5,$\uparrow$) , (0,$\downarrow$) , … , (5,$\downarrow$) 的 $\left\langle n_{i, \sigma}\right\rangle$</p>
 </li>
-<li><p>尽管如此，我们可以对对应构型的 <n> 取平均，发现得到的 $(n<em>{bar1} + n</em>{bar2} +n_{bar3}) / 3$ 如下：</p>
+<li><p>尽管如此，我们可以对对应构型的 <n> 取平均，发现得到的 $(n_{bar1} + n_{bar2} +n_{bar3}) / 3$ 如下：</p>
 <ul>
 <li><p>[0.49567939 0.48839329 0.51592732 0.51592732 0.48839329 0.49567939</p>
 <p>  0.49567939 0.48839329 0.51592732 0.51592732 0.48839329 0.49567939]</p>
@@ -395,10 +395,13 @@ $$
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2022/09/07/%E5%BB%BA%E7%AB%8B%E5%8D%9A%E5%AE%A2/" rel="prev" title="建立博客">
-      <i class="fa fa-chevron-left"></i> 建立博客
+    <a href="/2022/09/07/%E5%BB%BA%E7%AB%8B%E5%8D%9A%E5%AE%A2/" rel="prev" title="Blog Setup">
+      <i class="fa fa-chevron-left"></i> Blog Setup
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2022/10/08/mathjax/" rel="next" title="mathjax">
+      mathjax <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -472,14 +475,14 @@ $$
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">3</span>
+          <span class="site-state-item-count">4</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-count">2</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
