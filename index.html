@@ -347,7 +347,7 @@ C_n=\left\langle\psi_n \mid \psi(0)\right\rangle</script><p>​    我们取时�
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2022/10/08/mathjax/" class="post-title-link" itemprop="url">mathjax</a>
+            <a href="/2022/10/08/mathjax/" class="post-title-link" itemprop="url">Mathjax</a>
         </h2>
 
         <div class="post-meta">
@@ -358,7 +358,7 @@ C_n=\left\langle\psi_n \mid \psi(0)\right\rangle</script><p>​    我们取时�
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2022-10-08 22:50:04 / 修改时间：23:10:32" itemprop="dateCreated datePublished" datetime="2022-10-08T22:50:04+08:00">2022-10-08</time>
+              <time title="创建时间：2022-10-08 22:50:04 / 修改时间：23:42:46" itemprop="dateCreated datePublished" datetime="2022-10-08T22:50:04+08:00">2022-10-08</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -389,8 +389,8 @@ C_n=\left\langle\psi_n \mid \psi(0)\right\rangle</script><p>​    我们取时�
 
       
           <h2 id="Hexo-Next-Theme-如何显示数学公式"><a href="#Hexo-Next-Theme-如何显示数学公式" class="headerlink" title="Hexo Next Theme 如何显示数学公式"></a>Hexo Next Theme 如何显示数学公式</h2><h3 id="1-问题描述"><a href="#1-问题描述" class="headerlink" title="1. 问题描述"></a>1. 问题描述</h3><p>​    在用markdown写文档时，若包含数学公式，渲染会出现一些问题。常用的Markdown编辑器都会集成Mathjax，用来渲染文档中的类<a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=Latex&amp;spm=1001.2101.3001.7020">Latex</a>格式书写的数学公式，基于Hexo搭建的个人博客，需要对渲染文档进行一些修改。</p>
-<h3 id="2-原因"><a href="#2-原因" class="headerlink" title="2. 原因"></a>2. 原因</h3><p>​    Hexo 默认使用 hexo-renderer-marked 引擎渲染网页，该引擎会把一些特殊的 markdown 符号转换为相应的 html 标签，比如在 markdown 语法中，下划线_代表斜体，会被渲染引擎处理为$<em>$标签。</p>
-<p>​    因为类 Latex 格式书写的数学公式下划线_表示下标，有特殊的含义，如果被强制转换为$<em>$标签，那么 MathJax 引擎在渲染数学公式的时候就会出错。类似的语义冲突的符号还包括*, {, }, \\等。</p>
+<h3 id="2-原因"><a href="#2-原因" class="headerlink" title="2. 原因"></a>2. 原因</h3><p>​    Hexo 默认使用 hexo-renderer-marked 引擎渲染网页，该引擎会把一些特殊的 markdown 符号转换为相应的 html 标签，比如在 markdown 语法中，下划线_代表斜体，会被渲染引擎处理为 $em$ 标签。</p>
+<p>​    因为类 Latex 格式书写的数学公式下划线_表示下标，有特殊的含义，如果被强制转换为 $em$ 标签，那么 MathJax 引擎在渲染数学公式的时候就会出错。类似的语义冲突的符号还包括*, {, }, \\等。</p>
 <h3 id="3-解决方法"><a href="#3-解决方法" class="headerlink" title="3. 解决方法"></a>3. 解决方法</h3><h4 id="1-安装渲染器"><a href="#1-安装渲染器" class="headerlink" title="1. 安装渲染器"></a>1. 安装渲染器</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm uninstall hexo-renderer-marked --save</span><br><span class="line">npm install hexo-renderer-kramed --save</span><br></pre></td></tr></table></figure>
 <h4 id="2-修改配置文件"><a href="#2-修改配置文件" class="headerlink" title="2. 修改配置文件"></a>2. 修改配置文件</h4><p>​    博客根目录下，找到 node_modules\kramed\lib\rules\inline.js，做如下修改</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//  escape: /^\\([\\`*&#123;&#125;\[\]()#$+\-.!_&gt;])/,</span><br><span class="line">  escape: /^\\([`*\[\]()#$+\-.!_&gt;])/,</span><br></pre></td></tr></table></figure>
@@ -400,6 +400,7 @@ C_n=\left\langle\psi_n \mid \psi(0)\right\rangle</script><p>​    我们取时�
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mathjax:</span><br><span class="line">	enable: true</span><br></pre></td></tr></table></figure>
 <h4 id="3-文章渲染标签"><a href="#3-文章渲染标签" class="headerlink" title="3.  文章渲染标签"></a>3.  文章渲染标签</h4><p>​    在文章的Front-matter里打开mathjax开关，如下：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">title: xxxx</span><br><span class="line">date: xxxx-xx-xx xx:xx:xx</span><br><span class="line">categories: xx</span><br><span class="line">mathjax: true</span><br></pre></td></tr></table></figure>
+<p>​    OK</p>
 
       
     </div>
