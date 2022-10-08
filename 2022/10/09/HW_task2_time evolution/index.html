@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|Amita:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":true,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="Homework (task 2)   consider the time evolution of a single-particle Gaussian wave packet ona tight-binding chain with a gradient field \begin{gathered} H&#x3D;-\sum_{j&#x3D;1}^{N-1}(|j\rangle\langle j+1|+| j+1">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Blog Setup">
+<meta property="og:url" content="http://example.com/2022/10/09/HW_task2_time%20evolution/index.html">
+<meta property="og:site_name" content="BLOG">
+<meta property="og:description" content="Homework (task 2)   consider the time evolution of a single-particle Gaussian wave packet ona tight-binding chain with a gradient field \begin{gathered} H&#x3D;-\sum_{j&#x3D;1}^{N-1}(|j\rangle\langle j+1|+| j+1">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2022/10/08/k2lQazMcsR6KCwu.png">
+<meta property="og:image" content="https://s2.loli.net/2022/10/08/NjJFEUs5iazRXVM.gif">
+<meta property="og:image" content="https://s2.loli.net/2022/10/08/81FHBG3paLZ6Mbr.png">
+<meta property="og:image" content="https://s2.loli.net/2022/10/08/WEIptNXe4Ylh95D.gif">
+<meta property="og:image" content="https://s2.loli.net/2022/10/08/4Q82alMnxOHNJrK.png">
+<meta property="og:image" content="https://s2.loli.net/2022/10/08/aW8dBfYN26gLZ7e.gif">
+<meta property="article:published_time" content="2022-10-08T16:23:05.000Z">
+<meta property="article:modified_time" content="2022-10-08T15:22:52.589Z">
+<meta property="article:author" content="Hsu Quinn">
+<meta property="article:tag" content="hexo">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2022/10/08/k2lQazMcsR6KCwu.png">
+
+<link rel="canonical" href="http://example.com/2022/10/09/HW_task2_time%20evolution/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Blog Setup | BLOG</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-ER8FH828WC"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-ER8FH828WC');
+      }
+    </script>
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?d5cf64a751ac91d8a331bada0477e161";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">BLOG</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/09/HW_task2_time%20evolution/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Hsu Quinn">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="BLOG">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Blog Setup
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-10-09 00:23:05" itemprop="dateCreated datePublished" datetime="2022-10-09T00:23:05+08:00">2022-10-09</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-10-08 23:22:52" itemprop="dateModified" datetime="2022-10-08T23:22:52+08:00">2022-10-08</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Computational-Quantum-Physics/" itemprop="url" rel="index"><span itemprop="name">Computational Quantum Physics</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-users"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="firestore-visitors-count"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <font size=5>Homework (task 2)</font>
+
+<ul>
+<li>consider the time evolution of a single-particle Gaussian wave packet on<br>a tight-binding chain with a gradient field<script type="math/tex; mode=display">
+\begin{gathered}
+H=-\sum_{j=1}^{N-1}(|j\rangle\langle j+1|+| j+1\rangle\langle j|)+F \sum_{j=1}^N j|j\rangle\langle j| \\
+|\psi(t=0)\rangle=\frac{1}{\sqrt{\Omega}} \sum_j e^{-\left(\alpha^2 / 2\right)\left(j-N_0\right)^2} e^{i k_0 j}|j\rangle
+\end{gathered}</script></li>
+<li><p>we choose $N=101, F=0.1, k_0=\pi / 2, \alpha=0.15, N_0=51, t \in[0,100]$ </p>
+<p>  please plot $|\psi(j, t)|^2$ as functions of $j$ and $t$</p>
+<p>  you will observe an oscillation behavior, that is Bloch oscillation</p>
+<p>  which describes the oscillation of a particle confined in a periodic potential when a constant force is acting on it</p>
+<p>  you may also try other parameters for fun</p>
+</li>
+<li><p>思路与代码实现：</p>
+<ol>
+<li>调用计算和绘图所需要的库，定义参数。对于给出的哈密顿量做 ED， 得到本征值 $E_{n}$ 和本征态 $\psi_{n}$</li>
+</ol>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> scipy.sparse.linalg <span class="keyword">as</span> LA</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">from</span> mpl_toolkits <span class="keyword">import</span> mplot3d</span><br><span class="line"><span class="keyword">import</span> imageio</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"></span><br><span class="line">N = <span class="number">101</span></span><br><span class="line"><span class="comment">#F = 1.0</span></span><br><span class="line">F = <span class="number">0.1</span></span><br><span class="line"><span class="comment">#k0 = 0</span></span><br><span class="line">k0 = np.pi/<span class="number">2</span></span><br><span class="line">alpha = <span class="number">0.15</span></span><br><span class="line">N0 = <span class="number">51</span></span><br><span class="line"></span><br><span class="line">H = np.zeros([N,N])</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(N):</span><br><span class="line">    H[i][i] = F * (i+<span class="number">1</span>)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(N-<span class="number">1</span>):</span><br><span class="line">    H[i][i+<span class="number">1</span>] = -<span class="number">1</span></span><br><span class="line">    H[i+<span class="number">1</span>][i] = -<span class="number">1</span></span><br><span class="line"></span><br><span class="line">E,V = np.linalg.eigh(H)</span><br></pre></td></tr></table></figure>
+<ul>
+<li><ol>
+<li>对于初始时刻，波函数公式如下，我们用 Psi0 数组存储，可见其是在 $|j\rangle$ 表象下。</li>
+</ol>
+</li>
+</ul>
+<script type="math/tex; mode=display">
+|\psi(t=0)\rangle=\frac{1}{\sqrt{\Omega}} \sum_j e^{-\left(\alpha^2 / 2\right)\left(j-N_0\right)^2} e^{i k_0 j}|j\rangle</script><p>​    其中 $\Omega$ 是：</p>
+<script type="math/tex; mode=display">
+\Omega=\sum_j \exp \left[-\alpha^2\left(j-N_0\right)^2\right]</script><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#按照定义得到初始时刻的Gaussian wave packet </span></span><br><span class="line">Omega = <span class="number">0</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>,N+<span class="number">1</span>):</span><br><span class="line">    Omega += np.exp(-np.power(alpha,<span class="number">2</span>) * np.power(i - N0,<span class="number">2</span>)) </span><br><span class="line">Psi0 = np.zeros(N , dtype = <span class="built_in">complex</span>)                 </span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>,N+<span class="number">1</span>):</span><br><span class="line">    Psi0[i-<span class="number">1</span>] = np.exp(- np.power(alpha,<span class="number">2</span>) / <span class="number">2</span> * np.power(i - N0,<span class="number">2</span>)) * np.exp(k0 * i * <span class="number">1.0j</span>) / np.sqrt(Omega)</span><br></pre></td></tr></table></figure>
+<ul>
+<li><ol>
+<li>进行含时演化，我们知道含时的薛定谔方程：<script type="math/tex; mode=display">
+i \hbar \frac{\partial}{\partial t}|\psi(t)\rangle=H|\psi(t)\rangle</script></li>
+</ol>
+</li>
+</ul>
+<p>​    我们已经有了初始的 $\psi(0)$, 以及本征值 $E_{n}$ 和本征态 $\psi_{n}$，那么：</p>
+<script type="math/tex; mode=display">
+|\psi(t)\rangle=e^{-i H t / \hbar}|\psi(0)\rangle=\sum_n e^{-i E_n t / \hbar}\left|\psi_n\right\rangle\left\langle\psi_n \mid \psi(0)\right\rangle=\sum_n C_n e^{-i E_n t / \hbar}\left|\psi_n\right\rangle</script><script type="math/tex; mode=display">
+C_n=\left\langle\psi_n \mid \psi(0)\right\rangle</script><p>​    我们取时间步长为1，对任一时刻，我们计算$C_{n}$并与含时指数项和本征态相乘，就能得到这一时刻的全位置波函数，即代码中每一个循环的的 Psit。然后对每一时刻的波函数导出图片到当前目录下的 temp 文件夹，最后把这些图导出一个gif文件，即得到比较直观的含时演化过程。</p>
+<p>​    此外，我们也可以把每一个时刻的 Psit 矢量记录下来，得到一个二维复数列表 Z[i][t], 其表示的是 i 点 t 时刻 的波函数的模方，这样以 i 和 t 为坐标轴绘制 surface 图，可以得到类似 ppt 上的高斯波包的时空演化分布</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#建temp文件夹放演化图片</span></span><br><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> os.path.exists(<span class="string">&#x27;./temp1&#x27;</span>):</span><br><span class="line">    os.mkdir(<span class="string">&#x27;./temp1&#x27;</span>) </span><br><span class="line"></span><br><span class="line"><span class="comment">#Z:波函数模方</span></span><br><span class="line">Z = np.zeros((N,N))</span><br><span class="line"><span class="keyword">for</span> t <span class="keyword">in</span> <span class="built_in">range</span>(N):</span><br><span class="line">    <span class="comment">#Psit:t时刻j基矢下的波函数矢量</span></span><br><span class="line">    Psit = np.zeros(N, dtype = <span class="built_in">complex</span>)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(N):</span><br><span class="line">        Psit += np.dot(V[:,i],Psi0) * np.exp(- <span class="number">1.0j</span> * E[i] * t) * V[:,i]</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(N):</span><br><span class="line">        Z[i][t] = np.power(<span class="built_in">abs</span>(Psit[i]),<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment">#绘制t时刻的图片</span></span><br><span class="line">    x = []</span><br><span class="line">    y = []</span><br><span class="line">    plt.xlim(<span class="number">0</span>,N)</span><br><span class="line">    plt.ylim(<span class="number">0</span>,<span class="number">0.1</span>)</span><br><span class="line">    plt.xlabel(<span class="string">&quot;j&quot;</span>)</span><br><span class="line">    plt.ylabel(<span class="string">&quot;\psi&quot;</span>)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(N):</span><br><span class="line">        x.append(i+<span class="number">1</span>)</span><br><span class="line">        y.append(np.power(<span class="built_in">abs</span>(Psit[i]),<span class="number">2</span>))</span><br><span class="line">    plt.plot(x, y)</span><br><span class="line">    plt.savefig(<span class="string">&quot;./temp1/&quot;</span>+<span class="built_in">str</span>(t)+<span class="string">&quot;.png&quot;</span>)</span><br><span class="line">    plt.clf() </span><br><span class="line"></span><br><span class="line"><span class="comment">#读取这些图片，导出一张gif</span></span><br><span class="line"><span class="keyword">with</span> imageio.get_writer(<span class="string">&#x27;rt_evolution_1.gif&#x27;</span>, mode=<span class="string">&#x27;I&#x27;</span>) <span class="keyword">as</span> writer:</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(N):</span><br><span class="line">        filename = <span class="string">&#x27;./temp1/&#x27;</span>+<span class="built_in">str</span>(i)+<span class="string">&#x27;.png&#x27;</span></span><br><span class="line">        image = imageio.imread(filename)</span><br><span class="line">        writer.append_data(image)</span><br><span class="line"></span><br><span class="line"><span class="comment">#绘制3D的surface图</span></span><br><span class="line">xx = np.arange(<span class="number">0</span>,N,<span class="number">1</span>)</span><br><span class="line">yy = np.arange(<span class="number">0</span>,N,<span class="number">1</span>)</span><br><span class="line">X , Y = np.meshgrid(xx,yy)</span><br><span class="line"><span class="comment">#绘制曲面图</span></span><br><span class="line">fig = plt.figure()</span><br><span class="line">ax = plt.axes(projection=<span class="string">&#x27;3d&#x27;</span>)</span><br><span class="line"><span class="comment">#调用plot_surface()函数</span></span><br><span class="line">ax.plot_surface(X,Y,Z,cmap = <span class="string">&#x27;viridis&#x27;</span>)</span><br><span class="line">ax.set_xlabel(<span class="string">&quot;j&quot;</span>)</span><br><span class="line">ax.set_ylabel(<span class="string">&quot;t&quot;</span>)</span><br><span class="line">ax.set_zlabel(<span class="string">&quot;|\psi|^2&quot;</span>)</span><br><span class="line">ax.set_title(<span class="string">&#x27;the time evolution of GWP&#x27;</span>)</span><br><span class="line">plt.savefig(<span class="string">&quot;3dsurface_1.png&quot;</span>)</span><br><span class="line">plt.show() </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<pre><code>&lt;Figure size 432x288 with 0 Axes&gt;
+</code></pre><p><img src="https://s2.loli.net/2022/10/08/k2lQazMcsR6KCwu.png" alt="3dsurface_1.png"><br><img src="https://s2.loli.net/2022/10/08/NjJFEUs5iazRXVM.gif" alt="rt_evolution_1.gif">    </p>
+<ul>
+<li><ol>
+<li><p>分析和其他参数的尝试</p>
+<p>如上所示，我们得到了一个含时演化的 gif 和一个时空撒点的 surface 图。前者放在了当前目录，即 rt_evolution_1.gif 文件</p>
+<p>可以看到，对于初始条件 k = PI / 2， 开放边界 GWP 的含时演化是一个波包在震荡，其振幅点的轨迹类似一个椭圆。</p>
+<p>和 ppt 中给出的不同的是， ppt中的波包会运动到边界碰撞回来，而我们计算的 GWP 不会运动到边界，而是大概在 20~80 之间震荡，这是因为这里的 GWP 比 ppt 中多了对角项，即 F * j</p>
+<p>那么我们会想尝试一下其他参数的 GWP 是什么样子：</p>
+<ul>
+<li><p>EX1. 例如我们改变初始 k = 0，将结果存为 rt_evolution_2.gif 和 3dsurface_2.png</p>
+</li>
+<li><p>EX2. 再例如我们改变哈密顿对角项参数 F = 1，将结果存为 rt_evolution_3.gif 和 3dsurface_3.png</p>
+</li>
+</ul>
+</li>
+</ol>
+</li>
+<li><p>EX1. 改变 k = 0, rt_evolution_2.gif 中我们看到 GWP 在左半边演化，说明初始相位对波含时演化的影响</p>
+<p><img src="https://s2.loli.net/2022/10/08/81FHBG3paLZ6Mbr.png" alt="3dsurface_2.png"></p>
+<p><img src="https://s2.loli.net/2022/10/08/WEIptNXe4Ylh95D.gif" alt="rt_evolution_2.gif"></p>
+</li>
+<li><p>EX2. 改变 F = 1，即放大占据态的权重，rt_evolution_3.gif 中发现 GWP 震荡的空间范围缩小，这和前面分析一致，即 F 趋于零时退化到和 ppt 中只有 hopping 项一样的”碰壁”行为</p>
+<p><img src="https://s2.loli.net/2022/10/08/4Q82alMnxOHNJrK.png" alt="3dsurface_3.png"></p>
+<p><img src="https://s2.loli.net/2022/10/08/aW8dBfYN26gLZ7e.gif" alt="rt_evolution_3.gif"></p>
+</li>
+<li><p>除了以上参数改变外，也可以修改开放边界/环形边界（对应哈密顿量边界处取值），来可视化 GWP 行为，这里不再展开了。</p>
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+	
+	  <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">------------- 💖 🌞 End 😚 Thanks for your reading 🌞 💖 -------------</div>
+    
+</div>
+	
+      
+  <div class="popular-posts-header">相关文章</div>
+  <ul class="popular-posts">
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="\2022\10\08\mathjax\" rel="bookmark">mathjax</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="\2022\09\07\建立博客\" rel="bookmark">Blog Setup</a></div>
+    </li>
+  </ul>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Hsu Quinn
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://example.com/2022/10/09/HW_task2_time%20evolution/" title="Blog Setup">http://example.com/2022/10/09/HW_task2_time evolution/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/hexo/" rel="tag"><i class="fa fa-tag"></i> hexo</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/10/08/mathjax/" rel="prev" title="mathjax">
+      <i class="fa fa-chevron-left"></i> mathjax
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Hsu Quinn"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Hsu Quinn</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">5</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Xsdg217" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Xsdg217" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:fawkes@mail.ustc.edu.cn" title="E-Mail → mailto:fawkes@mail.ustc.edu.cn" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/6090876649" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;6090876649" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.zhihu.com/people/bing-tang-bo-luo-89" title="Zhihu → https:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;bing-tang-bo-luo-89" rel="noopener" target="_blank"><i class="fa fa-globe fa-fw"></i>Zhihu</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://music.163.com/#/user/home?id=1383517537" title="Wangyiyun → https:&#x2F;&#x2F;music.163.com&#x2F;#&#x2F;user&#x2F;home?id&#x3D;1383517537" rel="noopener" target="_blank"><i class="fa fa-music fa-fw"></i>Wangyiyun</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://space.bilibili.com/58820360" title="BiliBili → https:&#x2F;&#x2F;space.bilibili.com&#x2F;58820360" rel="noopener" target="_blank"><i class="fa fa-telegram fa-fw"></i>BiliBili</a>
+      </span>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2015 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hsu Quinn</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+  <script src="https://www.gstatic.com/firebasejs/6.3.3/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/6.3.3/firebase-firestore.js"></script>
+  <script>
+    firebase.initializeApp({
+      apiKey   : '',
+      projectId: 'count0908-21d35'
+    });
+
+    function getCount(doc, increaseCount) {
+      // IncreaseCount will be false when not in article page
+      return doc.get().then(d => {
+        var count = 0;
+        if (!d.exists) { // Has no data, initialize count
+          if (increaseCount) {
+            doc.set({
+              count: 1
+            });
+            count = 1;
+          }
+        } else { // Has data
+          count = d.data().count;
+          if (increaseCount) {
+            // If first view this article
+            doc.set({ // Increase count
+              count: count + 1
+            });
+            count++;
+          }
+        }
+
+        return count;
+      });
+    }
+
+    function appendCountTo(el) {
+      return count => {
+        el.innerText = count;
+      }
+    }
+  </script>
+  <script>
+    (function() {
+      var db = firebase.firestore();
+      var articles = db.collection('articles');
+
+      if (CONFIG.page.isPost) { // Is article page
+        var title = document.querySelector('.post-title').innerText.trim();
+        var doc = articles.doc(title);
+        var increaseCount = CONFIG.hostname === location.hostname;
+        if (localStorage.getItem(title)) {
+          increaseCount = false;
+        } else {
+          // Mark as visited
+          localStorage.setItem(title, true);
+        }
+        getCount(doc, increaseCount).then(appendCountTo(document.querySelector('.firestore-visitors-count')));
+      } else if (CONFIG.page.isHome) { // Is index page
+        var promises = [...document.querySelectorAll('.post-title')].map(element => {
+          var title = element.innerText.trim();
+          var doc = articles.doc(title);
+          return getCount(doc);
+        });
+        Promise.all(promises).then(counts => {
+          var metas = document.querySelectorAll('.firestore-visitors-count');
+          counts.forEach((val, idx) => {
+            appendCountTo(metas[idx])(val);
+          });
+        });
+      }
+    })();
+  </script>
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/medium-zoom@1/dist/medium-zoom.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/pangu@4/dist/browser/pangu.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+</body>
+</html>

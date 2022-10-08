@@ -4,8 +4,8 @@
     <title>mathjax</title>
     <url>/2022/10/08/mathjax/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="Hexo-Next-Theme-如何显示数学公式"><a href="#Hexo-Next-Theme-如何显示数学公式" class="headerlink" title="Hexo Next Theme 如何显示数学公式"></a>Hexo Next Theme 如何显示数学公式</h2><h3 id="1-问题描述"><a href="#1-问题描述" class="headerlink" title="1. 问题描述"></a>1. 问题描述</h3><p>​    在用markdown写文档时，若包含数学公式，渲染会出现一些问题。常用的Markdown编辑器都会集成Mathjax，用来渲染文档中的类<a href="https://so.csdn.net/so/search?q=Latex&amp;spm=1001.2101.3001.7020">Latex</a>格式书写的数学公式，基于Hexo搭建的个人博客，需要对渲染文档进行一些修改。</p>
-<h3 id="2-原因"><a href="#2-原因" class="headerlink" title="2. 原因"></a>2. 原因</h3><p>​    Hexo 默认使用 hexo-renderer-marked 引擎渲染网页，该引擎会把一些特殊的 markdown 符号转换为相应的 html 标签，比如在 markdown 语法中，下划线_代表斜体，会被渲染引擎处理为<em>标签。</p>
-<p>​    因为类 Latex 格式书写的数学公式下划线_表示下标，有特殊的含义，如果被强制转换为<em>标签，那么 MathJax 引擎在渲染数学公式的时候就会出错。类似的语义冲突的符号还包括*, {, }, \\等。</p>
+<h3 id="2-原因"><a href="#2-原因" class="headerlink" title="2. 原因"></a>2. 原因</h3><p>​    Hexo 默认使用 hexo-renderer-marked 引擎渲染网页，该引擎会把一些特殊的 markdown 符号转换为相应的 html 标签，比如在 markdown 语法中，下划线_代表斜体，会被渲染引擎处理为$<em>$标签。</p>
+<p>​    因为类 Latex 格式书写的数学公式下划线_表示下标，有特殊的含义，如果被强制转换为$<em>$标签，那么 MathJax 引擎在渲染数学公式的时候就会出错。类似的语义冲突的符号还包括*, {, }, \\等。</p>
 <h3 id="3-解决方法"><a href="#3-解决方法" class="headerlink" title="3. 解决方法"></a>3. 解决方法</h3><h4 id="1-安装渲染器"><a href="#1-安装渲染器" class="headerlink" title="1. 安装渲染器"></a>1. 安装渲染器</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm uninstall hexo-renderer-marked --save</span><br><span class="line">npm install hexo-renderer-kramed --save</span><br></pre></td></tr></table></figure>
 <h4 id="2-修改配置文件"><a href="#2-修改配置文件" class="headerlink" title="2. 修改配置文件"></a>2. 修改配置文件</h4><p>​    博客根目录下，找到 node_modules\kramed\lib\rules\inline.js，做如下修改</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">//  escape: /^\\([\\`*&#123;&#125;\[\]()#$+\-.!_&gt;])/,</span><br><span class="line">  escape: /^\\([`*\[\]()#$+\-.!_&gt;])/,</span><br></pre></td></tr></table></figure>
@@ -234,6 +234,90 @@ $$
 ]]></content>
       <categories>
         <category>Blog Setting</category>
+      </categories>
+      <tags>
+        <tag>hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Blog Setup</title>
+    <url>/2022/10/09/HW_task2_time%20evolution/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><font size=5>Homework (task 2)</font>
+
+<ul>
+<li>consider the time evolution of a single-particle Gaussian wave packet on<br>a tight-binding chain with a gradient field<script type="math/tex; mode=display">
+\begin{gathered}
+H=-\sum_{j=1}^{N-1}(|j\rangle\langle j+1|+| j+1\rangle\langle j|)+F \sum_{j=1}^N j|j\rangle\langle j| \\
+|\psi(t=0)\rangle=\frac{1}{\sqrt{\Omega}} \sum_j e^{-\left(\alpha^2 / 2\right)\left(j-N_0\right)^2} e^{i k_0 j}|j\rangle
+\end{gathered}</script></li>
+<li><p>we choose $N=101, F=0.1, k_0=\pi / 2, \alpha=0.15, N_0=51, t \in[0,100]$ </p>
+<p>  please plot $|\psi(j, t)|^2$ as functions of $j$ and $t$</p>
+<p>  you will observe an oscillation behavior, that is Bloch oscillation</p>
+<p>  which describes the oscillation of a particle confined in a periodic potential when a constant force is acting on it</p>
+<p>  you may also try other parameters for fun</p>
+</li>
+<li><p>思路与代码实现：</p>
+<ol>
+<li>调用计算和绘图所需要的库，定义参数。对于给出的哈密顿量做 ED， 得到本征值 $E_{n}$ 和本征态 $\psi_{n}$</li>
+</ol>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> scipy.sparse.linalg <span class="keyword">as</span> LA</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">from</span> mpl_toolkits <span class="keyword">import</span> mplot3d</span><br><span class="line"><span class="keyword">import</span> imageio</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"></span><br><span class="line">N = <span class="number">101</span></span><br><span class="line"><span class="comment">#F = 1.0</span></span><br><span class="line">F = <span class="number">0.1</span></span><br><span class="line"><span class="comment">#k0 = 0</span></span><br><span class="line">k0 = np.pi/<span class="number">2</span></span><br><span class="line">alpha = <span class="number">0.15</span></span><br><span class="line">N0 = <span class="number">51</span></span><br><span class="line"></span><br><span class="line">H = np.zeros([N,N])</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(N):</span><br><span class="line">    H[i][i] = F * (i+<span class="number">1</span>)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(N-<span class="number">1</span>):</span><br><span class="line">    H[i][i+<span class="number">1</span>] = -<span class="number">1</span></span><br><span class="line">    H[i+<span class="number">1</span>][i] = -<span class="number">1</span></span><br><span class="line"></span><br><span class="line">E,V = np.linalg.eigh(H)</span><br></pre></td></tr></table></figure>
+<ul>
+<li><ol>
+<li>对于初始时刻，波函数公式如下，我们用 Psi0 数组存储，可见其是在 $|j\rangle$ 表象下。</li>
+</ol>
+</li>
+</ul>
+<script type="math/tex; mode=display">
+|\psi(t=0)\rangle=\frac{1}{\sqrt{\Omega}} \sum_j e^{-\left(\alpha^2 / 2\right)\left(j-N_0\right)^2} e^{i k_0 j}|j\rangle</script><p>​    其中 $\Omega$ 是：</p>
+<script type="math/tex; mode=display">
+\Omega=\sum_j \exp \left[-\alpha^2\left(j-N_0\right)^2\right]</script><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#按照定义得到初始时刻的Gaussian wave packet </span></span><br><span class="line">Omega = <span class="number">0</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>,N+<span class="number">1</span>):</span><br><span class="line">    Omega += np.exp(-np.power(alpha,<span class="number">2</span>) * np.power(i - N0,<span class="number">2</span>)) </span><br><span class="line">Psi0 = np.zeros(N , dtype = <span class="built_in">complex</span>)                 </span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>,N+<span class="number">1</span>):</span><br><span class="line">    Psi0[i-<span class="number">1</span>] = np.exp(- np.power(alpha,<span class="number">2</span>) / <span class="number">2</span> * np.power(i - N0,<span class="number">2</span>)) * np.exp(k0 * i * <span class="number">1.0j</span>) / np.sqrt(Omega)</span><br></pre></td></tr></table></figure>
+<ul>
+<li><ol>
+<li>进行含时演化，我们知道含时的薛定谔方程：<script type="math/tex; mode=display">
+i \hbar \frac{\partial}{\partial t}|\psi(t)\rangle=H|\psi(t)\rangle</script></li>
+</ol>
+</li>
+</ul>
+<p>​    我们已经有了初始的 $\psi(0)$, 以及本征值 $E_{n}$ 和本征态 $\psi_{n}$，那么：</p>
+<script type="math/tex; mode=display">
+|\psi(t)\rangle=e^{-i H t / \hbar}|\psi(0)\rangle=\sum_n e^{-i E_n t / \hbar}\left|\psi_n\right\rangle\left\langle\psi_n \mid \psi(0)\right\rangle=\sum_n C_n e^{-i E_n t / \hbar}\left|\psi_n\right\rangle</script><script type="math/tex; mode=display">
+C_n=\left\langle\psi_n \mid \psi(0)\right\rangle</script><p>​    我们取时间步长为1，对任一时刻，我们计算$C_{n}$并与含时指数项和本征态相乘，就能得到这一时刻的全位置波函数，即代码中每一个循环的的 Psit。然后对每一时刻的波函数导出图片到当前目录下的 temp 文件夹，最后把这些图导出一个gif文件，即得到比较直观的含时演化过程。</p>
+<p>​    此外，我们也可以把每一个时刻的 Psit 矢量记录下来，得到一个二维复数列表 Z[i][t], 其表示的是 i 点 t 时刻 的波函数的模方，这样以 i 和 t 为坐标轴绘制 surface 图，可以得到类似 ppt 上的高斯波包的时空演化分布</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#建temp文件夹放演化图片</span></span><br><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> os.path.exists(<span class="string">&#x27;./temp1&#x27;</span>):</span><br><span class="line">    os.mkdir(<span class="string">&#x27;./temp1&#x27;</span>) </span><br><span class="line"></span><br><span class="line"><span class="comment">#Z:波函数模方</span></span><br><span class="line">Z = np.zeros((N,N))</span><br><span class="line"><span class="keyword">for</span> t <span class="keyword">in</span> <span class="built_in">range</span>(N):</span><br><span class="line">    <span class="comment">#Psit:t时刻j基矢下的波函数矢量</span></span><br><span class="line">    Psit = np.zeros(N, dtype = <span class="built_in">complex</span>)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(N):</span><br><span class="line">        Psit += np.dot(V[:,i],Psi0) * np.exp(- <span class="number">1.0j</span> * E[i] * t) * V[:,i]</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(N):</span><br><span class="line">        Z[i][t] = np.power(<span class="built_in">abs</span>(Psit[i]),<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment">#绘制t时刻的图片</span></span><br><span class="line">    x = []</span><br><span class="line">    y = []</span><br><span class="line">    plt.xlim(<span class="number">0</span>,N)</span><br><span class="line">    plt.ylim(<span class="number">0</span>,<span class="number">0.1</span>)</span><br><span class="line">    plt.xlabel(<span class="string">&quot;j&quot;</span>)</span><br><span class="line">    plt.ylabel(<span class="string">&quot;\psi&quot;</span>)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(N):</span><br><span class="line">        x.append(i+<span class="number">1</span>)</span><br><span class="line">        y.append(np.power(<span class="built_in">abs</span>(Psit[i]),<span class="number">2</span>))</span><br><span class="line">    plt.plot(x, y)</span><br><span class="line">    plt.savefig(<span class="string">&quot;./temp1/&quot;</span>+<span class="built_in">str</span>(t)+<span class="string">&quot;.png&quot;</span>)</span><br><span class="line">    plt.clf() </span><br><span class="line"></span><br><span class="line"><span class="comment">#读取这些图片，导出一张gif</span></span><br><span class="line"><span class="keyword">with</span> imageio.get_writer(<span class="string">&#x27;rt_evolution_1.gif&#x27;</span>, mode=<span class="string">&#x27;I&#x27;</span>) <span class="keyword">as</span> writer:</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(N):</span><br><span class="line">        filename = <span class="string">&#x27;./temp1/&#x27;</span>+<span class="built_in">str</span>(i)+<span class="string">&#x27;.png&#x27;</span></span><br><span class="line">        image = imageio.imread(filename)</span><br><span class="line">        writer.append_data(image)</span><br><span class="line"></span><br><span class="line"><span class="comment">#绘制3D的surface图</span></span><br><span class="line">xx = np.arange(<span class="number">0</span>,N,<span class="number">1</span>)</span><br><span class="line">yy = np.arange(<span class="number">0</span>,N,<span class="number">1</span>)</span><br><span class="line">X , Y = np.meshgrid(xx,yy)</span><br><span class="line"><span class="comment">#绘制曲面图</span></span><br><span class="line">fig = plt.figure()</span><br><span class="line">ax = plt.axes(projection=<span class="string">&#x27;3d&#x27;</span>)</span><br><span class="line"><span class="comment">#调用plot_surface()函数</span></span><br><span class="line">ax.plot_surface(X,Y,Z,cmap = <span class="string">&#x27;viridis&#x27;</span>)</span><br><span class="line">ax.set_xlabel(<span class="string">&quot;j&quot;</span>)</span><br><span class="line">ax.set_ylabel(<span class="string">&quot;t&quot;</span>)</span><br><span class="line">ax.set_zlabel(<span class="string">&quot;|\psi|^2&quot;</span>)</span><br><span class="line">ax.set_title(<span class="string">&#x27;the time evolution of GWP&#x27;</span>)</span><br><span class="line">plt.savefig(<span class="string">&quot;3dsurface_1.png&quot;</span>)</span><br><span class="line">plt.show() </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<pre><code>&lt;Figure size 432x288 with 0 Axes&gt;
+</code></pre><p><img src="https://s2.loli.net/2022/10/08/k2lQazMcsR6KCwu.png" alt="3dsurface_1.png"><br><img src="https://s2.loli.net/2022/10/08/NjJFEUs5iazRXVM.gif" alt="rt_evolution_1.gif">    </p>
+<ul>
+<li><ol>
+<li><p>分析和其他参数的尝试</p>
+<p>如上所示，我们得到了一个含时演化的 gif 和一个时空撒点的 surface 图。前者放在了当前目录，即 rt_evolution_1.gif 文件</p>
+<p>可以看到，对于初始条件 k = PI / 2， 开放边界 GWP 的含时演化是一个波包在震荡，其振幅点的轨迹类似一个椭圆。</p>
+<p>和 ppt 中给出的不同的是， ppt中的波包会运动到边界碰撞回来，而我们计算的 GWP 不会运动到边界，而是大概在 20~80 之间震荡，这是因为这里的 GWP 比 ppt 中多了对角项，即 F * j</p>
+<p>那么我们会想尝试一下其他参数的 GWP 是什么样子：</p>
+<ul>
+<li><p>EX1. 例如我们改变初始 k = 0，将结果存为 rt_evolution_2.gif 和 3dsurface_2.png</p>
+</li>
+<li><p>EX2. 再例如我们改变哈密顿对角项参数 F = 1，将结果存为 rt_evolution_3.gif 和 3dsurface_3.png</p>
+</li>
+</ul>
+</li>
+</ol>
+</li>
+<li><p>EX1. 改变 k = 0, rt_evolution_2.gif 中我们看到 GWP 在左半边演化，说明初始相位对波含时演化的影响</p>
+<p><img src="https://s2.loli.net/2022/10/08/81FHBG3paLZ6Mbr.png" alt="3dsurface_2.png"></p>
+<p><img src="https://s2.loli.net/2022/10/08/WEIptNXe4Ylh95D.gif" alt="rt_evolution_2.gif"></p>
+</li>
+<li><p>EX2. 改变 F = 1，即放大占据态的权重，rt_evolution_3.gif 中发现 GWP 震荡的空间范围缩小，这和前面分析一致，即 F 趋于零时退化到和 ppt 中只有 hopping 项一样的”碰壁”行为</p>
+<p><img src="https://s2.loli.net/2022/10/08/4Q82alMnxOHNJrK.png" alt="3dsurface_3.png"></p>
+<p><img src="https://s2.loli.net/2022/10/08/aW8dBfYN26gLZ7e.gif" alt="rt_evolution_3.gif"></p>
+</li>
+<li><p>除了以上参数改变外，也可以修改开放边界/环形边界（对应哈密顿量边界处取值），来可视化 GWP 行为，这里不再展开了。</p>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>Computational Quantum Physics</category>
       </categories>
       <tags>
         <tag>hexo</tag>
