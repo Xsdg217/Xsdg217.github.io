@@ -30,7 +30,7 @@
 <meta property="og:description" content="Homework(task3)   consider the transverse-field Ising model on a N-site ring. please take both sets of parameters for homework:  $(a) J &#x3D; 1, g &#x3D; 1.7 \; (b) J &#x3D; 1, g &#x3D; 0.7$    \begin{gathered} H&#x3D;-J \su">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-10-18T03:54:00.000Z">
-<meta property="article:modified_time" content="2022-10-18T03:55:15.126Z">
+<meta property="article:modified_time" content="2022-10-18T03:59:13.445Z">
 <meta property="article:author" content="Hsu Quinn">
 <meta property="article:tag" content="hexo">
 <meta name="twitter:card" content="summary">
@@ -207,7 +207,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2022-10-18 11:54:00 / 修改时间：11:55:15" itemprop="dateCreated datePublished" datetime="2022-10-18T11:54:00+08:00">2022-10-18</time>
+              <time title="创建时间：2022-10-18 11:54:00 / 修改时间：11:59:13" itemprop="dateCreated datePublished" datetime="2022-10-18T11:54:00+08:00">2022-10-18</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -262,673 +262,95 @@ H=-J \sum_{i=1}^N\left(g \sigma_i^x+\sigma_i^z \sigma_{i+1}^z\right) \\
 </li>
 <li>hint: it depends on fermion parity and parameters</li>
 </ul>
-<font size=4>简单思路分析</font>
-- 首先我们分析一下 transverse-field Ising model 的对称性。由 $\sigma^{x}$ 和 $\sigma^{z}$ 的矩阵表示可知：
-$$
+<p><font size=4>简单思路分析</font></p>
+<ul>
+<li>首先我们分析一下 transverse-field Ising model 的对称性。由 $\sigma^{x}$ 和 $\sigma^{z}$ 的矩阵表示可知：<script type="math/tex; mode=display">
 \begin{gathered}
 \sigma^x |\uparrow > = |\downarrow >  \\
 \sigma^x |\downarrow > = |\uparrow >  \\
 \sigma^z |\uparrow > = |\uparrow >  \\
 \sigma^z |\downarrow > = - |\downarrow > 
-\end{gathered}
-$$
-- $
-    H=-J \sum_{i=1}^N\left(g \sigma_i^x+\sigma_i^z \sigma_{i+1}^z\right)
-  $
-  表明，其横场作用项的效果是一个 Flip ，从而导致总自旋不守恒，即没有 $U(1)$ symmetry；不过可以证明 $[H,T]=0$，哈密顿量与平移算符有对易关系，即体系有 translational symmetry
-- 定义 project : $P_k=\dfrac{1}{N} \sum_{j=0}^{N-1} e^{i \frac{2 \pi}{N} k j} T^j$，归一化的动量空间基矢和在此基矢下的哈密顿矩阵元表示为：
-
-$$
-\left|r_k\right\rangle=\frac{P_k|r\rangle}{\sqrt{\left\langle r\left|P_k^{\dagger} P_k\right| r\right\rangle}}=\frac{P_k|r\rangle}{\sqrt{\left\langle r\left|P_k\right| r\right\rangle}}
-$$
-$$
-\left\langle r_k^{\prime}|H| r_k\right\rangle=\frac{\left\langle r^{\prime}\left|P_k^{\dagger} H P_k\right| r\right\rangle}{\sqrt{\left\langle r^{\prime}\left|P_k\right| r^{\prime}\right\rangle\left\langle r\left|P_k\right| r\right\rangle}}=\frac{\left\langle r^{\prime}\left|P_k H\right| r\right\rangle}{\sqrt{\left\langle r^{\prime}\left|P_k\right| r^{\prime}\right\rangle\left\langle r\left|P_k\right| r\right\rangle}}
-$$
-
-
-
-- 以 $N=4$ 为例，下图是只考虑平移对称性时的块对角化哈密顿矩阵：
-
+\end{gathered}</script></li>
+<li>$<br>  H=-J \sum_{i=1}^N\left(g \sigma_i^x+\sigma_i^z \sigma_{i+1}^z\right)<br>$<br>表明，其横场作用项的效果是一个 Flip ，从而导致总自旋不守恒，即没有 $U(1)$ symmetry；不过可以证明 $[H,T]=0$，哈密顿量与平移算符有对易关系，即体系有 translational symmetry</li>
+<li>定义 project : $P_k=\dfrac{1}{N} \sum_{j=0}^{N-1} e^{i \frac{2 \pi}{N} k j} T^j$，归一化的动量空间基矢和在此基矢下的哈密顿矩阵元表示为：</li>
+</ul>
+<script type="math/tex; mode=display">
+\left|r_k\right\rangle=\frac{P_k|r\rangle}{\sqrt{\left\langle r\left|P_k^{\dagger} P_k\right| r\right\rangle}}=\frac{P_k|r\rangle}{\sqrt{\left\langle r\left|P_k\right| r\right\rangle}}</script><script type="math/tex; mode=display">
+\left\langle r_k^{\prime}|H| r_k\right\rangle=\frac{\left\langle r^{\prime}\left|P_k^{\dagger} H P_k\right| r\right\rangle}{\sqrt{\left\langle r^{\prime}\left|P_k\right| r^{\prime}\right\rangle\left\langle r\left|P_k\right| r\right\rangle}}=\frac{\left\langle r^{\prime}\left|P_k H\right| r\right\rangle}{\sqrt{\left\langle r^{\prime}\left|P_k\right| r^{\prime}\right\rangle\left\langle r\left|P_k\right| r\right\rangle}}</script><ul>
+<li>以 $N=4$ 为例，下图是只考虑平移对称性时的块对角化哈密顿矩阵：</li>
+</ul>
 <div  align="center">    
 <img src=https://s2.loli.net/2022/10/17/PhRBHrWQNu4YAfj.png style="zoom:50%" />
 </div>
 
 
-- only translational symmetry: (1+1+2+1+1) + (1+1+1) + (1+2+1) + (1+1+1) = 16
-
-- 下面是具体代码实现：
-
-
+<ul>
+<li><p>only translational symmetry:  (1+1+2+1+1) + (1+1+1) + (1+2+1) + (1+1+1) = 16</p>
+</li>
+<li><p>下面是具体代码实现：</p>
+</li>
+</ul>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#第一题，N=8，求E(k)</span></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> scipy.sparse.linalg <span class="keyword">as</span> LA</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"></span><br><span class="line">J = <span class="number">1</span></span><br><span class="line">PI = np.pi</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">ReadBit</span>(<span class="params">i,n</span>):                                   <span class="comment">#读取i的第n位</span></span><br><span class="line">    <span class="keyword">return</span> (i&amp;(<span class="number">1</span>&lt;&lt;n))&gt;&gt;n</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">FlipBit</span>(<span class="params">i,n</span>):                                   <span class="comment">#翻转i的第n位                            </span></span><br><span class="line">    <span class="keyword">return</span> i^(<span class="number">1</span>&lt;&lt;n)</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">PickBit</span>(<span class="params">i,k,n</span>):                                 <span class="comment">#从i的第k位开始截取n位</span></span><br><span class="line">    <span class="keyword">return</span> (i&amp;((<span class="number">2</span>**n-<span class="number">1</span>))&lt;&lt;k)&gt;&gt;k</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">RotLBit</span>(<span class="params">i,L,n</span>):                                 <span class="comment">#长度为L的i的n位左移</span></span><br><span class="line">    <span class="keyword">return</span> (PickBit(i,<span class="number">0</span>,L-n)&lt;&lt;n)+(i&gt;&gt;(L-n))</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">PopCntBit</span>(<span class="params">i</span>):                                   <span class="comment">#i态中“1”的个数             </span></span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">bin</span>(i).count(<span class="string">&quot;1&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">T</span>(<span class="params">state,k,N</span>):                                     <span class="comment">#平移算符就是RotLBit(state,N,k)</span></span><br><span class="line">    <span class="keyword">return</span> RotLBit(state,N,k)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">Findmin</span>(<span class="params">state,N</span>):                                 <span class="comment">#寻找平移算符作用在state态上能得到的值最小的态，这个态作为“代表性基矢”</span></span><br><span class="line">    ans = state</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(N):</span><br><span class="line">        tmp = T(state, i, N)</span><br><span class="line">        <span class="keyword">if</span>(tmp &lt; ans):</span><br><span class="line">            ans = tmp</span><br><span class="line">    <span class="keyword">return</span> ans</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">Pk</span>(<span class="params">r,k,N</span>):                                        <span class="comment">#算符 P_k 作用在态 r 上得到的态，返回值是一个矢量</span></span><br><span class="line">    n = <span class="number">1</span>&lt;&lt;N</span><br><span class="line">    res = np.zeros(n,dtype=<span class="built_in">complex</span>)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(N):</span><br><span class="line">        res[T(r,i,N)] += np.exp(<span class="number">2</span>*PI*k*i/N * <span class="number">1.0j</span>) / N <span class="comment">#定义</span></span><br><span class="line">    <span class="keyword">return</span> res</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">PkH</span>(<span class="params">r,k,P,g,N</span>):                                     <span class="comment">#算符 P_k * H 作用在态 r 上得到的态，返回值是一个矢量</span></span><br><span class="line">    n = <span class="number">1</span>&lt;&lt;N</span><br><span class="line">    Hr = np.zeros(n,dtype=<span class="built_in">complex</span> )</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(N):                              <span class="comment">#sigma_x 横场项</span></span><br><span class="line">        Hr[FlipBit(r,i)] = -J * g                   </span><br><span class="line">    cnt = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> site <span class="keyword">in</span> <span class="built_in">range</span>(N):                           <span class="comment">#sigma_z 经典Ising项</span></span><br><span class="line">        <span class="keyword">if</span> ReadBit(r,site) ^ ReadBit(r,(site+<span class="number">1</span>) % N):</span><br><span class="line">            cnt += -<span class="number">1</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            cnt += <span class="number">1</span></span><br><span class="line">    Hr[r] = -J * cnt</span><br><span class="line">    res = np.zeros(n,dtype=<span class="built_in">complex</span>)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n):</span><br><span class="line">        res += Hr[i] * P[i]                         <span class="comment"># P[i] 是初始化存储好的 P_k 算符作用结果，方便 O(1)查找节省时间</span></span><br><span class="line">    <span class="keyword">return</span> res      </span><br></pre></td></tr></table></figure>
-
-- 下面的 $\mathrm{H\_dis\_k}$ 是按照 $k$ 分类来存储块哈密顿矩阵
-
-- $\mathrm{R} $ 存储满足 $T^R|r\rangle=|r\rangle$ 的步数，方面后面寻找满足 $k R=$ integer $\cdot N$ 的 $k$
-
-
+<ul>
+<li><p>下面的 $\mathrm{H_dis_k}$ 是按照 $k$ 分类来存储块哈密顿矩阵</p>
+</li>
+<li><p>$\mathrm{R} $ 存储满足 $T^R|r\rangle=|r\rangle$ 的步数，方面后面寻找满足 $k R=$ integer $\cdot N$ 的 $k$</p>
+</li>
+</ul>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">calculation</span>(<span class="params">N,g</span>):   </span><br><span class="line">    n = <span class="number">1</span>&lt;&lt;N</span><br><span class="line">    <span class="comment">#print(&quot;g=&quot;+str(g))</span></span><br><span class="line">    H_dis_k = []</span><br><span class="line">    R = np.zeros(n)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n):</span><br><span class="line">        k = <span class="number">1</span></span><br><span class="line">        <span class="keyword">while</span> (T(i,k,N) != i):</span><br><span class="line">            k += <span class="number">1</span></span><br><span class="line">        R[i] = k</span><br><span class="line">    <span class="comment">#list 存储“代表性基矢”</span></span><br><span class="line">    <span class="built_in">list</span> = []</span><br><span class="line">    <span class="keyword">for</span> state <span class="keyword">in</span> <span class="built_in">range</span>(n):</span><br><span class="line">        inistate = Findmin(state,N)</span><br><span class="line">        <span class="keyword">if</span> (inistate == state):</span><br><span class="line">            <span class="built_in">list</span>.append(state)</span><br><span class="line">    <span class="comment">#Pr 按 k 分类来投影基矢 Pk|r&gt;</span></span><br><span class="line">    Pr = [[] <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(N)]</span><br><span class="line">    <span class="keyword">for</span> k <span class="keyword">in</span> <span class="built_in">range</span>(N):</span><br><span class="line">        <span class="keyword">for</span> state <span class="keyword">in</span> <span class="built_in">list</span>:</span><br><span class="line">            <span class="keyword">if</span> (k*R[state]) % N == <span class="number">0</span>:</span><br><span class="line">                Pr[k].append(state)</span><br><span class="line">    <span class="keyword">for</span> k <span class="keyword">in</span> <span class="built_in">range</span>(N):</span><br><span class="line">        s = <span class="built_in">len</span>(Pr[k])                                  <span class="comment">#s是Pr[k]基矢个数，即 k 对应的子矩阵大小</span></span><br><span class="line">        M = np.zeros([s,s],dtype = <span class="built_in">complex</span>)             <span class="comment">#M 存储当前 k 值下的子矩阵</span></span><br><span class="line">        P = np.zeros([n,n],dtype = <span class="built_in">complex</span>)             <span class="comment">#P 存储的 P_k 算符作用结果，方便 O(1)查找节省时间</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n):</span><br><span class="line">            P[i] = Pk(i,k,N)</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(s):      </span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(s):                          <span class="comment">#按照前面推导结果求 M[j][i]</span></span><br><span class="line">                r = Pr[k][i]</span><br><span class="line">                rr = Pr[k][j]</span><br><span class="line">                M[j][i] = PkH(r,k,P,g,N)[rr] / np.sqrt(P[r][r] * P[rr][rr])</span><br><span class="line">        E,W = np.linalg.eigh(M)</span><br><span class="line">        <span class="comment">#print(&quot;k=&quot;+str(k))</span></span><br><span class="line">        <span class="comment">#print(np.real(np.round(E,5)),sep=&quot;,&quot;)</span></span><br><span class="line">        H_dis_k.append(E)</span><br><span class="line"></span><br><span class="line">    <span class="comment">#绘制色散关系 E(k)</span></span><br><span class="line">    x = []</span><br><span class="line">    y = []</span><br><span class="line">    <span class="keyword">for</span> k <span class="keyword">in</span> <span class="built_in">range</span>(N):</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(H_dis_k[k])):</span><br><span class="line">            x.append(k)</span><br><span class="line">            y.append(H_dis_k[k][i])</span><br><span class="line">    plt.xlabel(<span class="string">&quot;k&quot;</span>)</span><br><span class="line">    plt.ylabel(<span class="string">&quot;E&quot;</span>)</span><br><span class="line">    plt.title(<span class="string">&quot;g=&quot;</span>+<span class="built_in">str</span>(g)+<span class="string">&quot;  E(k)&quot;</span>)</span><br><span class="line">    plt.scatter(x, y, <span class="number">3</span>)</span><br><span class="line">    plt.savefig(<span class="string">&quot;N_&quot;</span>+<span class="built_in">str</span>(N)+<span class="string">&quot;_g_&quot;</span>+<span class="built_in">str</span>(g)+<span class="string">&quot;.png&quot;</span>)</span><br><span class="line">    plt.clf()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> H_dis_k</span><br></pre></td></tr></table></figure>
-
-- 对于第一问，N=8，分别计算g=1.7和0.7，得到结果如下（print函数费时，该代码块运行一次大概15s）：
-
-
+<ul>
+<li>对于第一问，N=8，分别计算g=1.7和0.7，得到结果如下（print函数费时，该代码块运行一次大概15s）：</li>
+</ul>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">E1 = calculation(<span class="number">8</span>,<span class="number">1.7</span>)</span><br><span class="line">E2 = calculation(<span class="number">8</span>,<span class="number">0.7</span>)</span><br><span class="line">N = <span class="number">8</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;g=&quot;</span>+<span class="built_in">str</span>(<span class="number">1.7</span>))</span><br><span class="line"><span class="keyword">for</span> k <span class="keyword">in</span> <span class="built_in">range</span>(N):</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;k=&quot;</span>+<span class="built_in">str</span>(k))</span><br><span class="line">    <span class="keyword">for</span> item <span class="keyword">in</span> E1[k]:</span><br><span class="line">        <span class="built_in">print</span>(np.real(np.<span class="built_in">round</span>(item,<span class="number">5</span>)),sep=<span class="string">&quot;,&quot;</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot; &quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;g=&quot;</span>+<span class="built_in">str</span>(<span class="number">0.7</span>))</span><br><span class="line"><span class="keyword">for</span> k <span class="keyword">in</span> <span class="built_in">range</span>(N):</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;k=&quot;</span>+<span class="built_in">str</span>(k))</span><br><span class="line">    <span class="keyword">for</span> item <span class="keyword">in</span> E2[k]:</span><br><span class="line">        <span class="built_in">print</span>(np.real(np.<span class="built_in">round</span>(item,<span class="number">5</span>)),sep=<span class="string">&quot;,&quot;</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot; &quot;</span>)</span><br></pre></td></tr></table></figure>
-
-    g=1.7
-    k=0
-    -14.80876
-    -13.40015
-    -11.34741
-    -8.52435
-    -8.37276
-    -5.69514
-    -5.51092
-    -4.91141
-    -4.2022
-    -3.4
-    -3.4
-    -3.36488
-    -2.23379
-    -1.94462
-    -1.94462
-    -0.74085
-    -0.63512
-    -0.0
-    0.0
-    0.0
-    0.0
-    0.74085
-    1.51092
-    2.23379
-    3.4
-    3.4
-    4.2022
-    4.52435
-    4.91141
-    5.69514
-    5.94462
-    5.94462
-    8.37276
-    9.40015
-    11.34741
-    14.80876
-
-    k=1
-    -12.36225
-    -9.86009
-    -7.03395
-    -7.01763
-    -4.94867
-    -4.47302
-    -4.4379
-    -3.5726
-    -3.01763
-    -2.98251
-    -2.32698
-    -1.48732
-    -0.74647
-    -0.4379
-    0.0
-    0.0
-    0.4379
-    0.74647
-    1.48732
-    1.89328
-    3.01763
-    3.5726
-    4.4379
-    4.90672
-    4.94867
-    5.56225
-    7.01763
-    7.03395
-    9.78251
-    9.86009
-
-    k=2
-    -10.85553
-    -9.86009
-    -8.52128
-    -6.28748
-    -5.97974
-    -5.94462
-    -4.94867
-    -4.05553
-    -3.4
-    -3.4
-    -2.82613
-    -2.08528
-    -1.94462
-    -1.48732
-    -0.82026
-    -0.74647
-    0.0
-    0.74647
-    0.82026
-    1.48732
-    1.94462
-    2.08528
-    2.82613
-    3.4
-    3.4
-    4.05553
-    4.94867
-    5.94462
-    5.97974
-    6.28748
-    8.52128
-    9.86009
-    10.85553
-
-    k=3
-    -9.78251
-    -8.52128
-    -7.7748
-    -7.01763
-    -6.28748
-    -5.56225
-    -4.90672
-    -4.4379
-    -3.01763
-    -2.82613
-    -2.08528
-    -1.89328
-    -1.33881
-    -0.4379
-    -0.0
-    0.0
-    0.4379
-    1.33881
-    2.08528
-    2.32698
-    2.82613
-    2.98251
-    3.01763
-    4.4379
-    4.47302
-    6.28748
-    7.01763
-    7.7748
-    8.52128
-    12.36225
-
-    k=4
-    -9.40015
-    -7.7748
-    -7.7748
-    -7.03395
-    -7.03395
-    -5.94462
-    -5.94462
-    -4.52435
-    -3.5726
-    -3.5726
-    -3.4
-    -3.4
-    -1.51092
-    -1.33881
-    -1.33881
-    -0.0
-    -0.0
-    0.63512
-    1.33881
-    1.33881
-    1.94462
-    1.94462
-    3.36488
-    3.4
-    3.4
-    3.5726
-    3.5726
-    5.51092
-    7.03395
-    7.03395
-    7.7748
-    7.7748
-    8.52435
-    13.40015
-
-    k=5
-    -9.78251
-    -8.52128
-    -7.7748
-    -7.01763
-    -6.28748
-    -5.56225
-    -4.90672
-    -4.4379
-    -3.01763
-    -2.82613
-    -2.08528
-    -1.89328
-    -1.33881
-    -0.4379
-    -0.0
-    0.0
-    0.4379
-    1.33881
-    2.08528
-    2.32698
-    2.82613
-    2.98251
-    3.01763
-    4.4379
-    4.47302
-    6.28748
-    7.01763
-    7.7748
-    8.52128
-    12.36225
-
-    k=6
-    -10.85553
-    -9.86009
-    -8.52128
-    -6.28748
-    -5.97974
-    -5.94462
-    -4.94867
-    -4.05553
-    -3.4
-    -3.4
-    -2.82613
-    -2.08528
-    -1.94462
-    -1.48732
-    -0.82026
-    -0.74647
-    0.0
-    0.74647
-    0.82026
-    1.48732
-    1.94462
-    2.08528
-    2.82613
-    3.4
-    3.4
-    4.05553
-    4.94867
-    5.94462
-    5.97974
-    6.28748
-    8.52128
-    9.86009
-    10.85553
-
-    k=7
-    -12.36225
-    -9.86009
-    -7.03395
-    -7.01763
-    -4.94867
-    -4.47302
-    -4.4379
-    -3.5726
-    -3.01763
-    -2.98251
-    -2.32698
-    -1.48732
-    -0.74647
-    -0.4379
-    -0.0
-    0.0
-    0.4379
-    0.74647
-    1.48732
-    1.89328
-    3.01763
-    3.5726
-    4.4379
-    4.90672
-    4.94867
-    5.56225
-    7.01763
-    7.03395
-    9.78251
-    9.86009
-
-    g=0.7
-    k=0
-    -9.02373
-    -9.00517
-    -7.25029
-    -6.1766
-    -5.11632
-    -4.12254
-    -3.34288
-    -3.33057
-    -2.70603
-    -2.35029
-    -1.55713
-    -1.4
-    -1.4
-    -1.29397
-    -0.57684
-    -0.44131
-    -0.44131
-    -0.0
-    -0.0
-    0.0
-    0.0
-    0.12254
-    0.57684
-    1.4
-    1.4
-    1.55713
-    2.1766
-    2.35029
-    3.33057
-    3.34288
-    4.44131
-    4.44131
-    5.00517
-    5.11632
-    7.25029
-    9.02373
-
-    k=1
-    -6.99088
-    -6.18331
-    -5.14957
-    -4.22345
-    -3.41428
-    -2.84043
-    -2.4556
-    -2.45
-    -2.10826
-    -1.14957
-    -1.06699
-    -0.69174
-    -0.58572
-    -0.49014
-    -0.0
-    0.0
-    0.37297
-    0.49014
-    0.58572
-    1.06699
-    1.14957
-    2.42703
-    2.45
-    2.84043
-    3.41428
-    4.19088
-    4.22345
-    5.14957
-    5.2556
-    6.18331
-
-    k=2
-    -6.18331
-    -5.96386
-    -5.29043
-    -4.44131
-    -3.7333
-    -3.16386
-    -3.13529
-    -2.84043
-    -1.95986
-    -1.4
-    -1.4
-    -1.38302
-    -1.06699
-    -0.49014
-    -0.44131
-    -0.33529
-    0.0
-    0.33529
-    0.44131
-    0.49014
-    1.06699
-    1.38302
-    1.4
-    1.4
-    1.95986
-    2.84043
-    3.13529
-    3.16386
-    3.7333
-    4.44131
-    5.29043
-    5.96386
-    6.18331
-
-    k=3
-    -5.29043
-    -5.2556
-    -5.14957
-    -4.80029
-    -4.19088
-    -3.7333
-    -3.41428
-    -2.42703
-    -1.95986
-    -1.38302
-    -1.14957
-    -0.89287
-    -0.58572
-    -0.37297
-    0.0
-    0.0
-    0.58572
-    0.69174
-    0.89287
-    1.14957
-    1.38302
-    1.95986
-    2.10826
-    2.4556
-    3.41428
-    3.7333
-    4.80029
-    5.14957
-    5.29043
-    6.99088
-
-    k=4
-    -5.00517
-    -4.80029
-    -4.80029
-    -4.44131
-    -4.44131
-    -4.22345
-    -4.22345
-    -2.45
-    -2.45
-    -2.1766
-    -1.4
-    -1.4
-    -0.89287
-    -0.89287
-    -0.12254
-    -0.0
-    0.0
-    0.44131
-    0.44131
-    0.89287
-    0.89287
-    1.29397
-    1.4
-    1.4
-    2.45
-    2.45
-    2.70603
-    4.12254
-    4.22345
-    4.22345
-    4.80029
-    4.80029
-    6.1766
-    9.00517
-
-    k=5
-    -5.29043
-    -5.2556
-    -5.14957
-    -4.80029
-    -4.19088
-    -3.7333
-    -3.41428
-    -2.42703
-    -1.95986
-    -1.38302
-    -1.14957
-    -0.89287
-    -0.58572
-    -0.37297
-    -0.0
-    0.0
-    0.58572
-    0.69174
-    0.89287
-    1.14957
-    1.38302
-    1.95986
-    2.10826
-    2.4556
-    3.41428
-    3.7333
-    4.80029
-    5.14957
-    5.29043
-    6.99088
-
-    k=6
-    -6.18331
-    -5.96386
-    -5.29043
-    -4.44131
-    -3.7333
-    -3.16386
-    -3.13529
-    -2.84043
-    -1.95986
-    -1.4
-    -1.4
-    -1.38302
-    -1.06699
-    -0.49014
-    -0.44131
-    -0.33529
-    0.0
-    0.33529
-    0.44131
-    0.49014
-    1.06699
-    1.38302
-    1.4
-    1.4
-    1.95986
-    2.84043
-    3.13529
-    3.16386
-    3.7333
-    4.44131
-    5.29043
-    5.96386
-    6.18331
-
-    k=7
-    -6.99088
-    -6.18331
-    -5.14957
-    -4.22345
-    -3.41428
-    -2.84043
-    -2.4556
-    -2.45
-    -2.10826
-    -1.14957
-    -1.06699
-    -0.69174
-    -0.58572
-    -0.49014
-    -0.0
-    0.0
-    0.37297
-    0.49014
-    0.58572
-    1.06699
-    1.14957
-    2.42703
-    2.45
-    2.84043
-    3.41428
-    4.19088
-    4.22345
-    5.14957
-    5.2556
-    6.18331
-
-
-​    
-
-
-    <Figure size 432x288 with 0 Axes>
-
-
-- N = 8 时， k 所对应的本征值比较多，我生成了一个txt文件作为附件和ipynb文件一起打包，文件名为 $N_8.txt$
-
-- 色散关系图生成在当前目录下，文件名为 $N\_8\_g\_1.7.png$ 和$N\_8\_g\_0.7.png$，如下图所示（pltshow的图片没有坐标，截图放在目录下pic文件夹下）：
-
+<ul>
+<li><p>N = 8 时， k 所对应的本征值比较多，我生成了一个txt文件作为附件和ipynb文件一起打包，文件名为 $N_8.txt$</p>
+</li>
+<li><p>色散关系图生成在当前目录下，文件名为 $N_8_g_1.7.png$ 和$N_8_g_0.7.png$，如下图所示（pltshow的图片没有坐标，截图放在目录下pic文件夹下）：</p>
+</li>
+</ul>
 <div  align="center">    
 <img src=https://s2.loli.net/2022/10/18/YPxIZAcEedmhp1q.png style="zoom:70%" />  
 <img src=https://s2.loli.net/2022/10/18/t516zUgqC7lcVT9.png style="zoom:70%" />
 </div>
 
 
-- 对于第二问，Transverse field Ising model 是有 Exact Solution 的，具体推导见 PPT，这里简单梳理一下：
-<font size = 2>
-- Step 1: Jordan-Wigner transformation
-
-    1/2 自旋子和无自旋费米子之间映射：$\sigma_i^z=-\prod_{j=1}^{i-1}\left(1-2 C_j^{\dagger} C_j\right)\left(C_i+C_i^{\dagger}\right), \quad \sigma_i^x=1-2 C_i^{\dagger} C_i$
-$$
-    \begin{aligned}
-    H &=-J \sum_{i=1}^N\left(g \sigma_i^x+\sigma_i^z \sigma_{i+1}^z\right) \\
-    &=-J \sum_{i=1}^N g\left(1-2 C_i^{\dagger} C_i\right)-J \sum_{i=1}^{N-1}\left(C_i^{\dagger}-C_i\right)\left(C_{i+1}+C_{i+1}^{\dagger}\right)+J P\left(C_N^{\dagger}-C_N\right)\left(C_1+C_1^{\dagger}\right)
-    \end{aligned}
-    $$
-
-where $\quad P=\prod_{i=1}^N \sigma_i^x=\prod_{j=1}^N\left(1-2 C_j^{\dagger} C_j\right)=\exp (i \pi M), \quad M=\sum_{i=1}^N C_i^{\dagger} C_i$
-
-- Step 2: Fourier transformation
-
-    $$
-    C_k=\frac{1}{\sqrt{N}} \sum_{j=1}^N C_j \exp (-i k j), \quad k=2 \pi n / N
-    $$
-    $$
-    H=J \sum_k\left[2(g-\cos k) C_k^{\dagger} C_k+i \sin k\left(C_{-k}^{\dagger} C_k^{\dagger}+C_{-k} C_k\right)-g\right]
-    $$
-
-- Step 3: Bogliubov transformation
-
-    we introduce
-    $$
-    \begin{array}{ll}
-    C_k=u_k \gamma_k+i v_k \gamma_{-k}^{\dagger}, & C_{-k}=u_k \gamma_{-k}-i v_k \gamma_k^{\dagger} \\
-    C_k^{\dagger}=u_k \gamma_k^{\dagger}-i v_k \gamma_{-k}, & C_{-k}^{\dagger}=u_k \gamma_{-k}^{\dagger}+i v_k \gamma_k
-    \end{array}
-    $$
-    where $u_k, v_k$ are real numbers, satisfying
-    $$
-    u_k^2+v_k^2=1, \quad u_{-k}=u_k, \quad v_{-k}=-v_k
-    $$
-
-- Step 4: final step
-
-    we choose
-    $$
-    u_k=\cos \left(\frac{\theta_k}{2}\right), \quad v_k=\sin \left(\frac{\theta_k}{2}\right), \quad \tan \theta_k=\frac{\sin k}{g-\cos k}
-    $$
-
-    we finally have
-    $$
-    \begin{aligned}
-    H &=2 J \sum_k \sqrt{1+g^2-2 g \cos k}\left(\gamma_k^{\dagger} \gamma_k-\frac{1}{2}\right) \\
-    &=2 J \sum_k \sqrt{1+g^2-2 g \cos k} \gamma_k^{\dagger} \gamma_k-J \sum_k \sqrt{1+g^2-2 g \cos k}=\sum_k \epsilon_k \gamma_k^{\dagger} \gamma_k-\epsilon_0
-    \end{aligned}
-    $$
-</font>
-
+<ul>
+<li>对于第二问，Transverse field Ising model 是有 Exact Solution 的，具体推导见 PPT，这里简单梳理一下：</li>
+</ul>
+<ul>
+<li><p>Step 1: Jordan-Wigner transformation</p>
+<p>  1/2 自旋子和无自旋费米子之间映射：$\sigma_i^z=-\prod_{j=1}^{i-1}\left(1-2 C_j^{\dagger} C_j\right)\left(C_i+C_i^{\dagger}\right), \quad \sigma_i^x=1-2 C_i^{\dagger} C_i$</p>
+<script type="math/tex; mode=display">
+  \begin{aligned}
+  H &=-J \sum_{i=1}^N\left(g \sigma_i^x+\sigma_i^z \sigma_{i+1}^z\right) \\
+  &=-J \sum_{i=1}^N g\left(1-2 C_i^{\dagger} C_i\right)-J \sum_{i=1}^{N-1}\left(C_i^{\dagger}-C_i\right)\left(C_{i+1}+C_{i+1}^{\dagger}\right)+J P\left(C_N^{\dagger}-C_N\right)\left(C_1+C_1^{\dagger}\right)
+  \end{aligned}</script></li>
+</ul>
+<p>where $\quad P=\prod_{i=1}^N \sigma_i^x=\prod_{j=1}^N\left(1-2 C_j^{\dagger} C_j\right)=\exp (i \pi M), \quad M=\sum_{i=1}^N C_i^{\dagger} C_i$</p>
+<ul>
+<li><p>Step 2: Fourier transformation</p>
+<script type="math/tex; mode=display">
+  C_k=\frac{1}{\sqrt{N}} \sum_{j=1}^N C_j \exp (-i k j), \quad k=2 \pi n / N</script><script type="math/tex; mode=display">
+  H=J \sum_k\left[2(g-\cos k) C_k^{\dagger} C_k+i \sin k\left(C_{-k}^{\dagger} C_k^{\dagger}+C_{-k} C_k\right)-g\right]</script></li>
+<li><p>Step 3: Bogliubov transformation</p>
+<p>  we introduce</p>
+<script type="math/tex; mode=display">
+  \begin{array}{ll}
+  C_k=u_k \gamma_k+i v_k \gamma_{-k}^{\dagger}, & C_{-k}=u_k \gamma_{-k}-i v_k \gamma_k^{\dagger} \\
+  C_k^{\dagger}=u_k \gamma_k^{\dagger}-i v_k \gamma_{-k}, & C_{-k}^{\dagger}=u_k \gamma_{-k}^{\dagger}+i v_k \gamma_k
+  \end{array}</script><p>  where $u_k, v_k$ are real numbers, satisfying</p>
+<script type="math/tex; mode=display">
+  u_k^2+v_k^2=1, \quad u_{-k}=u_k, \quad v_{-k}=-v_k</script></li>
+<li><p>Step 4: final step</p>
+<p>  we choose</p>
+<script type="math/tex; mode=display">
+  u_k=\cos \left(\frac{\theta_k}{2}\right), \quad v_k=\sin \left(\frac{\theta_k}{2}\right), \quad \tan \theta_k=\frac{\sin k}{g-\cos k}</script><p>  we finally have</p>
+<script type="math/tex; mode=display">
+  \begin{aligned}
+  H &=2 J \sum_k \sqrt{1+g^2-2 g \cos k}\left(\gamma_k^{\dagger} \gamma_k-\frac{1}{2}\right) \\
+  &=2 J \sum_k \sqrt{1+g^2-2 g \cos k} \gamma_k^{\dagger} \gamma_k-J \sum_k \sqrt{1+g^2-2 g \cos k}=\sum_k \epsilon_k \gamma_k^{\dagger} \gamma_k-\epsilon_0
+  \end{aligned}</script></li>
+</ul>
 <ul>
 <li>我们可以根据最后结果 $\sum_k \epsilon_k \gamma_k^{\dagger} \gamma_k-\epsilon_0$ 求精确解，来和前面的做法作比较。</li>
 </ul>
