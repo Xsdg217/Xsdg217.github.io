@@ -246,7 +246,7 @@ $$
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><font size=5>Homework (task 2)</font>
 
 <ul>
-<li>consider the time evolution of a single-particle Gaussian wave packet on<br>a tight-binding chain with a gradient field<script type="math/tex; mode=display">
+<li>consider the time evolution of a single-particle Gaussian wave packet on<br>a tight-binding chain with a gradient field: <script type="math/tex; mode=display">
 \begin{gathered}
 H=-\sum_{j=1}^{N-1}(|j\rangle\langle j+1|+| j+1\rangle\langle j|)+F \sum_{j=1}^N j|j\rangle\langle j| \\
 |\psi(t=0)\rangle=\frac{1}{\sqrt{\Omega}} \sum_j e^{-\left(\alpha^2 / 2\right)\left(j-N_0\right)^2} e^{i k_0 j}|j\rangle
@@ -516,6 +516,26 @@ H=-J \sum_{i=1}^N\left(g \sigma_i^x+\sigma_i^z \sigma_{i+1}^z\right) \\
       </categories>
       <tags>
         <tag>topology</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Semiconductor Physics(section 0)</title>
+    <url>/2022/10/26/Semiconductor%20physics0/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><!--*The original source if from YouTube up Jodan Edmunds*-->
+<p>Firstly, we raise two central questions in semiconductor physics.</p>
+<ol>
+<li>How many charge carries do we have?</li>
+<li>Where are they and how are they moving?</li>
+</ol>
+<p>Here is a little road map:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">graph TD;</span><br><span class="line">	C([Conservation &lt;br&gt; laws])</span><br><span class="line">	A[Quantum Mech &lt;br&gt; &amp;&amp; Stat Mech] --&gt; DOS &amp; E/k &amp; B[ferimi Stat]</span><br><span class="line">	DOS &amp; E/k &amp; B[ferimi Stat] --&gt; D[&quot;How many? &lt;br&gt; &amp;int; DOS FS dE&quot;]</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">graph TD;</span><br><span class="line">	A[Maxwell&#x27;s Eq &amp;&amp; &lt;br&gt; Prob Theory] --&gt; B[Carrier Drift] &amp; C[Carrier Diffusion] &amp; D[&quot;Generation &amp;&amp; &lt;br&gt; Recombination&quot;]</span><br><span class="line">	B --&gt; E[Ohm&#x27;s Law]</span><br><span class="line">	B &amp; C &amp; D --&gt; F[Continuity Eq &amp;&amp; &lt;br&gt; Ambipolar transport]</span><br><span class="line">	F --&gt; G[P/N junctions] &amp; P[diodes] &amp; H[MOSFETs,BJTs] &amp; Q[Optical Devices]</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>Semiconductor Physics</category>
+      </categories>
+      <tags>
+        <tag>physics</tag>
       </tags>
   </entry>
 </search>
