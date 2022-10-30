@@ -669,4 +669,29 @@ H=-J \sum_{i=1}^{N-1}\left(g \sigma_i^x+\sigma_i^z \sigma_{i+1}^z\right) \quad J
         <tag>physics</tag>
       </tags>
   </entry>
+  <entry>
+    <title>Semiconductor Physics(section 1)</title>
+    <url>/2022/10/30/Semiconductor%20physics1/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h3 id="A-Quantum-mechanics"><a href="#A-Quantum-mechanics" class="headerlink" title="A. Quantum mechanics"></a>A. Quantum mechanics</h3><p>Suppose you have learnt Quantum Mechanics, here is just a brief review.<br>Some assumptions:</p>
+<ol>
+<li>Energy quantization:<br> Different from traditional physics, we’re only allowed to exchange energy in individual packets, called photons, and the energy of this packet is just ‘h’ times the frequency ‘f’, i.e.:<script type="math/tex; mode=display">E = h\times f</script></li>
+<li>Uncertainty principle:<br> The position of a moving particle and its momentum cannot be determined simultaneously, i.e.:<script type="math/tex; mode=display">\Delta x \Delta p \geq \frac{\hbar}{2}</script> another version with energy:<script type="math/tex; mode=display">\Delta E\Delta t \geq {\hbar}</script></li>
+<li>Particles are waves:<script type="math/tex; mode=display">\lambda = \dfrac{h}{p}</script>Electrons must be described by $\Psi$, probability density $\propto |\Psi|^2$</li>
+</ol>
+<p>Based on these three assumptions, how do we “do” QM? Answer is Schroedinger Equation(S.Eq):</p>
+<script type="math/tex; mode=display">H\phi = -\dfrac{\hbar}{2m}\nabla^2\phi+V\phi=E\phi</script><h3 id="B-Wave-number-‘k’"><a href="#B-Wave-number-‘k’" class="headerlink" title="B. Wave number ‘k’"></a>B. Wave number ‘k’</h3><p>The usual solution of S.Eq is :</p>
+<script type="math/tex; mode=display">\phi = A\sin kx +B\cos kx</script><p>where $k = \sqrt{\dfrac{2mE}{\hbar^2}}$</p>
+<p>So what’s the meaning of k? We know that k usually is the wave number in sine wave. Like $T = 2 \pi /w$， k represents the spatial frequency or how fast sth. changes in space.</p>
+<p>In QM, k is related to momentum:</p>
+<script type="math/tex; mode=display">p = \hbar k</script><p>for $E =p^2/2m$, we have:</p>
+<p>$k = p/ \hbar = \sqrt{\dfrac{2mE}{\hbar^2}}$</p>
+<p>S.Eq gives the relationship between wave number k and energy E. i.e. E(k)    </p>
+]]></content>
+      <categories>
+        <category>Semiconductor Physics</category>
+      </categories>
+      <tags>
+        <tag>physics</tag>
+      </tags>
+  </entry>
 </search>
