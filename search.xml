@@ -680,12 +680,12 @@ H=-J \sum_{i=1}^{N-1}\left(g \sigma_i^x+\sigma_i^z \sigma_{i+1}^z\right) \quad J
 </ol>
 <p>Based on these three assumptions, how do we “do” QM? Answer is Schroedinger Equation(S.Eq):</p>
 <script type="math/tex; mode=display">H\phi = -\dfrac{\hbar}{2m}\nabla^2\phi+V\phi=E\phi</script><h3 id="B-Wave-number-‘k’"><a href="#B-Wave-number-‘k’" class="headerlink" title="B. Wave number ‘k’"></a>B. Wave number ‘k’</h3><p>The usual solution of S.Eq is :</p>
-<script type="math/tex; mode=display">\phi = A\sin kx +B\cos kx</script><p>where $k = \sqrt{\dfrac{2mE}{\hbar^2}}$</p>
-<p>So what’s the meaning of k? We know that k usually is the wave number in sine wave. Like $T = 2 \pi /w$， k represents the spatial frequency or how fast sth. changes in space.</p>
-<p>In QM, k is related to momentum:</p>
-<script type="math/tex; mode=display">p = \hbar k</script><p>for $E =p^2/2m$, we have:</p>
-<p>$k = p/ \hbar = \sqrt{\dfrac{2mE}{\hbar^2}}$</p>
-<p>S.Eq gives the relationship between wave number k and energy E. i.e. E(k)    </p>
+<script type="math/tex; mode=display">\phi = A\sin kx +B\cos kx</script><p>​    where $k = \sqrt{\dfrac{2mE}{\hbar^2}}$</p>
+<p>​    So what’s the meaning of k? We know that k usually is the wave number in sine wave. </p>
+<p>​    Like $T = 2 \pi /w$， k represents the spatial frequency or how fast something changes in space.</p>
+<p>​    In QM, k is related to momentum:</p>
+<script type="math/tex; mode=display">p = \hbar k</script><p>​    for $E =p^2/2m$, we have:</p>
+<script type="math/tex; mode=display">k = p/ \hbar = \sqrt{\dfrac{2mE}{\hbar^2}}</script><p>​    S.Eq gives the relationship between wave number k and energy E. i.e. E(k)    </p>
 ]]></content>
       <categories>
         <category>Semiconductor Physics</category>
