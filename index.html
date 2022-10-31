@@ -259,139 +259,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/31/Nobel%20Lecture%20Electronic%20structure%20of%20matter%E2%80%94wave%20functions%20and%20density%20functionals/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Hsu Quinn">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="BLOG">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/10/31/Nobel%20Lecture%20Electronic%20structure%20of%20matter%E2%80%94wave%20functions%20and%20density%20functionals/" class="post-title-link" itemprop="url">未命名</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-10-31 01:09:26" itemprop="dateCreated datePublished" datetime="2022-10-31T01:09:26+08:00">2022-10-31</time>
-            </span>
-
-          
-            <span class="post-meta-item" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-users"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="firestore-visitors-count"></span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="Nobel-Lecture-Electronic-structure-of-matter—wave-functions-and-density-functionals"><a href="#Nobel-Lecture-Electronic-structure-of-matter—wave-functions-and-density-functionals" class="headerlink" title="Nobel Lecture: Electronic structure of matter—wave functions and density functionals"></a>Nobel Lecture: Electronic structure of matter—wave functions and density functionals</h2><p><em>W. Kohn</em><br><em>Department of Physics, University of California, Santa Barbara, California 93106</em></p>
-<h3 id="I-INTRODUCTION"><a href="#I-INTRODUCTION" class="headerlink" title="I. INTRODUCTION"></a>I. INTRODUCTION</h3><p>​    在薛定谔的电子波函数方程被提出并在像He和H2这样的小系统上得到了令人惊叹的验证之后不久，狄拉克宣称化学已经走到了尽头——它的内容完全包含在那个强大的方程中。他还补充说，在几乎所有情况下，这个方程都太过复杂，无法求解。</p>
-<p>​    本文的主要目的是解释DFT，这是电子结构理论的另一种方法，其中电子密度分布n(r)，而不是多电子波函数起着中心作用。</p>
-<p>​    DFT对多粒子量子系统科学做出了两种贡献，包括分子和凝聚态的电子结构问题:</p>
-<p>​    首先是在基本理解方面：人们已经习惯于用截断的单粒子轨道希尔伯特空间来思考问题。然而，当要求高精度时，需要太多的斯莱特行列式(在一些高达$10^9$的计算)，这使得理解变得困难。DFT 提供了一个互补的视角。它关注真实三维坐标空间中的量，主要是电子密度 $n(r)$。其他令人感兴趣的量是:交换相关空穴密度$n_{xc}(r,r’)$，它描述了在$r$点的一个电子的存在如何耗尽在 $r’$点的其他电子的总密度；以及线性响应函数$\chi\left(r, r^{\prime} ; \omega\right)$，它描述了r点的总密度随频率w而因r’点的摄动势而发生的变化。</p>
-<p>​    第二个贡献是实用性。当传统的多粒子波函数方法应用于多粒子系统时，当原子数N超过一个临界值时，对于一个不对称的系统来说，这个临界值目前在$N_0 =10$附近(到大约2的因子内)，就会遇到我所说的指数壁。按照目前的思路，这些方法在分析或计算方面的重大改进只会导致$N_0$的适度增长。</p>
-<p>​    在第一节中，我将讨论传统的波函数方法，并将它们在处理极少原子系统时的巨大成功与处理非常多原子系统时的基本局限性进行对比；</p>
-<p>​    第二节讨论了波函数方法背景下的离散泛函。首先描述了原始的Hohenberg-Kohn (HK)变分原理，其中n(r)为变分变量。这是紧随其后的K-S自洽的单粒子方程涉及定义良好但在此点未知的交换相关泛函Exc[n(r)]。原则上，当与精确的Exc一起使用时，这些单粒子方程包含了所有多体效应。$n_{xc}(r,r’)$ 依赖于 $\mu - V_{eff}(r’)$,$r-&gt;r’$.接下来简要讨论了Exc的近似值；</p>
-<p>​    第三-六节讨论了DFT在电子基态上的应用，以及对其他电子和非电子系统的大量推广；</p>
-<p>​    最后，提出了一些结束语和猜想。</p>
-<h3 id="II-SCHROEDINGER-WAVE-FUNCTIONS—FEW-VERSUS-MANY-ELECTRONS"><a href="#II-SCHROEDINGER-WAVE-FUNCTIONS—FEW-VERSUS-MANY-ELECTRONS" class="headerlink" title="II. SCHROEDINGER WAVE FUNCTIONS—FEW VERSUS MANY ELECTRONS"></a>II. SCHROEDINGER WAVE FUNCTIONS—FEW VERSUS MANY ELECTRONS</h3><p>​    物质电子结构理论的基础是多电子波函数的非相对论薛定谔方程（BO近似）:</p>
-<script type="math/tex; mode=display">
-\left\{-\frac{\hbar^2}{2 m} \sum_j \nabla_j^2-\sum_{j, l} \frac{Z_l e^2}{\left|r_j-R_l\right|}+\frac{1}{2} \sum_{j \neq j^{\prime}} \frac{e^2}{\left|r_j-r_j^{\prime}\right|}-E\right\} \Psi=0,</script><p>​    泡利原理:</p>
-<p>​                                                <script type="math/tex">P_{j j}, \Psi=-\Psi</script></p>
-<p>​    电子的所有物理性质都参数化地依赖于$R_{I}$，特别是密度n(r)和总能量E，</p>
-<script type="math/tex; mode=display">
-\begin{aligned}
-&n(r)=n\left(r ; R_1, \ldots R_{\mathcal{N}}\right) \\
-&E=E\left(R_1, \ldots R_{\mathcal{N}}\right)
-\end{aligned}</script><h4 id="A-Few-electron-systems—the-H2-molecule"><a href="#A-Few-electron-systems—the-H2-molecule" class="headerlink" title="A.Few-electron systems—the H2 molecule"></a>A.Few-electron systems—the H2 molecule</h4><p>​    对最简单的多电子分子H2，最早的量子理论估计是由Heitler和London在1927年的ansatz：</p>
-<script type="math/tex; mode=display">
-\begin{aligned}
-\Psi_{H L}=& A\left[\varphi_H\left(r_1-R_1\right) \varphi_H\left(r_2-R_2\right)\right.\\
-&\left.+\varphi_H\left(r_1-R_2\right) \varphi_H\left(r_2-R_1\right)\right] \chi_0
-\end{aligned}</script><p>​    对于典型的化学要求来说，估计的误差太大了。</p>
-<p>​    Mullikan(1928)的ansatz（类似于布洛赫对晶体电子）:</p>
-<script type="math/tex; mode=display">
-\Psi_{B M}=\varphi_{m o l}\left(r_1\right) \varphi_{m o l}\left(r_2\right) \cdot \chi_0,</script><p>​        where</p>
-<script type="math/tex; mode=display">
-\varphi_{m o l}\left(r_1\right)=A^{\prime}\left[\varphi_H\left(r_1-R_1\right)+\varphi_H\left(r_1-R_2\right)\right]</script><p>​    在这个函数中，两个电子占据相同的分子轨道。数值计算与实验结果半定量吻合。</p>
-<p>​    Mullikan ansatz可以被看作是更一般的Hartree-Fock ansatz. Slater determinant:</p>
-<script type="math/tex; mode=display">
-\Psi_{H F}=\frac{1}{2^{1 / 2}} \operatorname{Det}\left|\varphi_m\left(r_1\right) \alpha(1) \varphi_m\left(r_2\right) \beta(2)\right|,</script><p>​    对H2最完整的早期研究是由詹姆斯和柯立芝(1933)进行的:</p>
-<script type="math/tex; mode=display">
-\Psi_{J C}=\Psi\left(r_1, r_2\right) \chi_0</script><p>​    预估参数 M：轴对称减小自由度 6-1=5， $M=p^5=3^5-10^5 \approx 10^2-10^5$.</p>
-<h4 id="B-Many-electrons—encountering-an-exponential-wall"><a href="#B-Many-electrons—encountering-an-exponential-wall" class="headerlink" title="B. Many electrons—encountering an exponential wall"></a>B. Many electrons—encountering an exponential wall</h4><p>​    N个原子和共N个相互作用的电子组成的一般分子，$M=p^{3 N}, \quad 3 \leqslant p \leqslant 10$，$\bar{N}=\dfrac{1}{3} \dfrac{\ln \bar{M}}{\ln p}$.</p>
-<p>​    传统的波函数方法虽然能提供“所需的”化学准确度，但通常仅限于具有少量化学活性电子的分子.(~10)</p>
-<h4 id="C-Some-meta-physical-chemical-considerations"><a href="#C-Some-meta-physical-chemical-considerations" class="headerlink" title="C. Some meta-physical-chemical considerations"></a>C. Some meta-physical-chemical considerations</h4><p>​    范·弗莱克灾难: (a) 以足够的准确性计算出来波函数，(b) 波函数可以记录得足够准确。都无法满足。</p>
-<h3 id="III-DENSITY-FUNCTIONAL-THEORY—BACKGROUND"><a href="#III-DENSITY-FUNCTIONAL-THEORY—BACKGROUND" class="headerlink" title="III. DENSITY-FUNCTIONAL THEORY—BACKGROUND"></a>III. DENSITY-FUNCTIONAL THEORY—BACKGROUND</h3><p>​    起源是 托马斯费米(TF)理论，它考虑了在外势v (r)中运动的相互作用电子，并提供了v (r)和密度分布n(r)之间的(高度简化的)一对一隐式关系:</p>
-<script type="math/tex; mode=display">
-\begin{aligned}
-&n(r)=\gamma\left[\mu-v_{e f f}(r)\right]^{3 / 2}, \quad \gamma=\frac{1}{3 \pi^2}\left(\frac{2 m}{\hbar^2}\right)^{3 / 2} \\
-&v_{e f f}(r) \equiv v(r)+\int \frac{n\left(r^{\prime}\right)}{\left|r-r^{\prime}\right|} d r^{\prime}
-\end{aligned}</script><p>​    在随后的几年里，引入了各种改进方法(梯度修正、交换修正和相关修正)，但该理论在应用于物质的电子结构方面并没有明显变得更有用。</p>
-<p>​    提出问题: 从原则上讲，用n(r)来完整、准确地描述电子结构是可能的吗?一个关键问题是密度n(r)是否完全表征了系统。于是提出了一个假设，即任何电子系统(有或没有相互作用)的基态密度n(r)的知识唯一地决定了该系统。这一假设成为现代DFT的起点。</p>
-<h3 id="IV-THE-HOHENBERG-KOHN-FORMULATION-OF-DENSITY-FUNCTIONAL-THEORY"><a href="#IV-THE-HOHENBERG-KOHN-FORMULATION-OF-DENSITY-FUNCTIONAL-THEORY" class="headerlink" title="IV. THE HOHENBERG-KOHN FORMULATION OF DENSITY-FUNCTIONAL THEORY"></a>IV. THE HOHENBERG-KOHN FORMULATION OF DENSITY-FUNCTIONAL THEORY</h3><h4 id="A-The-density-n-r-as-the-basic-variable"><a href="#A-The-density-n-r-as-the-basic-variable" class="headerlink" title="A. The density n(r) as the basic variable"></a>A. The density n(r) as the basic variable</h4><p>​    The basic lemma of HK.：在某个外势v (r)中相互作用电子的束缚系统的基态密度n(r)唯一地决定了这个势(Hohenberg, Kohn, 1964).</p>
-<p>​    注:(1)术语“唯一”在这里的意思是:不超过一个unintersting的附加常数. (2)在简并基态的情况下，引理指任意基态密度n(r). (3)这个引理在数学上是严谨的。</p>
-<p>​    关于证明：</p>
-<script type="math/tex; mode=display">
-\begin{aligned}
-E_1 &=\left(\Psi_1, H_1 \Psi_1\right) \\
-&=\int v_1(r) n(r) d r+\left(\Psi_1,(T+U) \Psi_1\right)
-\end{aligned}</script><script type="math/tex; mode=display">
-E_2=\int v_2(r) n(r) d r+\int\left(\Psi_2,(T+U) \Psi_2\right)</script><script type="math/tex; mode=display">
-\begin{aligned}
-E_1 &<\left(\Psi_2, H_1 \Psi_2\right) \\
-&=\int v_1(r) n(r) d r+\left(\Psi_2,(T+U) \Psi_2\right) \\
-&=E_2+\int\left[v_1(r)-v_2(r)\right] n(r) d r
-\end{aligned}</script><script type="math/tex; mode=display">
-E_2 \leqslant\left(\Psi_1, H \Psi_1\right)=E_1+\int\left[v_2(r)-v_1\left(r_1\right)\right] n(r) d r</script><script type="math/tex; mode=display">
-E_1+E_2<E_1+E_2</script><h3 id="VI-GENERALIZATIONS-AND-QUANTITATIVE-APPLICATIONS"><a href="#VI-GENERALIZATIONS-AND-QUANTITATIVE-APPLICATIONS" class="headerlink" title="VI. GENERALIZATIONS AND QUANTITATIVE APPLICATIONS"></a>VI. GENERALIZATIONS AND QUANTITATIVE APPLICATIONS</h3><h4 id="A-Generalizations"><a href="#A-Generalizations" class="headerlink" title="A. Generalizations"></a>A. Generalizations</h4><p>​    自旋极化系统的自旋DFT；简并基态；多组分体系(电子空穴液滴、原子核)；M简并基态的集合DFT；有限温度下的自由能；具有电子配对机制的超导体；相对论性电子；激发态；电流密度泛函理论抗磁性；玻色子(而非费米子)；含时演化；DFT与分子动力学或蒙特卡罗方法的结合</p>
-<h4 id="B-Application"><a href="#B-Application" class="headerlink" title="B.Application"></a>B.Application</h4><p>​    一个例子：碱金属的自旋敏感性. LSDA. 精确 1%</p>
-<p>​    梯度修正和/或混合方案的加入，使大规模化学应用的计算能量通常提高了几乎一个数量级;在物理应用中，这种改进通常没有那么显著。几何参数的精度保持在1%水平。</p>
-<h3 id="VII-CONCLUDING-REMARKS"><a href="#VII-CONCLUDING-REMARKS" class="headerlink" title="VII. CONCLUDING REMARKS"></a>VII. CONCLUDING REMARKS</h3><p>​    DFT已经被物理学家和化学家广泛接受。对于周期性固体，有时称为标准模型。在化学中，DFT补充了传统的基于波函数的方法，特别是对于原子数量非常多的系统。</p>
-<p>​    在DFT目前工作仍然相当差的情况下(例如，远距离极化能量;消失电子密度区域;部分填充的电子壳;反应障碍)，离散傅里叶变换常常为我们目前对真实空间坐标中的电子结构的理解需要如何改进提供线索。</p>
-<p>​    展望未来，希望基于波函数的理论和基于密度的理论，将以互补的方式，继续不仅给我们定量上更精确的结果，而且还有助于更好地理解物质的电子结构的物理/化学。</p>
-
-      
-    </div>
-
-    
-    
-    
-	
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/30/Semiconductor%20physics1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1553,6 +1420,154 @@ $$
   
   
 
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/09/07/%E5%BB%BA%E7%AB%8B%E5%8D%9A%E5%AE%A2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Hsu Quinn">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="BLOG">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/09/07/%E5%BB%BA%E7%AB%8B%E5%8D%9A%E5%AE%A2/" class="post-title-link" itemprop="url">Blog Setup</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-09-07 20:23:05" itemprop="dateCreated datePublished" datetime="2022-09-07T20:23:05+08:00">2022-09-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-10-08 23:05:10" itemprop="dateModified" datetime="2022-10-08T23:05:10+08:00">2022-10-08</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Blog-Setting/" itemprop="url" rel="index"><span itemprop="name">Blog Setting</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-users"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="firestore-visitors-count"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="hexo-Github-博客搭建教程"><a href="#hexo-Github-博客搭建教程" class="headerlink" title="hexo+Github 博客搭建教程"></a>hexo+Github 博客搭建教程</h2><h3 id="1-写在前面"><a href="#1-写在前面" class="headerlink" title="1. 写在前面"></a>1. 写在前面</h3><p>感谢 Huanhao 老师的Blog教程。一直想做个个人博客，今天跟着教程由hexo搭建了一个简单的个人博客，记录一下。</p>
+<h3 id="2-准备"><a href="#2-准备" class="headerlink" title="2. 准备"></a>2. 准备</h3><h4 id="安装nodejs"><a href="#安装nodejs" class="headerlink" title="安装nodejs"></a>安装nodejs</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;http://nodejs.cn/download/&gt;</span><br></pre></td></tr></table></figure>
+<p>​    选择.msi安装包，一直点Next即可</p>
+<h4 id="安装Git"><a href="#安装Git" class="headerlink" title="安装Git"></a>安装Git</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;https://git-scm.com/&gt;</span><br></pre></td></tr></table></figure>
+<p>​    同上，一直点Next</p>
+<h4 id="安装cnpm"><a href="#安装cnpm" class="headerlink" title="安装cnpm"></a>安装cnpm</h4><p>​    右键点击 Git Bash Here，执行命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g cnpm --registry=https://registry.npm.taobao.org</span><br></pre></td></tr></table></figure>
+<p>​    检查安装成功与否：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cnpm -v</span><br></pre></td></tr></table></figure>
+<p>​    输出版本号说明安装成功</p>
+<h3 id="3-Hexo"><a href="#3-Hexo" class="headerlink" title="3. Hexo"></a>3. Hexo</h3><h4 id="安装hexo"><a href="#安装hexo" class="headerlink" title="安装hexo"></a>安装hexo</h4><p>​    在git bash中执行命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cnpm install hexo-cli -g</span><br></pre></td></tr></table></figure>
+<h4 id="建立博客"><a href="#建立博客" class="headerlink" title="建立博客"></a>建立博客</h4><p>​    在一个磁盘中建立一个文件夹，用于存放博客。例如我在E盘新建一个_blog文件夹，在该文件夹目录下，右键 Git Bash Here。然后执行命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo init</span><br></pre></td></tr></table></figure>
+<p><img src="https://s2.loli.net/2022/09/08/flPZTMN6r9SeJpb.png" alt="20220907156146484961.png"></p>
+<pre><code> 执行命令：
+</code></pre><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo s</span><br></pre></td></tr></table></figure>
+<p><img src="https://s2.loli.net/2022/09/07/qlMOa7I9B6Xe2Go.png" alt="image-20220907222458798.png"></p>
+<p>​    打开这个网站，可以看到预设好的网页</p>
+<h3 id="4-更换主题及修改配置文件"><a href="#4-更换主题及修改配置文件" class="headerlink" title="4.更换主题及修改配置文件"></a>4.更换主题及修改配置文件</h3><h4 id="关于主题"><a href="#关于主题" class="headerlink" title="关于主题"></a>关于主题</h4><p>​    hexo主题可在如下网址中找到：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;https://hexo.io/themes/&gt;</span><br></pre></td></tr></table></figure>
+<p>​    新手入门的Next主题：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">预览效果：&lt;https://theme-next.org/&gt;</span><br><span class="line"></span><br><span class="line">项目地址：&lt;https://github.com/theme-next/hexo-theme-next&gt;</span><br><span class="line"></span><br><span class="line">配置文档：&lt;https://theme-next.org/docs/getting-started/&gt;</span><br></pre></td></tr></table></figure>
+<h4 id="关于下载主题"><a href="#关于下载主题" class="headerlink" title="关于下载主题"></a>关于下载主题</h4><p>​    打开主题的项目地址后，点击<code>Clone or download</code> ，然后在博客文件夹下面打开git bash，执行命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone 复制的地址 themes/主题名字</span><br></pre></td></tr></table></figure>
+<h4 id="关于配置文件"><a href="#关于配置文件" class="headerlink" title="关于配置文件"></a>关于配置文件</h4><p>​    在 <code>_blog/</code> 下打开 <code>_config.yml</code>文件，找到<code>themes</code>这一行，然后将主题名字修改为next：</p>
+<p><img src="https://s2.loli.net/2022/09/07/i8zVDl4p5QZkOnE.png" alt="image-20220907224141677.png"></p>
+<p>​    在博客目录git bash，执行 hexo s ，打开浏览地址可以预览效果。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tip:有些主题你更换之后是暂时无法预览的，因为有的主题还需要安装它需要的依赖，这一般都会在主题的文档里面提到，只有安装它的依赖之后才可以正常预览</span><br></pre></td></tr></table></figure>
+<h4 id="关于其他设置"><a href="#关于其他设置" class="headerlink" title="关于其他设置"></a>关于其他设置</h4><p>​    在Next主题的文档里面提到了如何更换语言以及更改主题的外观，如下：</p>
+<p><img src="https://s2.loli.net/2022/09/07/sUm1V3ycpNShY2i.png" alt="image-20220907224613052.png"></p>
+<p><img src="https://s2.loli.net/2022/09/07/pT6CdcQyLFjkeUb.png" alt="image-20220907224732227.png"></p>
+<p>​    注意前者在 <strong>站点配置文件</strong>_config,yml 下，后者在 <strong>主题配置文件</strong>_config.yml 下</p>
+<p>​    附非最新版本的主题文档中文版</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;http://theme-next.iissnan.com/&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="5-写博客"><a href="#5-写博客" class="headerlink" title="5. 写博客"></a>5. 写博客</h3><p>​    在博客根目录下git bash：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new &quot;test blog&quot;</span><br></pre></td></tr></table></figure>
+<p>​    在 source/_posts 下会建立markdown文件，编写后保存，在博客根目录下git bash：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo s</span><br></pre></td></tr></table></figure>
+<p>​    可以预览写好的博客</p>
+<h3 id="6-部署博客"><a href="#6-部署博客" class="headerlink" title="6. 部署博客"></a>6. 部署博客</h3><h4 id="域名"><a href="#域名" class="headerlink" title="域名"></a>域名</h4><p>​    注册 github 账号</p>
+<p>​    创建一个仓库</p>
+<p>​    仓库名为用户名 + .github.io （必须）</p>
+<h4 id="git密钥"><a href="#git密钥" class="headerlink" title="git密钥"></a>git密钥</h4><p>​    git bash</p>
+<p>​    执行（里面是个人邮箱）：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ssh-keygen -t rsa -C “your_email@your_email.com“</span><br></pre></td></tr></table></figure>
+<p>​    一直回车，然后执行：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ cat ~/.ssh/id_rsa.pub</span><br></pre></td></tr></table></figure>
+<p>​    会得到一串密钥，复制好信息，在 Github 个人主页 SSH and GPG keys 中 Add new，粘贴密钥</p>
+<p>​    然后打开git bash，执行：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$  ssh -T git@github.com</span><br></pre></td></tr></table></figure>
+<p>​    在这里复制地址</p>
+<p><img src="https://s2.loli.net/2022/09/07/hlIqEWuKp48M1D7.png" alt="FCjahXQIlNoKUxO.png"></p>
+<p>​    打开站点配置文件，修改deploy信息：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  repo: 复制的地址</span><br><span class="line">  branch: master</span><br></pre></td></tr></table></figure>
+<p>​    在博客根目录下打开git bash，分别执行：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git config --global user.name &quot;yourname&quot;</span><br><span class="line">$ git config --global user.email &quot;youremail&quot;</span><br><span class="line">cnpm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
+<h4 id="上传"><a href="#上传" class="headerlink" title="上传"></a>上传</h4><p>​    完成以上配置后，即可上传，在博客根目录下git bash，执行：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo g -d</span><br></pre></td></tr></table></figure>
+<p>​    结束后，在项目中点击 Settings</p>
+<p>​    Pages 中，选择master branch</p>
+<p><img src="https://s2.loli.net/2022/09/07/vThyb7e8aAPZctF.png" alt="image-20220907230345545.png"></p>
+<p>​    完成简易的博客建立</p>
+<h3 id="7-图床"><a href="#7-图床" class="headerlink" title="7. 图床"></a>7. 图床</h3><p>​        关于图片导入，需要上传到图床再链接。如下网址可用 </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;https://sm.ms/&gt;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+	
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
 
   
   <nav class="pagination">
@@ -1624,7 +1639,7 @@ $$
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">12</span>
+          <span class="site-state-item-count">11</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
