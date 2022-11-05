@@ -207,7 +207,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2022-11-06 01:02:30 / 修改时间：01:11:07" itemprop="dateCreated datePublished" datetime="2022-11-06T01:02:30+08:00">2022-11-06</time>
+              <time title="创建时间：2022-11-06 01:02:30 / 修改时间：01:12:41" itemprop="dateCreated datePublished" datetime="2022-11-06T01:02:30+08:00">2022-11-06</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -256,7 +256,7 @@
 <p>  show the lowest 20 eigenvalues, compare Hamiltonian and eigenvalues with exact diagonalization</p>
 </li>
 </ul>
-<font size =4> **A brief summary of theory and algorithm** </font>
+<font size =4> A brief summary of theory and algorithm </font>
 
 <p>​    根据参考文献$ ^{[1]}$，对于一般的哈密顿量，其 Finite automata for MPO 构造规则如下：</p>
 <p>​    (1) 首先在第1行设置一个出发点0，一个与 Hamiltonian 同阶的单位阵Identity是必要的，先来处理site间的问题，先观察Hamiltonian中求和下标i的不同算符有多少，假设有N个，则分别从0发射N个不同的箭头线，然后将各自的算符ABC标记在箭头线上，如果这个求和项有非1的常系数，则只加在这一步所写的算符前，将箭头的终点按序编号;</p>
@@ -264,7 +264,7 @@
 <p>​    (3) 重复步骤2直到所有 site 间的求和项都写完，把所有带有非 Identity 算符的未参与编号的箭头线末端都指向一个共同终点，如果中间一共写了 K-1 个点，那么终点按同样的规则编号为K。on-site 作用项直接写在出发点0直接指向终点K的连线上即可;</p>
 <p><a href="https://sm.ms/image/z1mhMtesy4UDvqr" target="_blank"><img src="https://s2.loli.net/2022/11/06/z1mhMtesy4UDvqr.jpg" ></a></p>
 <p>​    (4) 生成一个 (K+1)×(K+1)  的矩阵框架，行序号和列序号均为 0~K，然后按照 行→列（或者 列→行，这样得到的结果是前者的转置，是等价的）应用上图填满整个矩阵，就得到了MPO。比如0→1箭头线上是A，则在矩阵的0行1列填A。注意这里得到的矩阵是 $W^{[i]}$ ，它的第0行是 $W^{[1]}$ ，第K列是 $W^{[N]}$ （如果是列→行，则第K行是 $W^{[1]}$ ，第0列是 $W^{[N]}$ ）。</p>
-<font size =4> **An original attempt: problems encountered and solutions** </font>
+<font size =4> An original attempt: problems encountered and solutions </font>
 
 <ul>
 <li><p>最初的想法：根据课件和上述参考文献，写出 MPO，然后类似下文中的 <em>MPO generate Hamiltonian OP</em> 生成哈密顿量来 check</p>
@@ -296,7 +296,7 @@
 </ol>
 </li>
 </ul>
-<font size =4> **Question 1** </font>
+<font size =4> Question 1 </font>
 
 <ul>
 <li><p>如下图所示，可见 $D = 6$</p>
@@ -364,7 +364,7 @@ h_{z}\sigma^{z} \\
 \sigma^{x} \\
 \sigma^{y} \\
 I
-\end{array}\right)</script><font size =4> **Question 2** </font>
+\end{array}\right)</script><font size =4> Question 2 </font>
 
 <ul>
 <li><p><em>MPO generate Hamiltonian OP</em> 程序如下，分成了两部分：1.Operator Expression ; 2.Matrix and eigenvalues</p>
