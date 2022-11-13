@@ -182,6 +182,354 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/11/13/HW_MPS1107/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Hsu Quinn">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="BLOG">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/11/13/HW_MPS1107/" class="post-title-link" itemprop="url">2-site variational MPS method in 1D spin model</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-11-13 15:44:30 / 修改时间：15:51:10" itemprop="dateCreated datePublished" datetime="2022-11-13T15:44:30+08:00">2022-11-13</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Computational-Quantum-Physics/" itemprop="url" rel="index"><span itemprop="name">Computational Quantum Physics</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-users"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="firestore-visitors-count"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <font size = 5> Homework </font>
+
+<ul>
+<li>read and understand the sample code 1-site variational MPS method</li>
+<li>consider the 1D spin model with open boundary condition</li>
+</ul>
+<script type="math/tex; mode=display">
+H=-\sum_j\left(\sigma_{j-1}^z \sigma_j^y \sigma_{j+1}^z+\sigma_j^x\right)</script><ul>
+<li><p>write a code for the 2-site variational MPS method</p>
+<p>  choose $N = 10$ , $D_{s} = 4 , 6 $, calculate the ground state energy $E$ per site, and the magnetization per site $\left\langle\sigma_i^z\right\rangle$ and $\left\langle\sigma_i^x\right\rangle$</p>
+<p>  compare with the results obtained from exact diagonalization</p>
+</li>
+<li><font size = 4> a brief summary of theory and algorithm </font>
+
+<p>  sample code 主要步骤如下：</p>
+<ol>
+<li><p>write Hamiltonian as an MPO</p>
+</li>
+<li><p>tensor initialization</p>
+</li>
+<li><p>environment initialization</p>
+</li>
+<li><p>sweep back and forth to optimize each tensor</p>
+<p>对于给定的 1 D spin model，注意到其包括两部分：相邻三体和单体。（除去端点处）有平移对称性，MPO 如下:</p>
+<script type="math/tex; mode=display">
+\left(\begin{array}{cccc}
+I & -\sigma^{z} & 0 & -\sigma^{x} \\
+0 & 0 & \sigma^{y} & 0 \\
+0 & 0 & 0 & \sigma^{z} \\
+0 & 0 & 0 & I
+\end{array}\right)</script><p>端点处（site0 和 site9）的 MPO ：</p>
+<script type="math/tex; mode=display">
+\left(\begin{array}{cccc}
+I & 0 & 0 & -\sigma^{x} \\
+0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 \\
+0 & 0 & 0 & I
+\end{array}\right)</script><p>下面的 code 中近似地忽略端点处的 MPO，这一点与后面的 Exact solution 对比可以发现这种近似的精度是合理的。 </p>
+<p>张量和环境的初始化和 1-site 的类似，这里主要讨论 2-site 的 sweep 如何实现。</p>
+<div  align="center">    
+<img src=https://s2.loli.net/2022/11/13/F3gIuawYMWZERi9.png style="zoom:70%" />   
+</div>
+
+
+</li>
+</ol>
+</li>
+</ul>
+<p>optimize two sites : 一次将两个相邻的 T 相乘，作 SVD 分解。对于向右 sweep 的过程，将分解得到的 U 作为新的 T[i] ，得到的 S 和 V 相乘作为新的 T[i+1] ，如此继续循环；对于向左的 sweep 过程同理。 其中要注意的是分解的 U，S，V 需要根据原来的 T[i] 和 T[i+1] 之间耦合的维度 Dcut 做截断。</p>
+<p>code 中 NCon 的 index 对应如下：</p>
+<pre><code>&lt;div  align=&quot;center&quot;&gt;    
+&lt;img src=https://s2.loli.net/2022/11/13/YagrZSJl45khiX2.jpg style=&quot;zoom:30%&quot; /&gt;   
+&lt;/div&gt;
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> numpy.linalg <span class="keyword">as</span> LA</span><br><span class="line"><span class="keyword">import</span> scipy.sparse.linalg <span class="keyword">as</span> LAs</span><br><span class="line"><span class="keyword">import</span> Sub180221 <span class="keyword">as</span> Sub</span><br><span class="line"><span class="keyword">import</span> math,copy</span><br><span class="line"><span class="comment">#----------------------------------------------------------------</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">Mi =</span></span><br><span class="line"><span class="string">s0	-sz	0	-sx</span></span><br><span class="line"><span class="string">0	0	sy	0</span></span><br><span class="line"><span class="string">0	0	0	sz</span></span><br><span class="line"><span class="string">0	0	0	s0</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">GetMpo_Heisenberg_Obc</span>(<span class="params">Dp</span>):									<span class="comment">#生成 MPO</span></span><br><span class="line">	S0,Sp,Sm,Sz,Sx,Sy = Sub.SpinOper(Dp)</span><br><span class="line">	</span><br><span class="line">	Dmpo = <span class="number">4</span></span><br><span class="line">	Mpo = np.zeros((Dmpo,Dp,Dmpo,Dp),dtype = <span class="built_in">complex</span>)</span><br><span class="line">	</span><br><span class="line">	Mpo[<span class="number">0</span>,:,<span class="number">0</span>,:] = S0</span><br><span class="line">	Mpo[<span class="number">0</span>,:,<span class="number">1</span>,:] = -<span class="number">2</span> * Sz</span><br><span class="line">	Mpo[<span class="number">0</span>,:,<span class="number">3</span>,:] = -<span class="number">2</span> * Sx</span><br><span class="line">	Mpo[<span class="number">1</span>,:,<span class="number">2</span>,:] = <span class="number">2</span> * Sy</span><br><span class="line">	Mpo[<span class="number">2</span>,:,<span class="number">3</span>,:] = <span class="number">2</span> * Sz</span><br><span class="line">	Mpo[<span class="number">3</span>,:,<span class="number">3</span>,:] = S0</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">return</span> Mpo</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">InitMps</span>(<span class="params">Ns,Dp,Ds</span>):											<span class="comment">#初始化 MPS</span></span><br><span class="line">	T = [<span class="literal">None</span>]*Ns</span><br><span class="line">	<span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(Ns):</span><br><span class="line">		Dl = <span class="built_in">min</span>(Dp**i,Dp**(Ns-i),Ds)</span><br><span class="line">		Dr = <span class="built_in">min</span>(Dp**(i+<span class="number">1</span>),Dp**(Ns-<span class="number">1</span>-i),Ds)</span><br><span class="line">		T[i] = np.random.rand(Dl,Dp,Dr)</span><br><span class="line">	U = np.eye(np.shape(T[-<span class="number">1</span>])[-<span class="number">1</span>])</span><br><span class="line">	<span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(Ns-<span class="number">1</span>,<span class="number">0</span>,-<span class="number">1</span>):</span><br><span class="line">		U,T[i] = Sub.Mps_LQP(T[i],U)</span><br><span class="line">	<span class="keyword">return</span> T</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">InitH</span>(<span class="params">Mpo,T</span>):												<span class="comment">#初始化环境 HL HR</span></span><br><span class="line">	Ns = <span class="built_in">len</span>(T)</span><br><span class="line">	Dmpo = np.shape(Mpo)[<span class="number">0</span>]</span><br><span class="line">	HL = [<span class="literal">None</span>]*Ns</span><br><span class="line">	HR = [<span class="literal">None</span>]*Ns</span><br><span class="line">	HL[<span class="number">0</span>] = np.zeros((<span class="number">1</span>,Dmpo,<span class="number">1</span>))</span><br><span class="line">	HL[<span class="number">0</span>][<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>] = <span class="number">1.0</span></span><br><span class="line">	HR[-<span class="number">1</span>] = np.zeros((<span class="number">1</span>,Dmpo,<span class="number">1</span>))</span><br><span class="line">	HR[-<span class="number">1</span>][<span class="number">0</span>,-<span class="number">1</span>,<span class="number">0</span>] = <span class="number">1.0</span></span><br><span class="line">	<span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(Ns-<span class="number">1</span>,<span class="number">0</span>,-<span class="number">1</span>):</span><br><span class="line">		HR[i-<span class="number">1</span>] = Sub.NCon([HR[i],T[i],Mpo,np.conj(T[i])],[[<span class="number">1</span>,<span class="number">3</span>,<span class="number">5</span>],[-<span class="number">1</span>,<span class="number">2</span>,<span class="number">1</span>],[-<span class="number">2</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>],[-<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>]])</span><br><span class="line">	<span class="keyword">return</span> HL,HR</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">OptTSite</span>(<span class="params">Mpo,HL,HR,T,Method=<span class="number">0</span></span>):								<span class="comment">#2-site的 OptTSite，这里的 T 其实是相邻两个 site 的 T 的积</span></span><br><span class="line">	DT = np.shape(T)</span><br><span class="line">	<span class="keyword">if</span> Method == <span class="number">0</span>:</span><br><span class="line">		A = Sub.NCon([HL,Mpo,Mpo,HR],[[-<span class="number">1</span>,<span class="number">1</span>,-<span class="number">5</span>],[<span class="number">1</span>,-<span class="number">6</span>,<span class="number">2</span>,-<span class="number">2</span>],[<span class="number">2</span>,-<span class="number">7</span>,<span class="number">3</span>,-<span class="number">3</span>],[-<span class="number">8</span>,<span class="number">3</span>,-<span class="number">4</span>]])</span><br><span class="line">		A = Sub.Group(A,[[<span class="number">0</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>],[<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>]])</span><br><span class="line">		Eig,V = LAs.eigsh(A,k=<span class="number">1</span>,which=<span class="string">&#x27;SA&#x27;</span>)</span><br><span class="line">		T = np.reshape(V,(DT[<span class="number">0</span>]*DT[<span class="number">1</span>],DT[<span class="number">2</span>]*DT[<span class="number">3</span>]))        		<span class="comment">#V reshape 成四阶张量 T</span></span><br><span class="line">	<span class="keyword">return</span> T,Eig</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">OptT</span>(<span class="params">Mpo,HL,HR,T</span>):</span><br><span class="line">	Ns = <span class="built_in">len</span>(T)</span><br><span class="line">	Eng0 = np.zeros(Ns)</span><br><span class="line">	Eng1 = np.zeros(Ns)</span><br><span class="line">	<span class="keyword">for</span> r <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">100</span>):</span><br><span class="line">		<span class="built_in">print</span>(r)</span><br><span class="line">		<span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(Ns-<span class="number">1</span>):									<span class="comment"># 向右 sweep</span></span><br><span class="line">			temp,Eng1[i] = OptTSite(Mpo,HL[i],HR[i+<span class="number">1</span>],np.tensordot(T[i],T[i+<span class="number">1</span>],(<span class="number">2</span>,<span class="number">0</span>)),Method=<span class="number">0</span>)	<span class="comment">#T[i]*T[i+1]作为新的张量传过去</span></span><br><span class="line">			Dcut = np.shape(T[i])[<span class="number">2</span>]								<span class="comment"># Dcut 是截断维数</span></span><br><span class="line">			U,S,V = LA.svd(temp,full_matrices=<span class="number">0</span>)</span><br><span class="line">			U = U[:,<span class="number">0</span>:Dcut]</span><br><span class="line">			S = S[<span class="number">0</span>:Dcut]</span><br><span class="line">			V = V[<span class="number">0</span>:Dcut,:]</span><br><span class="line">			T[i] = np.reshape(U,np.shape(T[i]))					<span class="comment">#更新 T[i],T[i+1],HL[i+1]</span></span><br><span class="line">			SV = np.dot(np.diag(S),V)</span><br><span class="line">			T[i+<span class="number">1</span>] = np.reshape(SV,np.shape(T[i+<span class="number">1</span>]))</span><br><span class="line">			HL[i+<span class="number">1</span>] = Sub.NCon([HL[i],np.conj(T[i]),Mpo,T[i]],[[<span class="number">1</span>,<span class="number">3</span>,<span class="number">5</span>],[<span class="number">1</span>,<span class="number">2</span>,-<span class="number">1</span>],[<span class="number">3</span>,<span class="number">4</span>,-<span class="number">2</span>,<span class="number">2</span>],[<span class="number">5</span>,<span class="number">4</span>,-<span class="number">3</span>]])</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(Ns-<span class="number">1</span>,<span class="number">0</span>,-<span class="number">1</span>):								<span class="comment"># 向左 sweep</span></span><br><span class="line">			temp,Eng1[i] = OptTSite(Mpo,HL[i-<span class="number">1</span>],HR[i],np.tensordot(T[i-<span class="number">1</span>],T[i],(<span class="number">2</span>,<span class="number">0</span>)),Method=<span class="number">0</span>)	<span class="comment">#T[i-1]*T[i]作为新的张量传过去</span></span><br><span class="line">			Dcut = np.shape(T[i])[<span class="number">0</span>]								<span class="comment"># Dcut 是截断维数</span></span><br><span class="line">			U,S,V = LA.svd(temp,full_matrices=<span class="number">0</span>)</span><br><span class="line">			U = U[:,<span class="number">0</span>:Dcut]</span><br><span class="line">			S = S[<span class="number">0</span>:Dcut]</span><br><span class="line">			V = V[<span class="number">0</span>:Dcut,:]</span><br><span class="line">			T[i] = np.reshape(V,np.shape(T[i]))					<span class="comment">#更新 T[i],T[i-1],HR[i-1]</span></span><br><span class="line">			US = np.dot(U,np.diag(S))</span><br><span class="line">			T[i-<span class="number">1</span>] = np.reshape(US,np.shape(T[i-<span class="number">1</span>]))</span><br><span class="line">			HR[i-<span class="number">1</span>] = Sub.NCon([HR[i],T[i],Mpo,np.conj(T[i])],[[<span class="number">1</span>,<span class="number">3</span>,<span class="number">5</span>],[-<span class="number">1</span>,<span class="number">2</span>,<span class="number">1</span>],[-<span class="number">2</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>],[-<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>]])</span><br><span class="line">		</span><br><span class="line">		<span class="built_in">print</span>(Eng1)</span><br><span class="line">		<span class="keyword">if</span> <span class="built_in">abs</span>(Eng1[<span class="number">1</span>]-Eng0[<span class="number">1</span>]) &lt; <span class="number">1.0e-7</span>:</span><br><span class="line">			<span class="keyword">break</span></span><br><span class="line">		Eng0 = copy.copy(Eng1)</span><br><span class="line">	<span class="built_in">print</span>(Eng1/<span class="built_in">float</span>(Ns))</span><br><span class="line">	<span class="keyword">return</span> T,Eng1/<span class="built_in">float</span>(Ns)</span><br><span class="line"><span class="comment">#----------------------------------------------------------------</span></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">	Ns = <span class="number">10</span></span><br><span class="line">	Dp = <span class="number">2</span></span><br><span class="line">	Ds = [<span class="number">4</span>,<span class="number">6</span>]</span><br><span class="line">	Answer = []</span><br><span class="line"></span><br><span class="line">	Mpo = GetMpo_Heisenberg_Obc(Dp)</span><br><span class="line">	<span class="keyword">for</span> ds <span class="keyword">in</span> Ds:</span><br><span class="line">		T = InitMps(Ns,Dp,ds)</span><br><span class="line">		HL,HR = InitH(Mpo,T)</span><br><span class="line">		T,E= OptT(Mpo,HL,HR,T)</span><br><span class="line">		GS = T[<span class="number">0</span>]</span><br><span class="line">		<span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(Ns-<span class="number">1</span>):</span><br><span class="line">			GS = np.tensordot(GS,T[i+<span class="number">1</span>],(i+<span class="number">2</span>,<span class="number">0</span>))</span><br><span class="line">		GS = np.reshape(GS,(<span class="number">1024</span>,<span class="number">1</span>))</span><br><span class="line">		Answer.append((ds,E,GS))</span><br></pre></td></tr></table></figure>
+<pre><code>0
+[ -9.94119199 -11.48599436 -11.48599436 -11.48641231 -11.48638648
+ -11.48628296 -11.4859645  -11.48480444 -11.4844155  -11.4844155 ]
+1
+[-11.48599436 -11.48597508 -11.48597508 -11.48639425 -11.48660135
+ -11.48666644 -11.48660205 -11.48639534 -11.48597623 -11.48597623]
+2
+[-11.48597508 -11.48597502 -11.48597502 -11.4863942  -11.48660113
+ -11.48666585 -11.48660113 -11.4863942  -11.48597503 -11.48597503]
+[-1.14859751 -1.1485975  -1.1485975  -1.14863942 -1.14866011 -1.14866659
+ -1.14866011 -1.14863942 -1.1485975  -1.1485975 ]
+0
+[-10.09613213 -11.48870684 -11.48870684 -11.48878776 -11.4888277
+ -11.48872879 -11.48838718 -11.48821485 -11.48813509 -11.48813509]
+1
+[-11.48870684 -11.48870695 -11.48870695 -11.48878788 -11.48886592
+ -11.48888725 -11.48886592 -11.48878788 -11.48870695 -11.48870695]
+2
+[-11.48870695 -11.48870695 -11.48870695 -11.48878788 -11.48886592
+ -11.48888725 -11.48886592 -11.48878788 -11.48870695 -11.48870695]
+[-1.14887069 -1.14887069 -1.14887069 -1.14887879 -1.14888659 -1.14888873
+ -1.14888659 -1.14887879 -1.14887069 -1.14887069]
+</code></pre><ul>
+<li><p>这里的列表 Answer = [(ds,E,GS)] 分别储存的截断 Ds，基态能量 per site E，以及 groud state GS。 </p>
+</li>
+<li><p>下面计算 $D_{s} = 4 , 6 $ 情况下的 ： 1. ground state energy $E$ per site； 2. magnetization per site $\left\langle\sigma_i^z\right\rangle$ and $\left\langle\sigma_i^x\right\rangle$</p>
+</li>
+<li><p>先定义计算磁化强度的 mag_x 和 mag_z 函数：</p>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">FlipBit</span>(<span class="params">i,n</span>):</span><br><span class="line">    <span class="keyword">return</span> i^(<span class="number">1</span>&lt;&lt;n)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">ReadBit</span>(<span class="params">i,n</span>):</span><br><span class="line">    <span class="keyword">return</span> (i&amp;(<span class="number">1</span>&lt;&lt;n))&gt;&gt;n</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">mag_z</span>(<span class="params">W</span>):</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;z:&quot;</span>)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(Ns):</span><br><span class="line">        SzW = np.zeros(<span class="number">1024</span>,dtype = <span class="built_in">complex</span>)</span><br><span class="line">        res = <span class="number">0</span></span><br><span class="line">        n = <span class="number">1</span>&lt;&lt;Ns</span><br><span class="line">        <span class="keyword">for</span> state <span class="keyword">in</span> <span class="built_in">range</span>(n):</span><br><span class="line">            sign = <span class="number">1</span> <span class="keyword">if</span> ReadBit(state, i) == <span class="number">1</span> <span class="keyword">else</span> -<span class="number">1</span></span><br><span class="line">            SzW[state] = sign * W[state]</span><br><span class="line">        <span class="keyword">for</span> state <span class="keyword">in</span> <span class="built_in">range</span>(n):</span><br><span class="line">            res = res + np.conj(W)[state] * SzW[state]</span><br><span class="line">        <span class="built_in">print</span>(i,np.real(res))</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">mag_x</span>(<span class="params">W</span>):</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;x:&quot;</span>)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(Ns):</span><br><span class="line">        SxW = np.zeros(<span class="number">1024</span>,dtype = <span class="built_in">complex</span>)</span><br><span class="line">        res = <span class="number">0</span></span><br><span class="line">        n = <span class="number">1</span>&lt;&lt;Ns</span><br><span class="line">        <span class="keyword">for</span> state <span class="keyword">in</span> <span class="built_in">range</span>(n):</span><br><span class="line">            SxW[FlipBit(state,i)] =  W[state]</span><br><span class="line">        <span class="keyword">for</span> state <span class="keyword">in</span> <span class="built_in">range</span>(n):</span><br><span class="line">            res = res + np.conj(W)[state] * SxW[state]</span><br><span class="line">        <span class="built_in">print</span>(i,np.real(res))</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<ul>
+<li>对于 Ds = 4：</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Ds=&quot;</span>+<span class="built_in">str</span>(Answer[<span class="number">0</span>][<span class="number">0</span>])+<span class="string">&quot;:&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;ground state energy E per site:&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(Answer[<span class="number">0</span>][<span class="number">1</span>])</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;magnetization per site &lt;sigma^z&gt; and &lt;sigma^x&gt;:&quot;</span>)</span><br><span class="line">mag_z(Answer[<span class="number">0</span>][<span class="number">2</span>])</span><br><span class="line">mag_x(Answer[<span class="number">0</span>][<span class="number">2</span>])</span><br></pre></td></tr></table></figure>
+<pre><code>Ds=4:
+ground state energy E per site:
+[-1.14859751 -1.1485975  -1.1485975  -1.14863942 -1.14866011 -1.14866659
+ -1.14866011 -1.14863942 -1.1485975  -1.1485975 ]
+magnetization per site &lt;sigma^z&gt; and &lt;sigma^x&gt;:
+z:
+0 [7.21557529e-09]
+1 [-9.58418942e-09]
+2 [-5.03324422e-09]
+3 [2.40059455e-09]
+4 [-1.82414969e-09]
+5 [-2.32618917e-09]
+6 [1.5960039e-09]
+7 [-2.92614971e-09]
+8 [-2.37970759e-09]
+9 [1.22052863e-09]
+x:
+0 [0.9173015]
+1 [0.84768239]
+2 [0.78414904]
+3 [0.7604599]
+4 [0.75185056]
+5 [0.75202071]
+6 [0.76080662]
+7 [0.78431687]
+8 [0.84831043]
+9 [0.91792175]
+</code></pre><ul>
+<li>对于 Ds = 6:</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Ds=&quot;</span>+<span class="built_in">str</span>(Answer[<span class="number">1</span>][<span class="number">0</span>])+<span class="string">&quot;:&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;ground state energy E per site:&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(Answer[<span class="number">1</span>][<span class="number">1</span>])</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;magnetization per site &lt;sigma^z&gt; and &lt;sigma^x&gt;:&quot;</span>)</span><br><span class="line">mag_z(Answer[<span class="number">1</span>][<span class="number">2</span>])</span><br><span class="line">mag_x(Answer[<span class="number">1</span>][<span class="number">2</span>])</span><br></pre></td></tr></table></figure>
+<pre><code>Ds=6:
+ground state energy E per site:
+[-1.14887069 -1.14887069 -1.14887069 -1.14887879 -1.14888659 -1.14888873
+ -1.14888659 -1.14887879 -1.14887069 -1.14887069]
+magnetization per site &lt;sigma^z&gt; and &lt;sigma^x&gt;:
+z:
+0 [-1.43079909e-10]
+1 [1.24069037e-08]
+2 [-6.39897362e-09]
+3 [-8.64023536e-10]
+4 [9.2880419e-09]
+5 [-3.83658105e-09]
+6 [-9.85073963e-10]
+7 [8.11689286e-09]
+8 [-2.77860332e-09]
+9 [-2.90920866e-10]
+x:
+0 [0.91675276]
+1 [0.84696303]
+2 [0.78332349]
+3 [0.76008148]
+4 [0.75169612]
+5 [0.75168807]
+6 [0.76005655]
+7 [0.78330731]
+8 [0.84695633]
+9 [0.91675164]
+</code></pre><ul>
+<li><p>可见 z 方向 magnetization 约为零， x 方向上有正的 magnetization，在两边的边界处略大于中间。</p>
+</li>
+<li><p>作为对比，该问题的精确解如下：</p>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#Exact diagonalization Solution</span></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> scipy.sparse.linalg <span class="keyword">as</span> LA</span><br><span class="line"></span><br><span class="line">N = <span class="number">10</span></span><br><span class="line">n = <span class="number">1</span>&lt;&lt;N</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">FlipBit</span>(<span class="params">i,n</span>):</span><br><span class="line">    <span class="keyword">return</span> i^(<span class="number">1</span>&lt;&lt;n)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">ReadBit</span>(<span class="params">i,n</span>):</span><br><span class="line">    <span class="keyword">return</span> (i&amp;(<span class="number">1</span>&lt;&lt;n))&gt;&gt;n</span><br><span class="line"></span><br><span class="line">H = np.zeros([n,n], dtype = <span class="built_in">complex</span>)</span><br><span class="line"><span class="keyword">for</span> state <span class="keyword">in</span> <span class="built_in">range</span>(n):</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(N):</span><br><span class="line">        res = FlipBit(state, j)</span><br><span class="line">        H[state][res] += -<span class="number">1</span></span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>,N-<span class="number">1</span>):</span><br><span class="line">        flag = ReadBit(state, j+<span class="number">1</span>) + ReadBit(state, j) + ReadBit(state, j-<span class="number">1</span>)</span><br><span class="line">        sign = <span class="number">1</span> <span class="keyword">if</span> flag % <span class="number">2</span> == <span class="number">1</span> <span class="keyword">else</span> -<span class="number">1</span></span><br><span class="line">        res = FlipBit(state, j)</span><br><span class="line">        H[state][res] += -<span class="number">1.0j</span> * sign</span><br><span class="line">E,eigenV = LA.eigsh(H,<span class="number">1</span>,which = <span class="string">&#x27;SA&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;exact ground state energy E per site:&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(E[<span class="number">0</span>]/N)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;magnetization per site &lt;sigma^z&gt; and &lt;sigma^x&gt;:&quot;</span>)</span><br><span class="line">mag_z(eigenV)</span><br><span class="line">mag_x(eigenV)</span><br></pre></td></tr></table></figure>
+<pre><code>exact ground state energy E per site:
+-1.1489442065958528
+magnetization per site &lt;sigma^z&gt; and &lt;sigma^x&gt;:
+z:
+0 [-4.02022166e-16]
+1 [-1.9246757e-15]
+2 [2.60815675e-15]
+3 [-3.47812057e-16]
+4 [-2.47631776e-15]
+5 [3.13724741e-15]
+6 [-3.0444397e-16]
+7 [-2.10855639e-15]
+8 [2.42948023e-15]
+9 [-3.0444397e-16]
+x:
+0 [0.91622482]
+1 [0.84621457]
+2 [0.78255915]
+3 [0.75946665]
+4 [0.75122694]
+5 [0.75122694]
+6 [0.75946665]
+7 [0.78255915]
+8 [0.84621457]
+9 [0.91622482]
+</code></pre><ul>
+<li><p>最后把结果放在这里方便对比：</p>
+  <div  align="center">    
+  <img src=https://s2.loli.net/2022/11/13/DFUErtflWHhb3Lv.png style="zoom:60%" />  
+  <img src=https://s2.loli.net/2022/11/13/BIuGqLTzptO3yr6.png style="zoom:60%" /> 
+  <img src=https://s2.loli.net/2022/11/13/JKEgYBLitGrQ2eS.png style="zoom:65%" />  
+  </div>
+
+
+
+</li>
+</ul>
+<ul>
+<li><a href="\221107sub\index.md">Sub180221</a></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+	
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/11/12/Semiconductor%20physics2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Hsu Quinn">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="BLOG">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/11/12/Semiconductor%20physics2/" class="post-title-link" itemprop="url">Semiconductor Physics(section 2)</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-11-12 21:20:00 / 修改时间：15:35:16" itemprop="dateCreated datePublished" datetime="2022-11-12T21:20:00+08:00">2022-11-12</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Semiconductor-Physics/" itemprop="url" rel="index"><span itemprop="name">Semiconductor Physics</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-users"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="firestore-visitors-count"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="A-The-density-of-states"><a href="#A-The-density-of-states" class="headerlink" title="A. The density of states"></a>A. The density of states</h3>
+      
+    </div>
+
+    
+    
+    
+	
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2022/11/06/HW_MPO/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1413,297 +1761,6 @@ C_n=\left\langle\psi_n \mid \psi(0)\right\rangle</script><p>​    我们取时�
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/08/mathjax/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Hsu Quinn">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="BLOG">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/10/08/mathjax/" class="post-title-link" itemprop="url">Mathjax</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2022-10-08 22:50:04 / 修改时间：23:42:46" itemprop="dateCreated datePublished" datetime="2022-10-08T22:50:04+08:00">2022-10-08</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Blog-Setting/" itemprop="url" rel="index"><span itemprop="name">Blog Setting</span></a>
-                </span>
-            </span>
-
-          
-            <span class="post-meta-item" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-users"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="firestore-visitors-count"></span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="Hexo-Next-Theme-如何显示数学公式"><a href="#Hexo-Next-Theme-如何显示数学公式" class="headerlink" title="Hexo Next Theme 如何显示数学公式"></a>Hexo Next Theme 如何显示数学公式</h2><h3 id="1-问题描述"><a href="#1-问题描述" class="headerlink" title="1. 问题描述"></a>1. 问题描述</h3><p>​    在用markdown写文档时，若包含数学公式，渲染会出现一些问题。常用的Markdown编辑器都会集成Mathjax，用来渲染文档中的类<a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=Latex&amp;spm=1001.2101.3001.7020">Latex</a>格式书写的数学公式，基于Hexo搭建的个人博客，需要对渲染文档进行一些修改。</p>
-<h3 id="2-原因"><a href="#2-原因" class="headerlink" title="2. 原因"></a>2. 原因</h3><p>​    Hexo 默认使用 hexo-renderer-marked 引擎渲染网页，该引擎会把一些特殊的 markdown 符号转换为相应的 html 标签，比如在 markdown 语法中，下划线_代表斜体，会被渲染引擎处理为 $em$ 标签。</p>
-<p>​    因为类 Latex 格式书写的数学公式下划线_表示下标，有特殊的含义，如果被强制转换为 $em$ 标签，那么 MathJax 引擎在渲染数学公式的时候就会出错。类似的语义冲突的符号还包括*, {, }, \\等。</p>
-<h3 id="3-解决方法"><a href="#3-解决方法" class="headerlink" title="3. 解决方法"></a>3. 解决方法</h3><h4 id="1-安装渲染器"><a href="#1-安装渲染器" class="headerlink" title="1. 安装渲染器"></a>1. 安装渲染器</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm uninstall hexo-renderer-marked --save</span><br><span class="line">npm install hexo-renderer-kramed --save</span><br></pre></td></tr></table></figure>
-<h4 id="2-修改配置文件"><a href="#2-修改配置文件" class="headerlink" title="2. 修改配置文件"></a>2. 修改配置文件</h4><p>​    博客根目录下，找到 node_modules\kramed\lib\rules\inline.js，做如下修改</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//  escape: /^\\([\\`*&#123;&#125;\[\]()#$+\-.!_&gt;])/,</span><br><span class="line">  escape: /^\\([`*\[\]()#$+\-.!_&gt;])/,</span><br></pre></td></tr></table></figure>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//  em: /^\b_((?:__|[\s\S])+?)_\b|^\*((?:\*\*|[\s\S])+?)\*(?!\*)/,</span><br><span class="line">  em: /^\*((?:\*\*|[\s\S])+?)\*(?!\*)/,</span><br></pre></td></tr></table></figure>
-<p>​    重新启动 hexo （clean 再 generate）</p>
-<p>​    另外，在主题配置文件中 _config.yml，把 mathjax 的 enable 修改为 true</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mathjax:</span><br><span class="line">	enable: true</span><br></pre></td></tr></table></figure>
-<h4 id="3-文章渲染标签"><a href="#3-文章渲染标签" class="headerlink" title="3.  文章渲染标签"></a>3.  文章渲染标签</h4><p>​    在文章的Front-matter里打开mathjax开关，如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">title: xxxx</span><br><span class="line">date: xxxx-xx-xx xx:xx:xx</span><br><span class="line">categories: xx</span><br><span class="line">mathjax: true</span><br></pre></td></tr></table></figure>
-<p>​    OK</p>
-
-      
-    </div>
-
-    
-    
-    
-	
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/08/HW_task1_hubbard_with_U1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Hsu Quinn">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="BLOG">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/10/08/HW_task1_hubbard_with_U1/" class="post-title-link" itemprop="url">Exact diagonalization -- Hubbard model</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-10-08 20:36:05" itemprop="dateCreated datePublished" datetime="2022-10-08T20:36:05+08:00">2022-10-08</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-10-30 21:57:53" itemprop="dateModified" datetime="2022-10-30T21:57:53+08:00">2022-10-30</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Computational-Quantum-Physics/" itemprop="url" rel="index"><span itemprop="name">Computational Quantum Physics</span></a>
-                </span>
-            </span>
-
-          
-            <span class="post-meta-item" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-users"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="firestore-visitors-count"></span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <font size=5>Homework (task 1)</font>
-
-<ul>
-<li>write a code for diagonalizing the extended Hubbard model on a 6-site ladder</li>
-</ul>
-
-$$
-H=-t \sum_{\{i, j\}, \sigma}\left(C_{i, \sigma}^{\dagger} C_{j, \sigma}+C_{j, \sigma}^{\dagger} C_{i, \sigma}\right)+U \sum_i n_{i \uparrow} n_{i \downarrow}-V \sum_{\{\{i, j\}\}}\left(n_{i, \uparrow}+n_{i, \downarrow}\right)\left(n_{j, \uparrow}+n_{j, \downarrow}\right)-\mu \sum_{i, \sigma} n_{i, \sigma}
-$$
-
-$$
-\begin{aligned}
-&\{i, j\} \in(0,1),(1,2),(3,4),(4,5),(1,3),(2,4) \\
-&\{\{i, j\}\} \in(0,3),(1,4),(2,5),(2,3)
-\end{aligned}
-$$
-
-<ul>
-<li>take t = 1.0, U = 1.4, V = 0.3, 𝜇 = 0.1</li>
-</ul>
-<p>(1) show the lowest 20 eigenvalues. please make use of the U(1) symmetry</p>
-<p>(2) calculate $\left\langle n_{i, \sigma}\right\rangle$ for each site and spin using the ground state</p>
-<ul>
-<li><p>简单思路分析：</p>
-<ol>
-<li><p>六个site，考虑spin的up和down，则可以用一个12位的二进制数表示一个态。规则如下：</p>
-<p> | xxxxxx xxxxxx &gt; : 左边表示自旋朝下，右边表示自旋朝上，每部分从右往左分别编号为 0，1…,5</p>
-<p> 例如 ： | 000010 000001 &gt; 表示在 0 site 有一个$\uparrow$，在 1 site 有一个$\downarrow$, 其他位置为空</p>
-</li>
-<li><p>哈密顿量分为对角项（u，v，𝜇）和非对角项（t）：</p>
-<p> 对于前者比较简单，只需要按照规则进行位操作即可；</p>
-<p> 后者考虑U(1)对称，即粒子数守恒或自旋守恒，这里我们把问题简单化，考虑粒子数守恒，即非对角项只出现粒子数不改变的两个态之间，我们只需要按照粒子数做分类并编号，然后在各自的 space 中去 check 能否 hopping，并计算系数即可。</p>
-<p> 具体见代码。</p>
-</li>
-</ol>
-</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> scipy.sparse.linalg <span class="keyword">as</span> LA</span><br><span class="line"></span><br><span class="line"><span class="comment">#参数定义</span></span><br><span class="line"></span><br><span class="line">t = <span class="number">1.0</span></span><br><span class="line">U = <span class="number">1.4</span></span><br><span class="line">V = <span class="number">0.3</span></span><br><span class="line">miu = <span class="number">0.1</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#N is the number of sites, and n is the number of states</span></span><br><span class="line"></span><br><span class="line">N = <span class="number">6</span></span><br><span class="line">n = <span class="number">1</span>&lt;&lt;<span class="number">2</span>*N</span><br><span class="line"></span><br><span class="line"><span class="comment">#最近邻作用和次近邻作用对，方便遍历</span></span><br><span class="line">First_Near = [(<span class="number">0</span>,<span class="number">1</span>),(<span class="number">1</span>,<span class="number">2</span>),(<span class="number">3</span>,<span class="number">4</span>),(<span class="number">4</span>,<span class="number">5</span>),(<span class="number">1</span>,<span class="number">3</span>),(<span class="number">2</span>,<span class="number">4</span>),(<span class="number">1</span>,<span class="number">0</span>),(<span class="number">2</span>,<span class="number">1</span>),(<span class="number">4</span>,<span class="number">3</span>),(<span class="number">5</span>,<span class="number">4</span>),(<span class="number">3</span>,<span class="number">1</span>),(<span class="number">4</span>,<span class="number">2</span>)]</span><br><span class="line">Second_Near = [(<span class="number">0</span>,<span class="number">3</span>),(<span class="number">1</span>,<span class="number">4</span>),(<span class="number">2</span>,<span class="number">5</span>),(<span class="number">2</span>,<span class="number">3</span>)]</span><br></pre></td></tr></table></figure>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#一些位操作运算</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">ReadBit</span>(<span class="params">i,n</span>):                           <span class="comment">#读取i的第n位</span></span><br><span class="line">    <span class="keyword">return</span> (i&amp;(<span class="number">1</span>&lt;&lt;n))&gt;&gt;n</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">PopCntBit</span>(<span class="params">i</span>):                           <span class="comment">#计数i态有多少个&quot;1&quot;(自旋个数)</span></span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">bin</span>(i).count(<span class="string">&quot;1&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">SetBit</span>(<span class="params">i,n</span>):                            <span class="comment">#i的第n位设置为&quot;1&quot;</span></span><br><span class="line">    <span class="keyword">return</span> i|(<span class="number">1</span>&lt;&lt;n)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">ClearBit</span>(<span class="params">i,n</span>):                          <span class="comment">#i的第n位设置为&quot;0&quot;</span></span><br><span class="line">    <span class="keyword">return</span> i&amp;~(<span class="number">1</span>&lt;&lt;n)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">PickBit</span>(<span class="params">i,k,n</span>):                         <span class="comment">#从第k位向左走n位 这部分取出来</span></span><br><span class="line">    <span class="keyword">return</span> (i&amp;((<span class="number">2</span>**n-<span class="number">1</span>)&lt;&lt;k))&gt;&gt;k</span><br></pre></td></tr></table></figure>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#哈密顿量的第二三四项（对角项），不用考虑态的变化，只需要按照给定的H计算前面的系数即可</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">U_func</span>(<span class="params">state</span>):</span><br><span class="line">    res = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(N):</span><br><span class="line">        res += ReadBit(state,i) &amp; ReadBit(state,i+N)</span><br><span class="line">    <span class="keyword">return</span> res * U</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">V_func</span>(<span class="params">state</span>):</span><br><span class="line">    res = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> (i,j) <span class="keyword">in</span> Second_Near:</span><br><span class="line">        res += (ReadBit(state,i) + ReadBit(state,i+<span class="number">6</span>)) * (ReadBit(state,j) + ReadBit(state,j+<span class="number">6</span>))</span><br><span class="line">    <span class="keyword">return</span> res * V</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">miu_func</span>(<span class="params">state</span>):</span><br><span class="line">    <span class="keyword">return</span> PopCntBit(state) * miu</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#定义产生湮灭算符规则 C(state, site, spin, op)： </span></span><br><span class="line"><span class="comment">#Input: state 为作用的态， site 为位点（0~5），spin为自旋（-0.5/0.5），op为产生or湮灭(1 or 0)</span></span><br><span class="line"><span class="comment">#Output: flag 表示是否存在输出的态(1/0), resstate 表示C算符作用后得到的（不考虑正负的）态， pm为C算符作用后态的正负号（1/-1）</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">C</span>(<span class="params">state, site, spin, op</span>):</span><br><span class="line">    resstate = <span class="number">0</span></span><br><span class="line">    flag = <span class="number">0</span></span><br><span class="line">    pm = <span class="number">0</span></span><br><span class="line">    <span class="keyword">if</span> op <span class="keyword">and</span> spin &gt; <span class="number">0</span>:</span><br><span class="line">        flag = <span class="number">1</span> <span class="keyword">if</span> ReadBit(state,site) == <span class="number">0</span> <span class="keyword">else</span> <span class="number">0</span></span><br><span class="line">        resstate = SetBit(state,site) <span class="keyword">if</span> flag <span class="keyword">else</span> -<span class="number">1</span></span><br><span class="line">        <span class="keyword">if</span> flag:</span><br><span class="line">            pm = -<span class="number">1</span> <span class="keyword">if</span> PopCntBit(PickBit(state,<span class="number">0</span>,site)) % <span class="number">2</span> == <span class="number">1</span> <span class="keyword">else</span> <span class="number">1</span></span><br><span class="line">    <span class="keyword">elif</span> op <span class="keyword">and</span> spin &lt; <span class="number">0</span>:</span><br><span class="line">        flag = <span class="number">1</span> <span class="keyword">if</span> ReadBit(state,site+N) == <span class="number">0</span> <span class="keyword">else</span> <span class="number">0</span></span><br><span class="line">        resstate = SetBit(state,site+N) <span class="keyword">if</span> flag <span class="keyword">else</span> -<span class="number">1</span></span><br><span class="line">        <span class="keyword">if</span> flag:</span><br><span class="line">            pm = -<span class="number">1</span> <span class="keyword">if</span> PopCntBit(PickBit(state,<span class="number">0</span>,site+N)) % <span class="number">2</span> == <span class="number">1</span> <span class="keyword">else</span> <span class="number">1</span></span><br><span class="line">    <span class="keyword">elif</span> <span class="keyword">not</span> op <span class="keyword">and</span> spin &gt; <span class="number">0</span>:</span><br><span class="line">        flag = <span class="number">1</span> <span class="keyword">if</span> ReadBit(state,site) == <span class="number">1</span> <span class="keyword">else</span> <span class="number">0</span></span><br><span class="line">        resstate = ClearBit(state,site) <span class="keyword">if</span> flag <span class="keyword">else</span> -<span class="number">1</span></span><br><span class="line">        <span class="keyword">if</span> flag:</span><br><span class="line">            pm = -<span class="number">1</span> <span class="keyword">if</span> PopCntBit(PickBit(state,<span class="number">0</span>,site)) % <span class="number">2</span> == <span class="number">1</span> <span class="keyword">else</span> <span class="number">1</span></span><br><span class="line">    <span class="keyword">elif</span> <span class="keyword">not</span> op <span class="keyword">and</span> spin &lt; <span class="number">0</span>:</span><br><span class="line">        flag = <span class="number">1</span> <span class="keyword">if</span> ReadBit(state,site+N) == <span class="number">1</span> <span class="keyword">else</span> <span class="number">0</span></span><br><span class="line">        resstate = ClearBit(state,site+N) <span class="keyword">if</span> flag <span class="keyword">else</span> -<span class="number">1</span></span><br><span class="line">        <span class="keyword">if</span> flag:</span><br><span class="line">            pm = -<span class="number">1</span> <span class="keyword">if</span> PopCntBit(PickBit(state,<span class="number">0</span>,site+N)) % <span class="number">2</span> == <span class="number">1</span> <span class="keyword">else</span> <span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> flag,resstate,pm</span><br></pre></td></tr></table></figure>
-<ul>
-<li>对于非对角hopping项，我们简单说明一下思路。</li>
-</ul>
-<ol>
-<li>直接地，若不考虑symm，我们枚举所有的态，对每一态在 First_Near 限制下枚举产生湮灭算符作用后得到的态，然后去检查这两个态之间的转化能否成立。伪代码如下注释：</li>
-</ol>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 不考虑U(1)全遍历，作为伪代码注释放在这里</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">H = np.zeros([n,n])</span></span><br><span class="line"><span class="string"># H 的第二三四项(对角项)计算</span></span><br><span class="line"><span class="string">for i in range(n):</span></span><br><span class="line"><span class="string">    H[i,i] += U_func(i)</span></span><br><span class="line"><span class="string">    H[i,i] -= V_func(i)</span></span><br><span class="line"><span class="string">    H[i,i] -= miu_func(i)</span></span><br><span class="line"><span class="string"># H 的第一项(非对角项)计算</span></span><br><span class="line"><span class="string">for a in range(n):</span></span><br><span class="line"><span class="string">    for (i,j) in First_Near:</span></span><br><span class="line"><span class="string">        for spin in [-0.5,0.5]:</span></span><br><span class="line"><span class="string">            a1flag, a1, a1pm = C(a,j,spin,0)</span></span><br><span class="line"><span class="string">            if a1flag:</span></span><br><span class="line"><span class="string">                bflag, b, bpm = C(a1,i,spin,1)</span></span><br><span class="line"><span class="string">                if bflag:</span></span><br><span class="line"><span class="string">                    H[b,a] = -t * a1pm * bpm</span></span><br><span class="line"><span class="string">            a1flag, a1, a1pm = C(a,i,spin,0)</span></span><br><span class="line"><span class="string">            if a1flag:</span></span><br><span class="line"><span class="string">                bflag, b, bpm = C(a1,j,spin,1)</span></span><br><span class="line"><span class="string">                if bflag:</span></span><br><span class="line"><span class="string">                    H[b,a] = -t * a1pm * bpm</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br></pre></td></tr></table></figure>
-<ol>
-<li><p>显然我们这样做是浪费了一些搜索空间和时间的，因为没有考虑物理约束，即 hopping 过程中自旋数不会发生改变。基于这种对称性，我们可以重新对基矢进行排序，或者说将 4096 * 4096 的空间划分为 13 个子空间，分类的依据是自旋个数 n， n = 0,1,…12. </p>
-<p> 值得一提的是， 前面不考虑 U(1) 中的基矢顺序就是态对应的十进制数，但是在考虑 U(1) 中的基矢顺序是按照 subspace 来排序的， 这样子哈密顿量 $<br>\mathrm{H}=\mathrm{H}_0 \oplus \cdots \oplus \mathrm{H}_n \oplus \cdots \oplus \mathrm{H}_N<br>$ 直和的形式。</p>
-<p> 代码如下：</p>
-</li>
-</ol>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#构建一个字典数组 DictFind[i], i代表第i个子空间， 字典内存储的&lt;key,value&gt;对是&lt;态,编号&gt;</span></span><br><span class="line">DictFind = [&#123;&#125; <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">2</span>*N+<span class="number">1</span>)]</span><br><span class="line"></span><br><span class="line"><span class="comment">#预处理构建 DictFind </span></span><br><span class="line">count = np.zeros(<span class="number">2</span>*N+<span class="number">1</span>)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n):</span><br><span class="line">    count[PopCntBit(i)] += <span class="number">1</span> </span><br><span class="line">    DictFind[PopCntBit(i)][i] = count[PopCntBit(i)]</span><br><span class="line"></span><br><span class="line"><span class="comment">#space数组最开始是存放每个subspace的大小，然后为了后面直和操作方便，重定义为subspace大小的累加，即 space(i) += space(i-1)</span></span><br><span class="line">space = np.zeros(<span class="number">2</span>*N+<span class="number">1</span>)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">2</span>*N+<span class="number">1</span>):</span><br><span class="line">    space[i] = <span class="built_in">len</span>(DictFind[i])</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>,<span class="number">2</span>*N+<span class="number">1</span>):</span><br><span class="line">    space[i] = space[i] + space[i-<span class="number">1</span>] </span><br><span class="line"></span><br><span class="line"><span class="comment">#HH 即基于上述规则构建的哈密顿量，我们只需要在每个子空间内check hopping，由于已经建好了Dict，我们的查找是O(1)的</span></span><br><span class="line">HH = np.zeros([n,n])    </span><br><span class="line"><span class="keyword">for</span> SpinNum <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">2</span>*N+<span class="number">1</span>):</span><br><span class="line">    <span class="keyword">for</span> state,index <span class="keyword">in</span> DictFind[SpinNum].items():</span><br><span class="line">        <span class="keyword">for</span> (i,j) <span class="keyword">in</span> First_Near:</span><br><span class="line">            <span class="keyword">for</span> spin <span class="keyword">in</span> [-<span class="number">0.5</span>,<span class="number">0.5</span>]:</span><br><span class="line">                flag1, state1, pm1 = C(state, j, spin, <span class="number">0</span>)</span><br><span class="line">                <span class="keyword">if</span> flag1:</span><br><span class="line">                    flag2, state2,pm2 = C(state1, i, spin, <span class="number">1</span>)</span><br><span class="line">                    <span class="keyword">if</span> flag2:</span><br><span class="line">                        HH[<span class="built_in">int</span>(space[SpinNum-<span class="number">1</span>]+index-<span class="number">1</span>) , <span class="built_in">int</span>(space[SpinNum-<span class="number">1</span>]+DictFind[SpinNum].get(state2)-<span class="number">1</span>)] = -t * pm1 *pm2 <span class="comment"># - 1 for pos adjustion</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#H的对角项</span></span><br><span class="line"><span class="keyword">for</span> SpinNum <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span> , <span class="number">2</span>*N+<span class="number">1</span>):</span><br><span class="line">    <span class="keyword">for</span> state,index <span class="keyword">in</span> DictFind[SpinNum].items():</span><br><span class="line">        pos = <span class="built_in">int</span>(space[SpinNum-<span class="number">1</span>] + index - <span class="number">1</span>)</span><br><span class="line">        HH[pos,pos] += U_func(state)</span><br><span class="line">        HH[pos,pos] -= V_func(state)</span><br><span class="line">        HH[pos,pos] -= miu_func(state)</span><br><span class="line">    </span><br></pre></td></tr></table></figure>
-<ul>
-<li>完成 H 后用 scipy.sparse.linalg.eigsh 计算前20个本征值：</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># E : eigenvalue; W : eigenstate</span></span><br><span class="line">E,W = LA.eigsh(HH,<span class="number">20</span>,which = <span class="string">&#x27;SA&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(E)</span><br></pre></td></tr></table></figure>
-<pre><code>[-6.72233554 -6.72233554 -6.72233554 -6.66948732 -6.66948732 -6.48366037
- -6.44217804 -6.42461287 -6.3983409  -6.3983409  -6.35051543 -6.35051543
- -6.20881398 -6.20881398 -6.05241516 -6.05241516 -6.05241516 -5.95813498
- -5.95813498 -5.94631099]
-</code></pre><ul>
-<li><p>得到结果如下：</p>
-<p>  [-6.72233554 -6.72233554 -6.72233554 -6.66948732 -6.66948732 </p>
-<p>  -6.48366037 -6.44217804 -6.42461287 -6.3983409  -6.3983409 </p>
-<p>  -6.35051543 -6.35051543 -6.20881398 -6.20881398 -6.05241516 </p>
-<p>  -6.05241516 -6.05241516 -5.95813498 -5.95813498 -5.94631099]</p>
-<ul>
-<li>可以看到，基态能量约为 -6.7223， 三重简并。这是符合我们预期的，对于这样一个6-sites存在旋转对称作用的体系。接下来我们计算一下 $\left\langle n_{i, \sigma}\right\rangle$</li>
-</ul>
-</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#由于三重简并，用n_bar_i，i=1，2，3分别存储三个本征矢量表象下的 &lt;n&gt;，数组顺序为从低位到高位(从右往左)</span></span><br><span class="line">n_bar_1 = np.zeros(<span class="number">2</span>*N)</span><br><span class="line">n_bar_2 = np.zeros(<span class="number">2</span>*N)</span><br><span class="line">n_bar_3 = np.zeros(<span class="number">2</span>*N)</span><br><span class="line"><span class="keyword">for</span> SpinNum <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span> , <span class="number">2</span>*N+<span class="number">1</span>):</span><br><span class="line">    <span class="keyword">for</span> state,index <span class="keyword">in</span> DictFind[SpinNum].items():</span><br><span class="line">        pos = <span class="built_in">int</span>(space[SpinNum-<span class="number">1</span>] + index - <span class="number">1</span>)</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">2</span>*N):</span><br><span class="line">            <span class="keyword">if</span> ReadBit(state,i):</span><br><span class="line">                n_bar_1[i] += np.power(W[:,<span class="number">0</span>][pos],<span class="number">2</span>)</span><br><span class="line">                n_bar_2[i] += np.power(W[:,<span class="number">1</span>][pos],<span class="number">2</span>)</span><br><span class="line">                n_bar_3[i] += np.power(W[:,<span class="number">2</span>][pos],<span class="number">2</span>)</span><br><span class="line"><span class="built_in">print</span>(n_bar_1)</span><br><span class="line"><span class="built_in">print</span>(n_bar_2)</span><br><span class="line"><span class="built_in">print</span>(n_bar_3)</span><br><span class="line"></span><br><span class="line"><span class="comment">#n_bar 为上述三组值的平均值</span></span><br><span class="line">n_bar = np.zeros(<span class="number">2</span>*N)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">2</span>*N):</span><br><span class="line">    n_bar[i] = (n_bar_1[i]+n_bar_2[i]+n_bar_3[i])/<span class="number">3</span></span><br><span class="line"><span class="built_in">print</span>(n_bar)</span><br></pre></td></tr></table></figure>
-<pre><code>[0.30471289 0.53758844 0.25223012 0.25223012 0.53758844 0.30471289
- 0.68664588 0.43919814 0.77962453 0.77962453 0.43919814 0.68664588]
-[0.50412966 0.4862164  0.52759594 0.52759594 0.4862164  0.50412966
- 0.48722911 0.49057018 0.50425871 0.50425871 0.49057018 0.48722911]
-[0.6781956  0.44137503 0.76795591 0.76795591 0.44137503 0.6781956
- 0.31316317 0.53541155 0.26389874 0.26389874 0.53541155 0.31316317]
-[0.49567939 0.48839329 0.51592732 0.51592732 0.48839329 0.49567939
- 0.49567939 0.48839329 0.51592732 0.51592732 0.48839329 0.49567939]
-</code></pre><ul>
-<li><p>由于三重简并，我们 n_bar_i，i=1，2，3 分别存储三个本征矢量表象下的 $\left\langle n_{i, \sigma}\right\rangle$，数组顺序为从低位到高位(从右往左)</p>
-</li>
-<li><p>我们发现每次运行的结果都不一样，这是因为 scipy 的 eigsh 函数的内置算法随机性导致的，每次计算的本征矢量都有所不同，这里我们取了其中一次的计算结果放在这里：</p>
-</li>
-</ul>
-<pre><code>1. [0.32422012 0.53256315 0.2791668  0.2791668  0.53256315 0.32422012
-
-    0.66713865 0.44422343 0.75268785 0.75268785 0.44422343 0.66713865]
-
-2. [0.69565789 0.43687655 0.79206881 0.79206881 0.43687655 0.69565789
-
-    0.29570088 0.53991004 0.23978584 0.23978584 0.53991004 0.29570088]
-
-3. [0.46716014 0.49574017 0.47654636 0.47654636 0.49574017 0.46716014
-
-    0.52419863 0.48104641 0.55530828 0.55530828 0.48104641 0.52419863]
-</code></pre><ul>
-<li><p>每个数组有 12 个元素，依次表示 : (0,$\uparrow$) , (1,$\uparrow$) , … , (5,$\uparrow$) , (0,$\downarrow$) , … , (5,$\downarrow$) 的 $\left\langle n_{i, \sigma}\right\rangle$</p>
-</li>
-<li><p>尽管如此，我们可以对对应构型的 <n> 取平均，发现得到的 $(n_{bar1} + n_{bar2} +n_{bar3}) / 3$ 如下：</p>
-<ul>
-<li><p>[0.49567939 0.48839329 0.51592732 0.51592732 0.48839329 0.49567939</p>
-<p>  0.49567939 0.48839329 0.51592732 0.51592732 0.48839329 0.49567939]</p>
-</li>
-</ul>
-</li>
-<li><p>可见对任意的 $i$ 和 $\sigma$, $\left\langle n_{i, \sigma}\right\rangle$ 的期望都约为 $1/2$。 在基态的表象下，各位点的占据数趋于半满。</p>
-</li>
-</ul>
-<font size=5>Reference </font>
-
-<ol>
-<li>Lin, H. Q. “Exact diagonalization of quantum-spin models.” Physical Review B 42.10 (1990): 6561.</li>
-</ol>
-
-      
-    </div>
-
-    
-    
-    
-	
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1775,7 +1832,7 @@ $$
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">12</span>
+          <span class="site-state-item-count">15</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

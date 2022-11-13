@@ -926,4 +926,226 @@ hzSz I I I I I I I I
         <tag>physics</tag>
       </tags>
   </entry>
+  <entry>
+    <title>2-site variational MPS method in 1D spin model</title>
+    <url>/2022/11/13/HW_MPS1107/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><font size = 5> Homework </font>
+
+<ul>
+<li>read and understand the sample code 1-site variational MPS method</li>
+<li>consider the 1D spin model with open boundary condition</li>
+</ul>
+<script type="math/tex; mode=display">
+H=-\sum_j\left(\sigma_{j-1}^z \sigma_j^y \sigma_{j+1}^z+\sigma_j^x\right)</script><ul>
+<li><p>write a code for the 2-site variational MPS method</p>
+<p>  choose $N = 10$ , $D_{s} = 4 , 6 $, calculate the ground state energy $E$ per site, and the magnetization per site $\left\langle\sigma_i^z\right\rangle$ and $\left\langle\sigma_i^x\right\rangle$</p>
+<p>  compare with the results obtained from exact diagonalization</p>
+</li>
+<li><font size = 4> a brief summary of theory and algorithm </font>
+
+<p>  sample code 主要步骤如下：</p>
+<ol>
+<li><p>write Hamiltonian as an MPO</p>
+</li>
+<li><p>tensor initialization</p>
+</li>
+<li><p>environment initialization</p>
+</li>
+<li><p>sweep back and forth to optimize each tensor</p>
+<p>对于给定的 1 D spin model，注意到其包括两部分：相邻三体和单体。（除去端点处）有平移对称性，MPO 如下:</p>
+<script type="math/tex; mode=display">
+\left(\begin{array}{cccc}
+I & -\sigma^{z} & 0 & -\sigma^{x} \\
+0 & 0 & \sigma^{y} & 0 \\
+0 & 0 & 0 & \sigma^{z} \\
+0 & 0 & 0 & I
+\end{array}\right)</script><p>端点处（site0 和 site9）的 MPO ：</p>
+<script type="math/tex; mode=display">
+\left(\begin{array}{cccc}
+I & 0 & 0 & -\sigma^{x} \\
+0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 \\
+0 & 0 & 0 & I
+\end{array}\right)</script><p>下面的 code 中近似地忽略端点处的 MPO，这一点与后面的 Exact solution 对比可以发现这种近似的精度是合理的。 </p>
+<p>张量和环境的初始化和 1-site 的类似，这里主要讨论 2-site 的 sweep 如何实现。</p>
+<div  align="center">    
+<img src=https://s2.loli.net/2022/11/13/F3gIuawYMWZERi9.png style="zoom:70%" />   
+</div>
+
+
+</li>
+</ol>
+</li>
+</ul>
+<p>optimize two sites : 一次将两个相邻的 T 相乘，作 SVD 分解。对于向右 sweep 的过程，将分解得到的 U 作为新的 T[i] ，得到的 S 和 V 相乘作为新的 T[i+1] ，如此继续循环；对于向左的 sweep 过程同理。 其中要注意的是分解的 U，S，V 需要根据原来的 T[i] 和 T[i+1] 之间耦合的维度 Dcut 做截断。</p>
+<p>code 中 NCon 的 index 对应如下：</p>
+<pre><code>&lt;div  align=&quot;center&quot;&gt;    
+&lt;img src=https://s2.loli.net/2022/11/13/YagrZSJl45khiX2.jpg style=&quot;zoom:30%&quot; /&gt;   
+&lt;/div&gt;
+</code></pre><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> numpy.linalg <span class="keyword">as</span> LA</span><br><span class="line"><span class="keyword">import</span> scipy.sparse.linalg <span class="keyword">as</span> LAs</span><br><span class="line"><span class="keyword">import</span> Sub180221 <span class="keyword">as</span> Sub</span><br><span class="line"><span class="keyword">import</span> math,copy</span><br><span class="line"><span class="comment">#----------------------------------------------------------------</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">Mi =</span></span><br><span class="line"><span class="string">s0	-sz	0	-sx</span></span><br><span class="line"><span class="string">0	0	sy	0</span></span><br><span class="line"><span class="string">0	0	0	sz</span></span><br><span class="line"><span class="string">0	0	0	s0</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">GetMpo_Heisenberg_Obc</span>(<span class="params">Dp</span>):									<span class="comment">#生成 MPO</span></span><br><span class="line">	S0,Sp,Sm,Sz,Sx,Sy = Sub.SpinOper(Dp)</span><br><span class="line">	</span><br><span class="line">	Dmpo = <span class="number">4</span></span><br><span class="line">	Mpo = np.zeros((Dmpo,Dp,Dmpo,Dp),dtype = <span class="built_in">complex</span>)</span><br><span class="line">	</span><br><span class="line">	Mpo[<span class="number">0</span>,:,<span class="number">0</span>,:] = S0</span><br><span class="line">	Mpo[<span class="number">0</span>,:,<span class="number">1</span>,:] = -<span class="number">2</span> * Sz</span><br><span class="line">	Mpo[<span class="number">0</span>,:,<span class="number">3</span>,:] = -<span class="number">2</span> * Sx</span><br><span class="line">	Mpo[<span class="number">1</span>,:,<span class="number">2</span>,:] = <span class="number">2</span> * Sy</span><br><span class="line">	Mpo[<span class="number">2</span>,:,<span class="number">3</span>,:] = <span class="number">2</span> * Sz</span><br><span class="line">	Mpo[<span class="number">3</span>,:,<span class="number">3</span>,:] = S0</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">return</span> Mpo</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">InitMps</span>(<span class="params">Ns,Dp,Ds</span>):											<span class="comment">#初始化 MPS</span></span><br><span class="line">	T = [<span class="literal">None</span>]*Ns</span><br><span class="line">	<span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(Ns):</span><br><span class="line">		Dl = <span class="built_in">min</span>(Dp**i,Dp**(Ns-i),Ds)</span><br><span class="line">		Dr = <span class="built_in">min</span>(Dp**(i+<span class="number">1</span>),Dp**(Ns-<span class="number">1</span>-i),Ds)</span><br><span class="line">		T[i] = np.random.rand(Dl,Dp,Dr)</span><br><span class="line">	U = np.eye(np.shape(T[-<span class="number">1</span>])[-<span class="number">1</span>])</span><br><span class="line">	<span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(Ns-<span class="number">1</span>,<span class="number">0</span>,-<span class="number">1</span>):</span><br><span class="line">		U,T[i] = Sub.Mps_LQP(T[i],U)</span><br><span class="line">	<span class="keyword">return</span> T</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">InitH</span>(<span class="params">Mpo,T</span>):												<span class="comment">#初始化环境 HL HR</span></span><br><span class="line">	Ns = <span class="built_in">len</span>(T)</span><br><span class="line">	Dmpo = np.shape(Mpo)[<span class="number">0</span>]</span><br><span class="line">	HL = [<span class="literal">None</span>]*Ns</span><br><span class="line">	HR = [<span class="literal">None</span>]*Ns</span><br><span class="line">	HL[<span class="number">0</span>] = np.zeros((<span class="number">1</span>,Dmpo,<span class="number">1</span>))</span><br><span class="line">	HL[<span class="number">0</span>][<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>] = <span class="number">1.0</span></span><br><span class="line">	HR[-<span class="number">1</span>] = np.zeros((<span class="number">1</span>,Dmpo,<span class="number">1</span>))</span><br><span class="line">	HR[-<span class="number">1</span>][<span class="number">0</span>,-<span class="number">1</span>,<span class="number">0</span>] = <span class="number">1.0</span></span><br><span class="line">	<span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(Ns-<span class="number">1</span>,<span class="number">0</span>,-<span class="number">1</span>):</span><br><span class="line">		HR[i-<span class="number">1</span>] = Sub.NCon([HR[i],T[i],Mpo,np.conj(T[i])],[[<span class="number">1</span>,<span class="number">3</span>,<span class="number">5</span>],[-<span class="number">1</span>,<span class="number">2</span>,<span class="number">1</span>],[-<span class="number">2</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>],[-<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>]])</span><br><span class="line">	<span class="keyword">return</span> HL,HR</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">OptTSite</span>(<span class="params">Mpo,HL,HR,T,Method=<span class="number">0</span></span>):								<span class="comment">#2-site的 OptTSite，这里的 T 其实是相邻两个 site 的 T 的积</span></span><br><span class="line">	DT = np.shape(T)</span><br><span class="line">	<span class="keyword">if</span> Method == <span class="number">0</span>:</span><br><span class="line">		A = Sub.NCon([HL,Mpo,Mpo,HR],[[-<span class="number">1</span>,<span class="number">1</span>,-<span class="number">5</span>],[<span class="number">1</span>,-<span class="number">6</span>,<span class="number">2</span>,-<span class="number">2</span>],[<span class="number">2</span>,-<span class="number">7</span>,<span class="number">3</span>,-<span class="number">3</span>],[-<span class="number">8</span>,<span class="number">3</span>,-<span class="number">4</span>]])</span><br><span class="line">		A = Sub.Group(A,[[<span class="number">0</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>],[<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>]])</span><br><span class="line">		Eig,V = LAs.eigsh(A,k=<span class="number">1</span>,which=<span class="string">&#x27;SA&#x27;</span>)</span><br><span class="line">		T = np.reshape(V,(DT[<span class="number">0</span>]*DT[<span class="number">1</span>],DT[<span class="number">2</span>]*DT[<span class="number">3</span>]))        		<span class="comment">#V reshape 成四阶张量 T</span></span><br><span class="line">	<span class="keyword">return</span> T,Eig</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">OptT</span>(<span class="params">Mpo,HL,HR,T</span>):</span><br><span class="line">	Ns = <span class="built_in">len</span>(T)</span><br><span class="line">	Eng0 = np.zeros(Ns)</span><br><span class="line">	Eng1 = np.zeros(Ns)</span><br><span class="line">	<span class="keyword">for</span> r <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">100</span>):</span><br><span class="line">		<span class="built_in">print</span>(r)</span><br><span class="line">		<span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(Ns-<span class="number">1</span>):									<span class="comment"># 向右 sweep</span></span><br><span class="line">			temp,Eng1[i] = OptTSite(Mpo,HL[i],HR[i+<span class="number">1</span>],np.tensordot(T[i],T[i+<span class="number">1</span>],(<span class="number">2</span>,<span class="number">0</span>)),Method=<span class="number">0</span>)	<span class="comment">#T[i]*T[i+1]作为新的张量传过去</span></span><br><span class="line">			Dcut = np.shape(T[i])[<span class="number">2</span>]								<span class="comment"># Dcut 是截断维数</span></span><br><span class="line">			U,S,V = LA.svd(temp,full_matrices=<span class="number">0</span>)</span><br><span class="line">			U = U[:,<span class="number">0</span>:Dcut]</span><br><span class="line">			S = S[<span class="number">0</span>:Dcut]</span><br><span class="line">			V = V[<span class="number">0</span>:Dcut,:]</span><br><span class="line">			T[i] = np.reshape(U,np.shape(T[i]))					<span class="comment">#更新 T[i],T[i+1],HL[i+1]</span></span><br><span class="line">			SV = np.dot(np.diag(S),V)</span><br><span class="line">			T[i+<span class="number">1</span>] = np.reshape(SV,np.shape(T[i+<span class="number">1</span>]))</span><br><span class="line">			HL[i+<span class="number">1</span>] = Sub.NCon([HL[i],np.conj(T[i]),Mpo,T[i]],[[<span class="number">1</span>,<span class="number">3</span>,<span class="number">5</span>],[<span class="number">1</span>,<span class="number">2</span>,-<span class="number">1</span>],[<span class="number">3</span>,<span class="number">4</span>,-<span class="number">2</span>,<span class="number">2</span>],[<span class="number">5</span>,<span class="number">4</span>,-<span class="number">3</span>]])</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(Ns-<span class="number">1</span>,<span class="number">0</span>,-<span class="number">1</span>):								<span class="comment"># 向左 sweep</span></span><br><span class="line">			temp,Eng1[i] = OptTSite(Mpo,HL[i-<span class="number">1</span>],HR[i],np.tensordot(T[i-<span class="number">1</span>],T[i],(<span class="number">2</span>,<span class="number">0</span>)),Method=<span class="number">0</span>)	<span class="comment">#T[i-1]*T[i]作为新的张量传过去</span></span><br><span class="line">			Dcut = np.shape(T[i])[<span class="number">0</span>]								<span class="comment"># Dcut 是截断维数</span></span><br><span class="line">			U,S,V = LA.svd(temp,full_matrices=<span class="number">0</span>)</span><br><span class="line">			U = U[:,<span class="number">0</span>:Dcut]</span><br><span class="line">			S = S[<span class="number">0</span>:Dcut]</span><br><span class="line">			V = V[<span class="number">0</span>:Dcut,:]</span><br><span class="line">			T[i] = np.reshape(V,np.shape(T[i]))					<span class="comment">#更新 T[i],T[i-1],HR[i-1]</span></span><br><span class="line">			US = np.dot(U,np.diag(S))</span><br><span class="line">			T[i-<span class="number">1</span>] = np.reshape(US,np.shape(T[i-<span class="number">1</span>]))</span><br><span class="line">			HR[i-<span class="number">1</span>] = Sub.NCon([HR[i],T[i],Mpo,np.conj(T[i])],[[<span class="number">1</span>,<span class="number">3</span>,<span class="number">5</span>],[-<span class="number">1</span>,<span class="number">2</span>,<span class="number">1</span>],[-<span class="number">2</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>],[-<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>]])</span><br><span class="line">		</span><br><span class="line">		<span class="built_in">print</span>(Eng1)</span><br><span class="line">		<span class="keyword">if</span> <span class="built_in">abs</span>(Eng1[<span class="number">1</span>]-Eng0[<span class="number">1</span>]) &lt; <span class="number">1.0e-7</span>:</span><br><span class="line">			<span class="keyword">break</span></span><br><span class="line">		Eng0 = copy.copy(Eng1)</span><br><span class="line">	<span class="built_in">print</span>(Eng1/<span class="built_in">float</span>(Ns))</span><br><span class="line">	<span class="keyword">return</span> T,Eng1/<span class="built_in">float</span>(Ns)</span><br><span class="line"><span class="comment">#----------------------------------------------------------------</span></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">	Ns = <span class="number">10</span></span><br><span class="line">	Dp = <span class="number">2</span></span><br><span class="line">	Ds = [<span class="number">4</span>,<span class="number">6</span>]</span><br><span class="line">	Answer = []</span><br><span class="line"></span><br><span class="line">	Mpo = GetMpo_Heisenberg_Obc(Dp)</span><br><span class="line">	<span class="keyword">for</span> ds <span class="keyword">in</span> Ds:</span><br><span class="line">		T = InitMps(Ns,Dp,ds)</span><br><span class="line">		HL,HR = InitH(Mpo,T)</span><br><span class="line">		T,E= OptT(Mpo,HL,HR,T)</span><br><span class="line">		GS = T[<span class="number">0</span>]</span><br><span class="line">		<span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(Ns-<span class="number">1</span>):</span><br><span class="line">			GS = np.tensordot(GS,T[i+<span class="number">1</span>],(i+<span class="number">2</span>,<span class="number">0</span>))</span><br><span class="line">		GS = np.reshape(GS,(<span class="number">1024</span>,<span class="number">1</span>))</span><br><span class="line">		Answer.append((ds,E,GS))</span><br></pre></td></tr></table></figure>
+<pre><code>0
+[ -9.94119199 -11.48599436 -11.48599436 -11.48641231 -11.48638648
+ -11.48628296 -11.4859645  -11.48480444 -11.4844155  -11.4844155 ]
+1
+[-11.48599436 -11.48597508 -11.48597508 -11.48639425 -11.48660135
+ -11.48666644 -11.48660205 -11.48639534 -11.48597623 -11.48597623]
+2
+[-11.48597508 -11.48597502 -11.48597502 -11.4863942  -11.48660113
+ -11.48666585 -11.48660113 -11.4863942  -11.48597503 -11.48597503]
+[-1.14859751 -1.1485975  -1.1485975  -1.14863942 -1.14866011 -1.14866659
+ -1.14866011 -1.14863942 -1.1485975  -1.1485975 ]
+0
+[-10.09613213 -11.48870684 -11.48870684 -11.48878776 -11.4888277
+ -11.48872879 -11.48838718 -11.48821485 -11.48813509 -11.48813509]
+1
+[-11.48870684 -11.48870695 -11.48870695 -11.48878788 -11.48886592
+ -11.48888725 -11.48886592 -11.48878788 -11.48870695 -11.48870695]
+2
+[-11.48870695 -11.48870695 -11.48870695 -11.48878788 -11.48886592
+ -11.48888725 -11.48886592 -11.48878788 -11.48870695 -11.48870695]
+[-1.14887069 -1.14887069 -1.14887069 -1.14887879 -1.14888659 -1.14888873
+ -1.14888659 -1.14887879 -1.14887069 -1.14887069]
+</code></pre><ul>
+<li><p>这里的列表 Answer = [(ds,E,GS)] 分别储存的截断 Ds，基态能量 per site E，以及 groud state GS。 </p>
+</li>
+<li><p>下面计算 $D_{s} = 4 , 6 $ 情况下的 ： 1. ground state energy $E$ per site； 2. magnetization per site $\left\langle\sigma_i^z\right\rangle$ and $\left\langle\sigma_i^x\right\rangle$</p>
+</li>
+<li><p>先定义计算磁化强度的 mag_x 和 mag_z 函数：</p>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">FlipBit</span>(<span class="params">i,n</span>):</span><br><span class="line">    <span class="keyword">return</span> i^(<span class="number">1</span>&lt;&lt;n)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">ReadBit</span>(<span class="params">i,n</span>):</span><br><span class="line">    <span class="keyword">return</span> (i&amp;(<span class="number">1</span>&lt;&lt;n))&gt;&gt;n</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">mag_z</span>(<span class="params">W</span>):</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;z:&quot;</span>)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(Ns):</span><br><span class="line">        SzW = np.zeros(<span class="number">1024</span>,dtype = <span class="built_in">complex</span>)</span><br><span class="line">        res = <span class="number">0</span></span><br><span class="line">        n = <span class="number">1</span>&lt;&lt;Ns</span><br><span class="line">        <span class="keyword">for</span> state <span class="keyword">in</span> <span class="built_in">range</span>(n):</span><br><span class="line">            sign = <span class="number">1</span> <span class="keyword">if</span> ReadBit(state, i) == <span class="number">1</span> <span class="keyword">else</span> -<span class="number">1</span></span><br><span class="line">            SzW[state] = sign * W[state]</span><br><span class="line">        <span class="keyword">for</span> state <span class="keyword">in</span> <span class="built_in">range</span>(n):</span><br><span class="line">            res = res + np.conj(W)[state] * SzW[state]</span><br><span class="line">        <span class="built_in">print</span>(i,np.real(res))</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">mag_x</span>(<span class="params">W</span>):</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;x:&quot;</span>)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(Ns):</span><br><span class="line">        SxW = np.zeros(<span class="number">1024</span>,dtype = <span class="built_in">complex</span>)</span><br><span class="line">        res = <span class="number">0</span></span><br><span class="line">        n = <span class="number">1</span>&lt;&lt;Ns</span><br><span class="line">        <span class="keyword">for</span> state <span class="keyword">in</span> <span class="built_in">range</span>(n):</span><br><span class="line">            SxW[FlipBit(state,i)] =  W[state]</span><br><span class="line">        <span class="keyword">for</span> state <span class="keyword">in</span> <span class="built_in">range</span>(n):</span><br><span class="line">            res = res + np.conj(W)[state] * SxW[state]</span><br><span class="line">        <span class="built_in">print</span>(i,np.real(res))</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<ul>
+<li>对于 Ds = 4：</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Ds=&quot;</span>+<span class="built_in">str</span>(Answer[<span class="number">0</span>][<span class="number">0</span>])+<span class="string">&quot;:&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;ground state energy E per site:&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(Answer[<span class="number">0</span>][<span class="number">1</span>])</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;magnetization per site &lt;sigma^z&gt; and &lt;sigma^x&gt;:&quot;</span>)</span><br><span class="line">mag_z(Answer[<span class="number">0</span>][<span class="number">2</span>])</span><br><span class="line">mag_x(Answer[<span class="number">0</span>][<span class="number">2</span>])</span><br></pre></td></tr></table></figure>
+<pre><code>Ds=4:
+ground state energy E per site:
+[-1.14859751 -1.1485975  -1.1485975  -1.14863942 -1.14866011 -1.14866659
+ -1.14866011 -1.14863942 -1.1485975  -1.1485975 ]
+magnetization per site &lt;sigma^z&gt; and &lt;sigma^x&gt;:
+z:
+0 [7.21557529e-09]
+1 [-9.58418942e-09]
+2 [-5.03324422e-09]
+3 [2.40059455e-09]
+4 [-1.82414969e-09]
+5 [-2.32618917e-09]
+6 [1.5960039e-09]
+7 [-2.92614971e-09]
+8 [-2.37970759e-09]
+9 [1.22052863e-09]
+x:
+0 [0.9173015]
+1 [0.84768239]
+2 [0.78414904]
+3 [0.7604599]
+4 [0.75185056]
+5 [0.75202071]
+6 [0.76080662]
+7 [0.78431687]
+8 [0.84831043]
+9 [0.91792175]
+</code></pre><ul>
+<li>对于 Ds = 6:</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Ds=&quot;</span>+<span class="built_in">str</span>(Answer[<span class="number">1</span>][<span class="number">0</span>])+<span class="string">&quot;:&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;ground state energy E per site:&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(Answer[<span class="number">1</span>][<span class="number">1</span>])</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;magnetization per site &lt;sigma^z&gt; and &lt;sigma^x&gt;:&quot;</span>)</span><br><span class="line">mag_z(Answer[<span class="number">1</span>][<span class="number">2</span>])</span><br><span class="line">mag_x(Answer[<span class="number">1</span>][<span class="number">2</span>])</span><br></pre></td></tr></table></figure>
+<pre><code>Ds=6:
+ground state energy E per site:
+[-1.14887069 -1.14887069 -1.14887069 -1.14887879 -1.14888659 -1.14888873
+ -1.14888659 -1.14887879 -1.14887069 -1.14887069]
+magnetization per site &lt;sigma^z&gt; and &lt;sigma^x&gt;:
+z:
+0 [-1.43079909e-10]
+1 [1.24069037e-08]
+2 [-6.39897362e-09]
+3 [-8.64023536e-10]
+4 [9.2880419e-09]
+5 [-3.83658105e-09]
+6 [-9.85073963e-10]
+7 [8.11689286e-09]
+8 [-2.77860332e-09]
+9 [-2.90920866e-10]
+x:
+0 [0.91675276]
+1 [0.84696303]
+2 [0.78332349]
+3 [0.76008148]
+4 [0.75169612]
+5 [0.75168807]
+6 [0.76005655]
+7 [0.78330731]
+8 [0.84695633]
+9 [0.91675164]
+</code></pre><ul>
+<li><p>可见 z 方向 magnetization 约为零， x 方向上有正的 magnetization，在两边的边界处略大于中间。</p>
+</li>
+<li><p>作为对比，该问题的精确解如下：</p>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#Exact diagonalization Solution</span></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> scipy.sparse.linalg <span class="keyword">as</span> LA</span><br><span class="line"></span><br><span class="line">N = <span class="number">10</span></span><br><span class="line">n = <span class="number">1</span>&lt;&lt;N</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">FlipBit</span>(<span class="params">i,n</span>):</span><br><span class="line">    <span class="keyword">return</span> i^(<span class="number">1</span>&lt;&lt;n)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">ReadBit</span>(<span class="params">i,n</span>):</span><br><span class="line">    <span class="keyword">return</span> (i&amp;(<span class="number">1</span>&lt;&lt;n))&gt;&gt;n</span><br><span class="line"></span><br><span class="line">H = np.zeros([n,n], dtype = <span class="built_in">complex</span>)</span><br><span class="line"><span class="keyword">for</span> state <span class="keyword">in</span> <span class="built_in">range</span>(n):</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(N):</span><br><span class="line">        res = FlipBit(state, j)</span><br><span class="line">        H[state][res] += -<span class="number">1</span></span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>,N-<span class="number">1</span>):</span><br><span class="line">        flag = ReadBit(state, j+<span class="number">1</span>) + ReadBit(state, j) + ReadBit(state, j-<span class="number">1</span>)</span><br><span class="line">        sign = <span class="number">1</span> <span class="keyword">if</span> flag % <span class="number">2</span> == <span class="number">1</span> <span class="keyword">else</span> -<span class="number">1</span></span><br><span class="line">        res = FlipBit(state, j)</span><br><span class="line">        H[state][res] += -<span class="number">1.0j</span> * sign</span><br><span class="line">E,eigenV = LA.eigsh(H,<span class="number">1</span>,which = <span class="string">&#x27;SA&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;exact ground state energy E per site:&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(E[<span class="number">0</span>]/N)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;magnetization per site &lt;sigma^z&gt; and &lt;sigma^x&gt;:&quot;</span>)</span><br><span class="line">mag_z(eigenV)</span><br><span class="line">mag_x(eigenV)</span><br></pre></td></tr></table></figure>
+<pre><code>exact ground state energy E per site:
+-1.1489442065958528
+magnetization per site &lt;sigma^z&gt; and &lt;sigma^x&gt;:
+z:
+0 [-4.02022166e-16]
+1 [-1.9246757e-15]
+2 [2.60815675e-15]
+3 [-3.47812057e-16]
+4 [-2.47631776e-15]
+5 [3.13724741e-15]
+6 [-3.0444397e-16]
+7 [-2.10855639e-15]
+8 [2.42948023e-15]
+9 [-3.0444397e-16]
+x:
+0 [0.91622482]
+1 [0.84621457]
+2 [0.78255915]
+3 [0.75946665]
+4 [0.75122694]
+5 [0.75122694]
+6 [0.75946665]
+7 [0.78255915]
+8 [0.84621457]
+9 [0.91622482]
+</code></pre><ul>
+<li><p>最后把结果放在这里方便对比：</p>
+  <div  align="center">    
+  <img src=https://s2.loli.net/2022/11/13/DFUErtflWHhb3Lv.png style="zoom:60%" />  
+  <img src=https://s2.loli.net/2022/11/13/BIuGqLTzptO3yr6.png style="zoom:60%" /> 
+  <img src=https://s2.loli.net/2022/11/13/JKEgYBLitGrQ2eS.png style="zoom:65%" />  
+  </div>
+
+
+
+</li>
+</ul>
+<ul>
+<li><a href="\221107sub\index.md">Sub180221</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>Computational Quantum Physics</category>
+      </categories>
+      <tags>
+        <tag>physics</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Semiconductor Physics(section 2)</title>
+    <url>/2022/11/12/Semiconductor%20physics2/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h3 id="A-The-density-of-states"><a href="#A-The-density-of-states" class="headerlink" title="A. The density of states"></a>A. The density of states</h3>]]></content>
+      <categories>
+        <category>Semiconductor Physics</category>
+      </categories>
+      <tags>
+        <tag>physics</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>about</title>
+    <url>/2022/09/08/221107sub/index/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>一个总是在追求失去的东西的人</p>
+]]></content>
+  </entry>
 </search>
