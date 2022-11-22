@@ -182,6 +182,163 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/11/22/mc/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Hsu Quinn">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="BLOG">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/11/22/mc/" class="post-title-link" itemprop="url">Monte Carlo in 2D Ising Model</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-11-22 14:44:30 / 修改时间：14:48:28" itemprop="dateCreated datePublished" datetime="2022-11-22T14:44:30+08:00">2022-11-22</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Computational-Quantum-Physics/" itemprop="url" rel="index"><span itemprop="name">Computational Quantum Physics</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-users"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="firestore-visitors-count"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <font size = 5> Homework </font>
+
+<ul>
+<li>consider the 2D classical Ising model on a L×L square lattice with periodic boundary conditions in both directions</li>
+</ul>
+<script type="math/tex; mode=display">\mathscr{H}=-J \sum_{\langle i, j\rangle} \sigma_i \sigma_j+H \sum_i \sigma_i</script><ul>
+<li><p>write a code for the Metropolis algorithm</p>
+</li>
+<li><p>plot the average energy, average magnetization, specific heat, and magnetic susceptibility as functions of temperature T</p>
+</li>
+<li><p>explore the scaling behavior near the critical point $T_c=\frac{2 \mathrm{~J}}{\ln (1+\sqrt{2})} \simeq 2.269 \mathrm{~J}$, compare with exact results</p>
+</li>
+<li><font size = 4.5> A brief summary of theory and algorithm </font>
+</li>
+<li><p>Monte Carlo simulation</p>
+<p>  (1) initialization: choose an initial configuration for the spins</p>
+<p>  (2) trial move: we propose a move by randomly choosing a spin and flip it</p>
+<p>  (3) acceptation: for a flip 𝜎 old to 𝜎 trival , evaluate the number $\Delta E=2 \sigma_j\left(J \sum \sigma_{\text {near }}-H\right)$, then we generate a uniform random number r ∈ (0,1), if r &lt; 𝛼, accept the move, 𝜎 new = 𝜎 old</p>
+<p>  (4) iteration: then we use 𝜎 new as the new starting point and go back to (2)</p>
+<p>  we proceed with the process for at least 10^5 - 10^6 Monte Carlo steps</p>
+</li>
+<li><p>2D Ising Model:</p>
+<p>  系统哈密顿量：$\mathscr{H}=-J \sum_{\langle i, j\rangle} \sigma_i \sigma_j+H \sum_i \sigma_i$</p>
+<p>  通常忽略外场作用，$H = 0$, 系统能量 $<E> =-J \sum_{N} \sum_{\langle i, j\rangle} \sigma_i \sigma_j$</p>
+<p>  平均能量：$<e> = <E> / N$</p>
+<p>  磁化强度： $<M> = \sum_{i} s_{i}$</p>
+<p>  热容： $C=\frac{1}{N T^2}\left(\left\langle E^2\right\rangle-\langle E\rangle^2\right)$</p>
+<p>  磁化率 ：$\chi=\frac{1}{N T}\left(\left\langle M^2\right\rangle-\langle M\rangle^2\right)=\frac{N}{T}\left(\left\langle m^2\right\rangle-\langle m\rangle^2\right)$</p>
+</li>
+</ul>
+<ul>
+<li><p>关于计算参数：</p>
+<ul>
+<li><p>热化步数 Relaxation = 500， 迭代步数 Iteration = 200000（在本地跑大约13分钟）</p>
+</li>
+<li><p>温度范围：1 ~ 3.5 K，取点间隔为 0.05 K</p>
+</li>
+<li><p>大小分别取 L = 10,20,30， 周期性边界条件</p>
+</li>
+<li><p>de_corr = 3 是为了减少数据关联性，两次测量之间的等待步数</p>
+<p>代码如下：</p>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line">Tstart = <span class="number">0.85</span>                                           <span class="comment">#起始温度</span></span><br><span class="line">Tend = <span class="number">3.5</span>                                              <span class="comment">#终点温度</span></span><br><span class="line">Tstep = <span class="number">0.05</span>                                            <span class="comment">#步长</span></span><br><span class="line"></span><br><span class="line">J = <span class="number">1</span>                                                   <span class="comment">#Ising model 参数</span></span><br><span class="line">H = <span class="number">0</span></span><br><span class="line">Tc = <span class="number">2</span>*J / np.log(<span class="number">1</span>+np.sqrt(<span class="number">2</span>))                         <span class="comment"># Tc = 2.269J    </span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">random_state</span>(<span class="params">L</span>):                                    <span class="comment">#返回一个 L*L 的随机spin构型</span></span><br><span class="line">    M = np.random.randint(<span class="number">0</span>, <span class="number">2</span>, (L, L)) * <span class="number">2</span> - <span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> M</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">random_choose</span>(<span class="params">L</span>):                                   <span class="comment">#在 L*L Lattice 中随机选一个点</span></span><br><span class="line">    x = np.random.randint(L)</span><br><span class="line">    y = np.random.randint(L)</span><br><span class="line">    <span class="keyword">return</span> x,y</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">nn</span>(<span class="params">x,y,L</span>):                                          <span class="comment"># 返回 (x,y) 最近邻的四个点</span></span><br><span class="line">    <span class="keyword">return</span> (((x-<span class="number">1</span>)%L,y) , (x,(y+<span class="number">1</span>)%L) , ((x+<span class="number">1</span>)%L,y) , (x,(y-<span class="number">1</span>)%L))</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">single_point_E</span>(<span class="params">x,y,<span class="built_in">map</span>,s,N</span>):                        <span class="comment"># 返回 (x,y) 点 s 自旋构型的最近邻能量</span></span><br><span class="line">    tmp = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> (xx,yy) <span class="keyword">in</span> nn(x,y,N):</span><br><span class="line">        tmp += <span class="built_in">map</span>[xx][yy]</span><br><span class="line">    <span class="keyword">return</span> s * (-J * tmp + H)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">cal_total_E</span>(<span class="params"><span class="built_in">map</span>,N</span>):                                 <span class="comment"># 返回 map 自旋构型的总能量</span></span><br><span class="line">    <span class="built_in">sum</span> = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(N):</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(N):</span><br><span class="line">            <span class="built_in">sum</span> += single_point_E(i,j,<span class="built_in">map</span>,<span class="built_in">map</span>[i][j],N)</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">sum</span>/<span class="number">2</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">MC</span>(<span class="params">T,L,MainLoops,RelaxLoops,step,spin</span>):             <span class="comment"># Monte Carlo 主循环</span></span><br><span class="line">    S = L * L</span><br><span class="line">    Q_M = []</span><br><span class="line">    Q_M2 = []</span><br><span class="line">    Q_E = []</span><br><span class="line">    Q_E2 = []</span><br><span class="line">    Etotal = cal_total_E(spin,L)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(MainLoops+RelaxLoops):               <span class="comment">#循环包括 Relax 和 Sweep</span></span><br><span class="line"></span><br><span class="line">        x,y = random_choose(L)</span><br><span class="line">        s = spin[x][y]</span><br><span class="line">        curE = single_point_E(x,y,spin,s,L)</span><br><span class="line">        newE = single_point_E(x,y,spin,-s,L)</span><br><span class="line">        deltaE = newE - curE</span><br><span class="line">        alpha = np.exp(- deltaE / T)                    <span class="comment">#计算 alpha</span></span><br><span class="line">        <span class="keyword">if</span> deltaE &lt;= <span class="number">0</span>:                                 <span class="comment"># Metropolis 算法</span></span><br><span class="line">            spin[x][y] = -spin[x][y]</span><br><span class="line">            Etotal = Etotal + deltaE</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">if</span> np.random.random() &lt; alpha:</span><br><span class="line">                spin[x][y] = -spin[x][y]</span><br><span class="line">                Etotal = Etotal + deltaE</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> (i &gt; RelaxLoops <span class="keyword">and</span> (i-RelaxLoops)%step == <span class="number">0</span>):       <span class="comment">#如果是 sweep 部分，且减少数据关联性</span></span><br><span class="line">        <span class="comment">#if (i &gt; RelaxLoops):</span></span><br><span class="line">            M = np.<span class="built_in">abs</span>(np.<span class="built_in">sum</span>(spin))</span><br><span class="line">            m = M / S</span><br><span class="line">            m2 = m * m</span><br><span class="line">            Q_M.append(m)</span><br><span class="line">            Q_M2.append(m2)</span><br><span class="line"></span><br><span class="line">            e = Etotal / S</span><br><span class="line">            e2 = e * e</span><br><span class="line">            Q_E.append(e)</span><br><span class="line">            Q_E2.append(e2)</span><br><span class="line"></span><br><span class="line">    M_avg = np.mean(Q_M)</span><br><span class="line">    E_avg = np.mean(Q_E)</span><br><span class="line">    C = (np.mean(Q_E2) - np.mean(Q_E) ** <span class="number">2</span>) / (T ** <span class="number">2</span>)</span><br><span class="line">    X = (np.mean(Q_M2) - np.mean(Q_M) ** <span class="number">2</span>) / T</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> spin,E_avg,M_avg,C * S,X * S                         <span class="comment">#返回 自选构型，平均能，平均磁化强度，热容，磁化率</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">draw_results</span>(<span class="params">A</span>):                                            <span class="comment"># 画四个物理量的图</span></span><br><span class="line">    plt.figure(figsize = (<span class="number">16</span>,<span class="number">10</span>))</span><br><span class="line">    p1 = plt.subplot(<span class="number">221</span>)</span><br><span class="line">    plt.xlabel(<span class="string">&#x27;T&#x27;</span>)  </span><br><span class="line">    plt.ylabel(<span class="string">&#x27;&lt;E&gt;&#x27;</span>)</span><br><span class="line">    p1.scatter(A[<span class="number">0</span>][<span class="number">0</span>],A[<span class="number">0</span>][<span class="number">1</span>], color = <span class="string">&quot;r&quot;</span>, marker =<span class="string">&quot;o&quot;</span>, label = <span class="string">&quot;L=10&quot;</span>,alpha=<span class="number">0.45</span>)</span><br><span class="line">    p1.scatter(A[<span class="number">1</span>][<span class="number">0</span>],A[<span class="number">1</span>][<span class="number">1</span>], color = <span class="string">&quot;b&quot;</span>, marker =<span class="string">&quot;o&quot;</span>, label = <span class="string">&quot;L=20&quot;</span>,alpha=<span class="number">0.45</span>)</span><br><span class="line">    p1.scatter(A[<span class="number">2</span>][<span class="number">0</span>],A[<span class="number">2</span>][<span class="number">1</span>], color = <span class="string">&quot;g&quot;</span>, marker =<span class="string">&quot;o&quot;</span>, label = <span class="string">&quot;L=30&quot;</span>,alpha=<span class="number">0.45</span>)</span><br><span class="line">    plt.legend()</span><br><span class="line">    p1 = plt.subplot(<span class="number">222</span>)</span><br><span class="line">    plt.xlabel(<span class="string">&#x27;T&#x27;</span>)</span><br><span class="line">    plt.ylabel(<span class="string">&#x27;&lt;M&gt;&#x27;</span>)</span><br><span class="line">    p1.scatter(A[<span class="number">0</span>][<span class="number">0</span>],A[<span class="number">0</span>][<span class="number">2</span>], color = <span class="string">&quot;r&quot;</span>, marker =<span class="string">&quot;o&quot;</span>, label = <span class="string">&quot;L=10&quot;</span>,alpha=<span class="number">0.45</span>)</span><br><span class="line">    p1.scatter(A[<span class="number">1</span>][<span class="number">0</span>],A[<span class="number">1</span>][<span class="number">2</span>], color = <span class="string">&quot;b&quot;</span>, marker =<span class="string">&quot;o&quot;</span>, label = <span class="string">&quot;L=20&quot;</span>,alpha=<span class="number">0.45</span>)</span><br><span class="line">    p1.scatter(A[<span class="number">2</span>][<span class="number">0</span>],A[<span class="number">2</span>][<span class="number">2</span>], color = <span class="string">&quot;g&quot;</span>, marker =<span class="string">&quot;o&quot;</span>, label = <span class="string">&quot;L=30&quot;</span>,alpha=<span class="number">0.45</span>)</span><br><span class="line">    plt.legend()</span><br><span class="line">    p1 = plt.subplot(<span class="number">223</span>)</span><br><span class="line">    plt.xlabel(<span class="string">&#x27;T&#x27;</span>)</span><br><span class="line">    plt.ylabel(<span class="string">&#x27;C&#x27;</span>)</span><br><span class="line">    p1.scatter(A[<span class="number">0</span>][<span class="number">0</span>],A[<span class="number">0</span>][<span class="number">3</span>], color = <span class="string">&quot;r&quot;</span>, marker =<span class="string">&quot;o&quot;</span>, label = <span class="string">&quot;L=10&quot;</span>,alpha=<span class="number">0.45</span>)</span><br><span class="line">    p1.scatter(A[<span class="number">1</span>][<span class="number">0</span>],A[<span class="number">1</span>][<span class="number">3</span>], color = <span class="string">&quot;b&quot;</span>, marker =<span class="string">&quot;o&quot;</span>, label = <span class="string">&quot;L=20&quot;</span>,alpha=<span class="number">0.45</span>)</span><br><span class="line">    p1.scatter(A[<span class="number">2</span>][<span class="number">0</span>],A[<span class="number">2</span>][<span class="number">3</span>], color = <span class="string">&quot;g&quot;</span>, marker =<span class="string">&quot;o&quot;</span>, label = <span class="string">&quot;L=30&quot;</span>,alpha=<span class="number">0.45</span>)</span><br><span class="line">    plt.legend()</span><br><span class="line">    p1 = plt.subplot(<span class="number">224</span>)</span><br><span class="line">    plt.xlabel(<span class="string">&#x27;T&#x27;</span>)</span><br><span class="line">    plt.ylabel(<span class="string">&#x27;X&#x27;</span>)</span><br><span class="line">    p1.scatter(A[<span class="number">0</span>][<span class="number">0</span>],A[<span class="number">0</span>][<span class="number">4</span>], color = <span class="string">&quot;r&quot;</span>, marker =<span class="string">&quot;o&quot;</span>, label = <span class="string">&quot;L=10&quot;</span>,alpha=<span class="number">0.45</span>)</span><br><span class="line">    p1.scatter(A[<span class="number">1</span>][<span class="number">0</span>],A[<span class="number">1</span>][<span class="number">4</span>], color = <span class="string">&quot;b&quot;</span>, marker =<span class="string">&quot;o&quot;</span>, label = <span class="string">&quot;L=20&quot;</span>,alpha=<span class="number">0.45</span>)</span><br><span class="line">    p1.scatter(A[<span class="number">2</span>][<span class="number">0</span>],A[<span class="number">2</span>][<span class="number">4</span>], color = <span class="string">&quot;g&quot;</span>, marker =<span class="string">&quot;o&quot;</span>, label = <span class="string">&quot;L=30&quot;</span>,alpha=<span class="number">0.45</span>)</span><br><span class="line">    plt.legend()</span><br><span class="line">    plt.show()</span><br><span class="line"> </span><br><span class="line"><span class="keyword">if</span> __name__==<span class="string">&quot;__main__&quot;</span>:</span><br><span class="line"></span><br><span class="line">    <span class="type">List</span> = [<span class="number">10</span>,<span class="number">20</span>,<span class="number">30</span>]</span><br><span class="line">    Iteration = <span class="number">200000</span></span><br><span class="line">    <span class="comment">#Iteration = 600000</span></span><br><span class="line">    Relaxation = <span class="number">500</span></span><br><span class="line">    de_corr = <span class="number">3</span></span><br><span class="line">    Ans = []</span><br><span class="line">    <span class="keyword">for</span> L <span class="keyword">in</span> <span class="type">List</span>:</span><br><span class="line">        TList = []</span><br><span class="line">        MList = []</span><br><span class="line">        EList = []</span><br><span class="line">        CList = []</span><br><span class="line">        XList = []</span><br><span class="line">        spin = random_state(L)</span><br><span class="line">        <span class="keyword">for</span> T <span class="keyword">in</span> np.arange(Tstart,Tend,Tstep):</span><br><span class="line">            TList.append(T)</span><br><span class="line">            spin,E,M,C,X = MC(T,L,Iteration,Relaxation,de_corr,spin)</span><br><span class="line">            EList.append(E)</span><br><span class="line">            MList.append(M)</span><br><span class="line">            CList.append(C)</span><br><span class="line">            XList.append(X)</span><br><span class="line">        Ans.append((TList[<span class="number">3</span>:],EList[<span class="number">3</span>:],MList[<span class="number">3</span>:],CList[<span class="number">3</span>:],XList[<span class="number">3</span>:]))</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;compelete : &quot;</span>+<span class="built_in">str</span>(<span class="built_in">round</span>(L/<span class="number">10</span>))+<span class="string">&quot;/3&quot;</span>)</span><br><span class="line">    draw_results(Ans)  </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<pre><code>compelete : 1/3
+compelete : 2/3
+compelete : 3/3
+</code></pre><ul>
+<li><p>关于临界指数：考虑 $M\sim|T-T_c|^{\beta}$ 和 $\chi \sim |T-T_c|^{-\gamma}$, 我们知道 Excat solution 是 </p>
+  <div  align="center">    
+  <img src=https://s2.loli.net/2022/11/22/DcelYIoZ4BvPQw8.png style="zoom:70%" />   
+  </div>
+
+
+</li>
+</ul>
+<pre><code>取对数坐标，分别绘图如下：
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">draw_exponent_M</span>(<span class="params">A,<span class="type">List</span></span>):                                      <span class="comment"># 画临界指数 : M~|T-Tc|^beta</span></span><br><span class="line">    </span><br><span class="line">    plt.figure(figsize = (<span class="number">8</span>,<span class="number">5</span>))</span><br><span class="line">    plt.xlabel(<span class="string">&#x27;|T-Tc|*L&#x27;</span>)  </span><br><span class="line">    plt.ylabel(<span class="string">&#x27;&lt;M&gt;*L^1/8&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    X = []</span><br><span class="line">    Y = []</span><br><span class="line">    <span class="keyword">for</span> T <span class="keyword">in</span> A[<span class="number">0</span>][<span class="number">0</span>]:</span><br><span class="line">        X.append(np.<span class="built_in">abs</span>(T-Tc) * L)</span><br><span class="line">    <span class="keyword">for</span> M <span class="keyword">in</span> A[<span class="number">0</span>][<span class="number">2</span>]:</span><br><span class="line">        Y.append(M * np.power(L,<span class="number">1</span>/<span class="number">8</span>))</span><br><span class="line">    plt.loglog(X,Y, <span class="string">&#x27;.&#x27;</span>, color = <span class="string">&quot;r&quot;</span>, marker =<span class="string">&quot;o&quot;</span>, label = <span class="string">&quot;L=10&quot;</span>,alpha=<span class="number">0.45</span>)</span><br><span class="line">    plt.legend()</span><br><span class="line"></span><br><span class="line">    X = []</span><br><span class="line">    Y = []</span><br><span class="line">    <span class="keyword">for</span> T <span class="keyword">in</span> A[<span class="number">1</span>][<span class="number">0</span>]:</span><br><span class="line">        X.append(np.<span class="built_in">abs</span>(T-Tc) * L)</span><br><span class="line">    <span class="keyword">for</span> M <span class="keyword">in</span> A[<span class="number">1</span>][<span class="number">2</span>]:</span><br><span class="line">        Y.append(M * np.power(L,<span class="number">1</span>/<span class="number">8</span>))</span><br><span class="line">    plt.loglog(X,Y, <span class="string">&#x27;.&#x27;</span>,color = <span class="string">&quot;b&quot;</span>, marker =<span class="string">&quot;o&quot;</span>, label = <span class="string">&quot;L=20&quot;</span>,alpha=<span class="number">0.45</span>)</span><br><span class="line">    plt.legend()</span><br><span class="line"></span><br><span class="line">    X = []</span><br><span class="line">    Y = []</span><br><span class="line">    <span class="keyword">for</span> T <span class="keyword">in</span> A[<span class="number">2</span>][<span class="number">0</span>]:</span><br><span class="line">        X.append(np.<span class="built_in">abs</span>(T-Tc) * L)</span><br><span class="line">    <span class="keyword">for</span> M <span class="keyword">in</span> A[<span class="number">2</span>][<span class="number">2</span>]:</span><br><span class="line">        Y.append(M * np.power(L,<span class="number">1</span>/<span class="number">8</span>))</span><br><span class="line">    plt.loglog(X,Y, <span class="string">&#x27;.&#x27;</span>,color = <span class="string">&quot;g&quot;</span>, marker =<span class="string">&quot;o&quot;</span>, label = <span class="string">&quot;L=30&quot;</span>,alpha=<span class="number">0.45</span>)</span><br><span class="line">    plt.legend()</span><br><span class="line"></span><br><span class="line">    plt.show()</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">draw_exponent_chi</span>(<span class="params">A,<span class="type">List</span></span>):                                      <span class="comment"># 画临界指数 X ~ |T-Tc|^(-gamma)</span></span><br><span class="line">    </span><br><span class="line">    plt.figure(figsize = (<span class="number">8</span>,<span class="number">5</span>))</span><br><span class="line">    plt.xlabel(<span class="string">&#x27;|T-Tc|*L&#x27;</span>)  </span><br><span class="line">    plt.ylabel(<span class="string">&#x27;&lt;X&gt;*L^(-7/4)&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    X = []</span><br><span class="line">    Y = []</span><br><span class="line">    <span class="keyword">for</span> T <span class="keyword">in</span> A[<span class="number">0</span>][<span class="number">0</span>]:</span><br><span class="line">        X.append(np.<span class="built_in">abs</span>(T-Tc) * L)</span><br><span class="line">    <span class="keyword">for</span> Chi <span class="keyword">in</span> A[<span class="number">0</span>][<span class="number">3</span>]:</span><br><span class="line">        Y.append(Chi * np.power(L,-<span class="number">7</span>/<span class="number">4</span>))</span><br><span class="line">    plt.loglog(X,Y, <span class="string">&#x27;.&#x27;</span>, color = <span class="string">&quot;r&quot;</span>, marker =<span class="string">&quot;o&quot;</span>, label = <span class="string">&quot;L=10&quot;</span>,alpha=<span class="number">0.45</span>)</span><br><span class="line">    plt.legend()</span><br><span class="line"></span><br><span class="line">    X = []</span><br><span class="line">    Y = []</span><br><span class="line">    <span class="keyword">for</span> T <span class="keyword">in</span> A[<span class="number">1</span>][<span class="number">0</span>]:</span><br><span class="line">        X.append(np.<span class="built_in">abs</span>(T-Tc) * L)</span><br><span class="line">    <span class="keyword">for</span> Chi <span class="keyword">in</span> A[<span class="number">1</span>][<span class="number">3</span>]:</span><br><span class="line">        Y.append(Chi * np.power(L,-<span class="number">7</span>/<span class="number">4</span>))</span><br><span class="line">    plt.loglog(X,Y, <span class="string">&#x27;.&#x27;</span>,color = <span class="string">&quot;b&quot;</span>, marker =<span class="string">&quot;o&quot;</span>, label = <span class="string">&quot;L=20&quot;</span>,alpha=<span class="number">0.45</span>)</span><br><span class="line">    plt.legend()</span><br><span class="line"></span><br><span class="line">    X = []</span><br><span class="line">    Y = []</span><br><span class="line">    <span class="keyword">for</span> T <span class="keyword">in</span> A[<span class="number">2</span>][<span class="number">0</span>]:</span><br><span class="line">        X.append(np.<span class="built_in">abs</span>(T-Tc) * L)</span><br><span class="line">    <span class="keyword">for</span> Chi <span class="keyword">in</span> A[<span class="number">2</span>][<span class="number">3</span>]:</span><br><span class="line">        Y.append(Chi * np.power(L,-<span class="number">7</span>/<span class="number">4</span>))</span><br><span class="line">    plt.loglog(X,Y, <span class="string">&#x27;.&#x27;</span>,color = <span class="string">&quot;g&quot;</span>, marker =<span class="string">&quot;o&quot;</span>, label = <span class="string">&quot;L=30&quot;</span>,alpha=<span class="number">0.45</span>)</span><br><span class="line">    plt.legend()</span><br><span class="line">    plt.show()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">draw_exponent_M(Ans,<span class="type">List</span>) </span><br><span class="line"></span><br><span class="line">draw_exponent_chi(Ans,<span class="type">List</span>) </span><br><span class="line"> </span><br></pre></td></tr></table></figure>
+<p>​    </p>
+<ul>
+<li><p>平均能、磁化强度、磁化率和热容对应的比较好，可以确定 Tc 的范围，但受限于算法的复杂度，要想提高精度则需要更长的 Iteration，意味着更长的耗时。</p>
+</li>
+<li><p>这里我在本地运行 Iteration = 600000(6*10^5)结果截图如下(大约半小时)：</p>
+  <div  align="center">    
+  <img src=https://s2.loli.net/2022/11/22/WSukEVHJXI4DUTK.png style="zoom:60%" />   
+  </div>
+
+  <div  align="center">    
+  <img src=https://s2.loli.net/2022/11/22/HJIbctGVA3s9vqy.png style="zoom:50%" />   
+  </div>
+
+  <div  align="center">    
+  <img src=https://s2.loli.net/2022/11/22/JSX8miRjc2YdHFo.png style="zoom:50%" />   
+  </div>
+</li>
+<li><p>和 1/8 (-7/4) 的精确解斜率符合得较好</p>
+</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+	
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2022/11/22/HW_itebd/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1502,256 +1659,6 @@ H=-J \sum_{i=1}^{N-1}\left(g \sigma_i^x+\sigma_i^z \sigma_{i+1}^z\right) \quad J
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/18/HW_TF_Ising_model/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Hsu Quinn">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="BLOG">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/10/18/HW_TF_Ising_model/" class="post-title-link" itemprop="url">Transverse-field Ising Model</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-10-18 11:54:00" itemprop="dateCreated datePublished" datetime="2022-10-18T11:54:00+08:00">2022-10-18</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-10-30 21:56:24" itemprop="dateModified" datetime="2022-10-30T21:56:24+08:00">2022-10-30</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Computational-Quantum-Physics/" itemprop="url" rel="index"><span itemprop="name">Computational Quantum Physics</span></a>
-                </span>
-            </span>
-
-          
-            <span class="post-meta-item" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-users"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="firestore-visitors-count"></span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <font size=5>Homework(task3)</font>
-
-<ul>
-<li><p>consider the transverse-field Ising model on a N-site ring. please take both sets of parameters for homework:</p>
-</li>
-<li><p>$(a) J = 1, g = 1.7 \; (b) J = 1, g = 0.7$</p>
-</li>
-</ul>
-<script type="math/tex; mode=display">
-\begin{gathered}
-H=-J \sum_{i=1}^N\left(g \sigma_i^x+\sigma_i^z \sigma_{i+1}^z\right) \\
-\sigma^x=\left(\begin{array}{ll}
-0 & 1 \\
-1 & 0
-\end{array}\right), \sigma^z=\left(\begin{array}{cc}
-1 & 0 \\
-0 & -1
-\end{array}\right)
-\end{gathered}</script><ul>
-<li><p>(1) write a code to calculate the dispersion relation E(k) of this model,<br>show the eigenvalues in each momentum sector for N = 8</p>
-</li>
-<li><p>(2) for N = 6, show that the eigenvalues agree with the exact solution</p>
-</li>
-<li>hint: it depends on fermion parity and parameters</li>
-</ul>
-<p><font size=4>简单思路分析</font></p>
-<ul>
-<li>首先我们分析一下 transverse-field Ising model 的对称性。由 $\sigma^{x}$ 和 $\sigma^{z}$ 的矩阵表示可知：<script type="math/tex; mode=display">
-\begin{gathered}
-\sigma^x |\uparrow > = |\downarrow >  \\
-\sigma^x |\downarrow > = |\uparrow >  \\
-\sigma^z |\uparrow > = |\uparrow >  \\
-\sigma^z |\downarrow > = - |\downarrow > 
-\end{gathered}</script></li>
-<li>$<br>  H=-J \sum_{i=1}^N\left(g \sigma_i^x+\sigma_i^z \sigma_{i+1}^z\right)<br>$<br>表明，其横场作用项的效果是一个 Flip ，从而导致总自旋不守恒，即没有 $U(1)$ symmetry；不过可以证明 $[H,T]=0$，哈密顿量与平移算符有对易关系，即体系有 translational symmetry</li>
-<li>定义 project : $P_k=\dfrac{1}{N} \sum_{j=0}^{N-1} e^{i \frac{2 \pi}{N} k j} T^j$，归一化的动量空间基矢和在此基矢下的哈密顿矩阵元表示为：</li>
-</ul>
-<script type="math/tex; mode=display">
-\left|r_k\right\rangle=\frac{P_k|r\rangle}{\sqrt{\left\langle r\left|P_k^{\dagger} P_k\right| r\right\rangle}}=\frac{P_k|r\rangle}{\sqrt{\left\langle r\left|P_k\right| r\right\rangle}}</script><script type="math/tex; mode=display">
-\left\langle r_k^{\prime}|H| r_k\right\rangle=\frac{\left\langle r^{\prime}\left|P_k^{\dagger} H P_k\right| r\right\rangle}{\sqrt{\left\langle r^{\prime}\left|P_k\right| r^{\prime}\right\rangle\left\langle r\left|P_k\right| r\right\rangle}}=\frac{\left\langle r^{\prime}\left|P_k H\right| r\right\rangle}{\sqrt{\left\langle r^{\prime}\left|P_k\right| r^{\prime}\right\rangle\left\langle r\left|P_k\right| r\right\rangle}}</script><ul>
-<li>以 $N=4$ 为例，下图是只考虑平移对称性时的块对角化哈密顿矩阵：</li>
-</ul>
-<div  align="center">    
-<img src=https://s2.loli.net/2022/10/17/PhRBHrWQNu4YAfj.png style="zoom:50%" />
-</div>
-
-
-<ul>
-<li><p>only translational symmetry:  (1+1+2+1+1) + (1+1+1) + (1+2+1) + (1+1+1) = 16</p>
-</li>
-<li><p>下面是具体代码实现：</p>
-</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#第一题，N=8，求E(k)</span></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> scipy.sparse.linalg <span class="keyword">as</span> LA</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"></span><br><span class="line">J = <span class="number">1</span></span><br><span class="line">PI = np.pi</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">ReadBit</span>(<span class="params">i,n</span>):                                   <span class="comment">#读取i的第n位</span></span><br><span class="line">    <span class="keyword">return</span> (i&amp;(<span class="number">1</span>&lt;&lt;n))&gt;&gt;n</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">FlipBit</span>(<span class="params">i,n</span>):                                   <span class="comment">#翻转i的第n位                            </span></span><br><span class="line">    <span class="keyword">return</span> i^(<span class="number">1</span>&lt;&lt;n)</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">PickBit</span>(<span class="params">i,k,n</span>):                                 <span class="comment">#从i的第k位开始截取n位</span></span><br><span class="line">    <span class="keyword">return</span> (i&amp;((<span class="number">2</span>**n-<span class="number">1</span>))&lt;&lt;k)&gt;&gt;k</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">RotLBit</span>(<span class="params">i,L,n</span>):                                 <span class="comment">#长度为L的i的n位左移</span></span><br><span class="line">    <span class="keyword">return</span> (PickBit(i,<span class="number">0</span>,L-n)&lt;&lt;n)+(i&gt;&gt;(L-n))</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">PopCntBit</span>(<span class="params">i</span>):                                   <span class="comment">#i态中“1”的个数             </span></span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">bin</span>(i).count(<span class="string">&quot;1&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">T</span>(<span class="params">state,k,N</span>):                                     <span class="comment">#平移算符就是RotLBit(state,N,k)</span></span><br><span class="line">    <span class="keyword">return</span> RotLBit(state,N,k)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">Findmin</span>(<span class="params">state,N</span>):                                 <span class="comment">#寻找平移算符作用在state态上能得到的值最小的态，这个态作为“代表性基矢”</span></span><br><span class="line">    ans = state</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(N):</span><br><span class="line">        tmp = T(state, i, N)</span><br><span class="line">        <span class="keyword">if</span>(tmp &lt; ans):</span><br><span class="line">            ans = tmp</span><br><span class="line">    <span class="keyword">return</span> ans</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">Pk</span>(<span class="params">r,k,N</span>):                                        <span class="comment">#算符 P_k 作用在态 r 上得到的态，返回值是一个矢量</span></span><br><span class="line">    n = <span class="number">1</span>&lt;&lt;N</span><br><span class="line">    res = np.zeros(n,dtype=<span class="built_in">complex</span>)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(N):</span><br><span class="line">        res[T(r,i,N)] += np.exp(<span class="number">2</span>*PI*k*i/N * <span class="number">1.0j</span>) / N <span class="comment">#定义</span></span><br><span class="line">    <span class="keyword">return</span> res</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">PkH</span>(<span class="params">r,k,P,g,N</span>):                                     <span class="comment">#算符 P_k * H 作用在态 r 上得到的态，返回值是一个矢量</span></span><br><span class="line">    n = <span class="number">1</span>&lt;&lt;N</span><br><span class="line">    Hr = np.zeros(n,dtype=<span class="built_in">complex</span> )</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(N):                              <span class="comment">#sigma_x 横场项</span></span><br><span class="line">        Hr[FlipBit(r,i)] = -J * g                   </span><br><span class="line">    cnt = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> site <span class="keyword">in</span> <span class="built_in">range</span>(N):                           <span class="comment">#sigma_z 经典Ising项</span></span><br><span class="line">        <span class="keyword">if</span> ReadBit(r,site) ^ ReadBit(r,(site+<span class="number">1</span>) % N):</span><br><span class="line">            cnt += -<span class="number">1</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            cnt += <span class="number">1</span></span><br><span class="line">    Hr[r] = -J * cnt</span><br><span class="line">    res = np.zeros(n,dtype=<span class="built_in">complex</span>)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n):</span><br><span class="line">        res += Hr[i] * P[i]                         <span class="comment"># P[i] 是初始化存储好的 P_k 算符作用结果，方便 O(1)查找节省时间</span></span><br><span class="line">    <span class="keyword">return</span> res      </span><br></pre></td></tr></table></figure>
-<ul>
-<li><p>下面的 H dis_k 是按照 $k$ 分类来存储块哈密顿矩阵</p>
-</li>
-<li><p>$\mathrm{R} $ 存储满足 $T^R|r\rangle=|r\rangle$ 的步数，方面后面寻找满足 $k R=$ integer $\cdot N$ 的 $k$</p>
-</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">calculation</span>(<span class="params">N,g</span>):   </span><br><span class="line">    n = <span class="number">1</span>&lt;&lt;N</span><br><span class="line">    <span class="comment">#print(&quot;g=&quot;+str(g))</span></span><br><span class="line">    H_dis_k = []</span><br><span class="line">    R = np.zeros(n)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n):</span><br><span class="line">        k = <span class="number">1</span></span><br><span class="line">        <span class="keyword">while</span> (T(i,k,N) != i):</span><br><span class="line">            k += <span class="number">1</span></span><br><span class="line">        R[i] = k</span><br><span class="line">    <span class="comment">#list 存储“代表性基矢”</span></span><br><span class="line">    <span class="built_in">list</span> = []</span><br><span class="line">    <span class="keyword">for</span> state <span class="keyword">in</span> <span class="built_in">range</span>(n):</span><br><span class="line">        inistate = Findmin(state,N)</span><br><span class="line">        <span class="keyword">if</span> (inistate == state):</span><br><span class="line">            <span class="built_in">list</span>.append(state)</span><br><span class="line">    <span class="comment">#Pr 按 k 分类来投影基矢 Pk|r&gt;</span></span><br><span class="line">    Pr = [[] <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(N)]</span><br><span class="line">    <span class="keyword">for</span> k <span class="keyword">in</span> <span class="built_in">range</span>(N):</span><br><span class="line">        <span class="keyword">for</span> state <span class="keyword">in</span> <span class="built_in">list</span>:</span><br><span class="line">            <span class="keyword">if</span> (k*R[state]) % N == <span class="number">0</span>:</span><br><span class="line">                Pr[k].append(state)</span><br><span class="line">    <span class="keyword">for</span> k <span class="keyword">in</span> <span class="built_in">range</span>(N):</span><br><span class="line">        s = <span class="built_in">len</span>(Pr[k])                                  <span class="comment">#s是Pr[k]基矢个数，即 k 对应的子矩阵大小</span></span><br><span class="line">        M = np.zeros([s,s],dtype = <span class="built_in">complex</span>)             <span class="comment">#M 存储当前 k 值下的子矩阵</span></span><br><span class="line">        P = np.zeros([n,n],dtype = <span class="built_in">complex</span>)             <span class="comment">#P 存储的 P_k 算符作用结果，方便 O(1)查找节省时间</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n):</span><br><span class="line">            P[i] = Pk(i,k,N)</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(s):      </span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(s):                          <span class="comment">#按照前面推导结果求 M[j][i]</span></span><br><span class="line">                r = Pr[k][i]</span><br><span class="line">                rr = Pr[k][j]</span><br><span class="line">                M[j][i] = PkH(r,k,P,g,N)[rr] / np.sqrt(P[r][r] * P[rr][rr])</span><br><span class="line">        E,W = np.linalg.eigh(M)</span><br><span class="line">        <span class="comment">#print(&quot;k=&quot;+str(k))</span></span><br><span class="line">        <span class="comment">#print(np.real(np.round(E,5)),sep=&quot;,&quot;)</span></span><br><span class="line">        H_dis_k.append(E)</span><br><span class="line"></span><br><span class="line">    <span class="comment">#绘制色散关系 E(k)</span></span><br><span class="line">    x = []</span><br><span class="line">    y = []</span><br><span class="line">    <span class="keyword">for</span> k <span class="keyword">in</span> <span class="built_in">range</span>(N):</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(H_dis_k[k])):</span><br><span class="line">            x.append(k)</span><br><span class="line">            y.append(H_dis_k[k][i])</span><br><span class="line">    plt.xlabel(<span class="string">&quot;k&quot;</span>)</span><br><span class="line">    plt.ylabel(<span class="string">&quot;E&quot;</span>)</span><br><span class="line">    plt.title(<span class="string">&quot;g=&quot;</span>+<span class="built_in">str</span>(g)+<span class="string">&quot;  E(k)&quot;</span>)</span><br><span class="line">    plt.scatter(x, y, <span class="number">3</span>)</span><br><span class="line">    plt.savefig(<span class="string">&quot;N_&quot;</span>+<span class="built_in">str</span>(N)+<span class="string">&quot;_g_&quot;</span>+<span class="built_in">str</span>(g)+<span class="string">&quot;.png&quot;</span>)</span><br><span class="line">    plt.clf()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> H_dis_k</span><br></pre></td></tr></table></figure>
-<ul>
-<li>对于第一问，N=8，分别计算g=1.7和0.7，得到结果如下（print函数费时，该代码块运行一次大概15s）：</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">E1 = calculation(<span class="number">8</span>,<span class="number">1.7</span>)</span><br><span class="line">E2 = calculation(<span class="number">8</span>,<span class="number">0.7</span>)</span><br><span class="line">N = <span class="number">8</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;g=&quot;</span>+<span class="built_in">str</span>(<span class="number">1.7</span>))</span><br><span class="line"><span class="keyword">for</span> k <span class="keyword">in</span> <span class="built_in">range</span>(N):</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;k=&quot;</span>+<span class="built_in">str</span>(k))</span><br><span class="line">    <span class="keyword">for</span> item <span class="keyword">in</span> E1[k]:</span><br><span class="line">        <span class="built_in">print</span>(np.real(np.<span class="built_in">round</span>(item,<span class="number">5</span>)),sep=<span class="string">&quot;,&quot;</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot; &quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;g=&quot;</span>+<span class="built_in">str</span>(<span class="number">0.7</span>))</span><br><span class="line"><span class="keyword">for</span> k <span class="keyword">in</span> <span class="built_in">range</span>(N):</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;k=&quot;</span>+<span class="built_in">str</span>(k))</span><br><span class="line">    <span class="keyword">for</span> item <span class="keyword">in</span> E2[k]:</span><br><span class="line">        <span class="built_in">print</span>(np.real(np.<span class="built_in">round</span>(item,<span class="number">5</span>)),sep=<span class="string">&quot;,&quot;</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot; &quot;</span>)</span><br></pre></td></tr></table></figure>
-<ul>
-<li><p>N = 8 时， k 所对应的本征值比较多:</p>
-</li>
-<li><p>色散关系图如下图所示（pltshow的图片没有坐标，截图放在目录下pic文件夹下）：</p>
-</li>
-</ul>
-<div  align="center">    
-<img src=https://s2.loli.net/2022/10/18/YPxIZAcEedmhp1q.png style="zoom:70%" />  
-<img src=https://s2.loli.net/2022/10/18/t516zUgqC7lcVT9.png style="zoom:70%" />
-</div>
-
-
-<ul>
-<li>对于第二问，Transverse field Ising model 是有 Exact Solution 的，具体推导见 PPT，这里简单梳理一下：</li>
-</ul>
-<ul>
-<li><p>Step 1: Jordan-Wigner transformation</p>
-<p>  1/2 自旋子和无自旋费米子之间映射：$\sigma_i^z=-\prod_{j=1}^{i-1}\left(1-2 C_j^{\dagger} C_j\right)\left(C_i+C_i^{\dagger}\right), \quad \sigma_i^x=1-2 C_i^{\dagger} C_i$</p>
-<script type="math/tex; mode=display">
-  \begin{aligned}
-  H &=-J \sum_{i=1}^N\left(g \sigma_i^x+\sigma_i^z \sigma_{i+1}^z\right) \\
-  &=-J \sum_{i=1}^N g\left(1-2 C_i^{\dagger} C_i\right)-J \sum_{i=1}^{N-1}\left(C_i^{\dagger}-C_i\right)\left(C_{i+1}+C_{i+1}^{\dagger}\right)+J P\left(C_N^{\dagger}-C_N\right)\left(C_1+C_1^{\dagger}\right)
-  \end{aligned}</script></li>
-</ul>
-<p>where $\quad P=\prod_{i=1}^N \sigma_i^x=\prod_{j=1}^N\left(1-2 C_j^{\dagger} C_j\right)=\exp (i \pi M), \quad M=\sum_{i=1}^N C_i^{\dagger} C_i$</p>
-<ul>
-<li><p>Step 2: Fourier transformation</p>
-<script type="math/tex; mode=display">
-  C_k=\frac{1}{\sqrt{N}} \sum_{j=1}^N C_j \exp (-i k j), \quad k=2 \pi n / N</script><script type="math/tex; mode=display">
-  H=J \sum_k\left[2(g-\cos k) C_k^{\dagger} C_k+i \sin k\left(C_{-k}^{\dagger} C_k^{\dagger}+C_{-k} C_k\right)-g\right]</script></li>
-<li><p>Step 3: Bogliubov transformation</p>
-<p>  we introduce</p>
-<script type="math/tex; mode=display">
-  \begin{array}{ll}
-  C_k=u_k \gamma_k+i v_k \gamma_{-k}^{\dagger}, & C_{-k}=u_k \gamma_{-k}-i v_k \gamma_k^{\dagger} \\
-  C_k^{\dagger}=u_k \gamma_k^{\dagger}-i v_k \gamma_{-k}, & C_{-k}^{\dagger}=u_k \gamma_{-k}^{\dagger}+i v_k \gamma_k
-  \end{array}</script><p>  where $u_k, v_k$ are real numbers, satisfying</p>
-<script type="math/tex; mode=display">
-  u_k^2+v_k^2=1, \quad u_{-k}=u_k, \quad v_{-k}=-v_k</script></li>
-<li><p>Step 4: final step</p>
-<p>  we choose</p>
-<script type="math/tex; mode=display">
-  u_k=\cos \left(\frac{\theta_k}{2}\right), \quad v_k=\sin \left(\frac{\theta_k}{2}\right), \quad \tan \theta_k=\frac{\sin k}{g-\cos k}</script><p>  we finally have</p>
-<script type="math/tex; mode=display">
-  \begin{aligned}
-  H &=2 J \sum_k \sqrt{1+g^2-2 g \cos k}\left(\gamma_k^{\dagger} \gamma_k-\frac{1}{2}\right) \\
-  &=2 J \sum_k \sqrt{1+g^2-2 g \cos k} \gamma_k^{\dagger} \gamma_k-J \sum_k \sqrt{1+g^2-2 g \cos k}=\sum_k \epsilon_k \gamma_k^{\dagger} \gamma_k-\epsilon_0
-  \end{aligned}</script></li>
-</ul>
-<ul>
-<li>我们可以根据最后结果 $\sum_k \epsilon_k \gamma_k^{\dagger} \gamma_k-\epsilon_0$ 求精确解，来和前面的做法作比较。</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#Exact Solution for g &gt; 1 (g=1.7)</span></span><br><span class="line">N =<span class="number">6</span></span><br><span class="line">g =<span class="number">1.7</span></span><br><span class="line"><span class="keyword">from</span> itertools <span class="keyword">import</span> combinations</span><br><span class="line">result = []                                             <span class="comment">#存最后结果</span></span><br><span class="line">K_even = []                                             </span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(N):                                      <span class="comment">#偶数：n是半整数</span></span><br><span class="line">    k = (<span class="number">2</span> * PI / N) * (-N/<span class="number">2</span> + <span class="number">0.5</span> + i)</span><br><span class="line">    eg = <span class="number">2</span> * np.sqrt(<span class="number">1</span> + g*g -<span class="number">2</span>*g*np.cos(k))</span><br><span class="line">    K_even.append(eg)</span><br><span class="line">eg0 = np.<span class="built_in">sum</span>(K_even) / <span class="number">2</span></span><br><span class="line"><span class="keyword">for</span> Num <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>,N+<span class="number">1</span>,<span class="number">2</span>):                              <span class="comment">#选取偶数个</span></span><br><span class="line">    selection = combinations(K_even,Num)                <span class="comment">#K_even 中选 Num 个</span></span><br><span class="line">    <span class="keyword">for</span> item <span class="keyword">in</span> selection:</span><br><span class="line">        result.append(np.<span class="built_in">sum</span>(item) - eg0)</span><br><span class="line">K_odd = []</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(N):                                      <span class="comment">#奇数：n是整数</span></span><br><span class="line">    k = (<span class="number">2</span> * PI / N) * (-N/<span class="number">2</span> + i )</span><br><span class="line">    eg = <span class="number">2</span> * np.sqrt(<span class="number">1</span> + g*g -<span class="number">2</span>*g*np.cos(k))</span><br><span class="line">    K_odd.append(eg)</span><br><span class="line">eg0 = (np.<span class="built_in">sum</span>(K_odd) ) / <span class="number">2</span></span><br><span class="line"><span class="keyword">for</span> Num <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>,N,<span class="number">2</span>):                                <span class="comment">#选取奇数个</span></span><br><span class="line">    selection = combinations(K_odd,Num)                 <span class="comment">#K_odd 中选 Num 个</span></span><br><span class="line">    <span class="keyword">for</span> item <span class="keyword">in</span> selection:</span><br><span class="line">        result.append(np.<span class="built_in">sum</span>(item) - eg0)</span><br><span class="line">result.sort()                                           <span class="comment">#排序方便比较</span></span><br><span class="line"><span class="built_in">print</span>(np.<span class="built_in">round</span>(result,<span class="number">5</span>))</span><br></pre></td></tr></table></figure>
-<pre><code>[-11.11794  -9.68837  -8.12864  -8.12864  -7.22844  -6.35973  -6.35973
-  -5.68837  -5.22857  -5.22857  -5.22857  -5.22857  -3.94462  -3.94462
-  -3.94462  -3.94462  -3.76891  -3.2287   -2.       -2.       -2.
-  -2.       -1.94475  -1.94475  -1.94475  -1.94475  -1.32864  -1.32864
-  -0.6608   -0.44027  -0.44027  -0.23109   0.23109   0.44027   0.44027
-   0.6608    1.32864   1.32864   1.94475   1.94475   1.94475   1.94475
-   2.        2.        2.        2.        3.2287    3.76891   3.94462
-   3.94462   3.94462   3.94462   5.22857   5.22857   5.22857   5.22857
-   5.68837   6.35973   6.35973   7.22844   8.12864   8.12864   9.68837
-  11.11794]
-</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#Exact Solution for g &lt; 1 (g=0.7)</span></span><br><span class="line">N = <span class="number">6</span></span><br><span class="line">g = <span class="number">0.7</span></span><br><span class="line"><span class="keyword">from</span> itertools <span class="keyword">import</span> combinations</span><br><span class="line">result = []                                             <span class="comment">#存最后结果</span></span><br><span class="line">K_even = []</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(N):</span><br><span class="line">    k = (<span class="number">2</span> * PI / N) * (-N/<span class="number">2</span> + <span class="number">0.5</span> + i)                 <span class="comment">#偶数：n是半整数</span></span><br><span class="line">    eg = <span class="number">2</span> * np.sqrt(<span class="number">1</span> + g*g -<span class="number">2</span>*g*np.cos(k))</span><br><span class="line">    K_even.append(eg)</span><br><span class="line">eg0 = np.<span class="built_in">sum</span>(K_even) / <span class="number">2</span></span><br><span class="line"><span class="keyword">for</span> Num <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>,N+<span class="number">1</span>,<span class="number">2</span>):                              <span class="comment">#选取偶数个</span></span><br><span class="line">    selection = combinations(K_even,Num)                <span class="comment">#K_even 中选 Num 个</span></span><br><span class="line">    <span class="keyword">for</span> item <span class="keyword">in</span> selection:</span><br><span class="line">        result.append(np.<span class="built_in">sum</span>(item) - eg0)</span><br><span class="line">K_odd = []</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(N):                                      <span class="comment">#奇数：n是整数</span></span><br><span class="line">    k = (<span class="number">2</span> * PI / N) * (-N/<span class="number">2</span> + i )</span><br><span class="line">    eg = <span class="number">2</span> * np.sqrt(<span class="number">1</span> + g*g -<span class="number">2</span>*g*np.cos(k))</span><br><span class="line">    K_odd.append(eg)</span><br><span class="line">eg0 = (np.<span class="built_in">sum</span>(K_odd) ) / <span class="number">2</span></span><br><span class="line"><span class="keyword">for</span> Num <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>,N+<span class="number">1</span>,<span class="number">2</span>):                              <span class="comment">#不一样的地方：g&lt;1时选取偶数个</span></span><br><span class="line">    selection = combinations(K_odd,Num)                 <span class="comment">#K_odd 中选 Num 个</span></span><br><span class="line">    <span class="keyword">for</span> item <span class="keyword">in</span> selection:</span><br><span class="line">        result.append(np.<span class="built_in">sum</span>(item) - eg0)</span><br><span class="line">result.sort()                                           <span class="comment">#排序方便比较</span></span><br><span class="line"><span class="built_in">print</span>(np.<span class="built_in">round</span>(result,<span class="number">5</span>))</span><br></pre></td></tr></table></figure>
-<pre><code>[-6.78282 -6.73737 -4.67544 -4.35973 -4.35973 -3.28782 -3.28782 -3.28782
- -3.28782 -3.18209 -3.17764 -3.17764 -2.73737 -2.44131 -2.44131 -2.44131
- -2.44131 -2.      -2.      -2.      -2.      -1.90019 -1.55973 -1.55973
- -1.05369 -1.05369 -1.05369 -1.05369 -0.81791 -0.37764 -0.37764 -0.20718
-  0.20718  0.37764  0.37764  0.81791  1.05369  1.05369  1.05369  1.05369
-  1.55973  1.55973  1.90019  2.       2.       2.       2.       2.44131
-  2.44131  2.44131  2.44131  2.73737  3.17764  3.17764  3.18209  3.28782
-  3.28782  3.28782  3.28782  4.35973  4.35973  4.67544  6.73737  6.78282]
-</code></pre><ul>
-<li>我们用 calculation 计算 N = 6 时 g = 1.7 和 g = 0.7 分别对应的本征值：</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">E1 = calculation(<span class="number">6</span>,<span class="number">1.7</span>)</span><br><span class="line">E2 = calculation(<span class="number">6</span>,<span class="number">0.7</span>)</span><br><span class="line">Ans1 = []</span><br><span class="line">Ans2 = []</span><br><span class="line">N = <span class="number">6</span></span><br><span class="line"><span class="keyword">for</span> k <span class="keyword">in</span> <span class="built_in">range</span>(N):</span><br><span class="line">    <span class="keyword">for</span> item <span class="keyword">in</span> E1[k]:</span><br><span class="line">        Ans1.append(np.real(np.<span class="built_in">round</span>(item,<span class="number">5</span>)))</span><br><span class="line"><span class="keyword">for</span> k <span class="keyword">in</span> <span class="built_in">range</span>(N):</span><br><span class="line">    <span class="keyword">for</span> item <span class="keyword">in</span> E2[k]:</span><br><span class="line">        Ans2.append(np.real(np.<span class="built_in">round</span>(item,<span class="number">5</span>)))</span><br><span class="line">Ans1.sort()</span><br><span class="line">Ans2.sort()</span><br><span class="line"><span class="built_in">print</span>(np.<span class="built_in">round</span>(Ans1,<span class="number">5</span>))</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot; &quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(np.<span class="built_in">round</span>(Ans2,<span class="number">5</span>))</span><br></pre></td></tr></table></figure>
-<pre><code>[-11.11794  -9.68837  -8.12864  -8.12864  -7.22844  -6.35973  -6.35973
-  -5.68837  -5.22857  -5.22857  -5.22857  -5.22857  -3.94462  -3.94462
-  -3.94462  -3.94462  -3.76891  -3.2287   -2.       -2.       -2.
-  -2.       -1.94475  -1.94475  -1.94475  -1.94475  -1.32864  -1.32864
-  -0.6608   -0.44027  -0.44027  -0.23109   0.23109   0.44027   0.44027
-   0.6608    1.32864   1.32864   1.94475   1.94475   1.94475   1.94475
-   2.        2.        2.        2.        3.2287    3.76891   3.94462
-   3.94462   3.94462   3.94462   5.22857   5.22857   5.22857   5.22857
-   5.68837   6.35973   6.35973   7.22844   8.12864   8.12864   9.68837
-  11.11794]
-
-[-6.78282 -6.73737 -4.67544 -4.35973 -4.35973 -3.28782 -3.28782 -3.28782
- -3.28782 -3.18209 -3.17764 -3.17764 -2.73737 -2.44131 -2.44131 -2.44131
- -2.44131 -2.      -2.      -2.      -2.      -1.90019 -1.55973 -1.55973
- -1.05369 -1.05369 -1.05369 -1.05369 -0.81791 -0.37764 -0.37764 -0.20718
-  0.20718  0.37764  0.37764  0.81791  1.05369  1.05369  1.05369  1.05369
-  1.55973  1.55973  1.90019  2.       2.       2.       2.       2.44131
-  2.44131  2.44131  2.44131  2.73737  3.17764  3.17764  3.18209  3.28782
-  3.28782  3.28782  3.28782  4.35973  4.35973  4.67544  6.73737  6.78282]
-
-
-
-&lt;Figure size 432x288 with 0 Axes&gt;
-</code></pre><ul>
-<li>为方便比较，都进行了排序，可以直观地发现 ED 得到的本征值和精确解一致。</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-	
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1823,7 +1730,7 @@ H=-J \sum_{i=1}^N\left(g \sigma_i^x+\sigma_i^z \sigma_{i+1}^z\right) \\
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-count">17</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
