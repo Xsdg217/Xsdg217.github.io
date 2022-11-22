@@ -182,6 +182,148 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/11/22/HW_itebd/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Hsu Quinn">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="BLOG">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/11/22/HW_itebd/" class="post-title-link" itemprop="url">3-site iTEBD method</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-11-22 14:32:30 / 修改时间：14:32:35" itemprop="dateCreated datePublished" datetime="2022-11-22T14:32:30+08:00">2022-11-22</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Computational-Quantum-Physics/" itemprop="url" rel="index"><span itemprop="name">Computational Quantum Physics</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-users"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="firestore-visitors-count"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <font size = 5> Homework</font>
+
+<ul>
+<li>consider the 1D spin model with open boundary condition</li>
+</ul>
+<script type="math/tex; mode=display">
+H=-\sum_j\left(\sigma_{j-1}^z \sigma_j^y \sigma_{j+1}^z+\sigma_j^x\right)</script><ul>
+<li><p>write a code for the 3-site iTEBD method</p>
+<p>  choose $D_{s} =  6 $, calculate the ground state energy $E$ per site, and the magnetization per site $\left\langle\sigma_i^z\right\rangle$ and $\left\langle\sigma_i^x\right\rangle$</p>
+<p>  show the data of entanglement entropy and entanglement spectrum</p>
+</li>
+</ul>
+<font size=3.5> A brief summary of theory and algorithm </font>
+
+<ul>
+<li><p>对于 3-site 的 iTEBD，有三种 T 和 G，如下图所示；不同颜色的方框表示不同的TG的演化合并的过程，如此迭代</p>
+  <div  align="center">    
+  <img src=https://s2.loli.net/2022/11/22/9hA6bVFf14rXKks.png style="zoom:50%" />   
+  </div>
+</li>
+<li><p>update 的过程包含两次 SVD 分解，第二次注意要把 Gm1 作为环境乘进去：</p>
+  <div  align="center">    
+  <img src=https://s2.loli.net/2022/11/22/CO4zIKdUijMYmEP.png style="zoom:60%" />   
+  </div>
+</li>
+<li><p>代码如下：</p>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">3-site iTEBD method</span></span><br><span class="line"><span class="string">1D spin model with OBC</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> numpy.linalg <span class="keyword">as</span> LA</span><br><span class="line"><span class="keyword">import</span> scipy.sparse.linalg <span class="keyword">as</span> LAs</span><br><span class="line"><span class="keyword">from</span> scipy <span class="keyword">import</span> linalg</span><br><span class="line"><span class="keyword">import</span> Sub180221 <span class="keyword">as</span> Sub</span><br><span class="line"><span class="keyword">import</span> math,copy,pickle</span><br><span class="line"><span class="keyword">import</span> pylab <span class="keyword">as</span> pl</span><br><span class="line"><span class="comment">#----------------------------------------------------------------</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">GetHam_3sitespin</span>(<span class="params">Dp</span>):													<span class="comment">#生成哈密顿量</span></span><br><span class="line">	S0,Sp,Sm,Sz,Sx,Sy = Sub.SpinOper(Dp)</span><br><span class="line">	sz = <span class="number">2</span>* Sz</span><br><span class="line">	sx = <span class="number">2</span>* Sx</span><br><span class="line">	sy = <span class="number">2</span>* Sy</span><br><span class="line">	Ham = - (np.kron(np.kron(sz,sy),sz)) - (np.kron(np.kron(S0,sx),S0))</span><br><span class="line">	Ham = np.reshape(Ham,[Dp,Dp,Dp,Dp,Dp,Dp])</span><br><span class="line">	<span class="keyword">return</span> Ham</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">GetExpHam</span>(<span class="params">Ham,Tau</span>):														<span class="comment">#乘演化的 exp</span></span><br><span class="line">	Dp = np.shape(Ham)[<span class="number">0</span>]</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">if</span> LA.norm(Ham) &lt; <span class="number">1.0e-12</span>:</span><br><span class="line">		UH = np.reshape(np.eye(Dp**<span class="number">3</span>),[Dp,Dp,Dp,Dp,Dp,Dp])</span><br><span class="line">	<span class="keyword">else</span>:</span><br><span class="line">		A = np.reshape(Ham,[Dp**<span class="number">3</span>,Dp**<span class="number">3</span>])</span><br><span class="line">		V,S,Dc = Sub.SplitEigh(A,Dp**<span class="number">3</span>)</span><br><span class="line">		</span><br><span class="line">		W = np.diag(np.exp(-Tau*S))</span><br><span class="line">		A = np.dot(np.dot(V,W),np.transpose(np.conj(V)))</span><br><span class="line">		UH = np.reshape(A,[Dp,Dp,Dp,Dp,Dp,Dp])</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">return</span> UH</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">InitTG</span>(<span class="params">Dp,Ds,kind</span>):														</span><br><span class="line">	T = [<span class="literal">None</span>]*<span class="number">3</span></span><br><span class="line">	G = [<span class="literal">None</span>]*<span class="number">3</span></span><br><span class="line">	</span><br><span class="line">	<span class="keyword">if</span> kind == <span class="string">&#x27;rand&#x27;</span>:</span><br><span class="line">		<span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">3</span>):</span><br><span class="line">			T[i] = np.random.rand(Ds,Dp,Ds)</span><br><span class="line">			G[i] = np.random.rand(Ds)</span><br><span class="line">	<span class="keyword">return</span> T,G</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">ImportTG</span>(<span class="params">Ds,Label</span>):</span><br><span class="line">	<span class="keyword">try</span>:</span><br><span class="line">		File_TG = <span class="built_in">open</span>(<span class="string">&#x27;Tebd&#x27;</span>+Label+<span class="string">&#x27;.pklz&#x27;</span>,<span class="string">&#x27;rb&#x27;</span>)</span><br><span class="line">		TG = pickle.load(File_TG)</span><br><span class="line">		File_TG.close()</span><br><span class="line">		(T,G) = (TG[<span class="string">&#x27;T&#x27;</span>],TG[<span class="string">&#x27;G&#x27;</span>])</span><br><span class="line">	<span class="keyword">except</span> IOError:</span><br><span class="line">		<span class="built_in">print</span>(<span class="string">&#x27;Missing&#x27;</span>) </span><br><span class="line">	</span><br><span class="line">	<span class="keyword">return</span> T,G</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">ExportTG</span>(<span class="params">Ds,T,G,Label</span>):</span><br><span class="line">	TG = &#123;<span class="string">&#x27;T&#x27;</span>:T,<span class="string">&#x27;G&#x27;</span>:G&#125;</span><br><span class="line">	File_TG = <span class="built_in">open</span>(<span class="string">&#x27;Tebd&#x27;</span>+Label+<span class="string">&#x27;.pklz&#x27;</span>,<span class="string">&#x27;wb&#x27;</span>)</span><br><span class="line">	pickle.dump(TG,File_TG)</span><br><span class="line">	File_TG.close()</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line"><span class="comment">#----------------------------------------------------------------</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">mySVD</span>(<span class="params">A,Dcut</span>):</span><br><span class="line">	U,S,V = LA.svd(A)</span><br><span class="line">	U = U[:,:Dcut]</span><br><span class="line">	S = S[:Dcut]</span><br><span class="line">	V = V[:Dcut,:]</span><br><span class="line">	<span class="keyword">return</span> U,S,V</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">Evo_Bond</span>(<span class="params">Tl,Tm,Tr,Gll,Gl,Gr,Grr,Ds,UH</span>):									<span class="comment">#update 过程，做两次 SVD</span></span><br><span class="line">	A = Sub.NCon([np.diag(Gll),Tl,np.diag(Gl),Tm,np.diag(Gr),Tr,np.diag(Grr),UH],[[-<span class="number">1</span>,<span class="number">1</span>],[<span class="number">1</span>,<span class="number">7</span>,<span class="number">2</span>],[<span class="number">2</span>,<span class="number">3</span>],[<span class="number">3</span>,<span class="number">8</span>,<span class="number">4</span>],[<span class="number">4</span>,<span class="number">5</span>],[<span class="number">5</span>,<span class="number">9</span>,<span class="number">6</span>],[<span class="number">6</span>,-<span class="number">5</span>],[-<span class="number">2</span>,-<span class="number">3</span>,-<span class="number">4</span>,<span class="number">7</span>,<span class="number">8</span>,<span class="number">9</span>]])</span><br><span class="line">	DA = np.shape(A)</span><br><span class="line">	A = Sub.Group(A,[[<span class="number">0</span>,<span class="number">1</span>],[<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>]])										<span class="comment">#重整成一个矩阵</span></span><br><span class="line"></span><br><span class="line">	U1,Gm1,V1,Dc1 = Sub.SplitSvd_Lapack(A,Ds,<span class="number">0</span>,prec=<span class="number">1.0e-12</span>)</span><br><span class="line">	Gm1 /= np.sqrt(np.<span class="built_in">sum</span>(Gm1**<span class="number">2</span>))</span><br><span class="line">	U1 = np.reshape(U1,[DA[<span class="number">0</span>],DA[<span class="number">1</span>],Dc1])</span><br><span class="line">	Tl = np.tensordot(np.diag(<span class="number">1.0</span>/Gll),U1,(<span class="number">1</span>,<span class="number">0</span>))							<span class="comment">#将 Gll 还原出去</span></span><br><span class="line">	V1 = np.tensordot(np.diag(Gm1),V1,(<span class="number">1</span>,<span class="number">0</span>))</span><br><span class="line">	V1 = np.reshape(V1,[<span class="number">12</span>,<span class="number">12</span>])												<span class="comment">#重整成一个矩阵		</span></span><br><span class="line"></span><br><span class="line">	U2,Gm2,V2,Dc2 = Sub.SplitSvd_Lapack(V1,Ds,<span class="number">0</span>,prec=<span class="number">1.0e-12</span>)</span><br><span class="line">	Gm2 /= np.sqrt(np.<span class="built_in">sum</span>(Gm2**<span class="number">2</span>))	</span><br><span class="line">	V2 = np.reshape(V2,[Dc2,DA[<span class="number">3</span>],DA[<span class="number">4</span>]])</span><br><span class="line">	Tr = np.tensordot(V2,np.diag(<span class="number">1.0</span>/Grr),(<span class="number">2</span>,<span class="number">0</span>))							<span class="comment">#将 Grr 还原出去</span></span><br><span class="line">	Tm = np.reshape(U2,[DA[<span class="number">0</span>],DA[<span class="number">1</span>],Dc1])</span><br><span class="line">	Tm = np.tensordot(np.diag(<span class="number">1.0</span>/Gm1),Tm,(<span class="number">1</span>,<span class="number">0</span>))							<span class="comment">#将 Gl 还原出去</span></span><br><span class="line">	<span class="keyword">return</span> Tl,Tm,Tr,Gm1,Gm2</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">Evo</span>(<span class="params">Ds,Ham,Tau,Iter,Prec,Label</span>):										<span class="comment">#主循环</span></span><br><span class="line">	Dp = np.shape(Ham)[<span class="number">0</span>]</span><br><span class="line">	T,G = InitTG(Dp,Ds,<span class="string">&#x27;rand&#x27;</span>)</span><br><span class="line">	</span><br><span class="line">	File_Log = <span class="built_in">open</span>(<span class="string">&#x27;Log&#x27;</span>+Label+<span class="string">&#x27;.dat&#x27;</span>,<span class="string">&#x27;w&#x27;</span>)</span><br><span class="line">	</span><br><span class="line">	r0 = <span class="number">0</span></span><br><span class="line">	<span class="keyword">for</span> idt <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(Tau)):</span><br><span class="line">		dt = Tau[idt]</span><br><span class="line">		UH = GetExpHam(Ham,dt)</span><br><span class="line">		</span><br><span class="line">		G0 = np.ones(<span class="number">3</span>)</span><br><span class="line">		<span class="keyword">for</span> r <span class="keyword">in</span> <span class="built_in">range</span>(Iter):</span><br><span class="line">			<span class="keyword">for</span> ib <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">3</span>):</span><br><span class="line">				T[ib],T[np.mod(ib+<span class="number">1</span>,<span class="number">3</span>)],T[np.mod(ib+<span class="number">2</span>,<span class="number">3</span>)],G[ib],G[np.mod(ib+<span class="number">1</span>,<span class="number">3</span>)] =\</span><br><span class="line">				Evo_Bond(T[ib],T[np.mod(ib+<span class="number">1</span>,<span class="number">3</span>)],T[np.mod(ib+<span class="number">2</span>,<span class="number">3</span>)],G[np.mod(ib-<span class="number">1</span>,<span class="number">3</span>)],G[ib],G[np.mod(ib+<span class="number">1</span>,<span class="number">3</span>)],G[np.mod(ib+<span class="number">2</span>,<span class="number">3</span>)],Ds,UH)</span><br><span class="line">			Err = <span class="number">0.0</span></span><br><span class="line">			<span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">3</span>):</span><br><span class="line">				Err += <span class="built_in">abs</span>(G[i][<span class="number">0</span>]-G0[i])</span><br><span class="line">			<span class="keyword">if</span> np.mod(r,<span class="number">100</span>) == <span class="number">1</span>:</span><br><span class="line">				<span class="comment">#print(r+r0,Err)</span></span><br><span class="line">				File_Log.write(<span class="string">&#x27;%d \t %0.15f \n&#x27;</span> % <span class="built_in">tuple</span>((r+r0,Err)))</span><br><span class="line">				File_Log.flush()</span><br><span class="line">			<span class="keyword">if</span> Err &lt; Prec[idt]:</span><br><span class="line">				r0 += r</span><br><span class="line">				<span class="built_in">print</span>(dt,r+r0,Err)</span><br><span class="line">				<span class="keyword">break</span></span><br><span class="line">			<span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">3</span>):</span><br><span class="line">				G0[i] = G[i][<span class="number">0</span>]</span><br><span class="line">	</span><br><span class="line">	File_Log.close()</span><br><span class="line">	ExportTG(Ds,T,G,Label)</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line"><span class="comment">#----------------------------------------------------------------</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">Cal_Bond</span>(<span class="params">Op,Tl,Tm,Tr,Gll,Gl,Gr,Grr</span>):									<span class="comment">#计算 &lt;psi|OP|psi&gt;				</span></span><br><span class="line">	A = Sub.NCon([np.diag(Gll),Tl,np.diag(Gl),Tm,np.diag(Gr),Tr,np.diag(Grr)],[[-<span class="number">1</span>,<span class="number">1</span>],[<span class="number">1</span>,-<span class="number">2</span>,<span class="number">2</span>],[<span class="number">2</span>,<span class="number">3</span>],[<span class="number">3</span>,-<span class="number">3</span>,<span class="number">4</span>],[<span class="number">4</span>,<span class="number">5</span>],[<span class="number">5</span>,-<span class="number">4</span>,<span class="number">6</span>],[<span class="number">6</span>,-<span class="number">5</span>]])</span><br><span class="line">	Val = Sub.NCon([A,Op,np.conj(A)],[[<span class="number">7</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">8</span>],[<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>],[<span class="number">7</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">8</span>]])</span><br><span class="line">	<span class="keyword">return</span> np.real(Val)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">Cal_Site</span>(<span class="params">Op,T,Gl,Gr</span>):													<span class="comment"># 计算单个 site 的 &lt;site|OP|site&gt;</span></span><br><span class="line">	A = Sub.NCon([np.diag(Gl),T,np.diag(Gr)],[[-<span class="number">1</span>,<span class="number">1</span>],[<span class="number">1</span>,-<span class="number">2</span>,<span class="number">2</span>],[<span class="number">2</span>,-<span class="number">3</span>]])</span><br><span class="line">	Val = Sub.NCon([A,Op,np.conj(A)],[[<span class="number">3</span>,<span class="number">1</span>,<span class="number">4</span>],[<span class="number">2</span>,<span class="number">1</span>],[<span class="number">3</span>,<span class="number">2</span>,<span class="number">4</span>]])</span><br><span class="line">	<span class="keyword">return</span> np.real(Val)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">Cal</span>(<span class="params">Ds,Ham,Label</span>):</span><br><span class="line">	<span class="built_in">print</span>(<span class="string">&quot;***************************************************************************************&quot;</span>)</span><br><span class="line">	T,G = ImportTG(Ds,Label)</span><br><span class="line">	</span><br><span class="line">	D = np.shape(Ham)[<span class="number">0</span>]</span><br><span class="line">	H00 = np.reshape(np.eye(D**<span class="number">3</span>,D**<span class="number">3</span>),[D,D,D,D,D,D])</span><br><span class="line">	S0,Sp,Sm,Sz,Sx,Sy = Sub.SpinOper(D)</span><br><span class="line">	sz = <span class="number">2</span>* Sz</span><br><span class="line">	sx = <span class="number">2</span>* Sx</span><br><span class="line"></span><br><span class="line">	Nom = np.zeros(<span class="number">3</span>)</span><br><span class="line">	Eng = np.zeros(<span class="number">3</span>)</span><br><span class="line">	Mz = np.zeros(<span class="number">3</span>)</span><br><span class="line">	Mx = np.zeros(<span class="number">3</span>)</span><br><span class="line">	EE = []</span><br><span class="line">	ES = []</span><br><span class="line">	avgES = []</span><br><span class="line"></span><br><span class="line">	<span class="built_in">print</span>(<span class="string">&quot;ib &quot;</span>+<span class="string">&quot; Nom &quot;</span>+<span class="string">&quot; Eng &quot;</span>+<span class="string">&quot; Mag z &quot;</span>+<span class="string">&quot; Mag x &quot;</span>+<span class="string">&quot; entanglement entropy &quot;</span>+<span class="string">&quot; entanglement spectrum &quot;</span>)</span><br><span class="line">	<span class="keyword">for</span> ib <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">3</span>):</span><br><span class="line">		Nom[ib] = Cal_Bond(H00,T[ib],T[np.mod(ib+<span class="number">1</span>,<span class="number">3</span>)],T[np.mod(ib+<span class="number">2</span>,<span class="number">3</span>)],G[np.mod(ib-<span class="number">1</span>,<span class="number">3</span>)],G[ib],G[np.mod(ib+<span class="number">1</span>,<span class="number">3</span>)],G[np.mod(ib+<span class="number">2</span>,<span class="number">3</span>)])</span><br><span class="line">		Eng[ib] = Cal_Bond(Ham,T[ib],T[np.mod(ib+<span class="number">1</span>,<span class="number">3</span>)],T[np.mod(ib+<span class="number">2</span>,<span class="number">3</span>)],G[np.mod(ib-<span class="number">1</span>,<span class="number">3</span>)],G[ib],G[np.mod(ib+<span class="number">1</span>,<span class="number">3</span>)],G[np.mod(ib+<span class="number">2</span>,<span class="number">3</span>)])</span><br><span class="line">		Mz[ib] = Cal_Site(sz,T[ib],G[np.mod(ib-<span class="number">1</span>,<span class="number">3</span>)],G[ib])</span><br><span class="line">		Mx[ib] = Cal_Site(sx,T[ib],G[np.mod(ib-<span class="number">1</span>,<span class="number">3</span>)],G[ib])</span><br><span class="line">		Eng[ib] /= Nom[ib]</span><br><span class="line">		Mz[ib] /= Nom[ib]</span><br><span class="line">		Mx[ib] /= Nom[ib]</span><br><span class="line"></span><br><span class="line">		ES.append(G[ib])</span><br><span class="line">		ln_EV = np.matrix(np.log2(ES[ib]))</span><br><span class="line">		EV = np.matrix(ES[ib])</span><br><span class="line">		EE.append(-np.dot(EV, ln_EV.H))</span><br><span class="line"></span><br><span class="line">		<span class="built_in">print</span>(ib,np.around(Nom[ib],<span class="number">6</span>),np.around(Eng[ib],<span class="number">6</span>),np.around(Mz[ib],<span class="number">7</span>),np.around(Mx[ib],<span class="number">7</span>),EE[ib],ES[ib])</span><br><span class="line">	</span><br><span class="line"></span><br><span class="line">	<span class="built_in">print</span>(<span class="string">&quot;***************************************************************************************&quot;</span>)</span><br><span class="line"></span><br><span class="line">	Eng = np.mean(Eng)</span><br><span class="line">	<span class="built_in">print</span>(<span class="string">&quot;ground E per site:&quot;</span>)</span><br><span class="line">	<span class="built_in">print</span>(Eng)</span><br><span class="line">	</span><br><span class="line">	Mz = np.mean(Mz)</span><br><span class="line">	<span class="built_in">print</span>(<span class="string">&quot;magnetization z per site:&quot;</span>)</span><br><span class="line">	<span class="built_in">print</span>(Mz)</span><br><span class="line">	Mx = np.mean(Mx)</span><br><span class="line">	<span class="built_in">print</span>(<span class="string">&quot;magnetization x per site:&quot;</span>)</span><br><span class="line">	<span class="built_in">print</span>(Mx)</span><br><span class="line"></span><br><span class="line">	<span class="built_in">print</span>(<span class="string">&quot;entanglement entropy and entanglement spectrum:&quot;</span>)</span><br><span class="line">	<span class="built_in">print</span>(np.mean(EE))</span><br><span class="line">	<span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">6</span>):</span><br><span class="line">		avgES.append((ES[<span class="number">0</span>][i]+ES[<span class="number">1</span>][i]+ES[<span class="number">2</span>][i])/<span class="number">3</span>)</span><br><span class="line">	<span class="built_in">print</span>(avgES)</span><br><span class="line"><span class="comment">#----------------------------------------------------------------</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">Plot</span>(<span class="params">Ds</span>):</span><br><span class="line">	Label = <span class="string">&#x27;-D&#x27;</span>+<span class="built_in">str</span>(Ds)</span><br><span class="line">	Err = np.loadtxt(<span class="string">&#x27;Log&#x27;</span>+Label+<span class="string">&#x27;.dat&#x27;</span>)</span><br><span class="line">	</span><br><span class="line">	fig = pl.figure()</span><br><span class="line">	pl.plot(Err[:,<span class="number">0</span>],np.log(np.<span class="built_in">abs</span>(Err[:,<span class="number">1</span>]))/np.log(<span class="number">10</span>))</span><br><span class="line">	pl.xlabel(<span class="string">&#x27;Iteration&#x27;</span>)</span><br><span class="line">	pl.ylabel(<span class="string">&#x27;Error&#x27;</span>)</span><br><span class="line">	fig.savefig(<span class="string">&#x27;Err&#x27;</span>+Label+<span class="string">&#x27;.pdf&#x27;</span>)</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line"><span class="comment">#----------------------------------------------------------------</span></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">	Ds = <span class="number">6</span></span><br><span class="line">	Dp = <span class="number">2</span></span><br><span class="line">	</span><br><span class="line">	Tau = [<span class="number">0.1</span>,<span class="number">0.01</span>,<span class="number">0.001</span>]</span><br><span class="line">	Iter = <span class="number">100000</span></span><br><span class="line">	Prec = [<span class="number">1.0e-10</span>]*<span class="number">3</span></span><br><span class="line">	Label = <span class="string">&#x27;-D&#x27;</span>+<span class="built_in">str</span>(Ds)</span><br><span class="line">	</span><br><span class="line">	Ham = GetHam_3sitespin(Dp)</span><br><span class="line">	Evo(Ds,Ham,Tau,Iter,Prec,Label)</span><br><span class="line">	Plot(Ds)</span><br><span class="line">	Cal(Ds,Ham,Label)</span><br></pre></td></tr></table></figure>
+<pre><code>0.1 5894 9.963463387663296e-11
+0.01 29097 9.996781180632297e-11
+0.001 102908 9.999789885029031e-11
+***************************************************************************************
+ib  Nom  Eng  Mag z  Mag x  entanglement entropy  entanglement spectrum 
+0 1.0 -1.196414 -0.1612558 0.6107703 [[1.68910627]] [0.88586489 0.42204271 0.16637421 0.08864772 0.03659217 0.0156705 ]
+1 1.0 -1.197 -0.1616391 0.6101772 [[1.68961957]] [0.88582456 0.42207902 0.16644626 0.08872146 0.03663422 0.01569149]
+2 1.0 -1.197545 0.1614238 0.6104471 [[1.6896294]] [0.88582307 0.42208483 0.16643798 0.0887227  0.0366377  0.01569247]
+***************************************************************************************
+ground E per site:
+-1.196986423260931
+magnetization z per site:
+-0.05382368800930137
+magnetization x per site:
+0.6104648847112727
+entanglement entropy and entanglement spectrum:
+1.6894517483722928
+[0.8858375061701803, 0.42206885253163623, 0.1664194864064454, 0.08869729347868575, 0.03662135992053934, 0.01568481868848111]
+</code></pre><div  align="center">    
+<img src=https://s2.loli.net/2022/11/22/gIfsPoDp6CQYAmw.png style="zoom:50%" />   
+</div>
+
+<p>​    </p>
+<ul>
+<li><p>小结：</p>
+<ul>
+<li><p>基态能量约为 -1.197， 和上次的 ED / MPS 结果基本相符合（考虑到iTEBD是N无限大的OBC）。</p>
+</li>
+<li><p>sigmaz 磁化强度约为 0 ，sigmax 磁化强度约为 0.61</p>
+</li>
+<li><p>纠缠熵(log2)约为 1.689，纠缠谱数据如下：</p>
+<p>  [0.8858375061701803, 0.42206885253163623, 0.1664194864064454, 0.08869729347868575, 0.03662135992053934, 0.01568481868848111]</p>
+</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+	
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2022/11/13/HW_MPS1107/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1610,162 +1752,6 @@ H=-J \sum_{i=1}^N\left(g \sigma_i^x+\sigma_i^z \sigma_{i+1}^z\right) \\
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/09/HW_task2_time%20evolution/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Hsu Quinn">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="BLOG">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/10/09/HW_task2_time%20evolution/" class="post-title-link" itemprop="url">Time evolution of s single-particle GWP</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-10-09 00:23:05" itemprop="dateCreated datePublished" datetime="2022-10-09T00:23:05+08:00">2022-10-09</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-10-30 21:56:25" itemprop="dateModified" datetime="2022-10-30T21:56:25+08:00">2022-10-30</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Computational-Quantum-Physics/" itemprop="url" rel="index"><span itemprop="name">Computational Quantum Physics</span></a>
-                </span>
-            </span>
-
-          
-            <span class="post-meta-item" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-users"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="firestore-visitors-count"></span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <font size=5>Homework (task 2)</font>
-
-<ul>
-<li>consider the time evolution of a single-particle Gaussian wave packet on<br>a tight-binding chain with a gradient field: <script type="math/tex; mode=display">
-\begin{gathered}
-H=-\sum_{j=1}^{N-1}(|j\rangle\langle j+1|+| j+1\rangle\langle j|)+F \sum_{j=1}^N j|j\rangle\langle j| \\
-|\psi(t=0)\rangle=\frac{1}{\sqrt{\Omega}} \sum_j e^{-\left(\alpha^2 / 2\right)\left(j-N_0\right)^2} e^{i k_0 j}|j\rangle
-\end{gathered}</script></li>
-<li><p>we choose $N=101, F=0.1, k_0=\pi / 2, \alpha=0.15, N_0=51, t \in[0,100]$ </p>
-<p>  please plot $|\psi(j, t)|^2$ as functions of $j$ and $t$</p>
-<p>  you will observe an oscillation behavior, that is Bloch oscillation</p>
-<p>  which describes the oscillation of a particle confined in a periodic potential when a constant force is acting on it</p>
-<p>  you may also try other parameters for fun</p>
-</li>
-<li><p>思路与代码实现：</p>
-<ol>
-<li>调用计算和绘图所需要的库，定义参数。对于给出的哈密顿量做 ED， 得到本征值 $E_{n}$ 和本征态 $\psi_{n}$</li>
-</ol>
-</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> scipy.sparse.linalg <span class="keyword">as</span> LA</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">from</span> mpl_toolkits <span class="keyword">import</span> mplot3d</span><br><span class="line"><span class="keyword">import</span> imageio</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"></span><br><span class="line">N = <span class="number">101</span></span><br><span class="line"><span class="comment">#F = 1.0</span></span><br><span class="line">F = <span class="number">0.1</span></span><br><span class="line"><span class="comment">#k0 = 0</span></span><br><span class="line">k0 = np.pi/<span class="number">2</span></span><br><span class="line">alpha = <span class="number">0.15</span></span><br><span class="line">N0 = <span class="number">51</span></span><br><span class="line"></span><br><span class="line">H = np.zeros([N,N])</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(N):</span><br><span class="line">    H[i][i] = F * (i+<span class="number">1</span>)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(N-<span class="number">1</span>):</span><br><span class="line">    H[i][i+<span class="number">1</span>] = -<span class="number">1</span></span><br><span class="line">    H[i+<span class="number">1</span>][i] = -<span class="number">1</span></span><br><span class="line"></span><br><span class="line">E,V = np.linalg.eigh(H)</span><br></pre></td></tr></table></figure>
-<ul>
-<li><ol>
-<li>对于初始时刻，波函数公式如下，我们用 Psi0 数组存储，可见其是在 $|j\rangle$ 表象下。</li>
-</ol>
-</li>
-</ul>
-<script type="math/tex; mode=display">
-|\psi(t=0)\rangle=\frac{1}{\sqrt{\Omega}} \sum_j e^{-\left(\alpha^2 / 2\right)\left(j-N_0\right)^2} e^{i k_0 j}|j\rangle</script><p>​    其中 $\Omega$ 是：</p>
-<script type="math/tex; mode=display">
-\Omega=\sum_j \exp \left[-\alpha^2\left(j-N_0\right)^2\right]</script><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#按照定义得到初始时刻的Gaussian wave packet </span></span><br><span class="line">Omega = <span class="number">0</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>,N+<span class="number">1</span>):</span><br><span class="line">    Omega += np.exp(-np.power(alpha,<span class="number">2</span>) * np.power(i - N0,<span class="number">2</span>)) </span><br><span class="line">Psi0 = np.zeros(N , dtype = <span class="built_in">complex</span>)                 </span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>,N+<span class="number">1</span>):</span><br><span class="line">    Psi0[i-<span class="number">1</span>] = np.exp(- np.power(alpha,<span class="number">2</span>) / <span class="number">2</span> * np.power(i - N0,<span class="number">2</span>)) * np.exp(k0 * i * <span class="number">1.0j</span>) / np.sqrt(Omega)</span><br></pre></td></tr></table></figure>
-<ul>
-<li><ol>
-<li>进行含时演化，我们知道含时的薛定谔方程：<script type="math/tex; mode=display">
-i \hbar \frac{\partial}{\partial t}|\psi(t)\rangle=H|\psi(t)\rangle</script></li>
-</ol>
-</li>
-</ul>
-<p>​    我们已经有了初始的 $\psi(0)$, 以及本征值 $E_{n}$ 和本征态 $\psi_{n}$，那么：</p>
-<script type="math/tex; mode=display">
-|\psi(t)\rangle=e^{-i H t / \hbar}|\psi(0)\rangle=\sum_n e^{-i E_n t / \hbar}\left|\psi_n\right\rangle\left\langle\psi_n \mid \psi(0)\right\rangle=\sum_n C_n e^{-i E_n t / \hbar}\left|\psi_n\right\rangle</script><script type="math/tex; mode=display">
-C_n=\left\langle\psi_n \mid \psi(0)\right\rangle</script><p>​    我们取时间步长为1，对任一时刻，我们计算$C_{n}$并与含时指数项和本征态相乘，就能得到这一时刻的全位置波函数，即代码中每一个循环的的 Psit。然后对每一时刻的波函数导出图片到当前目录下的 temp 文件夹，最后把这些图导出一个gif文件，即得到比较直观的含时演化过程。</p>
-<p>​    此外，我们也可以把每一个时刻的 Psit 矢量记录下来，得到一个二维复数列表 Z[i][t], 其表示的是 i 点 t 时刻 的波函数的模方，这样以 i 和 t 为坐标轴绘制 surface 图，可以得到类似 ppt 上的高斯波包的时空演化分布</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#建temp文件夹放演化图片</span></span><br><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> os.path.exists(<span class="string">&#x27;./temp1&#x27;</span>):</span><br><span class="line">    os.mkdir(<span class="string">&#x27;./temp1&#x27;</span>) </span><br><span class="line"></span><br><span class="line"><span class="comment">#Z:波函数模方</span></span><br><span class="line">Z = np.zeros((N,N))</span><br><span class="line"><span class="keyword">for</span> t <span class="keyword">in</span> <span class="built_in">range</span>(N):</span><br><span class="line">    <span class="comment">#Psit:t时刻j基矢下的波函数矢量</span></span><br><span class="line">    Psit = np.zeros(N, dtype = <span class="built_in">complex</span>)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(N):</span><br><span class="line">        Psit += np.dot(V[:,i],Psi0) * np.exp(- <span class="number">1.0j</span> * E[i] * t) * V[:,i]</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(N):</span><br><span class="line">        Z[i][t] = np.power(<span class="built_in">abs</span>(Psit[i]),<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment">#绘制t时刻的图片</span></span><br><span class="line">    x = []</span><br><span class="line">    y = []</span><br><span class="line">    plt.xlim(<span class="number">0</span>,N)</span><br><span class="line">    plt.ylim(<span class="number">0</span>,<span class="number">0.1</span>)</span><br><span class="line">    plt.xlabel(<span class="string">&quot;j&quot;</span>)</span><br><span class="line">    plt.ylabel(<span class="string">&quot;\psi&quot;</span>)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(N):</span><br><span class="line">        x.append(i+<span class="number">1</span>)</span><br><span class="line">        y.append(np.power(<span class="built_in">abs</span>(Psit[i]),<span class="number">2</span>))</span><br><span class="line">    plt.plot(x, y)</span><br><span class="line">    plt.savefig(<span class="string">&quot;./temp1/&quot;</span>+<span class="built_in">str</span>(t)+<span class="string">&quot;.png&quot;</span>)</span><br><span class="line">    plt.clf() </span><br><span class="line"></span><br><span class="line"><span class="comment">#读取这些图片，导出一张gif</span></span><br><span class="line"><span class="keyword">with</span> imageio.get_writer(<span class="string">&#x27;rt_evolution_1.gif&#x27;</span>, mode=<span class="string">&#x27;I&#x27;</span>) <span class="keyword">as</span> writer:</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(N):</span><br><span class="line">        filename = <span class="string">&#x27;./temp1/&#x27;</span>+<span class="built_in">str</span>(i)+<span class="string">&#x27;.png&#x27;</span></span><br><span class="line">        image = imageio.imread(filename)</span><br><span class="line">        writer.append_data(image)</span><br><span class="line"></span><br><span class="line"><span class="comment">#绘制3D的surface图</span></span><br><span class="line">xx = np.arange(<span class="number">0</span>,N,<span class="number">1</span>)</span><br><span class="line">yy = np.arange(<span class="number">0</span>,N,<span class="number">1</span>)</span><br><span class="line">X , Y = np.meshgrid(xx,yy)</span><br><span class="line"><span class="comment">#绘制曲面图</span></span><br><span class="line">fig = plt.figure()</span><br><span class="line">ax = plt.axes(projection=<span class="string">&#x27;3d&#x27;</span>)</span><br><span class="line"><span class="comment">#调用plot_surface()函数</span></span><br><span class="line">ax.plot_surface(X,Y,Z,cmap = <span class="string">&#x27;viridis&#x27;</span>)</span><br><span class="line">ax.set_xlabel(<span class="string">&quot;j&quot;</span>)</span><br><span class="line">ax.set_ylabel(<span class="string">&quot;t&quot;</span>)</span><br><span class="line">ax.set_zlabel(<span class="string">&quot;|\psi|^2&quot;</span>)</span><br><span class="line">ax.set_title(<span class="string">&#x27;the time evolution of GWP&#x27;</span>)</span><br><span class="line">plt.savefig(<span class="string">&quot;3dsurface_1.png&quot;</span>)</span><br><span class="line">plt.show() </span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<pre><code>&lt;Figure size 432x288 with 0 Axes&gt;
-</code></pre><p><img src="https://s2.loli.net/2022/10/08/k2lQazMcsR6KCwu.png" alt="3dsurface_1.png"><br><img src="https://s2.loli.net/2022/10/08/NjJFEUs5iazRXVM.gif" alt="rt_evolution_1.gif">    </p>
-<ul>
-<li><ol>
-<li><p>分析和其他参数的尝试</p>
-<p>如上所示，我们得到了一个含时演化的 gif 和一个时空撒点的 surface 图。前者放在了当前目录，即 rt_evolution_1.gif 文件</p>
-<p>可以看到，对于初始条件 k = PI / 2， 开放边界 GWP 的含时演化是一个波包在震荡，其振幅点的轨迹类似一个椭圆。</p>
-<p>和 ppt 中给出的不同的是， ppt中的波包会运动到边界碰撞回来，而我们计算的 GWP 不会运动到边界，而是大概在 20~80 之间震荡，这是因为这里的 GWP 比 ppt 中多了对角项，即 F * j</p>
-<p>那么我们会想尝试一下其他参数的 GWP 是什么样子：</p>
-<ul>
-<li><p>EX1. 例如我们改变初始 k = 0，将结果存为 rt_evolution_2.gif 和 3dsurface_2.png</p>
-</li>
-<li><p>EX2. 再例如我们改变哈密顿对角项参数 F = 1，将结果存为 rt_evolution_3.gif 和 3dsurface_3.png</p>
-</li>
-</ul>
-</li>
-</ol>
-</li>
-<li><p>EX1. 改变 k = 0, rt_evolution_2.gif 中我们看到 GWP 在左半边演化，说明初始相位对波含时演化的影响</p>
-<p><img src="https://s2.loli.net/2022/10/08/81FHBG3paLZ6Mbr.png" alt="3dsurface_2.png"></p>
-<p><img src="https://s2.loli.net/2022/10/08/WEIptNXe4Ylh95D.gif" alt="rt_evolution_2.gif"></p>
-</li>
-<li><p>EX2. 改变 F = 1，即放大占据态的权重，rt_evolution_3.gif 中发现 GWP 震荡的空间范围缩小，这和前面分析一致，即 F 趋于零时退化到和 ppt 中只有 hopping 项一样的”碰壁”行为</p>
-<p><img src="https://s2.loli.net/2022/10/08/4Q82alMnxOHNJrK.png" alt="3dsurface_3.png"></p>
-<p><img src="https://s2.loli.net/2022/10/08/aW8dBfYN26gLZ7e.gif" alt="rt_evolution_3.gif"></p>
-</li>
-<li><p>除了以上参数改变外，也可以修改开放边界/环形边界（对应哈密顿量边界处取值），来可视化 GWP 行为，这里不再展开了。</p>
-</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-	
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1837,7 +1823,7 @@ C_n=\left\langle\psi_n \mid \psi(0)\right\rangle</script><p>​    我们取时�
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">15</span>
+          <span class="site-state-item-count">16</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
