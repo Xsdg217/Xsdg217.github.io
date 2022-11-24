@@ -182,6 +182,234 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/11/24/Eh&TSH/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Hsu Quinn">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="BLOG">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/11/24/Eh&TSH/" class="post-title-link" itemprop="url">A bit theory of nonadiabatic dynamics</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-11-24 17:33:30 / 修改时间：17:34:44" itemprop="dateCreated datePublished" datetime="2022-11-24T17:33:30+08:00">2022-11-24</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Some-Notes/" itemprop="url" rel="index"><span itemprop="name">Some Notes</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-users"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="firestore-visitors-count"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="Nonadiabatic-Dynamics"><a href="#Nonadiabatic-Dynamics" class="headerlink" title="Nonadiabatic Dynamics"></a>Nonadiabatic Dynamics</h2><h3 id="1-Ehrenfest-Dynamics"><a href="#1-Ehrenfest-Dynamics" class="headerlink" title="1. Ehrenfest Dynamics"></a><strong>1. Ehrenfest Dynamics</strong></h3><p>We use a single-configuration Ansatz for the total wavefunction:</p>
+<script type="math/tex; mode=display">
+\Psi(\boldsymbol{r}, \boldsymbol{R}, t)=\Phi(\boldsymbol{r}, t) \Omega(\boldsymbol{R}, t) \exp \left[\frac{i}{\hbar} \int_{t_0}^t d t^{\prime} E_{e l}\left(t^{\prime}\right)\right] .</script><p>The exponential part  is called the “phase term”:</p>
+<script type="math/tex; mode=display">
+\begin{gathered}
+E_{e l}(t)=\iint d r d \boldsymbol{R} \Phi^*(\boldsymbol{r}, t) \Omega^*(\boldsymbol{R}, t) \hat{\mathcal{H}}_{e l}(\boldsymbol{r}, \boldsymbol{R}) 
+\times \Phi(\boldsymbol{r}, t) \Omega(\boldsymbol{R}, t)
+\end{gathered}</script><p>Insert the representation into TDSE,  left multiplication by $\Omega^*(R, t)$  and integrating over R：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+i \hbar  \frac{\partial \Phi(r, t)}{\partial t}=& -\frac{\hbar^2}{2} \sum_j \nabla_i^2 \Phi(r, t)\\
+&+\left[\int d R \Omega^*(R, t) \hat{V}(r, R) \Omega(R, t)\right] \Phi(r, t) 
+\end{aligned} \tag1</script><p>Similarly,</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+i \hbar  \frac{\partial \Omega(\boldsymbol{R}, t)}{\partial t}&=-\frac{\hbar^2}{2} \sum_\gamma M_\gamma^{-1} \nabla_\gamma^2 \Omega(\boldsymbol{R}, t) \\
+& +\left[\int d r \Phi^*(r, t) \hat{\mathcal{H}}_{e /}(r, R) \Phi(r, t)\right] \Omega(\boldsymbol{R}, t) .
+\end{aligned} \tag 2</script><p> forms the so-called mean-field time-dependent self-consistent field (TDSCF) method.</p>
+<h4 id="1-1-The-Time-Dependent-Nuclear-Equation"><a href="#1-1-The-Time-Dependent-Nuclear-Equation" class="headerlink" title="1.1  The Time-Dependent Nuclear Equation"></a>1.1  The Time-Dependent Nuclear Equation</h4><p>The  polar representation:</p>
+<script type="math/tex; mode=display">
+\Omega(\boldsymbol{R}, t)=A(\boldsymbol{R}, t) \exp \left[\frac{i}{\hbar} S(\boldsymbol{R}, t)\right] \tag3</script><p>Insert (3) into (2):</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+i \hbar & \frac{\partial A(\boldsymbol{R}, t)}{\partial t}-A(\boldsymbol{R}, t) \frac{\partial S(\boldsymbol{R}, t)}{\partial t}=\\
+&-\frac{\hbar^2}{2} \sum_\gamma M_\gamma^{-1} \nabla_\gamma^2 A(\boldsymbol{R}, t) 
+-i \hbar \sum_\gamma M_\gamma^{-1} \nabla_\gamma A(\boldsymbol{R}, t) \cdot \nabla_\gamma S(\boldsymbol{R}, t) \\
+&-\frac{i \hbar}{2} \sum_\gamma M_\gamma^{-1} A(\boldsymbol{R}, t) \nabla_\gamma^2 S(\boldsymbol{R}, t) 
++\frac{1}{2} \sum_\gamma M_\gamma^{-1} A(\boldsymbol{R}, t)\left(\nabla_\gamma S(\boldsymbol{R}, t)\right)^2 \\
+&+\left[\int_\gamma \Phi^*(\boldsymbol{r}, t) \hat{\mathcal{H}}_{e /}(\boldsymbol{r}, \boldsymbol{R}) \Phi(\boldsymbol{r}, t)\right] A(\boldsymbol{R}, t) .
+\end{aligned}</script><p>Taking the classical limit:</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\frac{\partial S(R, t)}{\partial t}=&-\frac{1}{2} \sum_\gamma M_\gamma^{-1}\left(\nabla_\gamma S(R, t)\right)^2 \\
+&-\left[\int d r \Phi^*(r, t) \hat{\mathcal{H}}_{e l}(r, R) \Phi(r, t)\right] 
+\end{aligned}\tag 4</script><p>Like the “Hamilton–Jacobi” (HJ) equation, </p>
+<script type="math/tex; mode=display">
+\mathbf{P}\left(t_0\right)=\left.\nabla_{\mathbf{R}} S(\mathbf{R})\right|_{\mathbf{R}\left(t_0\right)}</script><p>We obtain the Newton-like equation for the nuclear trajectories corresponding to the HJ Equation (4):</p>
+<script type="math/tex; mode=display">
+\frac{d \boldsymbol{P}_\gamma(t)}{d t}=-\nabla_\gamma\left[\int d r \Phi^*(\boldsymbol{r}, t) \hat{\mathcal{H}}_{e l}(\boldsymbol{r}, \boldsymbol{R}(t)) \Phi(\boldsymbol{r}, t)\right]</script><p>or </p>
+<script type="math/tex; mode=display">
+M_\gamma \ddot{R}_\gamma(t)=-\nabla_\gamma\left\langle\hat{\mathcal{H}}_{e l}(\boldsymbol{r}, \boldsymbol{R}(t))\right\rangle \tag 5</script><h4 id="1-2-The-Time-Dependent-Electronic-Equation"><a href="#1-2-The-Time-Dependent-Electronic-Equation" class="headerlink" title="1.2   The Time-Dependent Electronic Equation"></a>1.2   The Time-Dependent Electronic Equation</h4><p>We take the classical limit of the nuclear degrees of freedom:</p>
+<script type="math/tex; mode=display">
+|\Omega(\boldsymbol{R}, t)|^2=\prod_\gamma \delta\left(\boldsymbol{R}_\gamma-\boldsymbol{R}_\gamma(t)\right)</script><script type="math/tex; mode=display">
+i \hbar \frac{\partial \Phi(r ; R(t), t)}{\partial t}=\hat{\mathcal{H}}_{e l}(r, R(t)) \Phi(r ; R(t), t)</script><h3 id="2-BO-MD-and-Its-Nonadiabatic-Extensions"><a href="#2-BO-MD-and-Its-Nonadiabatic-Extensions" class="headerlink" title="2. BO-MD and Its Nonadiabatic Extensions"></a><strong>2. BO-MD and Its Nonadiabatic Extensions</strong></h3><script type="math/tex; mode=display">
+\Psi(\boldsymbol{r}, \boldsymbol{R}, t)=\sum_i^{\infty} \Omega_i(\boldsymbol{R}, t) \Phi_i(\boldsymbol{r} ; \boldsymbol{R})\tag 6</script><script type="math/tex; mode=display">
+\hat{\mathcal{H}}_{e l}(r, R) \Phi_i(r ; R)=E_i^{e l}(R) \Phi_i(r ; R)</script><p>Similarly,</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+i \hbar \frac{\partial}{\partial t} \Omega_j(R, t)=& {\left[-\sum_\gamma \frac{\hbar^2}{2 M_\gamma} \nabla_\gamma^2+E_j^{e l}(R)\right] \Omega_j(R, t) } \\
+&+\sum_j^{\infty} \mathcal{F}_{j i} \Omega_i(R, t) .
+\end{aligned}\tag 7</script><script type="math/tex; mode=display">
+\begin{aligned}
+&\mathcal{F}_{j i}(\boldsymbol{R})=\int d \boldsymbol{r} \Phi_j^*(\boldsymbol{r}: \boldsymbol{R})\left[-\sum_\gamma \frac{\hbar^2}{2 M_\gamma} \nabla_\gamma^2\right] \Phi_i(\boldsymbol{r};\boldsymbol{R}) \\
+&\quad+\sum_\gamma \frac{1}{M_\gamma}\left\{\int d r \Phi_j^*(\boldsymbol{r} ; \boldsymbol{R})\left[-i \hbar \nabla_\gamma\right] \Phi_i(\boldsymbol{r} ; \boldsymbol{R})\right\}\times\left[-i \hbar \nabla_\gamma\right] 
+\end{aligned}\tag 8</script><h4 id="2-1-The-Adiabatic-BOA"><a href="#2-1-The-Adiabatic-BOA" class="headerlink" title="2.1 The Adiabatic BOA"></a>2.1 The Adiabatic BOA</h4><p>Only remain diagonal terms （diagonal correction）:</p>
+<script type="math/tex; mode=display">
+\mathcal{F}_{j j}(\boldsymbol{R})=\int d \boldsymbol{r} \Phi_j^*(\boldsymbol{r} ; \boldsymbol{R})\left[-\sum_\gamma \frac{\hbar^2}{2 M_\gamma} \nabla_\gamma^2\right] \Phi_j(\boldsymbol{r} ; \boldsymbol{R})\tag 9</script><p>As in 1.1,let all Fji(R) = 0,insert (10) into (7):</p>
+<script type="math/tex; mode=display">
+\Omega_j(\boldsymbol{R}, t)=A_j(\boldsymbol{R}, t) \exp \left[\frac{i}{\hbar} S_j(\boldsymbol{R}, t)\right] .\tag {10}</script><script type="math/tex; mode=display">
+\frac{\partial S_j(R, t)}{\partial t}=-\frac{1}{2} \sum M_\gamma^{-1}\left(\nabla_\gamma S_j(R, t)\right)^2-E_j^{e l}(\boldsymbol{R}) \tag{11}</script><p>Using the relation </p>
+<script type="math/tex; mode=display">
+\left.\nabla_\gamma S_j\right|_{\mathbf{R}(t)}=\mathbf{P}_j^\gamma(t)</script><p>obtain a Newton-like equation of motion for the “classical” nuclei evolving in electronic state j :</p>
+<script type="math/tex; mode=display">
+M_\gamma \boldsymbol{R}_j^\gamma(t)=-\nabla_\gamma E_j^{e l}(\boldsymbol{R}(t))</script><p>In summary, the BO-MD equations:</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+&\hat{\mathcal{H}}_{e l}(r, R(t)) \Phi_j(r ; \boldsymbol{R}(t))=E_j^{e l}(\boldsymbol{R}(t)) \Phi_j(r ; R(t))\\
+&\begin{aligned}
+M_\gamma \ddot{R}_j^\gamma(t) &=-\nabla_\gamma E_j^{e l}(R(t)) \\
+&=-\nabla_\gamma\underset{\min \Phi_j}{ }\left\langle\Phi_j\left|\hat{\mathcal{H}}_{el}(\boldsymbol{r}, \boldsymbol{R}(t))\right| \Phi_j\right\rangle,
+\end{aligned}
+\end{aligned}</script><p>Due to the assumption that  Fji =0, BO-MD always evolves on a single electronic PES( ground state).</p>
+<h4 id="2-2-Trajectory-Based-Nonadiabatic-Dynamics"><a href="#2-2-Trajectory-Based-Nonadiabatic-Dynamics" class="headerlink" title="2.2. Trajectory-Based Nonadiabatic Dynamics"></a>2.2. Trajectory-Based Nonadiabatic Dynamics</h4><p>Rewrite (7) into :</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+i \hbar \frac{\partial \Omega_j(R, t)}{\partial t}=&-\sum_\gamma \frac{\hbar^2}{2 M_\gamma} \nabla_\gamma^2 \Omega_j(R, t) \\
+&+E_j^{e l}(R) \Omega_j(R, t) \\
+&+\sum_{\gamma i} \frac{\hbar^2}{2 M_\gamma} D_{j i}^\gamma(R) \Omega_i(R, t) \\
+&-\sum_{\gamma, i \neq j} \frac{\hbar^2}{M_\gamma} d_{j i}^\gamma(R) \cdot \nabla_\gamma \Omega_i(R, t)
+\end{aligned}\tag {12}</script><p>where</p>
+<script type="math/tex; mode=display">
+d_{j i}^\gamma(R)=\int d r \Phi_j^*(r ; R) \nabla_\gamma \Phi_i(r ; R)</script><script type="math/tex; mode=display">
+D_{j i}^\gamma(R)=-\int d r \Phi_j^*(r ; R) \nabla_\gamma^2 \Phi_i(r ; R)</script><h4 id="2-3-The-Nonadiabatic-Bohmian-Dynamics-NABDY-Equations"><a href="#2-3-The-Nonadiabatic-Bohmian-Dynamics-NABDY-Equations" class="headerlink" title="2.3 The Nonadiabatic Bohmian Dynamics (NABDY) Equations"></a>2.3 The Nonadiabatic Bohmian Dynamics (NABDY) Equations</h4><p>The polar representation (10) in Eq(12):</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+-& \frac{\partial S_j(\boldsymbol{R}, t)}{\partial t}=\sum_\gamma \frac{1}{2 M_\gamma}\left(\nabla_\gamma S_j(\boldsymbol{R}, t)\right)^2+E_j^{e \prime}(\boldsymbol{R}) \\
+&-\sum_\gamma \frac{\hbar^2}{2 M_\gamma} \frac{\nabla_\gamma^2 A_j(\boldsymbol{R}, t)}{A_j(\boldsymbol{R}, t)} \\
+&+\sum_{\gamma i} \frac{\hbar^2}{2 M_\gamma} D_{j i}^\gamma(\boldsymbol{R}) \frac{A_i(\boldsymbol{R}, t)}{A_j(\boldsymbol{R}, t)} \Re\left[e^{i \phi_{i j}(R, t)}\right] \\
+&-\sum_{\gamma, i \neq j} \frac{\hbar^2}{M_\gamma} \boldsymbol{d}_{j i}^\gamma(\boldsymbol{R}) \cdot \frac{\nabla_\gamma A_i(\boldsymbol{R}, t)}{A_j(\boldsymbol{R}, t)} \Re\left[e^{i \phi_{i j}(\boldsymbol{R}, t)}\right] \\
+&+\sum_{\gamma, i \neq j} \frac{\hbar}{M_\gamma} \frac{A_j(\boldsymbol{R}, t)}{A_j(\boldsymbol{R}, t)} \boldsymbol{d}_{j i}^\gamma(\boldsymbol{R}) \cdot \nabla_\gamma S_i(\boldsymbol{R}, t) \\
+& \times \Im\left[e^{i \phi_{i j}(\boldsymbol{R}, t)}\right]
+\end{aligned}\tag{13}</script><p>and </p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+&\hbar \frac{\partial A_j(R, t)}{\partial t}=-\sum_\gamma \frac{\hbar}{M_\gamma} \nabla_\gamma A_j(R, t) \cdot \nabla_\gamma S_j(R, t) \\
+&-\sum_\gamma \frac{\hbar}{2 M_\gamma} A_j(R, t) \nabla_\gamma^2 S_j(R, t) \\
+&+\sum_{\gamma i} \frac{\hbar^2}{2 M_\gamma} D_{j i}^\gamma(R) A_i(R, t) \Im\left[e^{i \phi_{i j}(R, t)}\right] \\
+&-\sum_{\gamma, i \neq j} \frac{\hbar^2}{M_\gamma} d_{j i}^\gamma(R) \cdot \nabla_\gamma A_i(R, t) \Im\left[e^{i \phi_{i j}(R, t)}\right] \\
+&-\sum_{\gamma, i \neq j} \frac{\hbar}{M_\gamma} A_i(R, t) d_{j i}^\gamma(R) \cdot \nabla_\gamma S_i(R, t) \\
+&\times \Re\left[e^{i \phi_{i j}(R, t)}\right]  \\
+&
+\end{aligned}\tag{14}</script><p>where </p>
+<script type="math/tex; mode=display">
+\phi_{ij}(\mathbf{R},t)= \frac{1}{\hbar}\left(S_i(\mathbf{R}, t)-S_j(\mathbf{R}, t)\right)</script><p>(13)(14) correspond to the exact S.Eq. for a nuclear-wave-func. evolving in the potential of the different elec-surfaces.            invlove fo-,so-, coupling elements from other PESs.</p>
+<p>In (13), 1,2-terms: classical H-J eq for action S;      3-term: all quantum effects in a single elec-state and introduce nonlocality;    4,5,6-terms: non-adiabatic quantum potential, describle interstate contributions.     Use HJ definition </p>
+<script type="math/tex; mode=display">
+\left.\nabla_\beta S_j(\mathbf{R}, t)\right|_{\mathbf{R}(t)}=\mathbf{P}_j^\beta(t)</script><p>have </p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+M_\beta \frac{d^2 \boldsymbol{R}_\beta(t)}{\left(d t^j\right)^2}=&-\nabla_\beta\left[E_j^{e l}(\boldsymbol{R}(t))+\mathcal{Q}_j(\boldsymbol{R}(t), t)\right.\\
+&\left.+\sum_i \mathcal{D}_{j i}(\boldsymbol{R}(t), t)\right]
+\end{aligned}\tag{15}</script><h4 id="2-4-The-TSH-Dynamics"><a href="#2-4-The-TSH-Dynamics" class="headerlink" title="2.4 The TSH Dynamics"></a>2.4 The TSH Dynamics</h4><p>An approximation to the “in principle” exact NABDY formulation of the nuclear equations of motion.</p>
+<p>From (13),(14):</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+-& \frac{\partial S_j(\boldsymbol{R}, t)}{\partial t}=\sum_\gamma \frac{1}{2 M_\gamma}\left(\nabla_\gamma S_j(\boldsymbol{R}, t)\right)^2+E_j^{e l}(\boldsymbol{R}) \\
+&+\sum_{\gamma, i \neq j} \frac{\hbar}{M_\gamma} \frac{A_i(\boldsymbol{R}, t)}{A_j(\boldsymbol{R}, t)} \boldsymbol{d}_{j i}^\gamma(\boldsymbol{R}) \cdot \nabla_\gamma S_i(\boldsymbol{R}, t) \\
+& \times \Im\left[e^{i \phi_{i j}(R, t)}\right]
+\end{aligned}\tag{16}</script><script type="math/tex; mode=display">
+\begin{aligned}
+\frac{\partial A_j(\boldsymbol{R}, t)}{\partial t}=&-\sum_\gamma \frac{1}{M_\gamma} \nabla_\gamma A_j(\boldsymbol{R}, t) \cdot \nabla_\gamma S_j(\boldsymbol{R}, t) \\
+&-\sum_\gamma \frac{1}{2 M_\gamma} A_j(\boldsymbol{R}, t) \nabla_\gamma^2 S_j(\boldsymbol{R}, t) \\
+&-\sum_{\gamma, i \neq j} \frac{1}{M_\gamma} A_i(\boldsymbol{R}, t) \boldsymbol{d}_{j i}^\gamma(\boldsymbol{R}) \cdot \nabla_\gamma S_i(\boldsymbol{R}, t) \\
+& \times \Re\left[e^{i \phi_{i j}(R, t)}\right] .
+\end{aligned}\tag{17}</script><p>Consider this “classically”:the different trajectories (with different initial conditions) are assumed to be independent from each other. （ITA）</p>
+<script type="math/tex; mode=display">
+\left(A_j^{C L}(R(t), t)\right)^2=\frac{N_j(R(t), d V, t)}{N_t} \frac{1}{d V}</script><p>In TSH, the EOM of nuclear trajectories given by (16) , which independent with d：</p>
+<script type="math/tex; mode=display">
+\frac{d \boldsymbol{P}_j^\beta(t)}{d t^j}=-\nabla_\beta E_j^{e l}(\boldsymbol{R}(t))\tag{18}</script><p>If NACs are negligible, the trajectories evolve along the adiabatic PES.</p>
+<p>If a region of strong coupling is encountered:</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+-& \frac{\partial S_j^{Q M}(\boldsymbol{R}(t), t)}{\partial t}=E_j^{e l}(\boldsymbol{R}(t)) +\sum_{\gamma, i \neq j} \frac{\hbar}{M_\gamma} \frac{A_i^{Q M}(\boldsymbol{R}(t), t)}{A_j^{Q M}(\boldsymbol{R}(t), t)} \times \boldsymbol{d}_{j i}^\gamma(\boldsymbol{R}(t)) \cdot \dot{R}_\gamma(t) \Im\left[e^{i \phi_{i j}^{Q M}(R(t), t)}\right]
+\end{aligned}</script><script type="math/tex; mode=display">
+\begin{aligned}
+\frac{\partial A_j^{Q M}(R(t), t)}{\partial t}=-\sum_{\gamma, i \neq j} \frac{1}{M_\gamma} A_i^{Q M}(R(t), t)\times \boldsymbol{d}_{j i}^\gamma(\boldsymbol{R}(t)) \cdot \dot{R}_\gamma(t) \Re\left[e^{i \phi_{i j}^{Q M}(R(t), t)}\right]
+\end{aligned}</script><p>i.e.</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+i \hbar & \frac{\partial C_j(\boldsymbol{R}(t), t)}{\partial t}=C_j(\boldsymbol{R}(t), t) E_j^{\mathrm{el}}(\boldsymbol{R}(t)) -i \hbar \sum_i\left(\boldsymbol{d}_{j i}(\boldsymbol{R}(t)) \cdot \boldsymbol{R}(t) C_i(\boldsymbol{R}(t), t)\right)
+\end{aligned}\tag{19}</script><p>with </p>
+<script type="math/tex; mode=display">
+C_j(\mathbf{R}(t), t)=A_j^{\mathrm{QM}}(\mathbf{R}(t), t) \exp \left[\frac{i}{\hbar} S_j^{\mathrm{QM}}(\mathbf{R}(t), t)\right]</script><p>In TSH , after enough sampling, internal consistency criterion:</p>
+<script type="math/tex; mode=display">
+\left(A_j^{C L}(R(t), t)\right)^2=\left(A_j^{Q M}(R(t), t)\right)^2</script><p>Tully gives:</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+&p_{i \leftarrow j}^{[\alpha]}(t, t+\Delta t)= \\
+&-2 \int_t^{t+\Delta t} d \tau \frac{\Re\left[C_i^{[\alpha]}(\tau) C_j^{[\alpha] *}(\tau) \boldsymbol{R}(\tau) \cdot \boldsymbol{d}_{i j}(\boldsymbol{R}(\tau))\right]}{C_j^{[\alpha]}(\tau) C_j^{[\alpha] *}(\tau)}
+\end{aligned}\tag{20}</script><p>Reference：</p>
+<p>D. Marx, J. Hutter, Ab Initio Molecular Dynamics: Basic Theory and Advanced Methods, Cambridge University Press, Cambridge, 20</p>
+
+      
+    </div>
+
+    
+    
+    
+	
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2022/11/22/mc/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -205,10 +433,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2022-11-22 14:44:30 / 修改时间：14:48:28" itemprop="dateCreated datePublished" datetime="2022-11-22T14:44:30+08:00">2022-11-22</time>
+              <time title="创建时间：2022-11-22 14:44:30" itemprop="dateCreated datePublished" datetime="2022-11-22T14:44:30+08:00">2022-11-22</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-11-24 17:50:37" itemprop="dateModified" datetime="2022-11-24T17:50:37+08:00">2022-11-24</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -303,15 +537,15 @@ compelete : 3/3
 </li>
 <li><p>这里我在本地运行 Iteration = 600000(6*10^5)结果截图如下(大约半小时)：</p>
   <div  align="center">    
-  <img src=https://s2.loli.net/2022/11/22/WSukEVHJXI4DUTK.png style="zoom:60%" />   
+  <img src=https://s2.loli.net/2022/11/24/at3PQCLDpwBOTZM.png style="zoom:60%" />   
   </div>
 
   <div  align="center">    
-  <img src=https://s2.loli.net/2022/11/22/HJIbctGVA3s9vqy.png style="zoom:50%" />   
+  <img src=https://s2.loli.net/2022/11/24/dm5AFZ86Vj12JnW.png style="zoom:50%" />   
   </div>
 
   <div  align="center">    
-  <img src=https://s2.loli.net/2022/11/22/JSX8miRjc2YdHFo.png style="zoom:50%" />   
+  <img src=https://s2.loli.net/2022/11/24/PSXUBoYHsJ5WdFx.png style="zoom:50%" />   
   </div>
 </li>
 <li><p>和 1/8 (-7/4) 的精确解斜率符合得较好</p>
@@ -1559,106 +1793,6 @@ H=-J \sum_{i=1}^{N-1}\left(g \sigma_i^x+\sigma_i^z \sigma_{i+1}^z\right) \quad J
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/25/PDF-upload-and-preview/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Hsu Quinn">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="BLOG">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/10/25/PDF-upload-and-preview/" class="post-title-link" itemprop="url">PDF upload and preview</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-10-25 19:30:22" itemprop="dateCreated datePublished" datetime="2022-10-25T19:30:22+08:00">2022-10-25</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-10-26 14:19:30" itemprop="dateModified" datetime="2022-10-26T14:19:30+08:00">2022-10-26</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Blog-Setting/" itemprop="url" rel="index"><span itemprop="name">Blog Setting</span></a>
-                </span>
-            </span>
-
-          
-            <span class="post-meta-item" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-users"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="firestore-visitors-count"></span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="Hexo博客上传本地文件以及实现PDF预览"><a href="#Hexo博客上传本地文件以及实现PDF预览" class="headerlink" title="Hexo博客上传本地文件以及实现PDF预览"></a>Hexo博客上传本地文件以及实现PDF预览</h2><h3 id="上传本地文件"><a href="#上传本地文件" class="headerlink" title="上传本地文件"></a>上传本地文件</h3><p>把文件放在<code>source</code>文件下，再使用<code>hexo d</code>部署时，文件会自动被上传到Github上。为了便于文件管理和组织，可以在<code>source</code>文件下新建<code>file</code>文件夹用于分类存储文件。</p>
-<p>使用<code>hexo d</code>部署后，文件的链接是<code>博客域名/file/文件名</code>。</p>
-<p>有两点需要注意：</p>
-<ol>
-<li>链接中需要包含文件名的后缀；</li>
-<li>文件名最好由数字和字母组成，不要包含中文、空格或这特殊字符。解析时候容易出错。</li>
-</ol>
-<h3 id="添加hexo博客book导航栏"><a href="#添加hexo博客book导航栏" class="headerlink" title="添加hexo博客book导航栏"></a>添加hexo博客book导航栏</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new page book</span><br></pre></td></tr></table></figure>
-<p>在主题配置文件夹下添加:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Book:</span><br><span class="line">	url: /book</span><br><span class="line">	icon: fas fa-book</span><br></pre></td></tr></table></figure>
-<p>在book文件夹中的index.md中添加你生成的pdf文件链接即可</p>
-<h3 id="文章中添加pdf预览功能"><a href="#文章中添加pdf预览功能" class="headerlink" title="文章中添加pdf预览功能"></a>文章中添加pdf预览功能</h3><p>PDF预览功能需要借助<a target="_blank" rel="noopener" href="https://github.com/superalsrk/hexo-pdf/">hexo-pdf插件</a>实现。插件非常小巧方便，关于插件的安装和使用，插件作者已经在主页介绍的很详细了。</p>
-<ol>
-<li>hexo-pdf插件。通过npm安装，注意是在hexo根目录下执行该语句。<code>npm install --save hexo-pdf</code></li>
-<li>应用。在文章合适位置插入代码。对于一般的PDF文件、Google Driver和Slideshare都可以使用<code>&#123;% pdf 链接 %&#125;</code>的形式，例如<code>&#123;% pdf http://xsdg217.github.io/221020fang.pdf %&#125;</code>。对于一般的PDF文件也可以本地PDF。</li>
-</ol>
-<h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_43827595/article/details/104574959">【如何在网页中实现pdf在线预览】10分钟学会如何利用Hexo博客上传本地pdf文件并在线预览pdf</a></p>
-
-      
-    </div>
-
-    
-    
-    
-	
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1730,14 +1864,14 @@ H=-J \sum_{i=1}^{N-1}\left(g \sigma_i^x+\sigma_i^z \sigma_{i+1}^z\right) \quad J
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">17</span>
+          <span class="site-state-item-count">18</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-count">5</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">

@@ -22,20 +22,20 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":true,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="A. The density of states">
+  <meta name="description" content="Nonadiabatic Dynamics1. Ehrenfest DynamicsWe use a single-configuration Ansatz for the total wavefunction:  \Psi(\boldsymbol{r}, \boldsymbol{R}, t)&#x3D;\Phi(\boldsymbol{r}, t) \Omega(\boldsymbol{R}, t) \e">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Semiconductor Physics(section 2)">
-<meta property="og:url" content="http://example.com/2022/11/12/Semiconductor%20physics2/index.html">
+<meta property="og:title" content="A bit theory of nonadiabatic dynamics">
+<meta property="og:url" content="http://example.com/2022/11/24/Eh&TSH/index.html">
 <meta property="og:site_name" content="BLOG">
-<meta property="og:description" content="A. The density of states">
+<meta property="og:description" content="Nonadiabatic Dynamics1. Ehrenfest DynamicsWe use a single-configuration Ansatz for the total wavefunction:  \Psi(\boldsymbol{r}, \boldsymbol{R}, t)&#x3D;\Phi(\boldsymbol{r}, t) \Omega(\boldsymbol{R}, t) \e">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-11-12T13:20:00.000Z">
-<meta property="article:modified_time" content="2022-11-12T07:35:16.217Z">
+<meta property="article:published_time" content="2022-11-24T09:33:30.000Z">
+<meta property="article:modified_time" content="2022-11-24T09:34:44.344Z">
 <meta property="article:author" content="Hsu Quinn">
 <meta property="article:tag" content="physics">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://example.com/2022/11/12/Semiconductor%20physics2/">
+<link rel="canonical" href="http://example.com/2022/11/24/Eh&TSH/">
 
 
 <script id="page-configurations">
@@ -48,7 +48,7 @@
   };
 </script>
 
-  <title>Semiconductor Physics(section 2) | BLOG</title>
+  <title>A bit theory of nonadiabatic dynamics | BLOG</title>
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-ER8FH828WC"></script>
     <script>
@@ -188,7 +188,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/11/12/Semiconductor%20physics2/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/11/24/Eh&TSH/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -201,7 +201,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Semiconductor Physics(section 2)
+          A bit theory of nonadiabatic dynamics
         </h1>
 
         <div class="post-meta">
@@ -212,7 +212,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2022-11-12 21:20:00 / 修改时间：15:35:16" itemprop="dateCreated datePublished" datetime="2022-11-12T21:20:00+08:00">2022-11-12</time>
+              <time title="创建时间：2022-11-24 17:33:30 / 修改时间：17:34:44" itemprop="dateCreated datePublished" datetime="2022-11-24T17:33:30+08:00">2022-11-24</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -220,7 +220,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Semiconductor-Physics/" itemprop="url" rel="index"><span itemprop="name">Semiconductor Physics</span></a>
+                  <a href="/categories/Some-Notes/" itemprop="url" rel="index"><span itemprop="name">Some Notes</span></a>
                 </span>
             </span>
 
@@ -242,7 +242,158 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="A-The-density-of-states"><a href="#A-The-density-of-states" class="headerlink" title="A. The density of states"></a>A. The density of states</h3>
+        <h2 id="Nonadiabatic-Dynamics"><a href="#Nonadiabatic-Dynamics" class="headerlink" title="Nonadiabatic Dynamics"></a>Nonadiabatic Dynamics</h2><h3 id="1-Ehrenfest-Dynamics"><a href="#1-Ehrenfest-Dynamics" class="headerlink" title="1. Ehrenfest Dynamics"></a><strong>1. Ehrenfest Dynamics</strong></h3><p>We use a single-configuration Ansatz for the total wavefunction:</p>
+<script type="math/tex; mode=display">
+\Psi(\boldsymbol{r}, \boldsymbol{R}, t)=\Phi(\boldsymbol{r}, t) \Omega(\boldsymbol{R}, t) \exp \left[\frac{i}{\hbar} \int_{t_0}^t d t^{\prime} E_{e l}\left(t^{\prime}\right)\right] .</script><p>The exponential part  is called the “phase term”:</p>
+<script type="math/tex; mode=display">
+\begin{gathered}
+E_{e l}(t)=\iint d r d \boldsymbol{R} \Phi^*(\boldsymbol{r}, t) \Omega^*(\boldsymbol{R}, t) \hat{\mathcal{H}}_{e l}(\boldsymbol{r}, \boldsymbol{R}) 
+\times \Phi(\boldsymbol{r}, t) \Omega(\boldsymbol{R}, t)
+\end{gathered}</script><p>Insert the representation into TDSE,  left multiplication by $\Omega^*(R, t)$  and integrating over R：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+i \hbar  \frac{\partial \Phi(r, t)}{\partial t}=& -\frac{\hbar^2}{2} \sum_j \nabla_i^2 \Phi(r, t)\\
+&+\left[\int d R \Omega^*(R, t) \hat{V}(r, R) \Omega(R, t)\right] \Phi(r, t) 
+\end{aligned} \tag1</script><p>Similarly,</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+i \hbar  \frac{\partial \Omega(\boldsymbol{R}, t)}{\partial t}&=-\frac{\hbar^2}{2} \sum_\gamma M_\gamma^{-1} \nabla_\gamma^2 \Omega(\boldsymbol{R}, t) \\
+& +\left[\int d r \Phi^*(r, t) \hat{\mathcal{H}}_{e /}(r, R) \Phi(r, t)\right] \Omega(\boldsymbol{R}, t) .
+\end{aligned} \tag 2</script><p> forms the so-called mean-field time-dependent self-consistent field (TDSCF) method.</p>
+<h4 id="1-1-The-Time-Dependent-Nuclear-Equation"><a href="#1-1-The-Time-Dependent-Nuclear-Equation" class="headerlink" title="1.1  The Time-Dependent Nuclear Equation"></a>1.1  The Time-Dependent Nuclear Equation</h4><p>The  polar representation:</p>
+<script type="math/tex; mode=display">
+\Omega(\boldsymbol{R}, t)=A(\boldsymbol{R}, t) \exp \left[\frac{i}{\hbar} S(\boldsymbol{R}, t)\right] \tag3</script><p>Insert (3) into (2):</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+i \hbar & \frac{\partial A(\boldsymbol{R}, t)}{\partial t}-A(\boldsymbol{R}, t) \frac{\partial S(\boldsymbol{R}, t)}{\partial t}=\\
+&-\frac{\hbar^2}{2} \sum_\gamma M_\gamma^{-1} \nabla_\gamma^2 A(\boldsymbol{R}, t) 
+-i \hbar \sum_\gamma M_\gamma^{-1} \nabla_\gamma A(\boldsymbol{R}, t) \cdot \nabla_\gamma S(\boldsymbol{R}, t) \\
+&-\frac{i \hbar}{2} \sum_\gamma M_\gamma^{-1} A(\boldsymbol{R}, t) \nabla_\gamma^2 S(\boldsymbol{R}, t) 
++\frac{1}{2} \sum_\gamma M_\gamma^{-1} A(\boldsymbol{R}, t)\left(\nabla_\gamma S(\boldsymbol{R}, t)\right)^2 \\
+&+\left[\int_\gamma \Phi^*(\boldsymbol{r}, t) \hat{\mathcal{H}}_{e /}(\boldsymbol{r}, \boldsymbol{R}) \Phi(\boldsymbol{r}, t)\right] A(\boldsymbol{R}, t) .
+\end{aligned}</script><p>Taking the classical limit:</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\frac{\partial S(R, t)}{\partial t}=&-\frac{1}{2} \sum_\gamma M_\gamma^{-1}\left(\nabla_\gamma S(R, t)\right)^2 \\
+&-\left[\int d r \Phi^*(r, t) \hat{\mathcal{H}}_{e l}(r, R) \Phi(r, t)\right] 
+\end{aligned}\tag 4</script><p>Like the “Hamilton–Jacobi” (HJ) equation, </p>
+<script type="math/tex; mode=display">
+\mathbf{P}\left(t_0\right)=\left.\nabla_{\mathbf{R}} S(\mathbf{R})\right|_{\mathbf{R}\left(t_0\right)}</script><p>We obtain the Newton-like equation for the nuclear trajectories corresponding to the HJ Equation (4):</p>
+<script type="math/tex; mode=display">
+\frac{d \boldsymbol{P}_\gamma(t)}{d t}=-\nabla_\gamma\left[\int d r \Phi^*(\boldsymbol{r}, t) \hat{\mathcal{H}}_{e l}(\boldsymbol{r}, \boldsymbol{R}(t)) \Phi(\boldsymbol{r}, t)\right]</script><p>or </p>
+<script type="math/tex; mode=display">
+M_\gamma \ddot{R}_\gamma(t)=-\nabla_\gamma\left\langle\hat{\mathcal{H}}_{e l}(\boldsymbol{r}, \boldsymbol{R}(t))\right\rangle \tag 5</script><h4 id="1-2-The-Time-Dependent-Electronic-Equation"><a href="#1-2-The-Time-Dependent-Electronic-Equation" class="headerlink" title="1.2   The Time-Dependent Electronic Equation"></a>1.2   The Time-Dependent Electronic Equation</h4><p>We take the classical limit of the nuclear degrees of freedom:</p>
+<script type="math/tex; mode=display">
+|\Omega(\boldsymbol{R}, t)|^2=\prod_\gamma \delta\left(\boldsymbol{R}_\gamma-\boldsymbol{R}_\gamma(t)\right)</script><script type="math/tex; mode=display">
+i \hbar \frac{\partial \Phi(r ; R(t), t)}{\partial t}=\hat{\mathcal{H}}_{e l}(r, R(t)) \Phi(r ; R(t), t)</script><h3 id="2-BO-MD-and-Its-Nonadiabatic-Extensions"><a href="#2-BO-MD-and-Its-Nonadiabatic-Extensions" class="headerlink" title="2. BO-MD and Its Nonadiabatic Extensions"></a><strong>2. BO-MD and Its Nonadiabatic Extensions</strong></h3><script type="math/tex; mode=display">
+\Psi(\boldsymbol{r}, \boldsymbol{R}, t)=\sum_i^{\infty} \Omega_i(\boldsymbol{R}, t) \Phi_i(\boldsymbol{r} ; \boldsymbol{R})\tag 6</script><script type="math/tex; mode=display">
+\hat{\mathcal{H}}_{e l}(r, R) \Phi_i(r ; R)=E_i^{e l}(R) \Phi_i(r ; R)</script><p>Similarly,</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+i \hbar \frac{\partial}{\partial t} \Omega_j(R, t)=& {\left[-\sum_\gamma \frac{\hbar^2}{2 M_\gamma} \nabla_\gamma^2+E_j^{e l}(R)\right] \Omega_j(R, t) } \\
+&+\sum_j^{\infty} \mathcal{F}_{j i} \Omega_i(R, t) .
+\end{aligned}\tag 7</script><script type="math/tex; mode=display">
+\begin{aligned}
+&\mathcal{F}_{j i}(\boldsymbol{R})=\int d \boldsymbol{r} \Phi_j^*(\boldsymbol{r}: \boldsymbol{R})\left[-\sum_\gamma \frac{\hbar^2}{2 M_\gamma} \nabla_\gamma^2\right] \Phi_i(\boldsymbol{r};\boldsymbol{R}) \\
+&\quad+\sum_\gamma \frac{1}{M_\gamma}\left\{\int d r \Phi_j^*(\boldsymbol{r} ; \boldsymbol{R})\left[-i \hbar \nabla_\gamma\right] \Phi_i(\boldsymbol{r} ; \boldsymbol{R})\right\}\times\left[-i \hbar \nabla_\gamma\right] 
+\end{aligned}\tag 8</script><h4 id="2-1-The-Adiabatic-BOA"><a href="#2-1-The-Adiabatic-BOA" class="headerlink" title="2.1 The Adiabatic BOA"></a>2.1 The Adiabatic BOA</h4><p>Only remain diagonal terms （diagonal correction）:</p>
+<script type="math/tex; mode=display">
+\mathcal{F}_{j j}(\boldsymbol{R})=\int d \boldsymbol{r} \Phi_j^*(\boldsymbol{r} ; \boldsymbol{R})\left[-\sum_\gamma \frac{\hbar^2}{2 M_\gamma} \nabla_\gamma^2\right] \Phi_j(\boldsymbol{r} ; \boldsymbol{R})\tag 9</script><p>As in 1.1,let all Fji(R) = 0,insert (10) into (7):</p>
+<script type="math/tex; mode=display">
+\Omega_j(\boldsymbol{R}, t)=A_j(\boldsymbol{R}, t) \exp \left[\frac{i}{\hbar} S_j(\boldsymbol{R}, t)\right] .\tag {10}</script><script type="math/tex; mode=display">
+\frac{\partial S_j(R, t)}{\partial t}=-\frac{1}{2} \sum M_\gamma^{-1}\left(\nabla_\gamma S_j(R, t)\right)^2-E_j^{e l}(\boldsymbol{R}) \tag{11}</script><p>Using the relation </p>
+<script type="math/tex; mode=display">
+\left.\nabla_\gamma S_j\right|_{\mathbf{R}(t)}=\mathbf{P}_j^\gamma(t)</script><p>obtain a Newton-like equation of motion for the “classical” nuclei evolving in electronic state j :</p>
+<script type="math/tex; mode=display">
+M_\gamma \boldsymbol{R}_j^\gamma(t)=-\nabla_\gamma E_j^{e l}(\boldsymbol{R}(t))</script><p>In summary, the BO-MD equations:</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+&\hat{\mathcal{H}}_{e l}(r, R(t)) \Phi_j(r ; \boldsymbol{R}(t))=E_j^{e l}(\boldsymbol{R}(t)) \Phi_j(r ; R(t))\\
+&\begin{aligned}
+M_\gamma \ddot{R}_j^\gamma(t) &=-\nabla_\gamma E_j^{e l}(R(t)) \\
+&=-\nabla_\gamma\underset{\min \Phi_j}{ }\left\langle\Phi_j\left|\hat{\mathcal{H}}_{el}(\boldsymbol{r}, \boldsymbol{R}(t))\right| \Phi_j\right\rangle,
+\end{aligned}
+\end{aligned}</script><p>Due to the assumption that  Fji =0, BO-MD always evolves on a single electronic PES( ground state).</p>
+<h4 id="2-2-Trajectory-Based-Nonadiabatic-Dynamics"><a href="#2-2-Trajectory-Based-Nonadiabatic-Dynamics" class="headerlink" title="2.2. Trajectory-Based Nonadiabatic Dynamics"></a>2.2. Trajectory-Based Nonadiabatic Dynamics</h4><p>Rewrite (7) into :</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+i \hbar \frac{\partial \Omega_j(R, t)}{\partial t}=&-\sum_\gamma \frac{\hbar^2}{2 M_\gamma} \nabla_\gamma^2 \Omega_j(R, t) \\
+&+E_j^{e l}(R) \Omega_j(R, t) \\
+&+\sum_{\gamma i} \frac{\hbar^2}{2 M_\gamma} D_{j i}^\gamma(R) \Omega_i(R, t) \\
+&-\sum_{\gamma, i \neq j} \frac{\hbar^2}{M_\gamma} d_{j i}^\gamma(R) \cdot \nabla_\gamma \Omega_i(R, t)
+\end{aligned}\tag {12}</script><p>where</p>
+<script type="math/tex; mode=display">
+d_{j i}^\gamma(R)=\int d r \Phi_j^*(r ; R) \nabla_\gamma \Phi_i(r ; R)</script><script type="math/tex; mode=display">
+D_{j i}^\gamma(R)=-\int d r \Phi_j^*(r ; R) \nabla_\gamma^2 \Phi_i(r ; R)</script><h4 id="2-3-The-Nonadiabatic-Bohmian-Dynamics-NABDY-Equations"><a href="#2-3-The-Nonadiabatic-Bohmian-Dynamics-NABDY-Equations" class="headerlink" title="2.3 The Nonadiabatic Bohmian Dynamics (NABDY) Equations"></a>2.3 The Nonadiabatic Bohmian Dynamics (NABDY) Equations</h4><p>The polar representation (10) in Eq(12):</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+-& \frac{\partial S_j(\boldsymbol{R}, t)}{\partial t}=\sum_\gamma \frac{1}{2 M_\gamma}\left(\nabla_\gamma S_j(\boldsymbol{R}, t)\right)^2+E_j^{e \prime}(\boldsymbol{R}) \\
+&-\sum_\gamma \frac{\hbar^2}{2 M_\gamma} \frac{\nabla_\gamma^2 A_j(\boldsymbol{R}, t)}{A_j(\boldsymbol{R}, t)} \\
+&+\sum_{\gamma i} \frac{\hbar^2}{2 M_\gamma} D_{j i}^\gamma(\boldsymbol{R}) \frac{A_i(\boldsymbol{R}, t)}{A_j(\boldsymbol{R}, t)} \Re\left[e^{i \phi_{i j}(R, t)}\right] \\
+&-\sum_{\gamma, i \neq j} \frac{\hbar^2}{M_\gamma} \boldsymbol{d}_{j i}^\gamma(\boldsymbol{R}) \cdot \frac{\nabla_\gamma A_i(\boldsymbol{R}, t)}{A_j(\boldsymbol{R}, t)} \Re\left[e^{i \phi_{i j}(\boldsymbol{R}, t)}\right] \\
+&+\sum_{\gamma, i \neq j} \frac{\hbar}{M_\gamma} \frac{A_j(\boldsymbol{R}, t)}{A_j(\boldsymbol{R}, t)} \boldsymbol{d}_{j i}^\gamma(\boldsymbol{R}) \cdot \nabla_\gamma S_i(\boldsymbol{R}, t) \\
+& \times \Im\left[e^{i \phi_{i j}(\boldsymbol{R}, t)}\right]
+\end{aligned}\tag{13}</script><p>and </p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+&\hbar \frac{\partial A_j(R, t)}{\partial t}=-\sum_\gamma \frac{\hbar}{M_\gamma} \nabla_\gamma A_j(R, t) \cdot \nabla_\gamma S_j(R, t) \\
+&-\sum_\gamma \frac{\hbar}{2 M_\gamma} A_j(R, t) \nabla_\gamma^2 S_j(R, t) \\
+&+\sum_{\gamma i} \frac{\hbar^2}{2 M_\gamma} D_{j i}^\gamma(R) A_i(R, t) \Im\left[e^{i \phi_{i j}(R, t)}\right] \\
+&-\sum_{\gamma, i \neq j} \frac{\hbar^2}{M_\gamma} d_{j i}^\gamma(R) \cdot \nabla_\gamma A_i(R, t) \Im\left[e^{i \phi_{i j}(R, t)}\right] \\
+&-\sum_{\gamma, i \neq j} \frac{\hbar}{M_\gamma} A_i(R, t) d_{j i}^\gamma(R) \cdot \nabla_\gamma S_i(R, t) \\
+&\times \Re\left[e^{i \phi_{i j}(R, t)}\right]  \\
+&
+\end{aligned}\tag{14}</script><p>where </p>
+<script type="math/tex; mode=display">
+\phi_{ij}(\mathbf{R},t)= \frac{1}{\hbar}\left(S_i(\mathbf{R}, t)-S_j(\mathbf{R}, t)\right)</script><p>(13)(14) correspond to the exact S.Eq. for a nuclear-wave-func. evolving in the potential of the different elec-surfaces.            invlove fo-,so-, coupling elements from other PESs.</p>
+<p>In (13), 1,2-terms: classical H-J eq for action S;      3-term: all quantum effects in a single elec-state and introduce nonlocality;    4,5,6-terms: non-adiabatic quantum potential, describle interstate contributions.     Use HJ definition </p>
+<script type="math/tex; mode=display">
+\left.\nabla_\beta S_j(\mathbf{R}, t)\right|_{\mathbf{R}(t)}=\mathbf{P}_j^\beta(t)</script><p>have </p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+M_\beta \frac{d^2 \boldsymbol{R}_\beta(t)}{\left(d t^j\right)^2}=&-\nabla_\beta\left[E_j^{e l}(\boldsymbol{R}(t))+\mathcal{Q}_j(\boldsymbol{R}(t), t)\right.\\
+&\left.+\sum_i \mathcal{D}_{j i}(\boldsymbol{R}(t), t)\right]
+\end{aligned}\tag{15}</script><h4 id="2-4-The-TSH-Dynamics"><a href="#2-4-The-TSH-Dynamics" class="headerlink" title="2.4 The TSH Dynamics"></a>2.4 The TSH Dynamics</h4><p>An approximation to the “in principle” exact NABDY formulation of the nuclear equations of motion.</p>
+<p>From (13),(14):</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+-& \frac{\partial S_j(\boldsymbol{R}, t)}{\partial t}=\sum_\gamma \frac{1}{2 M_\gamma}\left(\nabla_\gamma S_j(\boldsymbol{R}, t)\right)^2+E_j^{e l}(\boldsymbol{R}) \\
+&+\sum_{\gamma, i \neq j} \frac{\hbar}{M_\gamma} \frac{A_i(\boldsymbol{R}, t)}{A_j(\boldsymbol{R}, t)} \boldsymbol{d}_{j i}^\gamma(\boldsymbol{R}) \cdot \nabla_\gamma S_i(\boldsymbol{R}, t) \\
+& \times \Im\left[e^{i \phi_{i j}(R, t)}\right]
+\end{aligned}\tag{16}</script><script type="math/tex; mode=display">
+\begin{aligned}
+\frac{\partial A_j(\boldsymbol{R}, t)}{\partial t}=&-\sum_\gamma \frac{1}{M_\gamma} \nabla_\gamma A_j(\boldsymbol{R}, t) \cdot \nabla_\gamma S_j(\boldsymbol{R}, t) \\
+&-\sum_\gamma \frac{1}{2 M_\gamma} A_j(\boldsymbol{R}, t) \nabla_\gamma^2 S_j(\boldsymbol{R}, t) \\
+&-\sum_{\gamma, i \neq j} \frac{1}{M_\gamma} A_i(\boldsymbol{R}, t) \boldsymbol{d}_{j i}^\gamma(\boldsymbol{R}) \cdot \nabla_\gamma S_i(\boldsymbol{R}, t) \\
+& \times \Re\left[e^{i \phi_{i j}(R, t)}\right] .
+\end{aligned}\tag{17}</script><p>Consider this “classically”:the different trajectories (with different initial conditions) are assumed to be independent from each other. （ITA）</p>
+<script type="math/tex; mode=display">
+\left(A_j^{C L}(R(t), t)\right)^2=\frac{N_j(R(t), d V, t)}{N_t} \frac{1}{d V}</script><p>In TSH, the EOM of nuclear trajectories given by (16) , which independent with d：</p>
+<script type="math/tex; mode=display">
+\frac{d \boldsymbol{P}_j^\beta(t)}{d t^j}=-\nabla_\beta E_j^{e l}(\boldsymbol{R}(t))\tag{18}</script><p>If NACs are negligible, the trajectories evolve along the adiabatic PES.</p>
+<p>If a region of strong coupling is encountered:</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+-& \frac{\partial S_j^{Q M}(\boldsymbol{R}(t), t)}{\partial t}=E_j^{e l}(\boldsymbol{R}(t)) +\sum_{\gamma, i \neq j} \frac{\hbar}{M_\gamma} \frac{A_i^{Q M}(\boldsymbol{R}(t), t)}{A_j^{Q M}(\boldsymbol{R}(t), t)} \times \boldsymbol{d}_{j i}^\gamma(\boldsymbol{R}(t)) \cdot \dot{R}_\gamma(t) \Im\left[e^{i \phi_{i j}^{Q M}(R(t), t)}\right]
+\end{aligned}</script><script type="math/tex; mode=display">
+\begin{aligned}
+\frac{\partial A_j^{Q M}(R(t), t)}{\partial t}=-\sum_{\gamma, i \neq j} \frac{1}{M_\gamma} A_i^{Q M}(R(t), t)\times \boldsymbol{d}_{j i}^\gamma(\boldsymbol{R}(t)) \cdot \dot{R}_\gamma(t) \Re\left[e^{i \phi_{i j}^{Q M}(R(t), t)}\right]
+\end{aligned}</script><p>i.e.</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+i \hbar & \frac{\partial C_j(\boldsymbol{R}(t), t)}{\partial t}=C_j(\boldsymbol{R}(t), t) E_j^{\mathrm{el}}(\boldsymbol{R}(t)) -i \hbar \sum_i\left(\boldsymbol{d}_{j i}(\boldsymbol{R}(t)) \cdot \boldsymbol{R}(t) C_i(\boldsymbol{R}(t), t)\right)
+\end{aligned}\tag{19}</script><p>with </p>
+<script type="math/tex; mode=display">
+C_j(\mathbf{R}(t), t)=A_j^{\mathrm{QM}}(\mathbf{R}(t), t) \exp \left[\frac{i}{\hbar} S_j^{\mathrm{QM}}(\mathbf{R}(t), t)\right]</script><p>In TSH , after enough sampling, internal consistency criterion:</p>
+<script type="math/tex; mode=display">
+\left(A_j^{C L}(R(t), t)\right)^2=\left(A_j^{Q M}(R(t), t)\right)^2</script><p>Tully gives:</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+&p_{i \leftarrow j}^{[\alpha]}(t, t+\Delta t)= \\
+&-2 \int_t^{t+\Delta t} d \tau \frac{\Re\left[C_i^{[\alpha]}(\tau) C_j^{[\alpha] *}(\tau) \boldsymbol{R}(\tau) \cdot \boldsymbol{d}_{i j}(\boldsymbol{R}(\tau))\right]}{C_j^{[\alpha]}(\tau) C_j^{[\alpha] *}(\tau)}
+\end{aligned}\tag{20}</script><p>Reference：</p>
+<p>D. Marx, J. Hutter, Ab Initio Molecular Dynamics: Basic Theory and Advanced Methods, Cambridge University Press, Cambridge, 20</p>
+
     </div>
 
     
@@ -284,7 +435,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="http://example.com/2022/11/12/Semiconductor%20physics2/" title="Semiconductor Physics(section 2)">http://example.com/2022/11/12/Semiconductor physics2/</a>
+    <a href="http://example.com/2022/11/24/Eh&TSH/" title="A bit theory of nonadiabatic dynamics">http://example.com/2022/11/24/Eh&TSH/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -305,13 +456,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2022/11/06/HW_MPO/" rel="prev" title="Matrix Product Operators (MPOs) in compass model">
-      <i class="fa fa-chevron-left"></i> Matrix Product Operators (MPOs) in compass model
+    <a href="/2022/11/22/mc/" rel="prev" title="Monte Carlo in 2D Ising Model">
+      <i class="fa fa-chevron-left"></i> Monte Carlo in 2D Ising Model
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2022/11/13/HW_MPS1107/" rel="next" title="2-site variational MPS method in 1D spin model">
-      2-site variational MPS method in 1D spin model <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -370,7 +518,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#A-The-density-of-states"><span class="nav-number">1.</span> <span class="nav-text">A. The density of states</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Nonadiabatic-Dynamics"><span class="nav-number">1.</span> <span class="nav-text">Nonadiabatic Dynamics</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-Ehrenfest-Dynamics"><span class="nav-number">1.1.</span> <span class="nav-text">1. Ehrenfest Dynamics</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-The-Time-Dependent-Nuclear-Equation"><span class="nav-number">1.1.1.</span> <span class="nav-text">1.1  The Time-Dependent Nuclear Equation</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-The-Time-Dependent-Electronic-Equation"><span class="nav-number">1.1.2.</span> <span class="nav-text">1.2   The Time-Dependent Electronic Equation</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-BO-MD-and-Its-Nonadiabatic-Extensions"><span class="nav-number">1.2.</span> <span class="nav-text">2. BO-MD and Its Nonadiabatic Extensions</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-The-Adiabatic-BOA"><span class="nav-number">1.2.1.</span> <span class="nav-text">2.1 The Adiabatic BOA</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-Trajectory-Based-Nonadiabatic-Dynamics"><span class="nav-number">1.2.2.</span> <span class="nav-text">2.2. Trajectory-Based Nonadiabatic Dynamics</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-The-Nonadiabatic-Bohmian-Dynamics-NABDY-Equations"><span class="nav-number">1.2.3.</span> <span class="nav-text">2.3 The Nonadiabatic Bohmian Dynamics (NABDY) Equations</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-4-The-TSH-Dynamics"><span class="nav-number">1.2.4.</span> <span class="nav-text">2.4 The TSH Dynamics</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
