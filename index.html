@@ -182,6 +182,152 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/12/28/HW_QMC/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Hsu Quinn">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="BLOG">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/12/28/HW_QMC/" class="post-title-link" itemprop="url">Monte Carlo Wave Functions in Non-Hermitian Evolution </font></a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-12-28 21:10:30 / 修改时间：21:01:51" itemprop="dateCreated datePublished" datetime="2022-12-28T21:10:30+08:00">2022-12-28</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Computational-Quantum-Physics/" itemprop="url" rel="index"><span itemprop="name">Computational Quantum Physics</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-users"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="firestore-visitors-count"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <font size = 5> Monte Carlo Wave Functions in Non-Hermitian Evolution </font>
+
+<ul>
+<li><p>A bit of theory : non-hermitian evolution</p>
+<p>  首先是关于我们研究问题的背景。我们知道，量子力学领域中，厄米系统是比较常见的系统，其显著特点就是该系统下的哈密顿量等于其哈密顿量的共轭。如果我们考虑一个开放系统，也就是一个小的系统和环境之间的耦合的过程，它的密度矩阵演化可以近似用一个主方程来描述: </p>
+<script type="math/tex; mode=display">
+  \dot{\rho}=-\frac{\mathrm{i}}{\hbar}\left[\mathcal{H}_s, \rho\right]+\mathcal{L}[\rho]</script><p>  其中第二项描述的就是不可逆耗散的非厄密部分：</p>
+<script type="math/tex; mode=display">
+  \mathcal{L}[\rho]=-\frac{1}{2} \sum_i\left(C_i^{\dagger} C_i \rho+\rho C_i^{\dagger} C_i\right)+\sum_i C_i \rho C_i^{\dagger}</script><p>  我们做一个简单的重写，将主方程中的耗散项写进对易关系里：</p>
+<script type="math/tex; mode=display">
+  \dot{\rho}=-\frac{\mathrm{i}}{\hbar}\left(\mathcal{H}_{\text {eff }} \rho-\rho \mathcal{H}_{\text {eff }}^{\dagger}\right)+\mathcal{L}_{\text {jump }}[\rho]</script><p>  其中</p>
+<script type="math/tex; mode=display">
+  \mathcal{H}_{\mathrm{eff}} \equiv \mathcal{H}_s-\frac{\mathrm{i} \hbar}{2} \sum_i C_i^{\dagger} C_i</script><script type="math/tex; mode=display">
+  \mathcal{L}_{\text {jump }}[\rho] \equiv \sum_i C_i \rho C_i^{\dagger}</script><p>  得到了一个非厄密的有效哈密顿量和一个量子跃迁项。这也就意味着，我们对态矢的演化可以分解为一个Schrödinger-like的部分和一个jump的部分，蒙特卡洛模拟就是对大量的这种演化过程做统计平均。</p>
+<p>  对于有效非厄密哈密顿量，$C$ 是湮灭算符，对应于一个单独的不可逆过程，速率是 $\gamma$。非厄密的结果是耗散的产生，可以来描述有系统和环境耦合的情形，注意到对于极小时间内的一个演化，波函数是不归一的，即</p>
+<script type="math/tex; mode=display">
+  |\tilde{\psi}(t+\delta t)\rangle=\left(1-\frac{\mathrm{i} \mathcal{H}_{\mathrm{eff}} \delta t}{\hbar}\right)|\psi(t)\rangle</script><script type="math/tex; mode=display">
+  \begin{aligned}
+  & \langle\tilde{\psi}(t+\delta t)| \tilde{\psi}(t+\delta t)\rangle=\left\langle\psi(t)\left|\left(1+\frac{\mathrm{i \mathcal {H }}_{\mathrm{eff}}^{\dagger} \delta t}{\hbar}\right)\left(1-\frac{\mathcal{i \mathcal { H }}_{\mathrm{eff}} \delta t}{\hbar}\right)\right| \psi(t)\right\rangle =1-\delta p \\
+  &
+  \end{aligned}</script><script type="math/tex; mode=display">
+  \delta p=\frac{\mathrm{i}}{\hbar} \delta t\left\langle\psi(t)\left|\mathcal{H}_{\mathrm{eff}}-\mathcal{H}_{\mathrm{eff}}^{\dagger}\right| \psi(t)\right\rangle=\delta t     \sum_i\left\langle\psi(t)\left|C_i^{\dagger} C_i\right| \psi(t)\right\rangle \equiv \sum_i \delta p_i</script><p>  其中 $\delta p$ 的损失是因为没有考虑 $L_{jump}$ 项，可以理解为量子跃迁（decay）概率的占比。因此对于计算模拟而言，可以用蒙特卡洛来选择是进行非厄密演化还是量子跃迁。</p>
+<p>  一个一般化的计算流程：</p>
+  <div  align="left">    
+  <img src=https://s2.loli.net/2022/12/28/BfDY5WtzaQ17lb9.png style="zoom:60%" />   
+  </div>
+
+
+
+
+</li>
+</ul>
+<ul>
+<li><p>下面是具体的模拟计算：</p>
+</li>
+<li><p>首先是一个 easy 的 toy test，考虑一个 optical cavity 的光场。实际上就是去求解一个大的矩阵。显然是比较麻烦的，我们只想做一下简单的测试，那么考虑弱耦合的情形，并假设初态零温真空光场的光子数很多，取初始态为 $|n = 1000\rangle$，每一步发生 jump， 即耗散一个光子到环境中的概率为：</p>
+<script type="math/tex; mode=display">
+  \delta_p=\delta_t \gamma\left\langle\phi\left|a^{\dagger} a\right| \phi\right\rangle=\delta_t \gamma n</script><p>  判断 random r 和 $\delta p$ 的大小关系，决定下一步是 $|n\rangle$ 还是 $|n-1\rangle$</p>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#weak coupling</span></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line">num = <span class="number">1000</span>                                                  <span class="comment"># 模拟轨迹次数</span></span><br><span class="line">iteration = <span class="number">10000</span>                                           <span class="comment"># 迭代次数</span></span><br><span class="line">alpha = <span class="number">0.001</span>                                               <span class="comment"># 衰减速率 gamma</span></span><br><span class="line">dt = <span class="number">0.5</span>                                                    <span class="comment"># 间隔 delta t</span></span><br><span class="line">initnum = <span class="number">1000</span>                                              <span class="comment"># 初始腔内的光子数目            </span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">singlemc</span>():</span><br><span class="line">    count = []</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(iteration):</span><br><span class="line">        count.append(<span class="number">0</span>)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(num):</span><br><span class="line">        n = initnum</span><br><span class="line">        <span class="keyword">for</span> step <span class="keyword">in</span> <span class="built_in">range</span>(iteration):</span><br><span class="line">            count[step] += n                                <span class="comment"># count 对时间步做光子数的统计(平均)</span></span><br><span class="line">            r = np.random.random()</span><br><span class="line">            delta = alpha * dt * n</span><br><span class="line">            <span class="keyword">if</span> (r&gt;delta):</span><br><span class="line">                n = n                                       <span class="comment"># 演化</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                n = (n-<span class="number">1</span>) <span class="keyword">if</span> n &gt; <span class="number">0</span> <span class="keyword">else</span> <span class="number">0</span>                   <span class="comment"># 光子耗散</span></span><br><span class="line">        </span><br><span class="line">    <span class="keyword">return</span> count</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">draw</span>(<span class="params">array</span>):</span><br><span class="line">    x = []</span><br><span class="line">    y = []</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(iteration):</span><br><span class="line">        x.append(i * dt)</span><br><span class="line">    <span class="keyword">for</span> item <span class="keyword">in</span> array:</span><br><span class="line">        y.append(item/num)</span><br><span class="line">    plt.xlabel(<span class="string">&#x27;t&#x27;</span>)  </span><br><span class="line">    plt.ylabel(<span class="string">&#x27;photons number&#x27;</span>)</span><br><span class="line">    plt.plot(x,y)</span><br><span class="line">    <span class="comment">#plt.legend()</span></span><br><span class="line">    </span><br><span class="line"><span class="keyword">if</span> __name__==<span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    start = time.time()</span><br><span class="line">    ans = singlemc()</span><br><span class="line">    draw(ans)</span><br><span class="line">    end = time.time()</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;Running time: %.4s Seconds&#x27;</span>%(end-start))</span><br><span class="line">    </span><br></pre></td></tr></table></figure>
+<pre><code>Running time: 4.96 Seconds
+</code></pre><p><img src="221226_files/221226_3_1.png" alt="png"></p>
+<ul>
+<li><p>可以看到，这是一个指数衰减的过程，和理论是相匹配的：如上假设下的 cavity 内光子行为对应于无驱动力的阻尼衰减。</p>
+</li>
+<li><p>然后我们研究一下光耦合的两能级体系，模拟从高能级向低能级的衰减过程。理论上我们知道：</p>
+<script type="math/tex; mode=display">
+  \begin{gathered}
+  \mathcal{H}_{\mathrm{eff}}=\frac{1}{2} \omega \sigma_z-\frac{\mathrm{i} \hbar \Gamma}{2} \sigma_{+} \sigma_{-} \\
+  \mathcal{L}_{\text {jump }}[\rho]=\Gamma \sigma_{-} \rho \sigma_{+} .
+  \end{gathered}</script><p>  数值模拟中，我们设初态为高能级占据态($|upper\rangle$)，每一步发生坍缩的概率应为：</p>
+<script type="math/tex; mode=display">
+  \delta_p=\delta_t \gamma\left\langle\phi\left|a^{\dagger} a\right| \phi\right\rangle=\delta_t \gamma|a|^2</script><p>  $|a|^2$ 是高能级的占据概率，判断 r 和 $\delta p$ 的大小关系，决定下一步是正常演化还是坍缩到低能级态($|lower\rangle$)。</p>
+<p>  对于所谓的 pump, 我们用 w 来表示光激发的大小，下面分别取 w = 0,0.01,0.02,0.1, $\gamma$ 取  0.005， 1000次5000步间隔为 0.1(s)的模拟，得到了不同强度光激发下，高能级态占据数随时间变化的关系图：</p>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#two level</span></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line">num = <span class="number">1000</span>                                                      <span class="comment"># 模拟轨迹次数</span></span><br><span class="line">iteration = <span class="number">5000</span>                                                <span class="comment"># 迭代次数</span></span><br><span class="line">dt = <span class="number">0.1</span>                                                        <span class="comment"># 间隔 delta t</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">setup</span>():</span><br><span class="line">    I = []</span><br><span class="line">    I.append((<span class="number">0</span>,<span class="number">0.005</span>))                                         <span class="comment"># （w,gamma）表示 pump 和 dacay 的强度</span></span><br><span class="line">    I.append((<span class="number">0.01</span>,<span class="number">0.005</span>))</span><br><span class="line">    I.append((<span class="number">0.02</span>,<span class="number">0.005</span>))</span><br><span class="line">    I.append((<span class="number">0.1</span>,<span class="number">0.005</span>))</span><br><span class="line">    <span class="keyword">return</span> I</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">evolution</span>(<span class="params">I</span>):       </span><br><span class="line">    ans = []</span><br><span class="line">    cnt = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> item <span class="keyword">in</span> I:</span><br><span class="line">        w = item[<span class="number">0</span>]</span><br><span class="line">        alpha = item[<span class="number">1</span>]</span><br><span class="line">        A1 = []</span><br><span class="line">        A2 = []</span><br><span class="line">        P1 = []                                                 <span class="comment"># P1 存 高能级的占据概率</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(iteration):</span><br><span class="line">            A1.append(<span class="number">0</span>)</span><br><span class="line">            A2.append(<span class="number">0</span>)</span><br><span class="line">            P1.append(<span class="number">0</span>)</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(num):</span><br><span class="line">            a1 = <span class="number">1</span></span><br><span class="line">            a2 = <span class="number">0</span></span><br><span class="line">            <span class="keyword">for</span> step <span class="keyword">in</span> <span class="built_in">range</span>(iteration):</span><br><span class="line">                A1[step] += a1</span><br><span class="line">                A2[step] += a2</span><br><span class="line">                r = np.random.random()</span><br><span class="line">                delta = alpha * dt * np.power(<span class="built_in">abs</span>(a1),<span class="number">2</span>)</span><br><span class="line">                <span class="keyword">if</span> (r&gt;delta):                                   <span class="comment"># 正常的nonhermitian 演化</span></span><br><span class="line">                    a1_new = a1 - <span class="number">1.0j</span> * dt * w * a2</span><br><span class="line">                    a2_new = - <span class="number">1.0j</span> * dt * w * a1 + a2 * (<span class="number">1.0</span> - alpha * dt)</span><br><span class="line">                    norm = np.sqrt(np.power(<span class="built_in">abs</span>(a1_new),<span class="number">2</span>) + np.power(<span class="built_in">abs</span>(a2_new),<span class="number">2</span>))       <span class="comment"># 注意要归一</span></span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    a1_new = <span class="number">0</span>                                  <span class="comment"># 坍缩到低能级态</span></span><br><span class="line">                    b1_new = <span class="number">1</span></span><br><span class="line">                a1 = a1_new</span><br><span class="line">                a2 = a2_new</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(iteration):</span><br><span class="line">            <span class="comment">#P1[i] = (np.power(abs(a1[i]),2)) / (num*num)</span></span><br><span class="line">            P1[i] = (<span class="built_in">abs</span>(A1[i])*<span class="built_in">abs</span>(A1[i])) / (num*num)</span><br><span class="line">        ans.append(P1)</span><br><span class="line">        cnt = cnt + <span class="number">1</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="built_in">str</span>(cnt)+<span class="string">&quot;/&quot;</span>+<span class="built_in">str</span>(<span class="built_in">len</span>(I))+<span class="string">&quot; finished &quot;</span>)</span><br><span class="line">    <span class="keyword">return</span> ans</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">draw_two_level</span>(<span class="params">array</span>):</span><br><span class="line">    index = <span class="number">221</span></span><br><span class="line">    plt.figure(figsize = (<span class="number">16</span>,<span class="number">10</span>))</span><br><span class="line">    x = []</span><br><span class="line">    y = []</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(iteration):</span><br><span class="line">        x.append(i * dt)</span><br><span class="line">    <span class="keyword">for</span> item <span class="keyword">in</span> array:</span><br><span class="line">        p1 = plt.subplot(index)</span><br><span class="line">        y = []</span><br><span class="line">        <span class="keyword">for</span> p <span class="keyword">in</span> item:</span><br><span class="line">            y.append(p)</span><br><span class="line">        plt.xlabel(<span class="string">&#x27;t&#x27;</span>)  </span><br><span class="line">        plt.ylabel(<span class="string">&#x27;occupation of state1&#x27;</span>)</span><br><span class="line">        plt.plot(x,y)</span><br><span class="line">        <span class="comment">#plt.legend()</span></span><br><span class="line">        index = index + <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__==<span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    start = time.time()</span><br><span class="line">    init = setup()</span><br><span class="line">    res = evolution(init)</span><br><span class="line">    draw_two_level(res)</span><br><span class="line">    end = time.time()</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;Running time: %.6s Seconds&#x27;</span>%(end-start))</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<pre><code>1/4 finished 
+2/4 finished 
+3/4 finished 
+4/4 finished 
+Running time: 126.53 Seconds
+</code></pre><p><img src="221226_files/221226_6_1.png" alt="png"></p>
+<ul>
+<li><p>Reference：</p>
+<p>  [1] Meystre P, Sargent M. Elements of quantum optics[M]. Springer Science &amp; Business Media, 2007.</p>
+</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+	
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2022/11/24/Eh&TSH/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1716,106 +1862,6 @@ H=-J \sum_{i=1}^{N-1}\left(g \sigma_i^x+\sigma_i^z \sigma_{i+1}^z\right) \quad J
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/25/PDF-upload-and-preview/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Hsu Quinn">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="BLOG">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/10/25/PDF-upload-and-preview/" class="post-title-link" itemprop="url">PDF upload and preview</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-10-25 19:30:22" itemprop="dateCreated datePublished" datetime="2022-10-25T19:30:22+08:00">2022-10-25</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-10-26 14:19:30" itemprop="dateModified" datetime="2022-10-26T14:19:30+08:00">2022-10-26</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Blog-Setting/" itemprop="url" rel="index"><span itemprop="name">Blog Setting</span></a>
-                </span>
-            </span>
-
-          
-            <span class="post-meta-item" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-users"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="firestore-visitors-count"></span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="Hexo博客上传本地文件以及实现PDF预览"><a href="#Hexo博客上传本地文件以及实现PDF预览" class="headerlink" title="Hexo博客上传本地文件以及实现PDF预览"></a>Hexo博客上传本地文件以及实现PDF预览</h2><h3 id="上传本地文件"><a href="#上传本地文件" class="headerlink" title="上传本地文件"></a>上传本地文件</h3><p>把文件放在<code>source</code>文件下，再使用<code>hexo d</code>部署时，文件会自动被上传到Github上。为了便于文件管理和组织，可以在<code>source</code>文件下新建<code>file</code>文件夹用于分类存储文件。</p>
-<p>使用<code>hexo d</code>部署后，文件的链接是<code>博客域名/file/文件名</code>。</p>
-<p>有两点需要注意：</p>
-<ol>
-<li>链接中需要包含文件名的后缀；</li>
-<li>文件名最好由数字和字母组成，不要包含中文、空格或这特殊字符。解析时候容易出错。</li>
-</ol>
-<h3 id="添加hexo博客book导航栏"><a href="#添加hexo博客book导航栏" class="headerlink" title="添加hexo博客book导航栏"></a>添加hexo博客book导航栏</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new page book</span><br></pre></td></tr></table></figure>
-<p>在主题配置文件夹下添加:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Book:</span><br><span class="line">	url: /book</span><br><span class="line">	icon: fas fa-book</span><br></pre></td></tr></table></figure>
-<p>在book文件夹中的index.md中添加你生成的pdf文件链接即可</p>
-<h3 id="文章中添加pdf预览功能"><a href="#文章中添加pdf预览功能" class="headerlink" title="文章中添加pdf预览功能"></a>文章中添加pdf预览功能</h3><p>PDF预览功能需要借助<a target="_blank" rel="noopener" href="https://github.com/superalsrk/hexo-pdf/">hexo-pdf插件</a>实现。插件非常小巧方便，关于插件的安装和使用，插件作者已经在主页介绍的很详细了。</p>
-<ol>
-<li>hexo-pdf插件。通过npm安装，注意是在hexo根目录下执行该语句。<code>npm install --save hexo-pdf</code></li>
-<li>应用。在文章合适位置插入代码。对于一般的PDF文件、Google Driver和Slideshare都可以使用<code>&#123;% pdf 链接 %&#125;</code>的形式，例如<code>&#123;% pdf http://xsdg217.github.io/221020fang.pdf %&#125;</code>。对于一般的PDF文件也可以本地PDF。</li>
-</ol>
-<h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_43827595/article/details/104574959">【如何在网页中实现pdf在线预览】10分钟学会如何利用Hexo博客上传本地pdf文件并在线预览pdf</a></p>
-
-      
-    </div>
-
-    
-    
-    
-	
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1887,7 +1933,7 @@ H=-J \sum_{i=1}^{N-1}\left(g \sigma_i^x+\sigma_i^z \sigma_{i+1}^z\right) \quad J
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-count">17</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|Amita:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":true,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="Monte Carlo Wave Functions in Non-Hermitian Evolution    A bit of theory : non-hermitian evolution   首先是关于我们研究问题的背景。我们知道，量子力学领域中，厄米系统是比较常见的系统，其显著特点就是该系统下的哈密顿量等于其哈密顿量的共轭。如果我们考虑一个开放系统，也就是一个小的系统和环境之间的耦合">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Monte Carlo Wave Functions in Non-Hermitian Evolution &lt;&#x2F;font&gt;">
+<meta property="og:url" content="http://example.com/2022/12/28/HW_QMC/index.html">
+<meta property="og:site_name" content="BLOG">
+<meta property="og:description" content="Monte Carlo Wave Functions in Non-Hermitian Evolution    A bit of theory : non-hermitian evolution   首先是关于我们研究问题的背景。我们知道，量子力学领域中，厄米系统是比较常见的系统，其显著特点就是该系统下的哈密顿量等于其哈密顿量的共轭。如果我们考虑一个开放系统，也就是一个小的系统和环境之间的耦合">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2022/12/28/HW_QMC/221226_files/221226_3_1.png">
+<meta property="og:image" content="http://example.com/2022/12/28/HW_QMC/221226_files/221226_6_1.png">
+<meta property="article:published_time" content="2022-12-28T13:10:30.000Z">
+<meta property="article:modified_time" content="2022-12-28T13:01:51.279Z">
+<meta property="article:author" content="Hsu Quinn">
+<meta property="article:tag" content="physics">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2022/12/28/HW_QMC/221226_files/221226_3_1.png">
+
+<link rel="canonical" href="http://example.com/2022/12/28/HW_QMC/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Monte Carlo Wave Functions in Non-Hermitian Evolution </font> | BLOG</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-ER8FH828WC"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-ER8FH828WC');
+      }
+    </script>
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?d5cf64a751ac91d8a331bada0477e161";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">BLOG</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-commonweal">
+
+    <a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/12/28/HW_QMC/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Hsu Quinn">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="BLOG">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Monte Carlo Wave Functions in Non-Hermitian Evolution </font>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-12-28 21:10:30 / 修改时间：21:01:51" itemprop="dateCreated datePublished" datetime="2022-12-28T21:10:30+08:00">2022-12-28</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Computational-Quantum-Physics/" itemprop="url" rel="index"><span itemprop="name">Computational Quantum Physics</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-users"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="firestore-visitors-count"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <font size = 5> Monte Carlo Wave Functions in Non-Hermitian Evolution </font>
+
+<ul>
+<li><p>A bit of theory : non-hermitian evolution</p>
+<p>  首先是关于我们研究问题的背景。我们知道，量子力学领域中，厄米系统是比较常见的系统，其显著特点就是该系统下的哈密顿量等于其哈密顿量的共轭。如果我们考虑一个开放系统，也就是一个小的系统和环境之间的耦合的过程，它的密度矩阵演化可以近似用一个主方程来描述: </p>
+<script type="math/tex; mode=display">
+  \dot{\rho}=-\frac{\mathrm{i}}{\hbar}\left[\mathcal{H}_s, \rho\right]+\mathcal{L}[\rho]</script><p>  其中第二项描述的就是不可逆耗散的非厄密部分：</p>
+<script type="math/tex; mode=display">
+  \mathcal{L}[\rho]=-\frac{1}{2} \sum_i\left(C_i^{\dagger} C_i \rho+\rho C_i^{\dagger} C_i\right)+\sum_i C_i \rho C_i^{\dagger}</script><p>  我们做一个简单的重写，将主方程中的耗散项写进对易关系里：</p>
+<script type="math/tex; mode=display">
+  \dot{\rho}=-\frac{\mathrm{i}}{\hbar}\left(\mathcal{H}_{\text {eff }} \rho-\rho \mathcal{H}_{\text {eff }}^{\dagger}\right)+\mathcal{L}_{\text {jump }}[\rho]</script><p>  其中</p>
+<script type="math/tex; mode=display">
+  \mathcal{H}_{\mathrm{eff}} \equiv \mathcal{H}_s-\frac{\mathrm{i} \hbar}{2} \sum_i C_i^{\dagger} C_i</script><script type="math/tex; mode=display">
+  \mathcal{L}_{\text {jump }}[\rho] \equiv \sum_i C_i \rho C_i^{\dagger}</script><p>  得到了一个非厄密的有效哈密顿量和一个量子跃迁项。这也就意味着，我们对态矢的演化可以分解为一个Schrödinger-like的部分和一个jump的部分，蒙特卡洛模拟就是对大量的这种演化过程做统计平均。</p>
+<p>  对于有效非厄密哈密顿量，$C$ 是湮灭算符，对应于一个单独的不可逆过程，速率是 $\gamma$。非厄密的结果是耗散的产生，可以来描述有系统和环境耦合的情形，注意到对于极小时间内的一个演化，波函数是不归一的，即</p>
+<script type="math/tex; mode=display">
+  |\tilde{\psi}(t+\delta t)\rangle=\left(1-\frac{\mathrm{i} \mathcal{H}_{\mathrm{eff}} \delta t}{\hbar}\right)|\psi(t)\rangle</script><script type="math/tex; mode=display">
+  \begin{aligned}
+  & \langle\tilde{\psi}(t+\delta t)| \tilde{\psi}(t+\delta t)\rangle=\left\langle\psi(t)\left|\left(1+\frac{\mathrm{i \mathcal {H }}_{\mathrm{eff}}^{\dagger} \delta t}{\hbar}\right)\left(1-\frac{\mathcal{i \mathcal { H }}_{\mathrm{eff}} \delta t}{\hbar}\right)\right| \psi(t)\right\rangle =1-\delta p \\
+  &
+  \end{aligned}</script><script type="math/tex; mode=display">
+  \delta p=\frac{\mathrm{i}}{\hbar} \delta t\left\langle\psi(t)\left|\mathcal{H}_{\mathrm{eff}}-\mathcal{H}_{\mathrm{eff}}^{\dagger}\right| \psi(t)\right\rangle=\delta t     \sum_i\left\langle\psi(t)\left|C_i^{\dagger} C_i\right| \psi(t)\right\rangle \equiv \sum_i \delta p_i</script><p>  其中 $\delta p$ 的损失是因为没有考虑 $L_{jump}$ 项，可以理解为量子跃迁（decay）概率的占比。因此对于计算模拟而言，可以用蒙特卡洛来选择是进行非厄密演化还是量子跃迁。</p>
+<p>  一个一般化的计算流程：</p>
+  <div  align="left">    
+  <img src=https://s2.loli.net/2022/12/28/BfDY5WtzaQ17lb9.png style="zoom:60%" />   
+  </div>
+
+
+
+
+</li>
+</ul>
+<ul>
+<li><p>下面是具体的模拟计算：</p>
+</li>
+<li><p>首先是一个 easy 的 toy test，考虑一个 optical cavity 的光场。实际上就是去求解一个大的矩阵。显然是比较麻烦的，我们只想做一下简单的测试，那么考虑弱耦合的情形，并假设初态零温真空光场的光子数很多，取初始态为 $|n = 1000\rangle$，每一步发生 jump， 即耗散一个光子到环境中的概率为：</p>
+<script type="math/tex; mode=display">
+  \delta_p=\delta_t \gamma\left\langle\phi\left|a^{\dagger} a\right| \phi\right\rangle=\delta_t \gamma n</script><p>  判断 random r 和 $\delta p$ 的大小关系，决定下一步是 $|n\rangle$ 还是 $|n-1\rangle$</p>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#weak coupling</span></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line">num = <span class="number">1000</span>                                                  <span class="comment"># 模拟轨迹次数</span></span><br><span class="line">iteration = <span class="number">10000</span>                                           <span class="comment"># 迭代次数</span></span><br><span class="line">alpha = <span class="number">0.001</span>                                               <span class="comment"># 衰减速率 gamma</span></span><br><span class="line">dt = <span class="number">0.5</span>                                                    <span class="comment"># 间隔 delta t</span></span><br><span class="line">initnum = <span class="number">1000</span>                                              <span class="comment"># 初始腔内的光子数目            </span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">singlemc</span>():</span><br><span class="line">    count = []</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(iteration):</span><br><span class="line">        count.append(<span class="number">0</span>)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(num):</span><br><span class="line">        n = initnum</span><br><span class="line">        <span class="keyword">for</span> step <span class="keyword">in</span> <span class="built_in">range</span>(iteration):</span><br><span class="line">            count[step] += n                                <span class="comment"># count 对时间步做光子数的统计(平均)</span></span><br><span class="line">            r = np.random.random()</span><br><span class="line">            delta = alpha * dt * n</span><br><span class="line">            <span class="keyword">if</span> (r&gt;delta):</span><br><span class="line">                n = n                                       <span class="comment"># 演化</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                n = (n-<span class="number">1</span>) <span class="keyword">if</span> n &gt; <span class="number">0</span> <span class="keyword">else</span> <span class="number">0</span>                   <span class="comment"># 光子耗散</span></span><br><span class="line">        </span><br><span class="line">    <span class="keyword">return</span> count</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">draw</span>(<span class="params">array</span>):</span><br><span class="line">    x = []</span><br><span class="line">    y = []</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(iteration):</span><br><span class="line">        x.append(i * dt)</span><br><span class="line">    <span class="keyword">for</span> item <span class="keyword">in</span> array:</span><br><span class="line">        y.append(item/num)</span><br><span class="line">    plt.xlabel(<span class="string">&#x27;t&#x27;</span>)  </span><br><span class="line">    plt.ylabel(<span class="string">&#x27;photons number&#x27;</span>)</span><br><span class="line">    plt.plot(x,y)</span><br><span class="line">    <span class="comment">#plt.legend()</span></span><br><span class="line">    </span><br><span class="line"><span class="keyword">if</span> __name__==<span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    start = time.time()</span><br><span class="line">    ans = singlemc()</span><br><span class="line">    draw(ans)</span><br><span class="line">    end = time.time()</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;Running time: %.4s Seconds&#x27;</span>%(end-start))</span><br><span class="line">    </span><br></pre></td></tr></table></figure>
+<pre><code>Running time: 4.96 Seconds
+</code></pre><p><img src="221226_files/221226_3_1.png" alt="png"></p>
+<ul>
+<li><p>可以看到，这是一个指数衰减的过程，和理论是相匹配的：如上假设下的 cavity 内光子行为对应于无驱动力的阻尼衰减。</p>
+</li>
+<li><p>然后我们研究一下光耦合的两能级体系，模拟从高能级向低能级的衰减过程。理论上我们知道：</p>
+<script type="math/tex; mode=display">
+  \begin{gathered}
+  \mathcal{H}_{\mathrm{eff}}=\frac{1}{2} \omega \sigma_z-\frac{\mathrm{i} \hbar \Gamma}{2} \sigma_{+} \sigma_{-} \\
+  \mathcal{L}_{\text {jump }}[\rho]=\Gamma \sigma_{-} \rho \sigma_{+} .
+  \end{gathered}</script><p>  数值模拟中，我们设初态为高能级占据态($|upper\rangle$)，每一步发生坍缩的概率应为：</p>
+<script type="math/tex; mode=display">
+  \delta_p=\delta_t \gamma\left\langle\phi\left|a^{\dagger} a\right| \phi\right\rangle=\delta_t \gamma|a|^2</script><p>  $|a|^2$ 是高能级的占据概率，判断 r 和 $\delta p$ 的大小关系，决定下一步是正常演化还是坍缩到低能级态($|lower\rangle$)。</p>
+<p>  对于所谓的 pump, 我们用 w 来表示光激发的大小，下面分别取 w = 0,0.01,0.02,0.1, $\gamma$ 取  0.005， 1000次5000步间隔为 0.1(s)的模拟，得到了不同强度光激发下，高能级态占据数随时间变化的关系图：</p>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#two level</span></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line">num = <span class="number">1000</span>                                                      <span class="comment"># 模拟轨迹次数</span></span><br><span class="line">iteration = <span class="number">5000</span>                                                <span class="comment"># 迭代次数</span></span><br><span class="line">dt = <span class="number">0.1</span>                                                        <span class="comment"># 间隔 delta t</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">setup</span>():</span><br><span class="line">    I = []</span><br><span class="line">    I.append((<span class="number">0</span>,<span class="number">0.005</span>))                                         <span class="comment"># （w,gamma）表示 pump 和 dacay 的强度</span></span><br><span class="line">    I.append((<span class="number">0.01</span>,<span class="number">0.005</span>))</span><br><span class="line">    I.append((<span class="number">0.02</span>,<span class="number">0.005</span>))</span><br><span class="line">    I.append((<span class="number">0.1</span>,<span class="number">0.005</span>))</span><br><span class="line">    <span class="keyword">return</span> I</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">evolution</span>(<span class="params">I</span>):       </span><br><span class="line">    ans = []</span><br><span class="line">    cnt = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> item <span class="keyword">in</span> I:</span><br><span class="line">        w = item[<span class="number">0</span>]</span><br><span class="line">        alpha = item[<span class="number">1</span>]</span><br><span class="line">        A1 = []</span><br><span class="line">        A2 = []</span><br><span class="line">        P1 = []                                                 <span class="comment"># P1 存 高能级的占据概率</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(iteration):</span><br><span class="line">            A1.append(<span class="number">0</span>)</span><br><span class="line">            A2.append(<span class="number">0</span>)</span><br><span class="line">            P1.append(<span class="number">0</span>)</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(num):</span><br><span class="line">            a1 = <span class="number">1</span></span><br><span class="line">            a2 = <span class="number">0</span></span><br><span class="line">            <span class="keyword">for</span> step <span class="keyword">in</span> <span class="built_in">range</span>(iteration):</span><br><span class="line">                A1[step] += a1</span><br><span class="line">                A2[step] += a2</span><br><span class="line">                r = np.random.random()</span><br><span class="line">                delta = alpha * dt * np.power(<span class="built_in">abs</span>(a1),<span class="number">2</span>)</span><br><span class="line">                <span class="keyword">if</span> (r&gt;delta):                                   <span class="comment"># 正常的nonhermitian 演化</span></span><br><span class="line">                    a1_new = a1 - <span class="number">1.0j</span> * dt * w * a2</span><br><span class="line">                    a2_new = - <span class="number">1.0j</span> * dt * w * a1 + a2 * (<span class="number">1.0</span> - alpha * dt)</span><br><span class="line">                    norm = np.sqrt(np.power(<span class="built_in">abs</span>(a1_new),<span class="number">2</span>) + np.power(<span class="built_in">abs</span>(a2_new),<span class="number">2</span>))       <span class="comment"># 注意要归一</span></span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    a1_new = <span class="number">0</span>                                  <span class="comment"># 坍缩到低能级态</span></span><br><span class="line">                    b1_new = <span class="number">1</span></span><br><span class="line">                a1 = a1_new</span><br><span class="line">                a2 = a2_new</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(iteration):</span><br><span class="line">            <span class="comment">#P1[i] = (np.power(abs(a1[i]),2)) / (num*num)</span></span><br><span class="line">            P1[i] = (<span class="built_in">abs</span>(A1[i])*<span class="built_in">abs</span>(A1[i])) / (num*num)</span><br><span class="line">        ans.append(P1)</span><br><span class="line">        cnt = cnt + <span class="number">1</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="built_in">str</span>(cnt)+<span class="string">&quot;/&quot;</span>+<span class="built_in">str</span>(<span class="built_in">len</span>(I))+<span class="string">&quot; finished &quot;</span>)</span><br><span class="line">    <span class="keyword">return</span> ans</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">draw_two_level</span>(<span class="params">array</span>):</span><br><span class="line">    index = <span class="number">221</span></span><br><span class="line">    plt.figure(figsize = (<span class="number">16</span>,<span class="number">10</span>))</span><br><span class="line">    x = []</span><br><span class="line">    y = []</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(iteration):</span><br><span class="line">        x.append(i * dt)</span><br><span class="line">    <span class="keyword">for</span> item <span class="keyword">in</span> array:</span><br><span class="line">        p1 = plt.subplot(index)</span><br><span class="line">        y = []</span><br><span class="line">        <span class="keyword">for</span> p <span class="keyword">in</span> item:</span><br><span class="line">            y.append(p)</span><br><span class="line">        plt.xlabel(<span class="string">&#x27;t&#x27;</span>)  </span><br><span class="line">        plt.ylabel(<span class="string">&#x27;occupation of state1&#x27;</span>)</span><br><span class="line">        plt.plot(x,y)</span><br><span class="line">        <span class="comment">#plt.legend()</span></span><br><span class="line">        index = index + <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__==<span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    start = time.time()</span><br><span class="line">    init = setup()</span><br><span class="line">    res = evolution(init)</span><br><span class="line">    draw_two_level(res)</span><br><span class="line">    end = time.time()</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;Running time: %.6s Seconds&#x27;</span>%(end-start))</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<pre><code>1/4 finished 
+2/4 finished 
+3/4 finished 
+4/4 finished 
+Running time: 126.53 Seconds
+</code></pre><p><img src="221226_files/221226_6_1.png" alt="png"></p>
+<ul>
+<li><p>Reference：</p>
+<p>  [1] Meystre P, Sargent M. Elements of quantum optics[M]. Springer Science &amp; Business Media, 2007.</p>
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+	
+	  <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">------------- 💖 🌞 End 😚 Thanks for your reading 🌞 💖 -------------</div>
+    
+</div>
+	
+      
+  <div class="popular-posts-header">相关文章</div>
+  <ul class="popular-posts">
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="\2022\10\18\HW_TF_Ising_model\" rel="bookmark">Transverse-field Ising Model</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="\2022\10\08\HW_task1_hubbard_with_U1\" rel="bookmark">Exact diagonalization -- Hubbard model</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="\2022\10\09\HW_task2_time evolution\" rel="bookmark">Time evolution of s single-particle GWP</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="\2022\10\26\Semiconductor physics0\" rel="bookmark">Semiconductor Physics(section 0)</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="\2022\10\30\HW_DMRG\" rel="bookmark">Tranditional DMRG on transverse-field Ising model</a></div>
+    </li>
+  </ul>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Hsu Quinn
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://example.com/2022/12/28/HW_QMC/" title="Monte Carlo Wave Functions in Non-Hermitian Evolution &lt;&#x2F;font&gt;">http://example.com/2022/12/28/HW_QMC/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/physics/" rel="tag"><i class="fa fa-tag"></i> physics</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/11/24/Eh&TSH/" rel="prev" title="A bit theory of nonadiabatic dynamics">
+      <i class="fa fa-chevron-left"></i> A bit theory of nonadiabatic dynamics
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Hsu Quinn"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Hsu Quinn</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">17</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Xsdg217" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Xsdg217" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:fawkes@mail.ustc.edu.cn" title="E-Mail → mailto:fawkes@mail.ustc.edu.cn" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/6090876649" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;6090876649" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.zhihu.com/people/bing-tang-bo-luo-89" title="Zhihu → https:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;bing-tang-bo-luo-89" rel="noopener" target="_blank"><i class="fa fa-globe fa-fw"></i>Zhihu</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://music.163.com/#/user/home?id=1383517537" title="Wangyiyun → https:&#x2F;&#x2F;music.163.com&#x2F;#&#x2F;user&#x2F;home?id&#x3D;1383517537" rel="noopener" target="_blank"><i class="fa fa-music fa-fw"></i>Wangyiyun</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://space.bilibili.com/58820360" title="BiliBili → https:&#x2F;&#x2F;space.bilibili.com&#x2F;58820360" rel="noopener" target="_blank"><i class="fa fa-telegram fa-fw"></i>BiliBili</a>
+      </span>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2015 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hsu Quinn</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+        
+
+
+
+
+  <script src="https://www.gstatic.com/firebasejs/6.3.3/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/6.3.3/firebase-firestore.js"></script>
+  <script>
+    firebase.initializeApp({
+      apiKey   : '',
+      projectId: 'count0908-21d35'
+    });
+
+    function getCount(doc, increaseCount) {
+      // IncreaseCount will be false when not in article page
+      return doc.get().then(d => {
+        var count = 0;
+        if (!d.exists) { // Has no data, initialize count
+          if (increaseCount) {
+            doc.set({
+              count: 1
+            });
+            count = 1;
+          }
+        } else { // Has data
+          count = d.data().count;
+          if (increaseCount) {
+            // If first view this article
+            doc.set({ // Increase count
+              count: count + 1
+            });
+            count++;
+          }
+        }
+
+        return count;
+      });
+    }
+
+    function appendCountTo(el) {
+      return count => {
+        el.innerText = count;
+      }
+    }
+  </script>
+  <script>
+    (function() {
+      var db = firebase.firestore();
+      var articles = db.collection('articles');
+
+      if (CONFIG.page.isPost) { // Is article page
+        var title = document.querySelector('.post-title').innerText.trim();
+        var doc = articles.doc(title);
+        var increaseCount = CONFIG.hostname === location.hostname;
+        if (localStorage.getItem(title)) {
+          increaseCount = false;
+        } else {
+          // Mark as visited
+          localStorage.setItem(title, true);
+        }
+        getCount(doc, increaseCount).then(appendCountTo(document.querySelector('.firestore-visitors-count')));
+      } else if (CONFIG.page.isHome) { // Is index page
+        var promises = [...document.querySelectorAll('.post-title')].map(element => {
+          var title = element.innerText.trim();
+          var doc = articles.doc(title);
+          return getCount(doc);
+        });
+        Promise.all(promises).then(counts => {
+          var metas = document.querySelectorAll('.firestore-visitors-count');
+          counts.forEach((val, idx) => {
+            appendCountTo(metas[idx])(val);
+          });
+        });
+      }
+    })();
+  </script>
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/medium-zoom@1/dist/medium-zoom.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/pangu@4/dist/browser/pangu.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+<script>
+document.querySelectorAll('.pdfobject-container').forEach(element => {
+  let url = element.dataset.target;
+  let pdfOpenParams = {
+    navpanes : 0,
+    toolbar  : 0,
+    statusbar: 0,
+    pagemode : 'thumbs',
+    view     : 'FitH'
+  };
+  let pdfOpenFragment = '#' + Object.entries(pdfOpenParams).map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join('&');
+  let fullURL = `/lib/pdf/web/viewer.html?file=${encodeURIComponent(url)}${pdfOpenFragment}`;
+
+  if (NexT.utils.supportsPDFs()) {
+    element.innerHTML = `<embed class="pdfobject" src="${url + pdfOpenFragment}" type="application/pdf" style="height: ${element.dataset.height};">`;
+  } else {
+    element.innerHTML = `<iframe src="${fullURL}" style="height: ${element.dataset.height};" frameborder="0"></iframe>`;
+  }
+});
+</script>
+
+
+<script>
+if (document.querySelectorAll('pre.mermaid').length) {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js', () => {
+    mermaid.initialize({
+      theme    : 'forest',
+      logLevel : 3,
+      flowchart: { curve     : 'linear' },
+      gantt    : { axisFormat: '%m/%d/%Y' },
+      sequence : { actorMargin: 50 }
+    });
+  }, window.mermaid);
+}
+</script>
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+</body>
+</html>
