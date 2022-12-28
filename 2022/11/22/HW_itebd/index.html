@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|Amita:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":true,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="Homework   consider the 1D spin model with open boundary condition   H&#x3D;-\sum_j\left(\sigma_{j-1}^z \sigma_j^y \sigma_{j+1}^z+\sigma_j^x\right) write a code for the 3-site iTEBD method   choose $D_{s}">
+<meta property="og:type" content="article">
+<meta property="og:title" content="3-site iTEBD method">
+<meta property="og:url" content="http://example.com/2022/11/22/HW_itebd/index.html">
+<meta property="og:site_name" content="BLOG">
+<meta property="og:description" content="Homework   consider the 1D spin model with open boundary condition   H&#x3D;-\sum_j\left(\sigma_{j-1}^z \sigma_j^y \sigma_{j+1}^z+\sigma_j^x\right) write a code for the 3-site iTEBD method   choose $D_{s}">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-11-22T06:32:30.000Z">
+<meta property="article:modified_time" content="2022-11-22T06:32:35.472Z">
+<meta property="article:author" content="Hsu Quinn">
+<meta property="article:tag" content="physics">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2022/11/22/HW_itebd/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>3-site iTEBD method | BLOG</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-ER8FH828WC"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-ER8FH828WC');
+      }
+    </script>
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?d5cf64a751ac91d8a331bada0477e161";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">BLOG</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-commonweal">
+
+    <a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/11/22/HW_itebd/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Hsu Quinn">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="BLOG">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          3-site iTEBD method
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-11-22 14:32:30 / 修改时间：14:32:35" itemprop="dateCreated datePublished" datetime="2022-11-22T14:32:30+08:00">2022-11-22</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Computational-Quantum-Physics/" itemprop="url" rel="index"><span itemprop="name">Computational Quantum Physics</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-users"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="firestore-visitors-count"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <font size = 5> Homework</font>
+
+<ul>
+<li>consider the 1D spin model with open boundary condition</li>
+</ul>
+<script type="math/tex; mode=display">
+H=-\sum_j\left(\sigma_{j-1}^z \sigma_j^y \sigma_{j+1}^z+\sigma_j^x\right)</script><ul>
+<li><p>write a code for the 3-site iTEBD method</p>
+<p>  choose $D_{s} =  6 $, calculate the ground state energy $E$ per site, and the magnetization per site $\left\langle\sigma_i^z\right\rangle$ and $\left\langle\sigma_i^x\right\rangle$</p>
+<p>  show the data of entanglement entropy and entanglement spectrum</p>
+</li>
+</ul>
+<font size=3.5> A brief summary of theory and algorithm </font>
+
+<ul>
+<li><p>对于 3-site 的 iTEBD，有三种 T 和 G，如下图所示；不同颜色的方框表示不同的TG的演化合并的过程，如此迭代</p>
+  <div  align="center">    
+  <img src=https://s2.loli.net/2022/11/22/9hA6bVFf14rXKks.png style="zoom:50%" />   
+  </div>
+</li>
+<li><p>update 的过程包含两次 SVD 分解，第二次注意要把 Gm1 作为环境乘进去：</p>
+  <div  align="center">    
+  <img src=https://s2.loli.net/2022/11/22/CO4zIKdUijMYmEP.png style="zoom:60%" />   
+  </div>
+</li>
+<li><p>代码如下：</p>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">3-site iTEBD method</span></span><br><span class="line"><span class="string">1D spin model with OBC</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> numpy.linalg <span class="keyword">as</span> LA</span><br><span class="line"><span class="keyword">import</span> scipy.sparse.linalg <span class="keyword">as</span> LAs</span><br><span class="line"><span class="keyword">from</span> scipy <span class="keyword">import</span> linalg</span><br><span class="line"><span class="keyword">import</span> Sub180221 <span class="keyword">as</span> Sub</span><br><span class="line"><span class="keyword">import</span> math,copy,pickle</span><br><span class="line"><span class="keyword">import</span> pylab <span class="keyword">as</span> pl</span><br><span class="line"><span class="comment">#----------------------------------------------------------------</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">GetHam_3sitespin</span>(<span class="params">Dp</span>):													<span class="comment">#生成哈密顿量</span></span><br><span class="line">	S0,Sp,Sm,Sz,Sx,Sy = Sub.SpinOper(Dp)</span><br><span class="line">	sz = <span class="number">2</span>* Sz</span><br><span class="line">	sx = <span class="number">2</span>* Sx</span><br><span class="line">	sy = <span class="number">2</span>* Sy</span><br><span class="line">	Ham = - (np.kron(np.kron(sz,sy),sz)) - (np.kron(np.kron(S0,sx),S0))</span><br><span class="line">	Ham = np.reshape(Ham,[Dp,Dp,Dp,Dp,Dp,Dp])</span><br><span class="line">	<span class="keyword">return</span> Ham</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">GetExpHam</span>(<span class="params">Ham,Tau</span>):														<span class="comment">#乘演化的 exp</span></span><br><span class="line">	Dp = np.shape(Ham)[<span class="number">0</span>]</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">if</span> LA.norm(Ham) &lt; <span class="number">1.0e-12</span>:</span><br><span class="line">		UH = np.reshape(np.eye(Dp**<span class="number">3</span>),[Dp,Dp,Dp,Dp,Dp,Dp])</span><br><span class="line">	<span class="keyword">else</span>:</span><br><span class="line">		A = np.reshape(Ham,[Dp**<span class="number">3</span>,Dp**<span class="number">3</span>])</span><br><span class="line">		V,S,Dc = Sub.SplitEigh(A,Dp**<span class="number">3</span>)</span><br><span class="line">		</span><br><span class="line">		W = np.diag(np.exp(-Tau*S))</span><br><span class="line">		A = np.dot(np.dot(V,W),np.transpose(np.conj(V)))</span><br><span class="line">		UH = np.reshape(A,[Dp,Dp,Dp,Dp,Dp,Dp])</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">return</span> UH</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">InitTG</span>(<span class="params">Dp,Ds,kind</span>):														</span><br><span class="line">	T = [<span class="literal">None</span>]*<span class="number">3</span></span><br><span class="line">	G = [<span class="literal">None</span>]*<span class="number">3</span></span><br><span class="line">	</span><br><span class="line">	<span class="keyword">if</span> kind == <span class="string">&#x27;rand&#x27;</span>:</span><br><span class="line">		<span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">3</span>):</span><br><span class="line">			T[i] = np.random.rand(Ds,Dp,Ds)</span><br><span class="line">			G[i] = np.random.rand(Ds)</span><br><span class="line">	<span class="keyword">return</span> T,G</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">ImportTG</span>(<span class="params">Ds,Label</span>):</span><br><span class="line">	<span class="keyword">try</span>:</span><br><span class="line">		File_TG = <span class="built_in">open</span>(<span class="string">&#x27;Tebd&#x27;</span>+Label+<span class="string">&#x27;.pklz&#x27;</span>,<span class="string">&#x27;rb&#x27;</span>)</span><br><span class="line">		TG = pickle.load(File_TG)</span><br><span class="line">		File_TG.close()</span><br><span class="line">		(T,G) = (TG[<span class="string">&#x27;T&#x27;</span>],TG[<span class="string">&#x27;G&#x27;</span>])</span><br><span class="line">	<span class="keyword">except</span> IOError:</span><br><span class="line">		<span class="built_in">print</span>(<span class="string">&#x27;Missing&#x27;</span>) </span><br><span class="line">	</span><br><span class="line">	<span class="keyword">return</span> T,G</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">ExportTG</span>(<span class="params">Ds,T,G,Label</span>):</span><br><span class="line">	TG = &#123;<span class="string">&#x27;T&#x27;</span>:T,<span class="string">&#x27;G&#x27;</span>:G&#125;</span><br><span class="line">	File_TG = <span class="built_in">open</span>(<span class="string">&#x27;Tebd&#x27;</span>+Label+<span class="string">&#x27;.pklz&#x27;</span>,<span class="string">&#x27;wb&#x27;</span>)</span><br><span class="line">	pickle.dump(TG,File_TG)</span><br><span class="line">	File_TG.close()</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line"><span class="comment">#----------------------------------------------------------------</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">mySVD</span>(<span class="params">A,Dcut</span>):</span><br><span class="line">	U,S,V = LA.svd(A)</span><br><span class="line">	U = U[:,:Dcut]</span><br><span class="line">	S = S[:Dcut]</span><br><span class="line">	V = V[:Dcut,:]</span><br><span class="line">	<span class="keyword">return</span> U,S,V</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">Evo_Bond</span>(<span class="params">Tl,Tm,Tr,Gll,Gl,Gr,Grr,Ds,UH</span>):									<span class="comment">#update 过程，做两次 SVD</span></span><br><span class="line">	A = Sub.NCon([np.diag(Gll),Tl,np.diag(Gl),Tm,np.diag(Gr),Tr,np.diag(Grr),UH],[[-<span class="number">1</span>,<span class="number">1</span>],[<span class="number">1</span>,<span class="number">7</span>,<span class="number">2</span>],[<span class="number">2</span>,<span class="number">3</span>],[<span class="number">3</span>,<span class="number">8</span>,<span class="number">4</span>],[<span class="number">4</span>,<span class="number">5</span>],[<span class="number">5</span>,<span class="number">9</span>,<span class="number">6</span>],[<span class="number">6</span>,-<span class="number">5</span>],[-<span class="number">2</span>,-<span class="number">3</span>,-<span class="number">4</span>,<span class="number">7</span>,<span class="number">8</span>,<span class="number">9</span>]])</span><br><span class="line">	DA = np.shape(A)</span><br><span class="line">	A = Sub.Group(A,[[<span class="number">0</span>,<span class="number">1</span>],[<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>]])										<span class="comment">#重整成一个矩阵</span></span><br><span class="line"></span><br><span class="line">	U1,Gm1,V1,Dc1 = Sub.SplitSvd_Lapack(A,Ds,<span class="number">0</span>,prec=<span class="number">1.0e-12</span>)</span><br><span class="line">	Gm1 /= np.sqrt(np.<span class="built_in">sum</span>(Gm1**<span class="number">2</span>))</span><br><span class="line">	U1 = np.reshape(U1,[DA[<span class="number">0</span>],DA[<span class="number">1</span>],Dc1])</span><br><span class="line">	Tl = np.tensordot(np.diag(<span class="number">1.0</span>/Gll),U1,(<span class="number">1</span>,<span class="number">0</span>))							<span class="comment">#将 Gll 还原出去</span></span><br><span class="line">	V1 = np.tensordot(np.diag(Gm1),V1,(<span class="number">1</span>,<span class="number">0</span>))</span><br><span class="line">	V1 = np.reshape(V1,[<span class="number">12</span>,<span class="number">12</span>])												<span class="comment">#重整成一个矩阵		</span></span><br><span class="line"></span><br><span class="line">	U2,Gm2,V2,Dc2 = Sub.SplitSvd_Lapack(V1,Ds,<span class="number">0</span>,prec=<span class="number">1.0e-12</span>)</span><br><span class="line">	Gm2 /= np.sqrt(np.<span class="built_in">sum</span>(Gm2**<span class="number">2</span>))	</span><br><span class="line">	V2 = np.reshape(V2,[Dc2,DA[<span class="number">3</span>],DA[<span class="number">4</span>]])</span><br><span class="line">	Tr = np.tensordot(V2,np.diag(<span class="number">1.0</span>/Grr),(<span class="number">2</span>,<span class="number">0</span>))							<span class="comment">#将 Grr 还原出去</span></span><br><span class="line">	Tm = np.reshape(U2,[DA[<span class="number">0</span>],DA[<span class="number">1</span>],Dc1])</span><br><span class="line">	Tm = np.tensordot(np.diag(<span class="number">1.0</span>/Gm1),Tm,(<span class="number">1</span>,<span class="number">0</span>))							<span class="comment">#将 Gl 还原出去</span></span><br><span class="line">	<span class="keyword">return</span> Tl,Tm,Tr,Gm1,Gm2</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">Evo</span>(<span class="params">Ds,Ham,Tau,Iter,Prec,Label</span>):										<span class="comment">#主循环</span></span><br><span class="line">	Dp = np.shape(Ham)[<span class="number">0</span>]</span><br><span class="line">	T,G = InitTG(Dp,Ds,<span class="string">&#x27;rand&#x27;</span>)</span><br><span class="line">	</span><br><span class="line">	File_Log = <span class="built_in">open</span>(<span class="string">&#x27;Log&#x27;</span>+Label+<span class="string">&#x27;.dat&#x27;</span>,<span class="string">&#x27;w&#x27;</span>)</span><br><span class="line">	</span><br><span class="line">	r0 = <span class="number">0</span></span><br><span class="line">	<span class="keyword">for</span> idt <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(Tau)):</span><br><span class="line">		dt = Tau[idt]</span><br><span class="line">		UH = GetExpHam(Ham,dt)</span><br><span class="line">		</span><br><span class="line">		G0 = np.ones(<span class="number">3</span>)</span><br><span class="line">		<span class="keyword">for</span> r <span class="keyword">in</span> <span class="built_in">range</span>(Iter):</span><br><span class="line">			<span class="keyword">for</span> ib <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">3</span>):</span><br><span class="line">				T[ib],T[np.mod(ib+<span class="number">1</span>,<span class="number">3</span>)],T[np.mod(ib+<span class="number">2</span>,<span class="number">3</span>)],G[ib],G[np.mod(ib+<span class="number">1</span>,<span class="number">3</span>)] =\</span><br><span class="line">				Evo_Bond(T[ib],T[np.mod(ib+<span class="number">1</span>,<span class="number">3</span>)],T[np.mod(ib+<span class="number">2</span>,<span class="number">3</span>)],G[np.mod(ib-<span class="number">1</span>,<span class="number">3</span>)],G[ib],G[np.mod(ib+<span class="number">1</span>,<span class="number">3</span>)],G[np.mod(ib+<span class="number">2</span>,<span class="number">3</span>)],Ds,UH)</span><br><span class="line">			Err = <span class="number">0.0</span></span><br><span class="line">			<span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">3</span>):</span><br><span class="line">				Err += <span class="built_in">abs</span>(G[i][<span class="number">0</span>]-G0[i])</span><br><span class="line">			<span class="keyword">if</span> np.mod(r,<span class="number">100</span>) == <span class="number">1</span>:</span><br><span class="line">				<span class="comment">#print(r+r0,Err)</span></span><br><span class="line">				File_Log.write(<span class="string">&#x27;%d \t %0.15f \n&#x27;</span> % <span class="built_in">tuple</span>((r+r0,Err)))</span><br><span class="line">				File_Log.flush()</span><br><span class="line">			<span class="keyword">if</span> Err &lt; Prec[idt]:</span><br><span class="line">				r0 += r</span><br><span class="line">				<span class="built_in">print</span>(dt,r+r0,Err)</span><br><span class="line">				<span class="keyword">break</span></span><br><span class="line">			<span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">3</span>):</span><br><span class="line">				G0[i] = G[i][<span class="number">0</span>]</span><br><span class="line">	</span><br><span class="line">	File_Log.close()</span><br><span class="line">	ExportTG(Ds,T,G,Label)</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line"><span class="comment">#----------------------------------------------------------------</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">Cal_Bond</span>(<span class="params">Op,Tl,Tm,Tr,Gll,Gl,Gr,Grr</span>):									<span class="comment">#计算 &lt;psi|OP|psi&gt;				</span></span><br><span class="line">	A = Sub.NCon([np.diag(Gll),Tl,np.diag(Gl),Tm,np.diag(Gr),Tr,np.diag(Grr)],[[-<span class="number">1</span>,<span class="number">1</span>],[<span class="number">1</span>,-<span class="number">2</span>,<span class="number">2</span>],[<span class="number">2</span>,<span class="number">3</span>],[<span class="number">3</span>,-<span class="number">3</span>,<span class="number">4</span>],[<span class="number">4</span>,<span class="number">5</span>],[<span class="number">5</span>,-<span class="number">4</span>,<span class="number">6</span>],[<span class="number">6</span>,-<span class="number">5</span>]])</span><br><span class="line">	Val = Sub.NCon([A,Op,np.conj(A)],[[<span class="number">7</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">8</span>],[<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>],[<span class="number">7</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">8</span>]])</span><br><span class="line">	<span class="keyword">return</span> np.real(Val)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">Cal_Site</span>(<span class="params">Op,T,Gl,Gr</span>):													<span class="comment"># 计算单个 site 的 &lt;site|OP|site&gt;</span></span><br><span class="line">	A = Sub.NCon([np.diag(Gl),T,np.diag(Gr)],[[-<span class="number">1</span>,<span class="number">1</span>],[<span class="number">1</span>,-<span class="number">2</span>,<span class="number">2</span>],[<span class="number">2</span>,-<span class="number">3</span>]])</span><br><span class="line">	Val = Sub.NCon([A,Op,np.conj(A)],[[<span class="number">3</span>,<span class="number">1</span>,<span class="number">4</span>],[<span class="number">2</span>,<span class="number">1</span>],[<span class="number">3</span>,<span class="number">2</span>,<span class="number">4</span>]])</span><br><span class="line">	<span class="keyword">return</span> np.real(Val)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">Cal</span>(<span class="params">Ds,Ham,Label</span>):</span><br><span class="line">	<span class="built_in">print</span>(<span class="string">&quot;***************************************************************************************&quot;</span>)</span><br><span class="line">	T,G = ImportTG(Ds,Label)</span><br><span class="line">	</span><br><span class="line">	D = np.shape(Ham)[<span class="number">0</span>]</span><br><span class="line">	H00 = np.reshape(np.eye(D**<span class="number">3</span>,D**<span class="number">3</span>),[D,D,D,D,D,D])</span><br><span class="line">	S0,Sp,Sm,Sz,Sx,Sy = Sub.SpinOper(D)</span><br><span class="line">	sz = <span class="number">2</span>* Sz</span><br><span class="line">	sx = <span class="number">2</span>* Sx</span><br><span class="line"></span><br><span class="line">	Nom = np.zeros(<span class="number">3</span>)</span><br><span class="line">	Eng = np.zeros(<span class="number">3</span>)</span><br><span class="line">	Mz = np.zeros(<span class="number">3</span>)</span><br><span class="line">	Mx = np.zeros(<span class="number">3</span>)</span><br><span class="line">	EE = []</span><br><span class="line">	ES = []</span><br><span class="line">	avgES = []</span><br><span class="line"></span><br><span class="line">	<span class="built_in">print</span>(<span class="string">&quot;ib &quot;</span>+<span class="string">&quot; Nom &quot;</span>+<span class="string">&quot; Eng &quot;</span>+<span class="string">&quot; Mag z &quot;</span>+<span class="string">&quot; Mag x &quot;</span>+<span class="string">&quot; entanglement entropy &quot;</span>+<span class="string">&quot; entanglement spectrum &quot;</span>)</span><br><span class="line">	<span class="keyword">for</span> ib <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">3</span>):</span><br><span class="line">		Nom[ib] = Cal_Bond(H00,T[ib],T[np.mod(ib+<span class="number">1</span>,<span class="number">3</span>)],T[np.mod(ib+<span class="number">2</span>,<span class="number">3</span>)],G[np.mod(ib-<span class="number">1</span>,<span class="number">3</span>)],G[ib],G[np.mod(ib+<span class="number">1</span>,<span class="number">3</span>)],G[np.mod(ib+<span class="number">2</span>,<span class="number">3</span>)])</span><br><span class="line">		Eng[ib] = Cal_Bond(Ham,T[ib],T[np.mod(ib+<span class="number">1</span>,<span class="number">3</span>)],T[np.mod(ib+<span class="number">2</span>,<span class="number">3</span>)],G[np.mod(ib-<span class="number">1</span>,<span class="number">3</span>)],G[ib],G[np.mod(ib+<span class="number">1</span>,<span class="number">3</span>)],G[np.mod(ib+<span class="number">2</span>,<span class="number">3</span>)])</span><br><span class="line">		Mz[ib] = Cal_Site(sz,T[ib],G[np.mod(ib-<span class="number">1</span>,<span class="number">3</span>)],G[ib])</span><br><span class="line">		Mx[ib] = Cal_Site(sx,T[ib],G[np.mod(ib-<span class="number">1</span>,<span class="number">3</span>)],G[ib])</span><br><span class="line">		Eng[ib] /= Nom[ib]</span><br><span class="line">		Mz[ib] /= Nom[ib]</span><br><span class="line">		Mx[ib] /= Nom[ib]</span><br><span class="line"></span><br><span class="line">		ES.append(G[ib])</span><br><span class="line">		ln_EV = np.matrix(np.log2(ES[ib]))</span><br><span class="line">		EV = np.matrix(ES[ib])</span><br><span class="line">		EE.append(-np.dot(EV, ln_EV.H))</span><br><span class="line"></span><br><span class="line">		<span class="built_in">print</span>(ib,np.around(Nom[ib],<span class="number">6</span>),np.around(Eng[ib],<span class="number">6</span>),np.around(Mz[ib],<span class="number">7</span>),np.around(Mx[ib],<span class="number">7</span>),EE[ib],ES[ib])</span><br><span class="line">	</span><br><span class="line"></span><br><span class="line">	<span class="built_in">print</span>(<span class="string">&quot;***************************************************************************************&quot;</span>)</span><br><span class="line"></span><br><span class="line">	Eng = np.mean(Eng)</span><br><span class="line">	<span class="built_in">print</span>(<span class="string">&quot;ground E per site:&quot;</span>)</span><br><span class="line">	<span class="built_in">print</span>(Eng)</span><br><span class="line">	</span><br><span class="line">	Mz = np.mean(Mz)</span><br><span class="line">	<span class="built_in">print</span>(<span class="string">&quot;magnetization z per site:&quot;</span>)</span><br><span class="line">	<span class="built_in">print</span>(Mz)</span><br><span class="line">	Mx = np.mean(Mx)</span><br><span class="line">	<span class="built_in">print</span>(<span class="string">&quot;magnetization x per site:&quot;</span>)</span><br><span class="line">	<span class="built_in">print</span>(Mx)</span><br><span class="line"></span><br><span class="line">	<span class="built_in">print</span>(<span class="string">&quot;entanglement entropy and entanglement spectrum:&quot;</span>)</span><br><span class="line">	<span class="built_in">print</span>(np.mean(EE))</span><br><span class="line">	<span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">6</span>):</span><br><span class="line">		avgES.append((ES[<span class="number">0</span>][i]+ES[<span class="number">1</span>][i]+ES[<span class="number">2</span>][i])/<span class="number">3</span>)</span><br><span class="line">	<span class="built_in">print</span>(avgES)</span><br><span class="line"><span class="comment">#----------------------------------------------------------------</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">Plot</span>(<span class="params">Ds</span>):</span><br><span class="line">	Label = <span class="string">&#x27;-D&#x27;</span>+<span class="built_in">str</span>(Ds)</span><br><span class="line">	Err = np.loadtxt(<span class="string">&#x27;Log&#x27;</span>+Label+<span class="string">&#x27;.dat&#x27;</span>)</span><br><span class="line">	</span><br><span class="line">	fig = pl.figure()</span><br><span class="line">	pl.plot(Err[:,<span class="number">0</span>],np.log(np.<span class="built_in">abs</span>(Err[:,<span class="number">1</span>]))/np.log(<span class="number">10</span>))</span><br><span class="line">	pl.xlabel(<span class="string">&#x27;Iteration&#x27;</span>)</span><br><span class="line">	pl.ylabel(<span class="string">&#x27;Error&#x27;</span>)</span><br><span class="line">	fig.savefig(<span class="string">&#x27;Err&#x27;</span>+Label+<span class="string">&#x27;.pdf&#x27;</span>)</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line"><span class="comment">#----------------------------------------------------------------</span></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">	Ds = <span class="number">6</span></span><br><span class="line">	Dp = <span class="number">2</span></span><br><span class="line">	</span><br><span class="line">	Tau = [<span class="number">0.1</span>,<span class="number">0.01</span>,<span class="number">0.001</span>]</span><br><span class="line">	Iter = <span class="number">100000</span></span><br><span class="line">	Prec = [<span class="number">1.0e-10</span>]*<span class="number">3</span></span><br><span class="line">	Label = <span class="string">&#x27;-D&#x27;</span>+<span class="built_in">str</span>(Ds)</span><br><span class="line">	</span><br><span class="line">	Ham = GetHam_3sitespin(Dp)</span><br><span class="line">	Evo(Ds,Ham,Tau,Iter,Prec,Label)</span><br><span class="line">	Plot(Ds)</span><br><span class="line">	Cal(Ds,Ham,Label)</span><br></pre></td></tr></table></figure>
+<pre><code>0.1 5894 9.963463387663296e-11
+0.01 29097 9.996781180632297e-11
+0.001 102908 9.999789885029031e-11
+***************************************************************************************
+ib  Nom  Eng  Mag z  Mag x  entanglement entropy  entanglement spectrum 
+0 1.0 -1.196414 -0.1612558 0.6107703 [[1.68910627]] [0.88586489 0.42204271 0.16637421 0.08864772 0.03659217 0.0156705 ]
+1 1.0 -1.197 -0.1616391 0.6101772 [[1.68961957]] [0.88582456 0.42207902 0.16644626 0.08872146 0.03663422 0.01569149]
+2 1.0 -1.197545 0.1614238 0.6104471 [[1.6896294]] [0.88582307 0.42208483 0.16643798 0.0887227  0.0366377  0.01569247]
+***************************************************************************************
+ground E per site:
+-1.196986423260931
+magnetization z per site:
+-0.05382368800930137
+magnetization x per site:
+0.6104648847112727
+entanglement entropy and entanglement spectrum:
+1.6894517483722928
+[0.8858375061701803, 0.42206885253163623, 0.1664194864064454, 0.08869729347868575, 0.03662135992053934, 0.01568481868848111]
+</code></pre><div  align="center">    
+<img src=https://s2.loli.net/2022/11/22/gIfsPoDp6CQYAmw.png style="zoom:50%" />   
+</div>
+
+<p>​    </p>
+<ul>
+<li><p>小结：</p>
+<ul>
+<li><p>基态能量约为 -1.197， 和上次的 ED / MPS 结果基本相符合（考虑到iTEBD是N无限大的OBC）。</p>
+</li>
+<li><p>sigmaz 磁化强度约为 0 ，sigmax 磁化强度约为 0.61</p>
+</li>
+<li><p>纠缠熵(log2)约为 1.689，纠缠谱数据如下：</p>
+<p>  [0.8858375061701803, 0.42206885253163623, 0.1664194864064454, 0.08869729347868575, 0.03662135992053934, 0.01568481868848111]</p>
+</li>
+</ul>
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+	
+	  <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">------------- 💖 🌞 End 😚 Thanks for your reading 🌞 💖 -------------</div>
+    
+</div>
+	
+      
+  <div class="popular-posts-header">相关文章</div>
+  <ul class="popular-posts">
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="\2022\10\18\HW_TF_Ising_model\" rel="bookmark">Transverse-field Ising Model</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="\2022\10\08\HW_task1_hubbard_with_U1\" rel="bookmark">Exact diagonalization -- Hubbard model</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="\2022\10\09\HW_task2_time evolution\" rel="bookmark">Time evolution of s single-particle GWP</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="\2022\10\26\Semiconductor physics0\" rel="bookmark">Semiconductor Physics(section 0)</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="\2022\10\30\HW_DMRG\" rel="bookmark">Tranditional DMRG on transverse-field Ising model</a></div>
+    </li>
+  </ul>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Hsu Quinn
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://example.com/2022/11/22/HW_itebd/" title="3-site iTEBD method">http://example.com/2022/11/22/HW_itebd/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/physics/" rel="tag"><i class="fa fa-tag"></i> physics</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/11/13/HW_MPS1107/" rel="prev" title="2-site variational MPS method in 1D spin model">
+      <i class="fa fa-chevron-left"></i> 2-site variational MPS method in 1D spin model
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/11/22/mc/" rel="next" title="Monte Carlo in 2D Ising Model">
+      Monte Carlo in 2D Ising Model <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Hsu Quinn"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Hsu Quinn</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Xsdg217" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Xsdg217" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:fawkes@mail.ustc.edu.cn" title="E-Mail → mailto:fawkes@mail.ustc.edu.cn" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/6090876649" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;6090876649" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.zhihu.com/people/bing-tang-bo-luo-89" title="Zhihu → https:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;bing-tang-bo-luo-89" rel="noopener" target="_blank"><i class="fa fa-globe fa-fw"></i>Zhihu</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://music.163.com/#/user/home?id=1383517537" title="Wangyiyun → https:&#x2F;&#x2F;music.163.com&#x2F;#&#x2F;user&#x2F;home?id&#x3D;1383517537" rel="noopener" target="_blank"><i class="fa fa-music fa-fw"></i>Wangyiyun</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://space.bilibili.com/58820360" title="BiliBili → https:&#x2F;&#x2F;space.bilibili.com&#x2F;58820360" rel="noopener" target="_blank"><i class="fa fa-telegram fa-fw"></i>BiliBili</a>
+      </span>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2015 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hsu Quinn</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+        
+
+
+
+
+  <script src="https://www.gstatic.com/firebasejs/6.3.3/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/6.3.3/firebase-firestore.js"></script>
+  <script>
+    firebase.initializeApp({
+      apiKey   : '',
+      projectId: 'count0908-21d35'
+    });
+
+    function getCount(doc, increaseCount) {
+      // IncreaseCount will be false when not in article page
+      return doc.get().then(d => {
+        var count = 0;
+        if (!d.exists) { // Has no data, initialize count
+          if (increaseCount) {
+            doc.set({
+              count: 1
+            });
+            count = 1;
+          }
+        } else { // Has data
+          count = d.data().count;
+          if (increaseCount) {
+            // If first view this article
+            doc.set({ // Increase count
+              count: count + 1
+            });
+            count++;
+          }
+        }
+
+        return count;
+      });
+    }
+
+    function appendCountTo(el) {
+      return count => {
+        el.innerText = count;
+      }
+    }
+  </script>
+  <script>
+    (function() {
+      var db = firebase.firestore();
+      var articles = db.collection('articles');
+
+      if (CONFIG.page.isPost) { // Is article page
+        var title = document.querySelector('.post-title').innerText.trim();
+        var doc = articles.doc(title);
+        var increaseCount = CONFIG.hostname === location.hostname;
+        if (localStorage.getItem(title)) {
+          increaseCount = false;
+        } else {
+          // Mark as visited
+          localStorage.setItem(title, true);
+        }
+        getCount(doc, increaseCount).then(appendCountTo(document.querySelector('.firestore-visitors-count')));
+      } else if (CONFIG.page.isHome) { // Is index page
+        var promises = [...document.querySelectorAll('.post-title')].map(element => {
+          var title = element.innerText.trim();
+          var doc = articles.doc(title);
+          return getCount(doc);
+        });
+        Promise.all(promises).then(counts => {
+          var metas = document.querySelectorAll('.firestore-visitors-count');
+          counts.forEach((val, idx) => {
+            appendCountTo(metas[idx])(val);
+          });
+        });
+      }
+    })();
+  </script>
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/medium-zoom@1/dist/medium-zoom.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/pangu@4/dist/browser/pangu.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+<script>
+document.querySelectorAll('.pdfobject-container').forEach(element => {
+  let url = element.dataset.target;
+  let pdfOpenParams = {
+    navpanes : 0,
+    toolbar  : 0,
+    statusbar: 0,
+    pagemode : 'thumbs',
+    view     : 'FitH'
+  };
+  let pdfOpenFragment = '#' + Object.entries(pdfOpenParams).map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join('&');
+  let fullURL = `/lib/pdf/web/viewer.html?file=${encodeURIComponent(url)}${pdfOpenFragment}`;
+
+  if (NexT.utils.supportsPDFs()) {
+    element.innerHTML = `<embed class="pdfobject" src="${url + pdfOpenFragment}" type="application/pdf" style="height: ${element.dataset.height};">`;
+  } else {
+    element.innerHTML = `<iframe src="${fullURL}" style="height: ${element.dataset.height};" frameborder="0"></iframe>`;
+  }
+});
+</script>
+
+
+<script>
+if (document.querySelectorAll('pre.mermaid').length) {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js', () => {
+    mermaid.initialize({
+      theme    : 'forest',
+      logLevel : 3,
+      flowchart: { curve     : 'linear' },
+      gantt    : { axisFormat: '%m/%d/%Y' },
+      sequence : { actorMargin: 50 }
+    });
+  }, window.mermaid);
+}
+</script>
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+</body>
+</html>

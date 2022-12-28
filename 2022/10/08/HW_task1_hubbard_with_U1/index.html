@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|Amita:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":true,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="Homework (task 1)   write a code for diagonalizing the extended Hubbard model on a 6-site ladder   $$ H&#x3D;-t \sum_{\{i, j\}, \sigma}\left(C_{i, \sigma}^{\dagger} C_{j, \sigma}+C_{j, \sigma}^{\dagger} C_">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Exact diagonalization -- Hubbard model">
+<meta property="og:url" content="http://example.com/2022/10/08/HW_task1_hubbard_with_U1/index.html">
+<meta property="og:site_name" content="BLOG">
+<meta property="og:description" content="Homework (task 1)   write a code for diagonalizing the extended Hubbard model on a 6-site ladder   $$ H&#x3D;-t \sum_{\{i, j\}, \sigma}\left(C_{i, \sigma}^{\dagger} C_{j, \sigma}+C_{j, \sigma}^{\dagger} C_">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-10-08T12:36:05.000Z">
+<meta property="article:modified_time" content="2022-10-30T13:57:53.645Z">
+<meta property="article:author" content="Hsu Quinn">
+<meta property="article:tag" content="physics">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2022/10/08/HW_task1_hubbard_with_U1/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Exact diagonalization -- Hubbard model | BLOG</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-ER8FH828WC"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-ER8FH828WC');
+      }
+    </script>
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?d5cf64a751ac91d8a331bada0477e161";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">BLOG</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-commonweal">
+
+    <a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/08/HW_task1_hubbard_with_U1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Hsu Quinn">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="BLOG">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Exact diagonalization -- Hubbard model
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-10-08 20:36:05" itemprop="dateCreated datePublished" datetime="2022-10-08T20:36:05+08:00">2022-10-08</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-10-30 21:57:53" itemprop="dateModified" datetime="2022-10-30T21:57:53+08:00">2022-10-30</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Computational-Quantum-Physics/" itemprop="url" rel="index"><span itemprop="name">Computational Quantum Physics</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-users"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="firestore-visitors-count"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <font size=5>Homework (task 1)</font>
+
+<ul>
+<li>write a code for diagonalizing the extended Hubbard model on a 6-site ladder</li>
+</ul>
+
+$$
+H=-t \sum_{\{i, j\}, \sigma}\left(C_{i, \sigma}^{\dagger} C_{j, \sigma}+C_{j, \sigma}^{\dagger} C_{i, \sigma}\right)+U \sum_i n_{i \uparrow} n_{i \downarrow}-V \sum_{\{\{i, j\}\}}\left(n_{i, \uparrow}+n_{i, \downarrow}\right)\left(n_{j, \uparrow}+n_{j, \downarrow}\right)-\mu \sum_{i, \sigma} n_{i, \sigma}
+$$
+
+$$
+\begin{aligned}
+&\{i, j\} \in(0,1),(1,2),(3,4),(4,5),(1,3),(2,4) \\
+&\{\{i, j\}\} \in(0,3),(1,4),(2,5),(2,3)
+\end{aligned}
+$$
+
+<ul>
+<li>take t = 1.0, U = 1.4, V = 0.3, 𝜇 = 0.1</li>
+</ul>
+<p>(1) show the lowest 20 eigenvalues. please make use of the U(1) symmetry</p>
+<p>(2) calculate $\left\langle n_{i, \sigma}\right\rangle$ for each site and spin using the ground state</p>
+<ul>
+<li><p>简单思路分析：</p>
+<ol>
+<li><p>六个site，考虑spin的up和down，则可以用一个12位的二进制数表示一个态。规则如下：</p>
+<p> | xxxxxx xxxxxx &gt; : 左边表示自旋朝下，右边表示自旋朝上，每部分从右往左分别编号为 0，1…,5</p>
+<p> 例如 ： | 000010 000001 &gt; 表示在 0 site 有一个$\uparrow$，在 1 site 有一个$\downarrow$, 其他位置为空</p>
+</li>
+<li><p>哈密顿量分为对角项（u，v，𝜇）和非对角项（t）：</p>
+<p> 对于前者比较简单，只需要按照规则进行位操作即可；</p>
+<p> 后者考虑U(1)对称，即粒子数守恒或自旋守恒，这里我们把问题简单化，考虑粒子数守恒，即非对角项只出现粒子数不改变的两个态之间，我们只需要按照粒子数做分类并编号，然后在各自的 space 中去 check 能否 hopping，并计算系数即可。</p>
+<p> 具体见代码。</p>
+</li>
+</ol>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> scipy.sparse.linalg <span class="keyword">as</span> LA</span><br><span class="line"></span><br><span class="line"><span class="comment">#参数定义</span></span><br><span class="line"></span><br><span class="line">t = <span class="number">1.0</span></span><br><span class="line">U = <span class="number">1.4</span></span><br><span class="line">V = <span class="number">0.3</span></span><br><span class="line">miu = <span class="number">0.1</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#N is the number of sites, and n is the number of states</span></span><br><span class="line"></span><br><span class="line">N = <span class="number">6</span></span><br><span class="line">n = <span class="number">1</span>&lt;&lt;<span class="number">2</span>*N</span><br><span class="line"></span><br><span class="line"><span class="comment">#最近邻作用和次近邻作用对，方便遍历</span></span><br><span class="line">First_Near = [(<span class="number">0</span>,<span class="number">1</span>),(<span class="number">1</span>,<span class="number">2</span>),(<span class="number">3</span>,<span class="number">4</span>),(<span class="number">4</span>,<span class="number">5</span>),(<span class="number">1</span>,<span class="number">3</span>),(<span class="number">2</span>,<span class="number">4</span>),(<span class="number">1</span>,<span class="number">0</span>),(<span class="number">2</span>,<span class="number">1</span>),(<span class="number">4</span>,<span class="number">3</span>),(<span class="number">5</span>,<span class="number">4</span>),(<span class="number">3</span>,<span class="number">1</span>),(<span class="number">4</span>,<span class="number">2</span>)]</span><br><span class="line">Second_Near = [(<span class="number">0</span>,<span class="number">3</span>),(<span class="number">1</span>,<span class="number">4</span>),(<span class="number">2</span>,<span class="number">5</span>),(<span class="number">2</span>,<span class="number">3</span>)]</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#一些位操作运算</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">ReadBit</span>(<span class="params">i,n</span>):                           <span class="comment">#读取i的第n位</span></span><br><span class="line">    <span class="keyword">return</span> (i&amp;(<span class="number">1</span>&lt;&lt;n))&gt;&gt;n</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">PopCntBit</span>(<span class="params">i</span>):                           <span class="comment">#计数i态有多少个&quot;1&quot;(自旋个数)</span></span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">bin</span>(i).count(<span class="string">&quot;1&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">SetBit</span>(<span class="params">i,n</span>):                            <span class="comment">#i的第n位设置为&quot;1&quot;</span></span><br><span class="line">    <span class="keyword">return</span> i|(<span class="number">1</span>&lt;&lt;n)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">ClearBit</span>(<span class="params">i,n</span>):                          <span class="comment">#i的第n位设置为&quot;0&quot;</span></span><br><span class="line">    <span class="keyword">return</span> i&amp;~(<span class="number">1</span>&lt;&lt;n)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">PickBit</span>(<span class="params">i,k,n</span>):                         <span class="comment">#从第k位向左走n位 这部分取出来</span></span><br><span class="line">    <span class="keyword">return</span> (i&amp;((<span class="number">2</span>**n-<span class="number">1</span>)&lt;&lt;k))&gt;&gt;k</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#哈密顿量的第二三四项（对角项），不用考虑态的变化，只需要按照给定的H计算前面的系数即可</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">U_func</span>(<span class="params">state</span>):</span><br><span class="line">    res = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(N):</span><br><span class="line">        res += ReadBit(state,i) &amp; ReadBit(state,i+N)</span><br><span class="line">    <span class="keyword">return</span> res * U</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">V_func</span>(<span class="params">state</span>):</span><br><span class="line">    res = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> (i,j) <span class="keyword">in</span> Second_Near:</span><br><span class="line">        res += (ReadBit(state,i) + ReadBit(state,i+<span class="number">6</span>)) * (ReadBit(state,j) + ReadBit(state,j+<span class="number">6</span>))</span><br><span class="line">    <span class="keyword">return</span> res * V</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">miu_func</span>(<span class="params">state</span>):</span><br><span class="line">    <span class="keyword">return</span> PopCntBit(state) * miu</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#定义产生湮灭算符规则 C(state, site, spin, op)： </span></span><br><span class="line"><span class="comment">#Input: state 为作用的态， site 为位点（0~5），spin为自旋（-0.5/0.5），op为产生or湮灭(1 or 0)</span></span><br><span class="line"><span class="comment">#Output: flag 表示是否存在输出的态(1/0), resstate 表示C算符作用后得到的（不考虑正负的）态， pm为C算符作用后态的正负号（1/-1）</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">C</span>(<span class="params">state, site, spin, op</span>):</span><br><span class="line">    resstate = <span class="number">0</span></span><br><span class="line">    flag = <span class="number">0</span></span><br><span class="line">    pm = <span class="number">0</span></span><br><span class="line">    <span class="keyword">if</span> op <span class="keyword">and</span> spin &gt; <span class="number">0</span>:</span><br><span class="line">        flag = <span class="number">1</span> <span class="keyword">if</span> ReadBit(state,site) == <span class="number">0</span> <span class="keyword">else</span> <span class="number">0</span></span><br><span class="line">        resstate = SetBit(state,site) <span class="keyword">if</span> flag <span class="keyword">else</span> -<span class="number">1</span></span><br><span class="line">        <span class="keyword">if</span> flag:</span><br><span class="line">            pm = -<span class="number">1</span> <span class="keyword">if</span> PopCntBit(PickBit(state,<span class="number">0</span>,site)) % <span class="number">2</span> == <span class="number">1</span> <span class="keyword">else</span> <span class="number">1</span></span><br><span class="line">    <span class="keyword">elif</span> op <span class="keyword">and</span> spin &lt; <span class="number">0</span>:</span><br><span class="line">        flag = <span class="number">1</span> <span class="keyword">if</span> ReadBit(state,site+N) == <span class="number">0</span> <span class="keyword">else</span> <span class="number">0</span></span><br><span class="line">        resstate = SetBit(state,site+N) <span class="keyword">if</span> flag <span class="keyword">else</span> -<span class="number">1</span></span><br><span class="line">        <span class="keyword">if</span> flag:</span><br><span class="line">            pm = -<span class="number">1</span> <span class="keyword">if</span> PopCntBit(PickBit(state,<span class="number">0</span>,site+N)) % <span class="number">2</span> == <span class="number">1</span> <span class="keyword">else</span> <span class="number">1</span></span><br><span class="line">    <span class="keyword">elif</span> <span class="keyword">not</span> op <span class="keyword">and</span> spin &gt; <span class="number">0</span>:</span><br><span class="line">        flag = <span class="number">1</span> <span class="keyword">if</span> ReadBit(state,site) == <span class="number">1</span> <span class="keyword">else</span> <span class="number">0</span></span><br><span class="line">        resstate = ClearBit(state,site) <span class="keyword">if</span> flag <span class="keyword">else</span> -<span class="number">1</span></span><br><span class="line">        <span class="keyword">if</span> flag:</span><br><span class="line">            pm = -<span class="number">1</span> <span class="keyword">if</span> PopCntBit(PickBit(state,<span class="number">0</span>,site)) % <span class="number">2</span> == <span class="number">1</span> <span class="keyword">else</span> <span class="number">1</span></span><br><span class="line">    <span class="keyword">elif</span> <span class="keyword">not</span> op <span class="keyword">and</span> spin &lt; <span class="number">0</span>:</span><br><span class="line">        flag = <span class="number">1</span> <span class="keyword">if</span> ReadBit(state,site+N) == <span class="number">1</span> <span class="keyword">else</span> <span class="number">0</span></span><br><span class="line">        resstate = ClearBit(state,site+N) <span class="keyword">if</span> flag <span class="keyword">else</span> -<span class="number">1</span></span><br><span class="line">        <span class="keyword">if</span> flag:</span><br><span class="line">            pm = -<span class="number">1</span> <span class="keyword">if</span> PopCntBit(PickBit(state,<span class="number">0</span>,site+N)) % <span class="number">2</span> == <span class="number">1</span> <span class="keyword">else</span> <span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> flag,resstate,pm</span><br></pre></td></tr></table></figure>
+<ul>
+<li>对于非对角hopping项，我们简单说明一下思路。</li>
+</ul>
+<ol>
+<li>直接地，若不考虑symm，我们枚举所有的态，对每一态在 First_Near 限制下枚举产生湮灭算符作用后得到的态，然后去检查这两个态之间的转化能否成立。伪代码如下注释：</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 不考虑U(1)全遍历，作为伪代码注释放在这里</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">H = np.zeros([n,n])</span></span><br><span class="line"><span class="string"># H 的第二三四项(对角项)计算</span></span><br><span class="line"><span class="string">for i in range(n):</span></span><br><span class="line"><span class="string">    H[i,i] += U_func(i)</span></span><br><span class="line"><span class="string">    H[i,i] -= V_func(i)</span></span><br><span class="line"><span class="string">    H[i,i] -= miu_func(i)</span></span><br><span class="line"><span class="string"># H 的第一项(非对角项)计算</span></span><br><span class="line"><span class="string">for a in range(n):</span></span><br><span class="line"><span class="string">    for (i,j) in First_Near:</span></span><br><span class="line"><span class="string">        for spin in [-0.5,0.5]:</span></span><br><span class="line"><span class="string">            a1flag, a1, a1pm = C(a,j,spin,0)</span></span><br><span class="line"><span class="string">            if a1flag:</span></span><br><span class="line"><span class="string">                bflag, b, bpm = C(a1,i,spin,1)</span></span><br><span class="line"><span class="string">                if bflag:</span></span><br><span class="line"><span class="string">                    H[b,a] = -t * a1pm * bpm</span></span><br><span class="line"><span class="string">            a1flag, a1, a1pm = C(a,i,spin,0)</span></span><br><span class="line"><span class="string">            if a1flag:</span></span><br><span class="line"><span class="string">                bflag, b, bpm = C(a1,j,spin,1)</span></span><br><span class="line"><span class="string">                if bflag:</span></span><br><span class="line"><span class="string">                    H[b,a] = -t * a1pm * bpm</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br></pre></td></tr></table></figure>
+<ol>
+<li><p>显然我们这样做是浪费了一些搜索空间和时间的，因为没有考虑物理约束，即 hopping 过程中自旋数不会发生改变。基于这种对称性，我们可以重新对基矢进行排序，或者说将 4096 * 4096 的空间划分为 13 个子空间，分类的依据是自旋个数 n， n = 0,1,…12. </p>
+<p> 值得一提的是， 前面不考虑 U(1) 中的基矢顺序就是态对应的十进制数，但是在考虑 U(1) 中的基矢顺序是按照 subspace 来排序的， 这样子哈密顿量 $<br>\mathrm{H}=\mathrm{H}_0 \oplus \cdots \oplus \mathrm{H}_n \oplus \cdots \oplus \mathrm{H}_N<br>$ 直和的形式。</p>
+<p> 代码如下：</p>
+</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#构建一个字典数组 DictFind[i], i代表第i个子空间， 字典内存储的&lt;key,value&gt;对是&lt;态,编号&gt;</span></span><br><span class="line">DictFind = [&#123;&#125; <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">2</span>*N+<span class="number">1</span>)]</span><br><span class="line"></span><br><span class="line"><span class="comment">#预处理构建 DictFind </span></span><br><span class="line">count = np.zeros(<span class="number">2</span>*N+<span class="number">1</span>)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n):</span><br><span class="line">    count[PopCntBit(i)] += <span class="number">1</span> </span><br><span class="line">    DictFind[PopCntBit(i)][i] = count[PopCntBit(i)]</span><br><span class="line"></span><br><span class="line"><span class="comment">#space数组最开始是存放每个subspace的大小，然后为了后面直和操作方便，重定义为subspace大小的累加，即 space(i) += space(i-1)</span></span><br><span class="line">space = np.zeros(<span class="number">2</span>*N+<span class="number">1</span>)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">2</span>*N+<span class="number">1</span>):</span><br><span class="line">    space[i] = <span class="built_in">len</span>(DictFind[i])</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>,<span class="number">2</span>*N+<span class="number">1</span>):</span><br><span class="line">    space[i] = space[i] + space[i-<span class="number">1</span>] </span><br><span class="line"></span><br><span class="line"><span class="comment">#HH 即基于上述规则构建的哈密顿量，我们只需要在每个子空间内check hopping，由于已经建好了Dict，我们的查找是O(1)的</span></span><br><span class="line">HH = np.zeros([n,n])    </span><br><span class="line"><span class="keyword">for</span> SpinNum <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">2</span>*N+<span class="number">1</span>):</span><br><span class="line">    <span class="keyword">for</span> state,index <span class="keyword">in</span> DictFind[SpinNum].items():</span><br><span class="line">        <span class="keyword">for</span> (i,j) <span class="keyword">in</span> First_Near:</span><br><span class="line">            <span class="keyword">for</span> spin <span class="keyword">in</span> [-<span class="number">0.5</span>,<span class="number">0.5</span>]:</span><br><span class="line">                flag1, state1, pm1 = C(state, j, spin, <span class="number">0</span>)</span><br><span class="line">                <span class="keyword">if</span> flag1:</span><br><span class="line">                    flag2, state2,pm2 = C(state1, i, spin, <span class="number">1</span>)</span><br><span class="line">                    <span class="keyword">if</span> flag2:</span><br><span class="line">                        HH[<span class="built_in">int</span>(space[SpinNum-<span class="number">1</span>]+index-<span class="number">1</span>) , <span class="built_in">int</span>(space[SpinNum-<span class="number">1</span>]+DictFind[SpinNum].get(state2)-<span class="number">1</span>)] = -t * pm1 *pm2 <span class="comment"># - 1 for pos adjustion</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#H的对角项</span></span><br><span class="line"><span class="keyword">for</span> SpinNum <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span> , <span class="number">2</span>*N+<span class="number">1</span>):</span><br><span class="line">    <span class="keyword">for</span> state,index <span class="keyword">in</span> DictFind[SpinNum].items():</span><br><span class="line">        pos = <span class="built_in">int</span>(space[SpinNum-<span class="number">1</span>] + index - <span class="number">1</span>)</span><br><span class="line">        HH[pos,pos] += U_func(state)</span><br><span class="line">        HH[pos,pos] -= V_func(state)</span><br><span class="line">        HH[pos,pos] -= miu_func(state)</span><br><span class="line">    </span><br></pre></td></tr></table></figure>
+<ul>
+<li>完成 H 后用 scipy.sparse.linalg.eigsh 计算前20个本征值：</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># E : eigenvalue; W : eigenstate</span></span><br><span class="line">E,W = LA.eigsh(HH,<span class="number">20</span>,which = <span class="string">&#x27;SA&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(E)</span><br></pre></td></tr></table></figure>
+<pre><code>[-6.72233554 -6.72233554 -6.72233554 -6.66948732 -6.66948732 -6.48366037
+ -6.44217804 -6.42461287 -6.3983409  -6.3983409  -6.35051543 -6.35051543
+ -6.20881398 -6.20881398 -6.05241516 -6.05241516 -6.05241516 -5.95813498
+ -5.95813498 -5.94631099]
+</code></pre><ul>
+<li><p>得到结果如下：</p>
+<p>  [-6.72233554 -6.72233554 -6.72233554 -6.66948732 -6.66948732 </p>
+<p>  -6.48366037 -6.44217804 -6.42461287 -6.3983409  -6.3983409 </p>
+<p>  -6.35051543 -6.35051543 -6.20881398 -6.20881398 -6.05241516 </p>
+<p>  -6.05241516 -6.05241516 -5.95813498 -5.95813498 -5.94631099]</p>
+<ul>
+<li>可以看到，基态能量约为 -6.7223， 三重简并。这是符合我们预期的，对于这样一个6-sites存在旋转对称作用的体系。接下来我们计算一下 $\left\langle n_{i, \sigma}\right\rangle$</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#由于三重简并，用n_bar_i，i=1，2，3分别存储三个本征矢量表象下的 &lt;n&gt;，数组顺序为从低位到高位(从右往左)</span></span><br><span class="line">n_bar_1 = np.zeros(<span class="number">2</span>*N)</span><br><span class="line">n_bar_2 = np.zeros(<span class="number">2</span>*N)</span><br><span class="line">n_bar_3 = np.zeros(<span class="number">2</span>*N)</span><br><span class="line"><span class="keyword">for</span> SpinNum <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span> , <span class="number">2</span>*N+<span class="number">1</span>):</span><br><span class="line">    <span class="keyword">for</span> state,index <span class="keyword">in</span> DictFind[SpinNum].items():</span><br><span class="line">        pos = <span class="built_in">int</span>(space[SpinNum-<span class="number">1</span>] + index - <span class="number">1</span>)</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">2</span>*N):</span><br><span class="line">            <span class="keyword">if</span> ReadBit(state,i):</span><br><span class="line">                n_bar_1[i] += np.power(W[:,<span class="number">0</span>][pos],<span class="number">2</span>)</span><br><span class="line">                n_bar_2[i] += np.power(W[:,<span class="number">1</span>][pos],<span class="number">2</span>)</span><br><span class="line">                n_bar_3[i] += np.power(W[:,<span class="number">2</span>][pos],<span class="number">2</span>)</span><br><span class="line"><span class="built_in">print</span>(n_bar_1)</span><br><span class="line"><span class="built_in">print</span>(n_bar_2)</span><br><span class="line"><span class="built_in">print</span>(n_bar_3)</span><br><span class="line"></span><br><span class="line"><span class="comment">#n_bar 为上述三组值的平均值</span></span><br><span class="line">n_bar = np.zeros(<span class="number">2</span>*N)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">2</span>*N):</span><br><span class="line">    n_bar[i] = (n_bar_1[i]+n_bar_2[i]+n_bar_3[i])/<span class="number">3</span></span><br><span class="line"><span class="built_in">print</span>(n_bar)</span><br></pre></td></tr></table></figure>
+<pre><code>[0.30471289 0.53758844 0.25223012 0.25223012 0.53758844 0.30471289
+ 0.68664588 0.43919814 0.77962453 0.77962453 0.43919814 0.68664588]
+[0.50412966 0.4862164  0.52759594 0.52759594 0.4862164  0.50412966
+ 0.48722911 0.49057018 0.50425871 0.50425871 0.49057018 0.48722911]
+[0.6781956  0.44137503 0.76795591 0.76795591 0.44137503 0.6781956
+ 0.31316317 0.53541155 0.26389874 0.26389874 0.53541155 0.31316317]
+[0.49567939 0.48839329 0.51592732 0.51592732 0.48839329 0.49567939
+ 0.49567939 0.48839329 0.51592732 0.51592732 0.48839329 0.49567939]
+</code></pre><ul>
+<li><p>由于三重简并，我们 n_bar_i，i=1，2，3 分别存储三个本征矢量表象下的 $\left\langle n_{i, \sigma}\right\rangle$，数组顺序为从低位到高位(从右往左)</p>
+</li>
+<li><p>我们发现每次运行的结果都不一样，这是因为 scipy 的 eigsh 函数的内置算法随机性导致的，每次计算的本征矢量都有所不同，这里我们取了其中一次的计算结果放在这里：</p>
+</li>
+</ul>
+<pre><code>1. [0.32422012 0.53256315 0.2791668  0.2791668  0.53256315 0.32422012
+
+    0.66713865 0.44422343 0.75268785 0.75268785 0.44422343 0.66713865]
+
+2. [0.69565789 0.43687655 0.79206881 0.79206881 0.43687655 0.69565789
+
+    0.29570088 0.53991004 0.23978584 0.23978584 0.53991004 0.29570088]
+
+3. [0.46716014 0.49574017 0.47654636 0.47654636 0.49574017 0.46716014
+
+    0.52419863 0.48104641 0.55530828 0.55530828 0.48104641 0.52419863]
+</code></pre><ul>
+<li><p>每个数组有 12 个元素，依次表示 : (0,$\uparrow$) , (1,$\uparrow$) , … , (5,$\uparrow$) , (0,$\downarrow$) , … , (5,$\downarrow$) 的 $\left\langle n_{i, \sigma}\right\rangle$</p>
+</li>
+<li><p>尽管如此，我们可以对对应构型的 <n> 取平均，发现得到的 $(n_{bar1} + n_{bar2} +n_{bar3}) / 3$ 如下：</p>
+<ul>
+<li><p>[0.49567939 0.48839329 0.51592732 0.51592732 0.48839329 0.49567939</p>
+<p>  0.49567939 0.48839329 0.51592732 0.51592732 0.48839329 0.49567939]</p>
+</li>
+</ul>
+</li>
+<li><p>可见对任意的 $i$ 和 $\sigma$, $\left\langle n_{i, \sigma}\right\rangle$ 的期望都约为 $1/2$。 在基态的表象下，各位点的占据数趋于半满。</p>
+</li>
+</ul>
+<font size=5>Reference </font>
+
+<ol>
+<li>Lin, H. Q. “Exact diagonalization of quantum-spin models.” Physical Review B 42.10 (1990): 6561.</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+	
+	  <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">------------- 💖 🌞 End 😚 Thanks for your reading 🌞 💖 -------------</div>
+    
+</div>
+	
+      
+  <div class="popular-posts-header">相关文章</div>
+  <ul class="popular-posts">
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="\2022\10\18\HW_TF_Ising_model\" rel="bookmark">Transverse-field Ising Model</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="\2022\10\09\HW_task2_time evolution\" rel="bookmark">Time evolution of s single-particle GWP</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="\2022\10\26\Semiconductor physics0\" rel="bookmark">Semiconductor Physics(section 0)</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="\2022\10\30\HW_DMRG\" rel="bookmark">Tranditional DMRG on transverse-field Ising model</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="\2022\10\30\Semiconductor physics1\" rel="bookmark">Semiconductor Physics(section 1)</a></div>
+    </li>
+  </ul>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Hsu Quinn
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://example.com/2022/10/08/HW_task1_hubbard_with_U1/" title="Exact diagonalization -- Hubbard model">http://example.com/2022/10/08/HW_task1_hubbard_with_U1/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/physics/" rel="tag"><i class="fa fa-tag"></i> physics</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/09/07/%E5%BB%BA%E7%AB%8B%E5%8D%9A%E5%AE%A2/" rel="prev" title="Blog Setup">
+      <i class="fa fa-chevron-left"></i> Blog Setup
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/10/08/mathjax/" rel="next" title="Mathjax">
+      Mathjax <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Hsu Quinn"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Hsu Quinn</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Xsdg217" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Xsdg217" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:fawkes@mail.ustc.edu.cn" title="E-Mail → mailto:fawkes@mail.ustc.edu.cn" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/6090876649" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;6090876649" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.zhihu.com/people/bing-tang-bo-luo-89" title="Zhihu → https:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;bing-tang-bo-luo-89" rel="noopener" target="_blank"><i class="fa fa-globe fa-fw"></i>Zhihu</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://music.163.com/#/user/home?id=1383517537" title="Wangyiyun → https:&#x2F;&#x2F;music.163.com&#x2F;#&#x2F;user&#x2F;home?id&#x3D;1383517537" rel="noopener" target="_blank"><i class="fa fa-music fa-fw"></i>Wangyiyun</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://space.bilibili.com/58820360" title="BiliBili → https:&#x2F;&#x2F;space.bilibili.com&#x2F;58820360" rel="noopener" target="_blank"><i class="fa fa-telegram fa-fw"></i>BiliBili</a>
+      </span>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2015 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hsu Quinn</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+        
+
+
+
+
+  <script src="https://www.gstatic.com/firebasejs/6.3.3/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/6.3.3/firebase-firestore.js"></script>
+  <script>
+    firebase.initializeApp({
+      apiKey   : '',
+      projectId: 'count0908-21d35'
+    });
+
+    function getCount(doc, increaseCount) {
+      // IncreaseCount will be false when not in article page
+      return doc.get().then(d => {
+        var count = 0;
+        if (!d.exists) { // Has no data, initialize count
+          if (increaseCount) {
+            doc.set({
+              count: 1
+            });
+            count = 1;
+          }
+        } else { // Has data
+          count = d.data().count;
+          if (increaseCount) {
+            // If first view this article
+            doc.set({ // Increase count
+              count: count + 1
+            });
+            count++;
+          }
+        }
+
+        return count;
+      });
+    }
+
+    function appendCountTo(el) {
+      return count => {
+        el.innerText = count;
+      }
+    }
+  </script>
+  <script>
+    (function() {
+      var db = firebase.firestore();
+      var articles = db.collection('articles');
+
+      if (CONFIG.page.isPost) { // Is article page
+        var title = document.querySelector('.post-title').innerText.trim();
+        var doc = articles.doc(title);
+        var increaseCount = CONFIG.hostname === location.hostname;
+        if (localStorage.getItem(title)) {
+          increaseCount = false;
+        } else {
+          // Mark as visited
+          localStorage.setItem(title, true);
+        }
+        getCount(doc, increaseCount).then(appendCountTo(document.querySelector('.firestore-visitors-count')));
+      } else if (CONFIG.page.isHome) { // Is index page
+        var promises = [...document.querySelectorAll('.post-title')].map(element => {
+          var title = element.innerText.trim();
+          var doc = articles.doc(title);
+          return getCount(doc);
+        });
+        Promise.all(promises).then(counts => {
+          var metas = document.querySelectorAll('.firestore-visitors-count');
+          counts.forEach((val, idx) => {
+            appendCountTo(metas[idx])(val);
+          });
+        });
+      }
+    })();
+  </script>
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/medium-zoom@1/dist/medium-zoom.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/pangu@4/dist/browser/pangu.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+<script>
+document.querySelectorAll('.pdfobject-container').forEach(element => {
+  let url = element.dataset.target;
+  let pdfOpenParams = {
+    navpanes : 0,
+    toolbar  : 0,
+    statusbar: 0,
+    pagemode : 'thumbs',
+    view     : 'FitH'
+  };
+  let pdfOpenFragment = '#' + Object.entries(pdfOpenParams).map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join('&');
+  let fullURL = `/lib/pdf/web/viewer.html?file=${encodeURIComponent(url)}${pdfOpenFragment}`;
+
+  if (NexT.utils.supportsPDFs()) {
+    element.innerHTML = `<embed class="pdfobject" src="${url + pdfOpenFragment}" type="application/pdf" style="height: ${element.dataset.height};">`;
+  } else {
+    element.innerHTML = `<iframe src="${fullURL}" style="height: ${element.dataset.height};" frameborder="0"></iframe>`;
+  }
+});
+</script>
+
+
+<script>
+if (document.querySelectorAll('pre.mermaid').length) {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js', () => {
+    mermaid.initialize({
+      theme    : 'forest',
+      logLevel : 3,
+      flowchart: { curve     : 'linear' },
+      gantt    : { axisFormat: '%m/%d/%Y' },
+      sequence : { actorMargin: 50 }
+    });
+  }, window.mermaid);
+}
+</script>
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+</body>
+</html>

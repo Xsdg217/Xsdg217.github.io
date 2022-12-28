@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|Amita:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":true,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="Homework    read and understand the sample code 1-site variational MPS method consider the 1D spin model with open boundary condition   H&#x3D;-\sum_j\left(\sigma_{j-1}^z \sigma_j^y \sigma_{j+1}^z+\sigma_">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2-site variational MPS method in 1D spin model">
+<meta property="og:url" content="http://example.com/2022/11/13/HW_MPS1107/index.html">
+<meta property="og:site_name" content="BLOG">
+<meta property="og:description" content="Homework    read and understand the sample code 1-site variational MPS method consider the 1D spin model with open boundary condition   H&#x3D;-\sum_j\left(\sigma_{j-1}^z \sigma_j^y \sigma_{j+1}^z+\sigma_">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-11-13T07:44:30.000Z">
+<meta property="article:modified_time" content="2022-11-13T07:57:08.903Z">
+<meta property="article:author" content="Hsu Quinn">
+<meta property="article:tag" content="physics">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2022/11/13/HW_MPS1107/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>2-site variational MPS method in 1D spin model | BLOG</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-ER8FH828WC"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-ER8FH828WC');
+      }
+    </script>
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?d5cf64a751ac91d8a331bada0477e161";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">BLOG</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-commonweal">
+
+    <a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/11/13/HW_MPS1107/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Hsu Quinn">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="BLOG">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          2-site variational MPS method in 1D spin model
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-11-13 15:44:30 / 修改时间：15:57:08" itemprop="dateCreated datePublished" datetime="2022-11-13T15:44:30+08:00">2022-11-13</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Computational-Quantum-Physics/" itemprop="url" rel="index"><span itemprop="name">Computational Quantum Physics</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-users"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="firestore-visitors-count"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <font size = 5> Homework </font>
+
+<ul>
+<li>read and understand the sample code 1-site variational MPS method</li>
+<li>consider the 1D spin model with open boundary condition</li>
+</ul>
+<script type="math/tex; mode=display">
+H=-\sum_j\left(\sigma_{j-1}^z \sigma_j^y \sigma_{j+1}^z+\sigma_j^x\right)</script><ul>
+<li><p>write a code for the 2-site variational MPS method</p>
+<p>  choose $N = 10$ , $D_{s} = 4 , 6 $, calculate the ground state energy $E$ per site, and the magnetization per site $\left\langle\sigma_i^z\right\rangle$ and $\left\langle\sigma_i^x\right\rangle$</p>
+<p>  compare with the results obtained from exact diagonalization</p>
+</li>
+<li><font size = 4> a brief summary of theory and algorithm </font>
+
+<p>  sample code 主要步骤如下：</p>
+<ol>
+<li><p>write Hamiltonian as an MPO</p>
+</li>
+<li><p>tensor initialization</p>
+</li>
+<li><p>environment initialization</p>
+</li>
+<li><p>sweep back and forth to optimize each tensor</p>
+<p>对于给定的 1 D spin model，注意到其包括两部分：相邻三体和单体。（除去端点处）有平移对称性，MPO 如下:</p>
+<script type="math/tex; mode=display">
+\left(\begin{array}{cccc}
+I & -\sigma^{z} & 0 & -\sigma^{x} \\
+0 & 0 & \sigma^{y} & 0 \\
+0 & 0 & 0 & \sigma^{z} \\
+0 & 0 & 0 & I
+\end{array}\right)</script><p>端点处（site0 和 site9）的 MPO ：</p>
+<script type="math/tex; mode=display">
+\left(\begin{array}{cccc}
+I & 0 & 0 & -\sigma^{x} \\
+0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 \\
+0 & 0 & 0 & I
+\end{array}\right)</script><p>下面的 code 中近似地忽略端点处的 MPO，这一点与后面的 Exact solution 对比可以发现这种近似的精度是合理的。 </p>
+<p>张量和环境的初始化和 1-site 的类似，这里主要讨论 2-site 的 sweep 如何实现。</p>
+<div  align="center">    
+<img src=https://s2.loli.net/2022/11/13/F3gIuawYMWZERi9.png style="zoom:70%" />   
+</div>
+
+
+
+</li>
+</ol>
+</li>
+</ul>
+<p>optimize two sites : 一次将两个相邻的 T 相乘，作 SVD 分解。对于向右 sweep 的过程，将分解得到的 U 作为新的 T[i] ，得到的 S 和 V 相乘作为新的 T[i+1] ，如此继续循环；对于向左的 sweep 过程同理。 其中要注意的是分解的 U，S，V 需要根据原来的 T[i] 和 T[i+1] 之间耦合的维度 Dcut 做截断。</p>
+<p>code 中 NCon 的 index 对应如下：</p>
+<div  align="center">    
+<img src=https://s2.loli.net/2022/11/13/YagrZSJl45khiX2.jpg style="zoom:30%" />   
+</div>    
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> numpy.linalg <span class="keyword">as</span> LA</span><br><span class="line"><span class="keyword">import</span> scipy.sparse.linalg <span class="keyword">as</span> LAs</span><br><span class="line"><span class="keyword">import</span> Sub180221 <span class="keyword">as</span> Sub</span><br><span class="line"><span class="keyword">import</span> math,copy</span><br><span class="line"><span class="comment">#----------------------------------------------------------------</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">Mi =</span></span><br><span class="line"><span class="string">s0	-sz	0	-sx</span></span><br><span class="line"><span class="string">0	0	sy	0</span></span><br><span class="line"><span class="string">0	0	0	sz</span></span><br><span class="line"><span class="string">0	0	0	s0</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">GetMpo_Heisenberg_Obc</span>(<span class="params">Dp</span>):									<span class="comment">#生成 MPO</span></span><br><span class="line">	S0,Sp,Sm,Sz,Sx,Sy = Sub.SpinOper(Dp)</span><br><span class="line">	</span><br><span class="line">	Dmpo = <span class="number">4</span></span><br><span class="line">	Mpo = np.zeros((Dmpo,Dp,Dmpo,Dp),dtype = <span class="built_in">complex</span>)</span><br><span class="line">	</span><br><span class="line">	Mpo[<span class="number">0</span>,:,<span class="number">0</span>,:] = S0</span><br><span class="line">	Mpo[<span class="number">0</span>,:,<span class="number">1</span>,:] = -<span class="number">2</span> * Sz</span><br><span class="line">	Mpo[<span class="number">0</span>,:,<span class="number">3</span>,:] = -<span class="number">2</span> * Sx</span><br><span class="line">	Mpo[<span class="number">1</span>,:,<span class="number">2</span>,:] = <span class="number">2</span> * Sy</span><br><span class="line">	Mpo[<span class="number">2</span>,:,<span class="number">3</span>,:] = <span class="number">2</span> * Sz</span><br><span class="line">	Mpo[<span class="number">3</span>,:,<span class="number">3</span>,:] = S0</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">return</span> Mpo</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">InitMps</span>(<span class="params">Ns,Dp,Ds</span>):											<span class="comment">#初始化 MPS</span></span><br><span class="line">	T = [<span class="literal">None</span>]*Ns</span><br><span class="line">	<span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(Ns):</span><br><span class="line">		Dl = <span class="built_in">min</span>(Dp**i,Dp**(Ns-i),Ds)</span><br><span class="line">		Dr = <span class="built_in">min</span>(Dp**(i+<span class="number">1</span>),Dp**(Ns-<span class="number">1</span>-i),Ds)</span><br><span class="line">		T[i] = np.random.rand(Dl,Dp,Dr)</span><br><span class="line">	U = np.eye(np.shape(T[-<span class="number">1</span>])[-<span class="number">1</span>])</span><br><span class="line">	<span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(Ns-<span class="number">1</span>,<span class="number">0</span>,-<span class="number">1</span>):</span><br><span class="line">		U,T[i] = Sub.Mps_LQP(T[i],U)</span><br><span class="line">	<span class="keyword">return</span> T</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">InitH</span>(<span class="params">Mpo,T</span>):												<span class="comment">#初始化环境 HL HR</span></span><br><span class="line">	Ns = <span class="built_in">len</span>(T)</span><br><span class="line">	Dmpo = np.shape(Mpo)[<span class="number">0</span>]</span><br><span class="line">	HL = [<span class="literal">None</span>]*Ns</span><br><span class="line">	HR = [<span class="literal">None</span>]*Ns</span><br><span class="line">	HL[<span class="number">0</span>] = np.zeros((<span class="number">1</span>,Dmpo,<span class="number">1</span>))</span><br><span class="line">	HL[<span class="number">0</span>][<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>] = <span class="number">1.0</span></span><br><span class="line">	HR[-<span class="number">1</span>] = np.zeros((<span class="number">1</span>,Dmpo,<span class="number">1</span>))</span><br><span class="line">	HR[-<span class="number">1</span>][<span class="number">0</span>,-<span class="number">1</span>,<span class="number">0</span>] = <span class="number">1.0</span></span><br><span class="line">	<span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(Ns-<span class="number">1</span>,<span class="number">0</span>,-<span class="number">1</span>):</span><br><span class="line">		HR[i-<span class="number">1</span>] = Sub.NCon([HR[i],T[i],Mpo,np.conj(T[i])],[[<span class="number">1</span>,<span class="number">3</span>,<span class="number">5</span>],[-<span class="number">1</span>,<span class="number">2</span>,<span class="number">1</span>],[-<span class="number">2</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>],[-<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>]])</span><br><span class="line">	<span class="keyword">return</span> HL,HR</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">OptTSite</span>(<span class="params">Mpo,HL,HR,T,Method=<span class="number">0</span></span>):								<span class="comment">#2-site的 OptTSite，这里的 T 其实是相邻两个 site 的 T 的积</span></span><br><span class="line">	DT = np.shape(T)</span><br><span class="line">	<span class="keyword">if</span> Method == <span class="number">0</span>:</span><br><span class="line">		A = Sub.NCon([HL,Mpo,Mpo,HR],[[-<span class="number">1</span>,<span class="number">1</span>,-<span class="number">5</span>],[<span class="number">1</span>,-<span class="number">6</span>,<span class="number">2</span>,-<span class="number">2</span>],[<span class="number">2</span>,-<span class="number">7</span>,<span class="number">3</span>,-<span class="number">3</span>],[-<span class="number">8</span>,<span class="number">3</span>,-<span class="number">4</span>]])</span><br><span class="line">		A = Sub.Group(A,[[<span class="number">0</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>],[<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>]])</span><br><span class="line">		Eig,V = LAs.eigsh(A,k=<span class="number">1</span>,which=<span class="string">&#x27;SA&#x27;</span>)</span><br><span class="line">		T = np.reshape(V,(DT[<span class="number">0</span>]*DT[<span class="number">1</span>],DT[<span class="number">2</span>]*DT[<span class="number">3</span>]))        		<span class="comment">#V reshape 成四阶张量 T</span></span><br><span class="line">	<span class="keyword">return</span> T,Eig</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">OptT</span>(<span class="params">Mpo,HL,HR,T</span>):</span><br><span class="line">	Ns = <span class="built_in">len</span>(T)</span><br><span class="line">	Eng0 = np.zeros(Ns)</span><br><span class="line">	Eng1 = np.zeros(Ns)</span><br><span class="line">	<span class="keyword">for</span> r <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">100</span>):</span><br><span class="line">		<span class="built_in">print</span>(r)</span><br><span class="line">		<span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(Ns-<span class="number">1</span>):									<span class="comment"># 向右 sweep</span></span><br><span class="line">			temp,Eng1[i] = OptTSite(Mpo,HL[i],HR[i+<span class="number">1</span>],np.tensordot(T[i],T[i+<span class="number">1</span>],(<span class="number">2</span>,<span class="number">0</span>)),Method=<span class="number">0</span>)	<span class="comment">#T[i]*T[i+1]作为新的张量传过去</span></span><br><span class="line">			Dcut = np.shape(T[i])[<span class="number">2</span>]								<span class="comment"># Dcut 是截断维数</span></span><br><span class="line">			U,S,V = LA.svd(temp,full_matrices=<span class="number">0</span>)</span><br><span class="line">			U = U[:,<span class="number">0</span>:Dcut]</span><br><span class="line">			S = S[<span class="number">0</span>:Dcut]</span><br><span class="line">			V = V[<span class="number">0</span>:Dcut,:]</span><br><span class="line">			T[i] = np.reshape(U,np.shape(T[i]))					<span class="comment">#更新 T[i],T[i+1],HL[i+1]</span></span><br><span class="line">			SV = np.dot(np.diag(S),V)</span><br><span class="line">			T[i+<span class="number">1</span>] = np.reshape(SV,np.shape(T[i+<span class="number">1</span>]))</span><br><span class="line">			HL[i+<span class="number">1</span>] = Sub.NCon([HL[i],np.conj(T[i]),Mpo,T[i]],[[<span class="number">1</span>,<span class="number">3</span>,<span class="number">5</span>],[<span class="number">1</span>,<span class="number">2</span>,-<span class="number">1</span>],[<span class="number">3</span>,<span class="number">4</span>,-<span class="number">2</span>,<span class="number">2</span>],[<span class="number">5</span>,<span class="number">4</span>,-<span class="number">3</span>]])</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(Ns-<span class="number">1</span>,<span class="number">0</span>,-<span class="number">1</span>):								<span class="comment"># 向左 sweep</span></span><br><span class="line">			temp,Eng1[i] = OptTSite(Mpo,HL[i-<span class="number">1</span>],HR[i],np.tensordot(T[i-<span class="number">1</span>],T[i],(<span class="number">2</span>,<span class="number">0</span>)),Method=<span class="number">0</span>)	<span class="comment">#T[i-1]*T[i]作为新的张量传过去</span></span><br><span class="line">			Dcut = np.shape(T[i])[<span class="number">0</span>]								<span class="comment"># Dcut 是截断维数</span></span><br><span class="line">			U,S,V = LA.svd(temp,full_matrices=<span class="number">0</span>)</span><br><span class="line">			U = U[:,<span class="number">0</span>:Dcut]</span><br><span class="line">			S = S[<span class="number">0</span>:Dcut]</span><br><span class="line">			V = V[<span class="number">0</span>:Dcut,:]</span><br><span class="line">			T[i] = np.reshape(V,np.shape(T[i]))					<span class="comment">#更新 T[i],T[i-1],HR[i-1]</span></span><br><span class="line">			US = np.dot(U,np.diag(S))</span><br><span class="line">			T[i-<span class="number">1</span>] = np.reshape(US,np.shape(T[i-<span class="number">1</span>]))</span><br><span class="line">			HR[i-<span class="number">1</span>] = Sub.NCon([HR[i],T[i],Mpo,np.conj(T[i])],[[<span class="number">1</span>,<span class="number">3</span>,<span class="number">5</span>],[-<span class="number">1</span>,<span class="number">2</span>,<span class="number">1</span>],[-<span class="number">2</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>],[-<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>]])</span><br><span class="line">		</span><br><span class="line">		<span class="built_in">print</span>(Eng1)</span><br><span class="line">		<span class="keyword">if</span> <span class="built_in">abs</span>(Eng1[<span class="number">1</span>]-Eng0[<span class="number">1</span>]) &lt; <span class="number">1.0e-7</span>:</span><br><span class="line">			<span class="keyword">break</span></span><br><span class="line">		Eng0 = copy.copy(Eng1)</span><br><span class="line">	<span class="built_in">print</span>(Eng1/<span class="built_in">float</span>(Ns))</span><br><span class="line">	<span class="keyword">return</span> T,Eng1/<span class="built_in">float</span>(Ns)</span><br><span class="line"><span class="comment">#----------------------------------------------------------------</span></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">	Ns = <span class="number">10</span></span><br><span class="line">	Dp = <span class="number">2</span></span><br><span class="line">	Ds = [<span class="number">4</span>,<span class="number">6</span>]</span><br><span class="line">	Answer = []</span><br><span class="line"></span><br><span class="line">	Mpo = GetMpo_Heisenberg_Obc(Dp)</span><br><span class="line">	<span class="keyword">for</span> ds <span class="keyword">in</span> Ds:</span><br><span class="line">		T = InitMps(Ns,Dp,ds)</span><br><span class="line">		HL,HR = InitH(Mpo,T)</span><br><span class="line">		T,E= OptT(Mpo,HL,HR,T)</span><br><span class="line">		GS = T[<span class="number">0</span>]</span><br><span class="line">		<span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(Ns-<span class="number">1</span>):</span><br><span class="line">			GS = np.tensordot(GS,T[i+<span class="number">1</span>],(i+<span class="number">2</span>,<span class="number">0</span>))</span><br><span class="line">		GS = np.reshape(GS,(<span class="number">1024</span>,<span class="number">1</span>))</span><br><span class="line">		Answer.append((ds,E,GS))</span><br></pre></td></tr></table></figure>
+<pre><code>0
+[ -9.94119199 -11.48599436 -11.48599436 -11.48641231 -11.48638648
+ -11.48628296 -11.4859645  -11.48480444 -11.4844155  -11.4844155 ]
+1
+[-11.48599436 -11.48597508 -11.48597508 -11.48639425 -11.48660135
+ -11.48666644 -11.48660205 -11.48639534 -11.48597623 -11.48597623]
+2
+[-11.48597508 -11.48597502 -11.48597502 -11.4863942  -11.48660113
+ -11.48666585 -11.48660113 -11.4863942  -11.48597503 -11.48597503]
+[-1.14859751 -1.1485975  -1.1485975  -1.14863942 -1.14866011 -1.14866659
+ -1.14866011 -1.14863942 -1.1485975  -1.1485975 ]
+0
+[-10.09613213 -11.48870684 -11.48870684 -11.48878776 -11.4888277
+ -11.48872879 -11.48838718 -11.48821485 -11.48813509 -11.48813509]
+1
+[-11.48870684 -11.48870695 -11.48870695 -11.48878788 -11.48886592
+ -11.48888725 -11.48886592 -11.48878788 -11.48870695 -11.48870695]
+2
+[-11.48870695 -11.48870695 -11.48870695 -11.48878788 -11.48886592
+ -11.48888725 -11.48886592 -11.48878788 -11.48870695 -11.48870695]
+[-1.14887069 -1.14887069 -1.14887069 -1.14887879 -1.14888659 -1.14888873
+ -1.14888659 -1.14887879 -1.14887069 -1.14887069]
+</code></pre><ul>
+<li><p>这里的列表 Answer = [(ds,E,GS)] 分别储存的截断 Ds，基态能量 per site E，以及 groud state GS。 </p>
+</li>
+<li><p>下面计算 $D_{s} = 4 , 6 $ 情况下的 ： 1. ground state energy $E$ per site； 2. magnetization per site $\left\langle\sigma_i^z\right\rangle$ and $\left\langle\sigma_i^x\right\rangle$</p>
+</li>
+<li><p>先定义计算磁化强度的 mag_x 和 mag_z 函数：</p>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">FlipBit</span>(<span class="params">i,n</span>):</span><br><span class="line">    <span class="keyword">return</span> i^(<span class="number">1</span>&lt;&lt;n)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">ReadBit</span>(<span class="params">i,n</span>):</span><br><span class="line">    <span class="keyword">return</span> (i&amp;(<span class="number">1</span>&lt;&lt;n))&gt;&gt;n</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">mag_z</span>(<span class="params">W</span>):</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;z:&quot;</span>)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(Ns):</span><br><span class="line">        SzW = np.zeros(<span class="number">1024</span>,dtype = <span class="built_in">complex</span>)</span><br><span class="line">        res = <span class="number">0</span></span><br><span class="line">        n = <span class="number">1</span>&lt;&lt;Ns</span><br><span class="line">        <span class="keyword">for</span> state <span class="keyword">in</span> <span class="built_in">range</span>(n):</span><br><span class="line">            sign = <span class="number">1</span> <span class="keyword">if</span> ReadBit(state, i) == <span class="number">1</span> <span class="keyword">else</span> -<span class="number">1</span></span><br><span class="line">            SzW[state] = sign * W[state]</span><br><span class="line">        <span class="keyword">for</span> state <span class="keyword">in</span> <span class="built_in">range</span>(n):</span><br><span class="line">            res = res + np.conj(W)[state] * SzW[state]</span><br><span class="line">        <span class="built_in">print</span>(i,np.real(res))</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">mag_x</span>(<span class="params">W</span>):</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;x:&quot;</span>)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(Ns):</span><br><span class="line">        SxW = np.zeros(<span class="number">1024</span>,dtype = <span class="built_in">complex</span>)</span><br><span class="line">        res = <span class="number">0</span></span><br><span class="line">        n = <span class="number">1</span>&lt;&lt;Ns</span><br><span class="line">        <span class="keyword">for</span> state <span class="keyword">in</span> <span class="built_in">range</span>(n):</span><br><span class="line">            SxW[FlipBit(state,i)] =  W[state]</span><br><span class="line">        <span class="keyword">for</span> state <span class="keyword">in</span> <span class="built_in">range</span>(n):</span><br><span class="line">            res = res + np.conj(W)[state] * SxW[state]</span><br><span class="line">        <span class="built_in">print</span>(i,np.real(res))</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<ul>
+<li>对于 Ds = 4：</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Ds=&quot;</span>+<span class="built_in">str</span>(Answer[<span class="number">0</span>][<span class="number">0</span>])+<span class="string">&quot;:&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;ground state energy E per site:&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(Answer[<span class="number">0</span>][<span class="number">1</span>])</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;magnetization per site &lt;sigma^z&gt; and &lt;sigma^x&gt;:&quot;</span>)</span><br><span class="line">mag_z(Answer[<span class="number">0</span>][<span class="number">2</span>])</span><br><span class="line">mag_x(Answer[<span class="number">0</span>][<span class="number">2</span>])</span><br></pre></td></tr></table></figure>
+<pre><code>Ds=4:
+ground state energy E per site:
+[-1.14859751 -1.1485975  -1.1485975  -1.14863942 -1.14866011 -1.14866659
+ -1.14866011 -1.14863942 -1.1485975  -1.1485975 ]
+magnetization per site &lt;sigma^z&gt; and &lt;sigma^x&gt;:
+z:
+0 [7.21557529e-09]
+1 [-9.58418942e-09]
+2 [-5.03324422e-09]
+3 [2.40059455e-09]
+4 [-1.82414969e-09]
+5 [-2.32618917e-09]
+6 [1.5960039e-09]
+7 [-2.92614971e-09]
+8 [-2.37970759e-09]
+9 [1.22052863e-09]
+x:
+0 [0.9173015]
+1 [0.84768239]
+2 [0.78414904]
+3 [0.7604599]
+4 [0.75185056]
+5 [0.75202071]
+6 [0.76080662]
+7 [0.78431687]
+8 [0.84831043]
+9 [0.91792175]
+</code></pre><ul>
+<li>对于 Ds = 6:</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Ds=&quot;</span>+<span class="built_in">str</span>(Answer[<span class="number">1</span>][<span class="number">0</span>])+<span class="string">&quot;:&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;ground state energy E per site:&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(Answer[<span class="number">1</span>][<span class="number">1</span>])</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;magnetization per site &lt;sigma^z&gt; and &lt;sigma^x&gt;:&quot;</span>)</span><br><span class="line">mag_z(Answer[<span class="number">1</span>][<span class="number">2</span>])</span><br><span class="line">mag_x(Answer[<span class="number">1</span>][<span class="number">2</span>])</span><br></pre></td></tr></table></figure>
+<pre><code>Ds=6:
+ground state energy E per site:
+[-1.14887069 -1.14887069 -1.14887069 -1.14887879 -1.14888659 -1.14888873
+ -1.14888659 -1.14887879 -1.14887069 -1.14887069]
+magnetization per site &lt;sigma^z&gt; and &lt;sigma^x&gt;:
+z:
+0 [-1.43079909e-10]
+1 [1.24069037e-08]
+2 [-6.39897362e-09]
+3 [-8.64023536e-10]
+4 [9.2880419e-09]
+5 [-3.83658105e-09]
+6 [-9.85073963e-10]
+7 [8.11689286e-09]
+8 [-2.77860332e-09]
+9 [-2.90920866e-10]
+x:
+0 [0.91675276]
+1 [0.84696303]
+2 [0.78332349]
+3 [0.76008148]
+4 [0.75169612]
+5 [0.75168807]
+6 [0.76005655]
+7 [0.78330731]
+8 [0.84695633]
+9 [0.91675164]
+</code></pre><ul>
+<li><p>可见 z 方向 magnetization 约为零， x 方向上有正的 magnetization，在两边的边界处略大于中间。</p>
+</li>
+<li><p>作为对比，该问题的精确解如下：</p>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#Exact diagonalization Solution</span></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> scipy.sparse.linalg <span class="keyword">as</span> LA</span><br><span class="line"></span><br><span class="line">N = <span class="number">10</span></span><br><span class="line">n = <span class="number">1</span>&lt;&lt;N</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">FlipBit</span>(<span class="params">i,n</span>):</span><br><span class="line">    <span class="keyword">return</span> i^(<span class="number">1</span>&lt;&lt;n)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">ReadBit</span>(<span class="params">i,n</span>):</span><br><span class="line">    <span class="keyword">return</span> (i&amp;(<span class="number">1</span>&lt;&lt;n))&gt;&gt;n</span><br><span class="line"></span><br><span class="line">H = np.zeros([n,n], dtype = <span class="built_in">complex</span>)</span><br><span class="line"><span class="keyword">for</span> state <span class="keyword">in</span> <span class="built_in">range</span>(n):</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(N):</span><br><span class="line">        res = FlipBit(state, j)</span><br><span class="line">        H[state][res] += -<span class="number">1</span></span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>,N-<span class="number">1</span>):</span><br><span class="line">        flag = ReadBit(state, j+<span class="number">1</span>) + ReadBit(state, j) + ReadBit(state, j-<span class="number">1</span>)</span><br><span class="line">        sign = <span class="number">1</span> <span class="keyword">if</span> flag % <span class="number">2</span> == <span class="number">1</span> <span class="keyword">else</span> -<span class="number">1</span></span><br><span class="line">        res = FlipBit(state, j)</span><br><span class="line">        H[state][res] += -<span class="number">1.0j</span> * sign</span><br><span class="line">E,eigenV = LA.eigsh(H,<span class="number">1</span>,which = <span class="string">&#x27;SA&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;exact ground state energy E per site:&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(E[<span class="number">0</span>]/N)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;magnetization per site &lt;sigma^z&gt; and &lt;sigma^x&gt;:&quot;</span>)</span><br><span class="line">mag_z(eigenV)</span><br><span class="line">mag_x(eigenV)</span><br></pre></td></tr></table></figure>
+<pre><code>exact ground state energy E per site:
+-1.1489442065958528
+magnetization per site &lt;sigma^z&gt; and &lt;sigma^x&gt;:
+z:
+0 [-4.02022166e-16]
+1 [-1.9246757e-15]
+2 [2.60815675e-15]
+3 [-3.47812057e-16]
+4 [-2.47631776e-15]
+5 [3.13724741e-15]
+6 [-3.0444397e-16]
+7 [-2.10855639e-15]
+8 [2.42948023e-15]
+9 [-3.0444397e-16]
+x:
+0 [0.91622482]
+1 [0.84621457]
+2 [0.78255915]
+3 [0.75946665]
+4 [0.75122694]
+5 [0.75122694]
+6 [0.75946665]
+7 [0.78255915]
+8 [0.84621457]
+9 [0.91622482]
+</code></pre><ul>
+<li><p>最后把结果放在这里方便对比：</p>
+  <div  align="center">    
+  <img src=https://s2.loli.net/2022/11/13/DFUErtflWHhb3Lv.png style="zoom:60%" />  
+  <img src=https://s2.loli.net/2022/11/13/BIuGqLTzptO3yr6.png style="zoom:60%" /> 
+  <img src=https://s2.loli.net/2022/11/13/JKEgYBLitGrQ2eS.png style="zoom:65%" />  
+  </div>
+
+
+
+</li>
+</ul>
+<ul>
+<li><p>注：Sub180221.py:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br><span class="line">305</span><br><span class="line">306</span><br><span class="line">307</span><br><span class="line">308</span><br><span class="line">309</span><br><span class="line">310</span><br><span class="line">311</span><br><span class="line">312</span><br><span class="line">313</span><br><span class="line">314</span><br><span class="line">315</span><br><span class="line">316</span><br><span class="line">317</span><br><span class="line">318</span><br><span class="line">319</span><br><span class="line">320</span><br><span class="line">321</span><br><span class="line">322</span><br><span class="line">323</span><br><span class="line">324</span><br><span class="line">325</span><br><span class="line">326</span><br><span class="line">327</span><br><span class="line">328</span><br><span class="line">329</span><br><span class="line">330</span><br><span class="line">331</span><br><span class="line">332</span><br><span class="line">333</span><br><span class="line">334</span><br><span class="line">335</span><br><span class="line">336</span><br><span class="line">337</span><br><span class="line">338</span><br><span class="line">339</span><br><span class="line">340</span><br><span class="line">341</span><br><span class="line">342</span><br><span class="line">343</span><br><span class="line">344</span><br><span class="line">345</span><br><span class="line">346</span><br><span class="line">347</span><br><span class="line">348</span><br><span class="line">349</span><br><span class="line">350</span><br><span class="line">351</span><br><span class="line">352</span><br><span class="line">353</span><br><span class="line">354</span><br><span class="line">355</span><br><span class="line">356</span><br><span class="line">357</span><br><span class="line">358</span><br><span class="line">359</span><br><span class="line">360</span><br><span class="line">361</span><br><span class="line">362</span><br><span class="line">363</span><br><span class="line">364</span><br><span class="line">365</span><br><span class="line">366</span><br><span class="line">367</span><br><span class="line">368</span><br><span class="line">369</span><br><span class="line">370</span><br><span class="line">371</span><br><span class="line">372</span><br><span class="line">373</span><br><span class="line">374</span><br><span class="line">375</span><br><span class="line">376</span><br><span class="line">377</span><br><span class="line">378</span><br><span class="line">379</span><br><span class="line">380</span><br><span class="line">381</span><br><span class="line">382</span><br><span class="line">383</span><br><span class="line">384</span><br><span class="line">385</span><br><span class="line">386</span><br><span class="line">387</span><br><span class="line">388</span><br><span class="line">389</span><br><span class="line">390</span><br><span class="line">391</span><br><span class="line">392</span><br><span class="line">393</span><br><span class="line">394</span><br><span class="line">395</span><br><span class="line">396</span><br><span class="line">397</span><br><span class="line">398</span><br><span class="line">399</span><br><span class="line">400</span><br><span class="line">401</span><br><span class="line">402</span><br><span class="line">403</span><br><span class="line">404</span><br><span class="line">405</span><br><span class="line">406</span><br><span class="line">407</span><br><span class="line">408</span><br><span class="line">409</span><br><span class="line">410</span><br><span class="line">411</span><br><span class="line">412</span><br><span class="line">413</span><br><span class="line">414</span><br><span class="line">415</span><br><span class="line">416</span><br><span class="line">417</span><br><span class="line">418</span><br><span class="line">419</span><br><span class="line">420</span><br><span class="line">421</span><br><span class="line">422</span><br><span class="line">423</span><br><span class="line">424</span><br><span class="line">425</span><br><span class="line">426</span><br><span class="line">427</span><br><span class="line">428</span><br><span class="line">429</span><br><span class="line">430</span><br><span class="line">431</span><br><span class="line">432</span><br><span class="line">433</span><br><span class="line">434</span><br><span class="line">435</span><br><span class="line">436</span><br><span class="line">437</span><br><span class="line">438</span><br><span class="line">439</span><br><span class="line">440</span><br><span class="line">441</span><br><span class="line">442</span><br><span class="line">443</span><br><span class="line">444</span><br><span class="line">445</span><br><span class="line">446</span><br><span class="line">447</span><br><span class="line">448</span><br><span class="line">449</span><br><span class="line">450</span><br><span class="line">451</span><br><span class="line">452</span><br><span class="line">453</span><br><span class="line">454</span><br><span class="line">455</span><br><span class="line">456</span><br><span class="line">457</span><br><span class="line">458</span><br><span class="line">459</span><br><span class="line">460</span><br><span class="line">461</span><br><span class="line">462</span><br><span class="line">463</span><br><span class="line">464</span><br><span class="line">465</span><br><span class="line">466</span><br><span class="line">467</span><br><span class="line">468</span><br><span class="line">469</span><br><span class="line">470</span><br><span class="line">471</span><br><span class="line">472</span><br><span class="line">473</span><br><span class="line">474</span><br><span class="line">475</span><br><span class="line">476</span><br><span class="line">477</span><br><span class="line">478</span><br><span class="line">479</span><br><span class="line">480</span><br><span class="line">481</span><br><span class="line">482</span><br><span class="line">483</span><br><span class="line">484</span><br><span class="line">485</span><br><span class="line">486</span><br><span class="line">487</span><br><span class="line">488</span><br><span class="line">489</span><br><span class="line">490</span><br><span class="line">491</span><br><span class="line">492</span><br><span class="line">493</span><br><span class="line">494</span><br><span class="line">495</span><br><span class="line">496</span><br><span class="line">497</span><br><span class="line">498</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">Copyright:</span></span><br><span class="line"><span class="string">Shuo Yang, shuoyang@tsinghua.edu.cn</span></span><br><span class="line"><span class="string">Nov 1, 2021, Tsinghua, Beijing, China</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> numpy.linalg <span class="keyword">as</span> LA</span><br><span class="line"><span class="keyword">import</span> scipy.sparse.linalg <span class="keyword">as</span> LAs</span><br><span class="line"><span class="keyword">from</span> scipy <span class="keyword">import</span> linalg</span><br><span class="line"><span class="keyword">import</span> itertools</span><br><span class="line"><span class="comment">#----------------------------------------------------------------</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">Group</span>(<span class="params">A,shapeA</span>):</span><br><span class="line">	<span class="string">&quot;&quot;&quot; transpose + reshape &quot;&quot;&quot;</span></span><br><span class="line">	dimA = np.asarray(np.shape(A))</span><br><span class="line">	rankA = <span class="built_in">len</span>(shapeA)</span><br><span class="line">	</span><br><span class="line">	shapeB = []</span><br><span class="line">	<span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>,rankA):</span><br><span class="line">		shapeB += [np.prod(dimA[shapeA[i]])]</span><br><span class="line">	</span><br><span class="line">	orderB = <span class="built_in">sum</span>(shapeA,[])</span><br><span class="line">	A = np.reshape(np.transpose(A,orderB),shapeB)</span><br><span class="line">	<span class="keyword">return</span> A</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">NCon</span>(<span class="params">Tensor,Index</span>):</span><br><span class="line">	ConList = <span class="built_in">range</span>(<span class="number">1</span>,<span class="built_in">max</span>(<span class="built_in">sum</span>(Index,[]))+<span class="number">1</span>)</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">while</span> <span class="built_in">len</span>(ConList) &gt; <span class="number">0</span>:</span><br><span class="line">	</span><br><span class="line">		Icon = []</span><br><span class="line">		<span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(Index)):</span><br><span class="line">			<span class="keyword">if</span> ConList[<span class="number">0</span>] <span class="keyword">in</span> Index[i]:</span><br><span class="line">				Icon.append(i)</span><br><span class="line">				<span class="keyword">if</span> <span class="built_in">len</span>(Icon) == <span class="number">2</span>:</span><br><span class="line">					<span class="keyword">break</span></span><br><span class="line">		</span><br><span class="line">		<span class="keyword">if</span> <span class="built_in">len</span>(Icon) == <span class="number">1</span>:</span><br><span class="line">			IndCommon = <span class="built_in">list</span>(<span class="built_in">set</span>([x <span class="keyword">for</span> x <span class="keyword">in</span> Index[Icon[<span class="number">0</span>]] <span class="keyword">if</span> Index[Icon[<span class="number">0</span>]].count(x)&gt;<span class="number">1</span>]))</span><br><span class="line">			</span><br><span class="line">			<span class="keyword">for</span> icom <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(IndCommon)):</span><br><span class="line">				Pos = <span class="built_in">sorted</span>([i <span class="keyword">for</span> i,x <span class="keyword">in</span> <span class="built_in">enumerate</span>(Index[Icon[<span class="number">0</span>]]) <span class="keyword">if</span> x==IndCommon[icom]])</span><br><span class="line">				Tensor[Icon[<span class="number">0</span>]] = np.trace(Tensor[Icon[<span class="number">0</span>]],axis1=Pos[<span class="number">0</span>],axis2=Pos[<span class="number">1</span>])</span><br><span class="line">				Index[Icon[<span class="number">0</span>]].pop(Pos[<span class="number">1</span>])</span><br><span class="line">				Index[Icon[<span class="number">0</span>]].pop(Pos[<span class="number">0</span>])</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">else</span>:</span><br><span class="line">			IndCommon = <span class="built_in">list</span>(<span class="built_in">set</span>(Index[Icon[<span class="number">0</span>]]) &amp; <span class="built_in">set</span>(Index[Icon[<span class="number">1</span>]]))		</span><br><span class="line">			Pos = [[],[]]</span><br><span class="line">			<span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">2</span>):</span><br><span class="line">				<span class="keyword">for</span> ind <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(IndCommon)):</span><br><span class="line">					Pos[i].append(Index[Icon[i]].index(IndCommon[ind]))</span><br><span class="line">			A = np.tensordot(Tensor[Icon[<span class="number">0</span>]],Tensor[Icon[<span class="number">1</span>]],(Pos[<span class="number">0</span>],Pos[<span class="number">1</span>]))</span><br><span class="line">			</span><br><span class="line">			<span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">2</span>):</span><br><span class="line">				<span class="keyword">for</span> ind <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(IndCommon)):</span><br><span class="line">					Index[Icon[i]].remove(IndCommon[ind])</span><br><span class="line">			Index[Icon[<span class="number">0</span>]] = Index[Icon[<span class="number">0</span>]]+Index[Icon[<span class="number">1</span>]]</span><br><span class="line">			Index.pop(Icon[<span class="number">1</span>])</span><br><span class="line">			Tensor[Icon[<span class="number">0</span>]] = A</span><br><span class="line">			Tensor.pop(Icon[<span class="number">1</span>])</span><br><span class="line">		</span><br><span class="line">		ConList = <span class="built_in">list</span>(<span class="built_in">set</span>(ConList)^<span class="built_in">set</span>(IndCommon))</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">while</span> <span class="built_in">len</span>(Index) &gt; <span class="number">1</span>:</span><br><span class="line">		</span><br><span class="line">		Tensor[<span class="number">0</span>] = np.multiply.outer(Tensor[<span class="number">0</span>],Tensor[<span class="number">1</span>])</span><br><span class="line">		Tensor.pop(<span class="number">1</span>)</span><br><span class="line">		Index[<span class="number">0</span>] = Index[<span class="number">0</span>]+Index[<span class="number">1</span>]</span><br><span class="line">		Index.pop(<span class="number">1</span>)</span><br><span class="line">	</span><br><span class="line">	Index = Index[<span class="number">0</span>]</span><br><span class="line">	<span class="keyword">if</span> <span class="built_in">len</span>(Index) &gt; <span class="number">0</span>:</span><br><span class="line">		Order = <span class="built_in">sorted</span>(<span class="built_in">range</span>(<span class="built_in">len</span>(Index)),key=<span class="keyword">lambda</span> k:Index[k])[::-<span class="number">1</span>]	</span><br><span class="line">		Tensor = np.transpose(Tensor[<span class="number">0</span>],Order)</span><br><span class="line">	<span class="keyword">else</span>:</span><br><span class="line">		Tensor = Tensor[<span class="number">0</span>]</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">return</span> Tensor</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">SpinOper</span>(<span class="params">ss</span>):</span><br><span class="line">	spin = (ss-<span class="number">1</span>)/<span class="number">2.0</span></span><br><span class="line">	dz = np.zeros(ss)</span><br><span class="line">	mp = np.zeros(ss-<span class="number">1</span>)</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(ss):</span><br><span class="line">		dz[i] = spin-i</span><br><span class="line">	<span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(ss-<span class="number">1</span>):</span><br><span class="line">		mp[i] = np.sqrt((<span class="number">2</span>*spin-i)*(i+<span class="number">1</span>))</span><br><span class="line">	</span><br><span class="line">	S0 = np.eye(ss)</span><br><span class="line">	Sp = np.diag(mp,<span class="number">1</span>)</span><br><span class="line">	Sm = np.diag(mp,-<span class="number">1</span>)</span><br><span class="line">	Sx = <span class="number">0.5</span>*(Sp+Sm)</span><br><span class="line">	Sy = -<span class="number">0.5j</span>*(Sp-Sm)</span><br><span class="line">	Sz = np.diag(dz)</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">return</span> S0,Sp,Sm,Sz,Sx,Sy</span><br><span class="line"><span class="comment">#----------------------------------------------------------------</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">OutputT</span>(<span class="params">T,prec=<span class="number">1.0e-10</span></span>):</span><br><span class="line">	<span class="string">&quot;&quot;&quot; output nonzero elements &quot;&quot;&quot;</span></span><br><span class="line">	pos = np.nonzero(np.<span class="built_in">abs</span>(T)&gt;prec)</span><br><span class="line">	val = T[pos]</span><br><span class="line">	pos = np.transpose(pos)</span><br><span class="line">	<span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(val)):</span><br><span class="line">		<span class="built_in">print</span>(pos[i],val[i])</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">OutputTFile</span>(<span class="params">file,T,prec=<span class="number">1.0e-10</span></span>):</span><br><span class="line">	<span class="string">&quot;&quot;&quot; output nonzero elements to file &quot;&quot;&quot;</span></span><br><span class="line">	pos = np.nonzero(np.<span class="built_in">abs</span>(T)&gt;prec)</span><br><span class="line">	val = T[pos]</span><br><span class="line">	pos = np.transpose(pos)</span><br><span class="line">	val = np.reshape(val,[<span class="built_in">len</span>(val),<span class="number">1</span>])</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">if</span> LA.norm(np.imag(T)) &gt; prec:</span><br><span class="line">		out = np.concatenate((pos+<span class="number">1</span>,np.real(val),np.imag(val)),axis=<span class="number">1</span>)</span><br><span class="line">		np.savetxt(file,out,fmt = <span class="string">&#x27;%d\t&#x27;</span>*np.shape(pos)[<span class="number">1</span>] + <span class="string">&#x27;%0.6f \t %0.6f&#x27;</span>)</span><br><span class="line">	<span class="keyword">else</span>:</span><br><span class="line">		out = np.concatenate((pos,np.real(val)),axis=<span class="number">1</span>)</span><br><span class="line">		np.savetxt(file,out,fmt = <span class="string">&#x27;%d\t&#x27;</span>*np.shape(pos)[<span class="number">1</span>] + <span class="string">&#x27;%0.6f&#x27;</span>)</span><br><span class="line"><span class="comment">#----------------------------------------------------------------</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">SplitEig</span>(<span class="params">A,Dcut,prec=<span class="number">1.0e-12</span>,safe=<span class="number">3</span></span>):</span><br><span class="line">	<span class="string">&quot;&quot;&quot; Eig, Lapack + Arpack &quot;&quot;&quot;</span></span><br><span class="line">	D = np.<span class="built_in">min</span>(np.shape(A))</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">if</span> Dcut &gt;= D-<span class="number">1</span>:</span><br><span class="line">		S,V = LA.eig(A)</span><br><span class="line">	<span class="keyword">else</span>:</span><br><span class="line">		k_ask = <span class="built_in">min</span>(Dcut+safe,D-<span class="number">2</span>)</span><br><span class="line">		S,V = LAs.eigs(A,k=k_ask)</span><br><span class="line">	</span><br><span class="line">	idx = np.isfinite(S)</span><br><span class="line">	<span class="keyword">if</span> idx.<span class="built_in">any</span>() != <span class="literal">False</span>:</span><br><span class="line">		S = S[idx]</span><br><span class="line">		V = V[:,idx]</span><br><span class="line">	order = np.argsort(<span class="built_in">abs</span>(S))[::-<span class="number">1</span>]</span><br><span class="line">	S = S[order]</span><br><span class="line">	V = V[:,order]</span><br><span class="line">	</span><br><span class="line">	S = S[<span class="built_in">abs</span>(S/S[<span class="number">0</span>])&gt;prec]</span><br><span class="line">	Dc = <span class="built_in">min</span>(<span class="built_in">len</span>(S),Dcut)</span><br><span class="line">	S = S[:Dc]</span><br><span class="line">	V = V[:,:Dc]</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">return</span> V,S,Dc</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">SplitEigh</span>(<span class="params">A,Dcut,mode=<span class="string">&#x27;P&#x27;</span>,prec=<span class="number">1.0e-12</span>,safe=<span class="number">3</span>,icheck=<span class="number">0</span></span>):</span><br><span class="line">	<span class="string">&quot;&quot;&quot; Eig, Hermitian, Lapack + Arpack &quot;&quot;&quot;</span></span><br><span class="line">	<span class="string">&quot;&quot;&quot; P = perserve, C = cut &quot;&quot;&quot;</span></span><br><span class="line">	D = np.<span class="built_in">min</span>(np.shape(A))</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">if</span> Dcut &gt;= D-<span class="number">1</span>:</span><br><span class="line">		S,V = LA.eigh(A)</span><br><span class="line">	<span class="keyword">else</span>:</span><br><span class="line">		k_ask = <span class="built_in">min</span>(Dcut+safe,D-<span class="number">2</span>)</span><br><span class="line">		S,V = LAs.eigsh(A,k=k_ask)</span><br><span class="line">	</span><br><span class="line">	idx = np.isfinite(S)</span><br><span class="line">	<span class="keyword">if</span> idx.<span class="built_in">any</span>() != <span class="literal">False</span>:</span><br><span class="line">		S = S[idx]</span><br><span class="line">		V = V[:,idx]</span><br><span class="line">	order = np.argsort(<span class="built_in">abs</span>(S))[::-<span class="number">1</span>]</span><br><span class="line">	S = S[order]</span><br><span class="line">	V = V[:,order]</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">if</span> mode == <span class="string">&#x27;P&#x27;</span>:</span><br><span class="line">		S = S[<span class="built_in">abs</span>(S/S[<span class="number">0</span>])&gt;<span class="number">1.0e-15</span>]</span><br><span class="line">		Dc = <span class="built_in">min</span>(<span class="built_in">len</span>(S),Dcut)</span><br><span class="line">		S = S[:Dc]</span><br><span class="line">		V = V[:,:Dc]</span><br><span class="line">		S[<span class="built_in">abs</span>(S/S[<span class="number">0</span>])&lt;prec] = prec*np.sign(S[<span class="built_in">abs</span>(S/S[<span class="number">0</span>])&lt;prec])</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">if</span> mode == <span class="string">&#x27;C&#x27;</span>:</span><br><span class="line">		S = S[<span class="built_in">abs</span>(S/S[<span class="number">0</span>])&gt;prec]</span><br><span class="line">		Dc = <span class="built_in">min</span>(<span class="built_in">len</span>(S),Dcut)</span><br><span class="line">		S = S[:Dc]</span><br><span class="line">		V = V[:,:Dc]</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">if</span> icheck == <span class="number">1</span>:</span><br><span class="line">		<span class="built_in">print</span>(LA.norm(np.dot(V,np.dot(np.diag(S),np.transpose(np.conj(V))))-A)/LA.norm(A))</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">return</span> V,S,Dc</span><br><span class="line"><span class="comment">#----------------------------------------------------------------</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">SplitSvd_Lapack</span>(<span class="params">A,Dcut,iweight,mode=<span class="string">&#x27;P&#x27;</span>,prec=<span class="number">1.0e-12</span>,icheck=<span class="number">0</span></span>):</span><br><span class="line">	<span class="string">&quot;&quot;&quot; SVD, Lapack only &quot;&quot;&quot;</span></span><br><span class="line">	<span class="string">&quot;&quot;&quot; P = perserve, C = cut &quot;&quot;&quot;</span></span><br><span class="line">	</span><br><span class="line">	U,S,V = LA.svd(A,full_matrices=<span class="number">0</span>)</span><br><span class="line">	</span><br><span class="line">	S = np.<span class="built_in">abs</span>(S)</span><br><span class="line">	idx = np.isfinite(S)</span><br><span class="line">	<span class="keyword">if</span> idx.<span class="built_in">any</span>() != <span class="literal">False</span>:</span><br><span class="line">		S = S[idx]</span><br><span class="line">		U = U[:,idx]</span><br><span class="line">		V = V[idx,:]</span><br><span class="line">	order = np.argsort(S)[::-<span class="number">1</span>]</span><br><span class="line">	S = S[order]</span><br><span class="line">	U = U[:,order]</span><br><span class="line">	V = V[order,:]</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">if</span> mode == <span class="string">&#x27;P&#x27;</span>:</span><br><span class="line">		S = S[S/S[<span class="number">0</span>]&gt;<span class="number">1.0e-15</span>]</span><br><span class="line">		Dc = <span class="built_in">min</span>(<span class="built_in">len</span>(S),Dcut)</span><br><span class="line">		S = S[:Dc]</span><br><span class="line">		U = U[:,:Dc]</span><br><span class="line">		V = V[:Dc,:]</span><br><span class="line">		S[S/S[<span class="number">0</span>]&lt;prec] = prec</span><br><span class="line">		</span><br><span class="line">	<span class="keyword">if</span> mode == <span class="string">&#x27;C&#x27;</span>:</span><br><span class="line">		S = S[S/S[<span class="number">0</span>]&gt;prec]</span><br><span class="line">		Dc = <span class="built_in">min</span>(<span class="built_in">len</span>(S),Dcut)</span><br><span class="line">		S = S[:Dc]</span><br><span class="line">		U = U[:,:Dc]</span><br><span class="line">		V = V[:Dc,:]</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">if</span> iweight == <span class="number">1</span>:</span><br><span class="line">		U = np.dot(U,np.diag(np.sqrt(S)))</span><br><span class="line">		V = np.dot(np.diag(np.sqrt(S)),V)</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">if</span> icheck == <span class="number">1</span>:</span><br><span class="line">		<span class="keyword">if</span> iweight == <span class="number">0</span>:</span><br><span class="line">			<span class="built_in">print</span>(LA.norm(np.dot(U,np.dot(np.diag(S),V))-A)/LA.norm(A))</span><br><span class="line">		<span class="keyword">else</span>:</span><br><span class="line">			<span class="built_in">print</span>(LA.norm(np.dot(U,V)-A)/LA.norm(A))</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">return</span> U,S,V,Dc</span><br><span class="line"><span class="comment">#----------------------------------------------------------------</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">Mps_QRP</span>(<span class="params">UL,T,icheck=<span class="number">0</span></span>):</span><br><span class="line">	<span class="string">&quot;&quot;&quot; (0-UL-1)(0-T-L) -&gt; (0-Tnew-L)(0-UR-1) &quot;&quot;&quot;</span></span><br><span class="line">	shapeT = np.asarray(np.shape(T))</span><br><span class="line">	rankT = <span class="built_in">len</span>(shapeT)</span><br><span class="line">	</span><br><span class="line">	A = np.tensordot(UL,T,(<span class="number">1</span>,<span class="number">0</span>))</span><br><span class="line">	A = np.reshape(A,[np.prod(shapeT[:-<span class="number">1</span>]),shapeT[-<span class="number">1</span>]])</span><br><span class="line">	Tnew,UR = linalg.qr(A,mode = <span class="string">&#x27;economic&#x27;</span>)</span><br><span class="line">	Sign = np.diag(np.sign(np.diag(UR)))</span><br><span class="line">	Tnew = np.dot(Tnew,Sign)</span><br><span class="line">	UR = np.dot(Sign,UR)</span><br><span class="line">	Tnew = np.reshape(Tnew,shapeT)</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">if</span> icheck == <span class="number">1</span>:</span><br><span class="line">		A = np.reshape(A,shapeT)</span><br><span class="line">		B = np.tensordot(Tnew,UR,(rankT-<span class="number">1</span>,<span class="number">0</span>))</span><br><span class="line">		<span class="built_in">print</span>(LA.norm(A-B)/LA.norm(A))</span><br><span class="line">		A = np.tensordot(np.conj(Tnew),Tnew,(<span class="built_in">range</span>(<span class="number">0</span>,rankT-<span class="number">1</span>),<span class="built_in">range</span>(<span class="number">0</span>,rankT-<span class="number">1</span>)))</span><br><span class="line">		<span class="built_in">print</span>(LA.norm(A-np.eye(shapeT[-<span class="number">1</span>])))</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">return</span> Tnew,UR</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">Mps_LQP</span>(<span class="params">T,UR,icheck=<span class="number">0</span></span>):</span><br><span class="line">	<span class="string">&quot;&quot;&quot; (0-T-L)(0-UR-1) -&gt; (0-UL-1)(0-Tnew-L) &quot;&quot;&quot;</span></span><br><span class="line">	shapeT = np.asarray(np.shape(T))</span><br><span class="line">	rankT = <span class="built_in">len</span>(shapeT)</span><br><span class="line">	</span><br><span class="line">	A = np.tensordot(T,UR,(rankT-<span class="number">1</span>,<span class="number">0</span>))</span><br><span class="line">	A = np.reshape(A,[shapeT[<span class="number">0</span>],np.prod(shapeT[<span class="number">1</span>:])])</span><br><span class="line">	UL,Tnew = linalg.rq(A,mode = <span class="string">&#x27;economic&#x27;</span>)</span><br><span class="line">	Sign = np.diag(np.sign(np.diag(UL)))</span><br><span class="line">	UL = np.dot(UL,Sign)</span><br><span class="line">	Tnew = np.dot(Sign,Tnew)</span><br><span class="line">	Tnew = np.reshape(Tnew,shapeT)</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">if</span> icheck == <span class="number">1</span>:</span><br><span class="line">		A = np.reshape(A,shapeT)</span><br><span class="line">		B = np.tensordot(UL,Tnew,(<span class="number">1</span>,<span class="number">0</span>))</span><br><span class="line">		<span class="built_in">print</span>(LA.norm(A-B)/LA.norm(A))</span><br><span class="line">		A = np.tensordot(np.conj(Tnew),Tnew,(<span class="built_in">range</span>(<span class="number">1</span>,rankT),<span class="built_in">range</span>(<span class="number">1</span>,rankT)))</span><br><span class="line">		<span class="built_in">print</span>(LA.norm(A-np.eye(shapeT[<span class="number">0</span>])))</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">return</span> UL,Tnew</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">Mps_QR0P</span>(<span class="params">T,icheck=<span class="number">0</span></span>):</span><br><span class="line">	<span class="string">&quot;&quot;&quot; (0-T-L) -&gt; (0-Tnew-L)(0-UR-1) &quot;&quot;&quot;</span></span><br><span class="line">	shapeT = np.asarray(np.shape(T))</span><br><span class="line">	rankT = <span class="built_in">len</span>(shapeT)</span><br><span class="line">	</span><br><span class="line">	A = np.reshape(T,[np.prod(shapeT[:-<span class="number">1</span>]),shapeT[-<span class="number">1</span>]])</span><br><span class="line">	Tnew,UR = linalg.qr(A,mode = <span class="string">&#x27;economic&#x27;</span>)</span><br><span class="line">	Sign = np.diag(np.sign(np.diag(UR)))</span><br><span class="line">	Tnew = np.dot(Tnew,Sign)</span><br><span class="line">	UR = np.dot(Sign,UR)</span><br><span class="line">	Tnew = np.reshape(Tnew,shapeT)</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">if</span> icheck == <span class="number">1</span>:</span><br><span class="line">		B = np.tensordot(Tnew,UR,(rankT-<span class="number">1</span>,<span class="number">0</span>))</span><br><span class="line">		<span class="built_in">print</span>(LA.norm(T-B)/LA.norm(T))</span><br><span class="line">		A = np.tensordot(np.conj(Tnew),Tnew,(<span class="built_in">range</span>(<span class="number">0</span>,rankT-<span class="number">1</span>),<span class="built_in">range</span>(<span class="number">0</span>,rankT-<span class="number">1</span>)))</span><br><span class="line">		<span class="built_in">print</span>(LA.norm(A-np.eye(shapeT[-<span class="number">1</span>])))</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">return</span> Tnew,UR</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">Mps_LQ0P</span>(<span class="params">T,icheck=<span class="number">0</span></span>):</span><br><span class="line">	<span class="string">&quot;&quot;&quot; (0-T-L) -&gt; (0-UL-1)(0-Tnew-L) &quot;&quot;&quot;</span></span><br><span class="line">	shapeT = np.asarray(np.shape(T))</span><br><span class="line">	rankT = <span class="built_in">len</span>(shapeT)</span><br><span class="line">	</span><br><span class="line">	A = np.reshape(T,[shapeT[<span class="number">0</span>],np.prod(shapeT[<span class="number">1</span>:])])</span><br><span class="line">	UL,Tnew = linalg.rq(A,mode = <span class="string">&#x27;economic&#x27;</span>)</span><br><span class="line">	Sign = np.diag(np.sign(np.diag(UL)))</span><br><span class="line">	UL = np.dot(UL,Sign)</span><br><span class="line">	Tnew = np.dot(Sign,Tnew)</span><br><span class="line">	Tnew = np.reshape(Tnew,shapeT)</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">if</span> icheck == <span class="number">1</span>:</span><br><span class="line">		B = np.tensordot(UL,Tnew,(<span class="number">1</span>,<span class="number">0</span>))</span><br><span class="line">		<span class="built_in">print</span>(LA.norm(T-B)/LA.norm(T))</span><br><span class="line">		A = np.tensordot(np.conj(Tnew),Tnew,(<span class="built_in">range</span>(<span class="number">1</span>,rankT),<span class="built_in">range</span>(<span class="number">1</span>,rankT)))</span><br><span class="line">		<span class="built_in">print</span>(LA.norm(A-np.eye(shapeT[<span class="number">0</span>])))</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">return</span> UL,Tnew</span><br><span class="line"><span class="comment">#----------------------------------------------------------------</span></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">	Test = &#123;&#125;</span><br><span class="line">	Test[<span class="string">&#x27;Group&#x27;</span>] = <span class="number">0</span></span><br><span class="line">	Test[<span class="string">&#x27;NCon&#x27;</span>] = <span class="number">0</span></span><br><span class="line">	Test[<span class="string">&#x27;SplitEig&#x27;</span>] = <span class="number">0</span></span><br><span class="line">	Test[<span class="string">&#x27;SplitSvd&#x27;</span>] = <span class="number">0</span></span><br><span class="line">	Test[<span class="string">&#x27;Mps_QRP&#x27;</span>] = <span class="number">0</span></span><br><span class="line">	</span><br><span class="line">	<span class="keyword">if</span> Test[<span class="string">&#x27;Group&#x27;</span>] == <span class="number">1</span>:</span><br><span class="line">		A = np.random.rand(<span class="number">3</span>,<span class="number">2</span>,<span class="number">4</span>,<span class="number">3</span>)</span><br><span class="line">		A = Group(A,[[<span class="number">0</span>,<span class="number">2</span>],[<span class="number">3</span>,<span class="number">1</span>]])</span><br><span class="line">		<span class="built_in">print</span>(A)</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">if</span> Test[<span class="string">&#x27;NCon&#x27;</span>] == <span class="number">1</span>:</span><br><span class="line">		T1 = np.random.rand(<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">3</span>)</span><br><span class="line">		T2 = np.random.rand(<span class="number">4</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">5</span>)</span><br><span class="line">		T3 = np.random.rand(<span class="number">3</span>,<span class="number">3</span>,<span class="number">2</span>,<span class="number">4</span>)</span><br><span class="line">	</span><br><span class="line">		A = np.tensordot(T1,T2,([<span class="number">0</span>,<span class="number">3</span>],[<span class="number">1</span>,<span class="number">2</span>]))</span><br><span class="line">		A = np.transpose(A,[<span class="number">2</span>,<span class="number">0</span>,<span class="number">3</span>,<span class="number">1</span>])</span><br><span class="line">		B = NCon([T1,T2],[[<span class="number">1</span>,-<span class="number">2</span>,-<span class="number">4</span>,<span class="number">2</span>],[-<span class="number">1</span>,<span class="number">1</span>,<span class="number">2</span>,-<span class="number">3</span>]])</span><br><span class="line">		<span class="built_in">print</span>(LA.norm(A-B)/LA.norm(A))</span><br><span class="line">	</span><br><span class="line">		A = np.tensordot(T1,T2,(<span class="number">3</span>,<span class="number">2</span>))</span><br><span class="line">		A = np.transpose(A,[<span class="number">1</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">2</span>,<span class="number">0</span>,<span class="number">5</span>])</span><br><span class="line">		B = NCon([T1,T2],[[-<span class="number">5</span>,-<span class="number">1</span>,-<span class="number">4</span>,<span class="number">1</span>],[-<span class="number">2</span>,-<span class="number">3</span>,<span class="number">1</span>,-<span class="number">6</span>]])</span><br><span class="line">		<span class="built_in">print</span>(LA.norm(A-B)/LA.norm(A))</span><br><span class="line">	</span><br><span class="line">		A = np.tensordot(T1,T2,([<span class="number">0</span>,<span class="number">3</span>],[<span class="number">1</span>,<span class="number">2</span>]))</span><br><span class="line">		A = np.tensordot(A,T3,([<span class="number">0</span>,<span class="number">1</span>],[<span class="number">1</span>,<span class="number">3</span>]))</span><br><span class="line">		A = np.transpose(A,[<span class="number">3</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">2</span>])</span><br><span class="line">		B = NCon([T1,T2,T3],[[<span class="number">1</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">2</span>],[-<span class="number">2</span>,<span class="number">1</span>,<span class="number">2</span>,-<span class="number">3</span>],[-<span class="number">4</span>,<span class="number">3</span>,-<span class="number">1</span>,<span class="number">4</span>]])</span><br><span class="line">		<span class="built_in">print</span>(LA.norm(A-B)/LA.norm(A))</span><br><span class="line">		</span><br><span class="line">		T1 = np.random.rand(<span class="number">2</span>,<span class="number">3</span>)</span><br><span class="line">		T2 = np.random.rand(<span class="number">3</span>,<span class="number">4</span>)</span><br><span class="line">		T3 = np.random.rand(<span class="number">4</span>,<span class="number">2</span>)</span><br><span class="line">	</span><br><span class="line">		A = np.kron(T1,T2)</span><br><span class="line">		A = np.reshape(A,[<span class="number">2</span>,<span class="number">3</span>,<span class="number">3</span>,<span class="number">4</span>])</span><br><span class="line">		B = NCon([T1,T2],[[-<span class="number">1</span>,-<span class="number">3</span>],[-<span class="number">2</span>,-<span class="number">4</span>]])</span><br><span class="line">		<span class="built_in">print</span>(LA.norm(A-B)/LA.norm(A))</span><br><span class="line">	</span><br><span class="line">		A = np.kron(T1,T2)</span><br><span class="line">		A = np.kron(A,T3)</span><br><span class="line">		A = np.reshape(A,[<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">2</span>])</span><br><span class="line">		A = np.transpose(A,[<span class="number">1</span>,<span class="number">0</span>,<span class="number">5</span>,<span class="number">4</span>,<span class="number">2</span>,<span class="number">3</span>])</span><br><span class="line">		B = NCon([T1,T2,T3],[[-<span class="number">2</span>,-<span class="number">6</span>],[-<span class="number">1</span>,-<span class="number">4</span>],[-<span class="number">5</span>,-<span class="number">3</span>]])</span><br><span class="line">		<span class="built_in">print</span>(LA.norm(A-B)/LA.norm(A))</span><br><span class="line">		</span><br><span class="line">		T = np.random.rand(<span class="number">3</span>,<span class="number">2</span>,<span class="number">4</span>,<span class="number">3</span>,<span class="number">2</span>)</span><br><span class="line">	</span><br><span class="line">		A = np.eye(<span class="number">3</span>)</span><br><span class="line">		A = np.tensordot(T,A,([<span class="number">0</span>,<span class="number">3</span>],[<span class="number">0</span>,<span class="number">1</span>]))</span><br><span class="line">		A = np.transpose(A,[<span class="number">2</span>,<span class="number">0</span>,<span class="number">1</span>])</span><br><span class="line">		B = NCon([T],[[<span class="number">1</span>,-<span class="number">2</span>,-<span class="number">3</span>,<span class="number">1</span>,-<span class="number">1</span>]])</span><br><span class="line">		<span class="built_in">print</span>(LA.norm(A-B)/LA.norm(A))</span><br><span class="line">	</span><br><span class="line">		A = np.eye(<span class="number">3</span>*<span class="number">2</span>)</span><br><span class="line">		A = np.reshape(A,[<span class="number">3</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">2</span>])</span><br><span class="line">		A = np.tensordot(T,A,([<span class="number">0</span>,<span class="number">1</span>,<span class="number">3</span>,<span class="number">4</span>],[<span class="number">0</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]))</span><br><span class="line">		B = NCon([T],[[<span class="number">1</span>,<span class="number">2</span>,-<span class="number">1</span>,<span class="number">1</span>,<span class="number">2</span>]])</span><br><span class="line">		<span class="built_in">print</span>(LA.norm(A-B)/LA.norm(A))</span><br><span class="line">		</span><br><span class="line">		T1 = np.random.rand(<span class="number">2</span>,<span class="number">2</span>)</span><br><span class="line">		T2 = np.random.rand(<span class="number">2</span>,<span class="number">2</span>)</span><br><span class="line">		T3 = np.random.rand(<span class="number">2</span>,<span class="number">2</span>)</span><br><span class="line">	</span><br><span class="line">		A = np.tensordot(T1,T2,(<span class="number">1</span>,<span class="number">0</span>))</span><br><span class="line">		A = np.kron(A,T3)</span><br><span class="line">		A = np.reshape(A,[<span class="number">2</span>,<span class="number">2</span>,<span class="number">2</span>,<span class="number">2</span>])</span><br><span class="line">		B = NCon([T1,T2,T3],[[-<span class="number">1</span>,<span class="number">1</span>],[<span class="number">1</span>,-<span class="number">3</span>],[-<span class="number">2</span>,-<span class="number">4</span>]])</span><br><span class="line">		<span class="built_in">print</span>(LA.norm(A-B)/LA.norm(A))</span><br><span class="line">	</span><br><span class="line">		T1 = np.random.rand(<span class="number">3</span>,<span class="number">3</span>)</span><br><span class="line">		T2 = np.random.rand(<span class="number">3</span>,<span class="number">1</span>,<span class="number">3</span>)</span><br><span class="line">		T3 = np.random.rand(<span class="number">3</span>,<span class="number">3</span>,<span class="number">1</span>)</span><br><span class="line">		T4 = np.random.rand(<span class="number">3</span>,<span class="number">3</span>,<span class="number">3</span>,<span class="number">3</span>)</span><br><span class="line">	</span><br><span class="line">		A = np.tensordot(T1,T2,(<span class="number">1</span>,<span class="number">0</span>))</span><br><span class="line">		A = np.tensordot(A,T3,(<span class="number">1</span>,<span class="number">2</span>))</span><br><span class="line">		A = np.tensordot(A,T4,([<span class="number">0</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>],[<span class="number">0</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]))</span><br><span class="line">		B = NCon([T1,T2,T3,T4],[[<span class="number">3</span>,<span class="number">1</span>],[<span class="number">1</span>,<span class="number">2</span>,<span class="number">4</span>],[<span class="number">5</span>,<span class="number">6</span>,<span class="number">2</span>],[<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>]])</span><br><span class="line">		<span class="built_in">print</span>(LA.norm(A-B)/LA.norm(A))</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">if</span> (Test[<span class="string">&#x27;SplitEig&#x27;</span>] == <span class="number">1</span>) | (Test[<span class="string">&#x27;SplitSvd&#x27;</span>] == <span class="number">1</span>):</span><br><span class="line">		T = np.zeros((<span class="number">3</span>,<span class="number">3</span>,<span class="number">3</span>))</span><br><span class="line">		T[<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>] = <span class="number">1</span></span><br><span class="line">		T[<span class="number">1</span>,<span class="number">0</span>,<span class="number">2</span>] = <span class="number">1</span></span><br><span class="line">		T[<span class="number">0</span>,<span class="number">2</span>,<span class="number">1</span>] = <span class="number">1</span></span><br><span class="line">		T[<span class="number">2</span>,<span class="number">1</span>,<span class="number">0</span>] = <span class="number">1</span></span><br><span class="line">		T[<span class="number">1</span>,<span class="number">2</span>,<span class="number">0</span>] = -<span class="number">1</span></span><br><span class="line">		T[<span class="number">2</span>,<span class="number">0</span>,<span class="number">1</span>] = -<span class="number">1</span></span><br><span class="line">		T[<span class="number">0</span>,<span class="number">1</span>,<span class="number">2</span>] = -<span class="number">1</span></span><br><span class="line">		</span><br><span class="line">		G = np.zeros((<span class="number">3</span>,<span class="number">2</span>,<span class="number">3</span>))</span><br><span class="line">		G[<span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span>] = <span class="number">1</span></span><br><span class="line">		G[<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>] = <span class="number">1</span></span><br><span class="line">		G[<span class="number">1</span>,<span class="number">0</span>,<span class="number">2</span>] = <span class="number">1</span></span><br><span class="line">		G[<span class="number">2</span>,<span class="number">0</span>,<span class="number">1</span>] = <span class="number">1</span></span><br><span class="line">	</span><br><span class="line">		A = np.tensordot(T,G,(<span class="number">0</span>,<span class="number">0</span>))</span><br><span class="line">		A = np.tensordot(A,G,(<span class="number">0</span>,<span class="number">0</span>))</span><br><span class="line">		A = np.tensordot(A,G,(<span class="number">0</span>,<span class="number">0</span>))</span><br><span class="line">		A = np.tensordot(A,np.conj(A),([<span class="number">0</span>,<span class="number">2</span>,<span class="number">4</span>],[<span class="number">0</span>,<span class="number">2</span>,<span class="number">4</span>]))</span><br><span class="line">		STA = Group(A,[[<span class="number">0</span>,<span class="number">3</span>],[<span class="number">1</span>,<span class="number">4</span>],[<span class="number">2</span>,<span class="number">5</span>]])</span><br><span class="line">	</span><br><span class="line">		A = np.reshape(T,[<span class="number">1</span>,<span class="number">3</span>,<span class="number">3</span>,<span class="number">3</span>])</span><br><span class="line">		A = np.tensordot(A,np.conj(A),(<span class="number">0</span>,<span class="number">0</span>))</span><br><span class="line">		STB = Group(A,[[<span class="number">0</span>,<span class="number">3</span>],[<span class="number">1</span>,<span class="number">4</span>],[<span class="number">2</span>,<span class="number">5</span>]])</span><br><span class="line">	</span><br><span class="line">		A = np.tensordot(STA,STB,([<span class="number">0</span>],[<span class="number">0</span>]))</span><br><span class="line">		ST0 = np.transpose(A,[<span class="number">3</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">2</span>])</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">if</span> Test[<span class="string">&#x27;SplitEig&#x27;</span>] == <span class="number">1</span>:</span><br><span class="line">		ST = Group(ST0,[[<span class="number">3</span>,<span class="number">0</span>],[<span class="number">2</span>,<span class="number">1</span>]])</span><br><span class="line">		STh = (ST+np.transpose(ST))/<span class="number">2</span></span><br><span class="line">		ST0h = np.reshape(STh,[<span class="number">9</span>,<span class="number">9</span>,<span class="number">9</span>,<span class="number">9</span>])</span><br><span class="line">		Dfull = np.shape(ST)[<span class="number">0</span>]</span><br><span class="line">		<span class="built_in">print</span>(Dfull)</span><br><span class="line">		</span><br><span class="line">		<span class="built_in">print</span>(<span class="string">&#x27;full eig&#x27;</span>)</span><br><span class="line">		V,S,Dc = SplitEig(STh,Dfull)</span><br><span class="line">		Sfull = S</span><br><span class="line">		<span class="built_in">print</span>(Sfull,<span class="built_in">len</span>(Sfull))</span><br><span class="line">		</span><br><span class="line">		<span class="built_in">print</span>(<span class="string">&#x27;partial eig&#x27;</span>)</span><br><span class="line">		<span class="keyword">for</span> Dcut <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>,Dfull+<span class="number">1</span>):</span><br><span class="line">			V,S,Dc = SplitEig(STh,Dcut)</span><br><span class="line">			<span class="built_in">print</span>(Dcut,Dc,LA.norm(<span class="built_in">abs</span>(S)-<span class="built_in">abs</span>(Sfull[:Dc])))</span><br><span class="line">		</span><br><span class="line">		<span class="built_in">print</span>(<span class="string">&#x27;full eigh&#x27;</span>)</span><br><span class="line">		V,S,Dc = SplitEigh(STh,Dfull,icheck=<span class="number">1</span>)</span><br><span class="line">		Sfull = S</span><br><span class="line">		<span class="built_in">print</span>(Sfull,<span class="built_in">len</span>(Sfull))</span><br><span class="line">		</span><br><span class="line">		<span class="built_in">print</span>(<span class="string">&#x27;partial eigh&#x27;</span>)</span><br><span class="line">		<span class="keyword">for</span> Dcut <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>,Dfull+<span class="number">1</span>):</span><br><span class="line">			V,S,Dc = SplitEigh(STh,Dcut,icheck=<span class="number">1</span>)</span><br><span class="line">			<span class="built_in">print</span>(Dcut,Dc,LA.norm(<span class="built_in">abs</span>(S)-<span class="built_in">abs</span>(Sfull[:Dc])))</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> Test[<span class="string">&#x27;SplitSvd&#x27;</span>] == <span class="number">1</span>:</span><br><span class="line">		ST = Group(ST0,[[<span class="number">0</span>,<span class="number">1</span>],[<span class="number">2</span>,<span class="number">3</span>]])</span><br><span class="line">		ST1 = Group(ST0,[[<span class="number">0</span>],[<span class="number">1</span>],[<span class="number">2</span>,<span class="number">3</span>]])</span><br><span class="line">		ST2 = Group(ST0,[[<span class="number">0</span>,<span class="number">1</span>],[<span class="number">2</span>],[<span class="number">3</span>]])</span><br><span class="line">		Dfull = np.shape(ST)[<span class="number">0</span>]</span><br><span class="line">		<span class="built_in">print</span>(Dfull)</span><br><span class="line"></span><br><span class="line">		<span class="built_in">print</span>(<span class="string">&#x27;full svd&#x27;</span>)</span><br><span class="line">		<span class="keyword">for</span> iweight <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">2</span>):</span><br><span class="line">			U,S,V,Dc = SplitSvd_Lapack(ST,Dfull,iweight,icheck=<span class="number">1</span>)</span><br><span class="line">		Sfull = S</span><br><span class="line">		<span class="built_in">print</span>(Sfull,<span class="built_in">len</span>(Sfull))</span><br><span class="line">		</span><br><span class="line">		<span class="built_in">print</span>(<span class="string">&#x27;partial svd&#x27;</span>)</span><br><span class="line">		<span class="keyword">for</span> Dcut <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>,Dfull+<span class="number">1</span>):</span><br><span class="line">			<span class="keyword">for</span> iweight <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">2</span>):</span><br><span class="line">				U,S,V,Dc = SplitSvd_Lapack(ST,Dcut,iweight,mode=<span class="string">&#x27;C&#x27;</span>,icheck=<span class="number">1</span>)</span><br><span class="line">				<span class="built_in">print</span>(Dcut,iweight,Dc,LA.norm(S-Sfull[:Dc]))</span><br><span class="line">		</span><br><span class="line">	<span class="keyword">if</span> Test[<span class="string">&#x27;Mps_QRP&#x27;</span>] == <span class="number">1</span>:</span><br><span class="line">		<span class="built_in">print</span>(<span class="string">&#x27;no Z2, rank 3&#x27;</span>)</span><br><span class="line">		<span class="keyword">for</span> D1,D2,D3 <span class="keyword">in</span> itertools.product(<span class="built_in">range</span>(<span class="number">3</span>,<span class="number">5</span>),<span class="built_in">range</span>(<span class="number">3</span>,<span class="number">5</span>),<span class="built_in">range</span>(<span class="number">3</span>,<span class="number">5</span>)):</span><br><span class="line">			D = [D1,D2,D3]</span><br><span class="line">			T0 = np.random.rand(D[<span class="number">0</span>],D[<span class="number">1</span>],D[<span class="number">2</span>]) + <span class="number">1j</span>*np.random.rand(D[<span class="number">0</span>],D[<span class="number">1</span>],D[<span class="number">2</span>])</span><br><span class="line">			UL = np.random.rand(D[<span class="number">0</span>],D[<span class="number">0</span>]) + <span class="number">1j</span>*np.random.rand(D[<span class="number">0</span>],D[<span class="number">0</span>])</span><br><span class="line">			UR = np.random.rand(D[<span class="number">2</span>],D[<span class="number">2</span>]) + <span class="number">1j</span>*np.random.rand(D[<span class="number">2</span>],D[<span class="number">2</span>])</span><br><span class="line">			</span><br><span class="line">			<span class="built_in">print</span>(D1,D2,D3)</span><br><span class="line">			T,UR = Mps_QRP(UL,T0,icheck=<span class="number">1</span>)</span><br><span class="line">			UL,T = Mps_LQP(T0,UR,icheck=<span class="number">1</span>)</span><br><span class="line">			T,UR = Mps_QR0P(T0,icheck=<span class="number">1</span>)</span><br><span class="line">			UL,T = Mps_LQ0P(T0,icheck=<span class="number">1</span>)</span><br><span class="line">		</span><br><span class="line">		<span class="built_in">print</span>(<span class="string">&#x27;no Z2, rank 4&#x27;</span>)</span><br><span class="line">		<span class="keyword">for</span> D1,D2,D3,D4 <span class="keyword">in</span> itertools.product(<span class="built_in">range</span>(<span class="number">3</span>,<span class="number">5</span>),<span class="built_in">range</span>(<span class="number">3</span>,<span class="number">5</span>),<span class="built_in">range</span>(<span class="number">3</span>,<span class="number">5</span>),<span class="built_in">range</span>(<span class="number">3</span>,<span class="number">5</span>)):</span><br><span class="line">			D = [D1,D2,D3,D4]</span><br><span class="line">			T0 = np.random.rand(D[<span class="number">0</span>],D[<span class="number">1</span>],D[<span class="number">2</span>],D[<span class="number">3</span>]) + <span class="number">1j</span>*np.random.rand(D[<span class="number">0</span>],D[<span class="number">1</span>],D[<span class="number">2</span>],D[<span class="number">3</span>])</span><br><span class="line">			UL = np.random.rand(D[<span class="number">0</span>],D[<span class="number">0</span>]) + <span class="number">1j</span>*np.random.rand(D[<span class="number">0</span>],D[<span class="number">0</span>])</span><br><span class="line">			UR = np.random.rand(D[<span class="number">3</span>],D[<span class="number">3</span>]) + <span class="number">1j</span>*np.random.rand(D[<span class="number">3</span>],D[<span class="number">3</span>])</span><br><span class="line">			</span><br><span class="line">			<span class="built_in">print</span>(D1,D2,D3,D4)</span><br><span class="line">			T,UR = Mps_QRP(UL,T0,icheck=<span class="number">1</span>)</span><br><span class="line">			UL,T = Mps_LQP(T0,UR,icheck=<span class="number">1</span>)</span><br><span class="line">			T,UR = Mps_QR0P(T0,icheck=<span class="number">1</span>)</span><br><span class="line">			UL,T = Mps_LQ0P(T0,icheck=<span class="number">1</span>)</span><br><span class="line">	</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+	
+	  <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">------------- 💖 🌞 End 😚 Thanks for your reading 🌞 💖 -------------</div>
+    
+</div>
+	
+      
+  <div class="popular-posts-header">相关文章</div>
+  <ul class="popular-posts">
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="\2022\10\18\HW_TF_Ising_model\" rel="bookmark">Transverse-field Ising Model</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="\2022\10\08\HW_task1_hubbard_with_U1\" rel="bookmark">Exact diagonalization -- Hubbard model</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="\2022\10\09\HW_task2_time evolution\" rel="bookmark">Time evolution of s single-particle GWP</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="\2022\10\26\Semiconductor physics0\" rel="bookmark">Semiconductor Physics(section 0)</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="\2022\10\30\HW_DMRG\" rel="bookmark">Tranditional DMRG on transverse-field Ising model</a></div>
+    </li>
+  </ul>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Hsu Quinn
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://example.com/2022/11/13/HW_MPS1107/" title="2-site variational MPS method in 1D spin model">http://example.com/2022/11/13/HW_MPS1107/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/physics/" rel="tag"><i class="fa fa-tag"></i> physics</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/11/12/Semiconductor%20physics2/" rel="prev" title="Semiconductor Physics(section 2)">
+      <i class="fa fa-chevron-left"></i> Semiconductor Physics(section 2)
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/11/22/HW_itebd/" rel="next" title="3-site iTEBD method">
+      3-site iTEBD method <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Hsu Quinn"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Hsu Quinn</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Xsdg217" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Xsdg217" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:fawkes@mail.ustc.edu.cn" title="E-Mail → mailto:fawkes@mail.ustc.edu.cn" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/6090876649" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;6090876649" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.zhihu.com/people/bing-tang-bo-luo-89" title="Zhihu → https:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;bing-tang-bo-luo-89" rel="noopener" target="_blank"><i class="fa fa-globe fa-fw"></i>Zhihu</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://music.163.com/#/user/home?id=1383517537" title="Wangyiyun → https:&#x2F;&#x2F;music.163.com&#x2F;#&#x2F;user&#x2F;home?id&#x3D;1383517537" rel="noopener" target="_blank"><i class="fa fa-music fa-fw"></i>Wangyiyun</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://space.bilibili.com/58820360" title="BiliBili → https:&#x2F;&#x2F;space.bilibili.com&#x2F;58820360" rel="noopener" target="_blank"><i class="fa fa-telegram fa-fw"></i>BiliBili</a>
+      </span>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2015 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hsu Quinn</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+        
+
+
+
+
+  <script src="https://www.gstatic.com/firebasejs/6.3.3/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/6.3.3/firebase-firestore.js"></script>
+  <script>
+    firebase.initializeApp({
+      apiKey   : '',
+      projectId: 'count0908-21d35'
+    });
+
+    function getCount(doc, increaseCount) {
+      // IncreaseCount will be false when not in article page
+      return doc.get().then(d => {
+        var count = 0;
+        if (!d.exists) { // Has no data, initialize count
+          if (increaseCount) {
+            doc.set({
+              count: 1
+            });
+            count = 1;
+          }
+        } else { // Has data
+          count = d.data().count;
+          if (increaseCount) {
+            // If first view this article
+            doc.set({ // Increase count
+              count: count + 1
+            });
+            count++;
+          }
+        }
+
+        return count;
+      });
+    }
+
+    function appendCountTo(el) {
+      return count => {
+        el.innerText = count;
+      }
+    }
+  </script>
+  <script>
+    (function() {
+      var db = firebase.firestore();
+      var articles = db.collection('articles');
+
+      if (CONFIG.page.isPost) { // Is article page
+        var title = document.querySelector('.post-title').innerText.trim();
+        var doc = articles.doc(title);
+        var increaseCount = CONFIG.hostname === location.hostname;
+        if (localStorage.getItem(title)) {
+          increaseCount = false;
+        } else {
+          // Mark as visited
+          localStorage.setItem(title, true);
+        }
+        getCount(doc, increaseCount).then(appendCountTo(document.querySelector('.firestore-visitors-count')));
+      } else if (CONFIG.page.isHome) { // Is index page
+        var promises = [...document.querySelectorAll('.post-title')].map(element => {
+          var title = element.innerText.trim();
+          var doc = articles.doc(title);
+          return getCount(doc);
+        });
+        Promise.all(promises).then(counts => {
+          var metas = document.querySelectorAll('.firestore-visitors-count');
+          counts.forEach((val, idx) => {
+            appendCountTo(metas[idx])(val);
+          });
+        });
+      }
+    })();
+  </script>
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/medium-zoom@1/dist/medium-zoom.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/pangu@4/dist/browser/pangu.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+<script>
+document.querySelectorAll('.pdfobject-container').forEach(element => {
+  let url = element.dataset.target;
+  let pdfOpenParams = {
+    navpanes : 0,
+    toolbar  : 0,
+    statusbar: 0,
+    pagemode : 'thumbs',
+    view     : 'FitH'
+  };
+  let pdfOpenFragment = '#' + Object.entries(pdfOpenParams).map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join('&');
+  let fullURL = `/lib/pdf/web/viewer.html?file=${encodeURIComponent(url)}${pdfOpenFragment}`;
+
+  if (NexT.utils.supportsPDFs()) {
+    element.innerHTML = `<embed class="pdfobject" src="${url + pdfOpenFragment}" type="application/pdf" style="height: ${element.dataset.height};">`;
+  } else {
+    element.innerHTML = `<iframe src="${fullURL}" style="height: ${element.dataset.height};" frameborder="0"></iframe>`;
+  }
+});
+</script>
+
+
+<script>
+if (document.querySelectorAll('pre.mermaid').length) {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js', () => {
+    mermaid.initialize({
+      theme    : 'forest',
+      logLevel : 3,
+      flowchart: { curve     : 'linear' },
+      gantt    : { axisFormat: '%m/%d/%Y' },
+      sequence : { actorMargin: 50 }
+    });
+  }, window.mermaid);
+}
+</script>
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+</body>
+</html>
