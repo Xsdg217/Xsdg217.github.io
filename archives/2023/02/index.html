@@ -22,20 +22,15 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":true,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="Hexo博客上传本地文件以及实现PDF预览上传本地文件把文件放在source文件下，再使用hexo d部署时，文件会自动被上传到Github上。为了便于文件管理和组织，可以在source文件下新建file文件夹用于分类存储文件。 使用hexo d部署后，文件的链接是博客域名&#x2F;file&#x2F;文件名。 有两点需要注意：  链接中需要包含文件名的后缀； 文件名最好由数字和字母组成，不要包含中文、空格或这特殊">
-<meta property="og:type" content="article">
-<meta property="og:title" content="PDF upload and preview">
-<meta property="og:url" content="http://example.com/2022/10/25/PDF-upload-and-preview/index.html">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="BLOG">
+<meta property="og:url" content="http://example.com/archives/2023/02/index.html">
 <meta property="og:site_name" content="BLOG">
-<meta property="og:description" content="Hexo博客上传本地文件以及实现PDF预览上传本地文件把文件放在source文件下，再使用hexo d部署时，文件会自动被上传到Github上。为了便于文件管理和组织，可以在source文件下新建file文件夹用于分类存储文件。 使用hexo d部署后，文件的链接是博客域名&#x2F;file&#x2F;文件名。 有两点需要注意：  链接中需要包含文件名的后缀； 文件名最好由数字和字母组成，不要包含中文、空格或这特殊">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-10-25T11:30:22.000Z">
-<meta property="article:modified_time" content="2022-10-26T06:19:30.062Z">
 <meta property="article:author" content="Hsu Quinn">
-<meta property="article:tag" content="hexo">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://example.com/2022/10/25/PDF-upload-and-preview/">
+<link rel="canonical" href="http://example.com/archives/2023/02/">
 
 
 <script id="page-configurations">
@@ -43,12 +38,12 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : true,
+    isPost : false,
     lang   : 'zh-CN'
   };
 </script>
 
-  <title>PDF upload and preview | BLOG</title>
+  <title>归档 | BLOG</title>
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-ER8FH828WC"></script>
     <script>
@@ -181,157 +176,50 @@
         <div class="content-wrap">
           
 
-          <div class="content post posts-expand">
+          <div class="content archive">
             
 
-    
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/25/PDF-upload-and-preview/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Hsu Quinn">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="BLOG">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          PDF upload and preview
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-10-25 19:30:22" itemprop="dateCreated datePublished" datetime="2022-10-25T19:30:22+08:00">2022-10-25</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-10-26 14:19:30" itemprop="dateModified" datetime="2022-10-26T14:19:30+08:00">2022-10-26</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Blog-Setting/" itemprop="url" rel="index"><span itemprop="name">Blog Setting</span></a>
-                </span>
-            </span>
-
-          
-            <span class="post-meta-item" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-users"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="firestore-visitors-count"></span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
+  
+  <div class="post-block">
+    <div class="posts-collapse">
+      <div class="collection-title">
+        <span class="collection-header">嗯..! 目前共计 19 篇日志。 继续努力。</span>
+      </div>
 
       
-        <h2 id="Hexo博客上传本地文件以及实现PDF预览"><a href="#Hexo博客上传本地文件以及实现PDF预览" class="headerlink" title="Hexo博客上传本地文件以及实现PDF预览"></a>Hexo博客上传本地文件以及实现PDF预览</h2><h3 id="上传本地文件"><a href="#上传本地文件" class="headerlink" title="上传本地文件"></a>上传本地文件</h3><p>把文件放在<code>source</code>文件下，再使用<code>hexo d</code>部署时，文件会自动被上传到Github上。为了便于文件管理和组织，可以在<code>source</code>文件下新建<code>file</code>文件夹用于分类存储文件。</p>
-<p>使用<code>hexo d</code>部署后，文件的链接是<code>博客域名/file/文件名</code>。</p>
-<p>有两点需要注意：</p>
-<ol>
-<li>链接中需要包含文件名的后缀；</li>
-<li>文件名最好由数字和字母组成，不要包含中文、空格或这特殊字符。解析时候容易出错。</li>
-</ol>
-<h3 id="添加hexo博客book导航栏"><a href="#添加hexo博客book导航栏" class="headerlink" title="添加hexo博客book导航栏"></a>添加hexo博客book导航栏</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new page book</span><br></pre></td></tr></table></figure>
-<p>在主题配置文件夹下添加:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Book:</span><br><span class="line">	url: /book</span><br><span class="line">	icon: fas fa-book</span><br></pre></td></tr></table></figure>
-<p>在book文件夹中的index.md中添加你生成的pdf文件链接即可</p>
-<h3 id="文章中添加pdf预览功能"><a href="#文章中添加pdf预览功能" class="headerlink" title="文章中添加pdf预览功能"></a>文章中添加pdf预览功能</h3><p>PDF预览功能需要借助<a target="_blank" rel="noopener" href="https://github.com/superalsrk/hexo-pdf/">hexo-pdf插件</a>实现。插件非常小巧方便，关于插件的安装和使用，插件作者已经在主页介绍的很详细了。</p>
-<ol>
-<li>hexo-pdf插件。通过npm安装，注意是在hexo根目录下执行该语句。<code>npm install --save hexo-pdf</code></li>
-<li>应用。在文章合适位置插入代码。对于一般的PDF文件、Google Driver和Slideshare都可以使用<code>&#123;% pdf 链接 %&#125;</code>的形式，例如<code>&#123;% pdf http://xsdg217.github.io/221020fang.pdf %&#125;</code>。对于一般的PDF文件也可以本地PDF。</li>
-</ol>
-<h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_43827595/article/details/104574959">【如何在网页中实现pdf在线预览】10分钟学会如何利用Hexo博客上传本地pdf文件并在线预览pdf</a></p>
-
+    <div class="collection-year">
+      <span class="collection-header">2023</span>
     </div>
 
-    
-    
-    
-	
-	  <div>
-    
-        <div style="text-align:center;color: #ccc;font-size:14px;">------------- 💖 🌞 End 😚 Thanks for your reading 🌞 💖 -------------</div>
-    
-</div>
-	
-      
-  <div class="popular-posts-header">相关文章</div>
-  <ul class="popular-posts">
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="\2022\09\07\建立博客\" rel="bookmark">Blog Setup</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="\2022\10\08\mathjax\" rel="bookmark">Mathjax</a></div>
-    </li>
-  </ul>
+  <article itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
 
-        
+      <div class="post-meta">
+        <time itemprop="dateCreated"
+              datetime="2023-02-26T23:06:04+08:00"
+              content="2023-02-26">
+          02-26
+        </time>
+      </div>
 
-<div>
-<ul class="post-copyright">
-  <li class="post-copyright-author">
-    <strong>本文作者： </strong>Hsu Quinn
-  </li>
-  <li class="post-copyright-link">
-    <strong>本文链接：</strong>
-    <a href="http://example.com/2022/10/25/PDF-upload-and-preview/" title="PDF upload and preview">http://example.com/2022/10/25/PDF-upload-and-preview/</a>
-  </li>
-  <li class="post-copyright-license">
-    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
-  </li>
-</ul>
-</div>
+      <div class="post-title">
+          <a class="post-title-link" href="/2023/02/26/linux%20order/" itemprop="url">
+            <span itemprop="name">Linux 基本命令</span>
+          </a>
+      </div>
 
-
-      <footer class="post-footer">
-          
-          <div class="post-tags">
-              <a href="/tags/hexo/" rel="tag"><i class="fa fa-tag"></i> hexo</a>
-          </div>
-
-        
-
-
-        
-    <div class="post-nav">
-      <div class="post-nav-item">
-    <a href="/2022/10/18/HW_TF_Ising_model/" rel="prev" title="Transverse-field Ising Model">
-      <i class="fa fa-chevron-left"></i> Transverse-field Ising Model
-    </a></div>
-      <div class="post-nav-item">
-    <a href="/2022/10/26/Semiconductor%20physics0/" rel="next" title="Semiconductor Physics(section 0)">
-      Semiconductor Physics(section 0) <i class="fa fa-chevron-right"></i>
-    </a></div>
-    </div>
-      </footer>
-    
+    </header>
   </article>
+
+
+    </div>
+  </div>
   
   
+  
+
   
 
 
@@ -384,7 +272,6 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Hexo%E5%8D%9A%E5%AE%A2%E4%B8%8A%E4%BC%A0%E6%9C%AC%E5%9C%B0%E6%96%87%E4%BB%B6%E4%BB%A5%E5%8F%8A%E5%AE%9E%E7%8E%B0PDF%E9%A2%84%E8%A7%88"><span class="nav-number">1.</span> <span class="nav-text">Hexo博客上传本地文件以及实现PDF预览</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8A%E4%BC%A0%E6%9C%AC%E5%9C%B0%E6%96%87%E4%BB%B6"><span class="nav-number">1.1.</span> <span class="nav-text">上传本地文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0hexo%E5%8D%9A%E5%AE%A2book%E5%AF%BC%E8%88%AA%E6%A0%8F"><span class="nav-number">1.2.</span> <span class="nav-text">添加hexo博客book导航栏</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%87%E7%AB%A0%E4%B8%AD%E6%B7%BB%E5%8A%A0pdf%E9%A2%84%E8%A7%88%E5%8A%9F%E8%83%BD"><span class="nav-number">1.3.</span> <span class="nav-text">文章中添加pdf预览功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="nav-number">1.4.</span> <span class="nav-text">参考资料</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 

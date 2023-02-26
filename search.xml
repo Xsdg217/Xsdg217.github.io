@@ -1545,4 +1545,37 @@ Running time: 126.53 Seconds
         <tag>physics</tag>
       </tags>
   </entry>
+  <entry>
+    <title>AF transition in Hubbard Model</title>
+    <url>/2022/12/28/AF-transition-in-Hubbard-Model/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="Antiferromagnetic-Transition-in-the-Hubbard-Model"><a href="#Antiferromagnetic-Transition-in-the-Hubbard-Model" class="headerlink" title="Antiferromagnetic Transition in the Hubbard Model"></a>Antiferromagnetic Transition in the Hubbard Model</h2><ul>
+<li><h3 id="The-Hubard-Model"><a href="#The-Hubard-Model" class="headerlink" title="The Hubard Model"></a>The Hubard Model</h3><p>哈伯德模型是对费米子通过短程相互作用相互作用的程式化描述。哈密顿量描述如下：</p>
+<script type="math/tex; mode=display">
+H = - \sum_{s,\langle i,j\rangle}t_{ij}c_{is}^{+}c_{js} + U\sum_{j}c_{j\downarrow}^{+}c_{j\uparrow}^{+}c_{j\uparrow}c_{j\downarrow}</script><p>如下图所示，蓝色框内是选取的 unit cell。箭头线表示 n.n. 的hoping，大小为 t，相位为 pi/4。单线表示对角的 hopping，大小为 t’，相位为 0（虚线） 或者 pi（实线）。</p>
+</li>
+</ul>
+  <div  align="center">    
+  <img src=https://s2.loli.net/2022/12/28/LAbNOsUo7qCftH8.gif style="zoom:50%" />
+  </div>
+
+<ul>
+<li><h3 id="Mean-Field-Solution"><a href="#Mean-Field-Solution" class="headerlink" title="Mean-Field Solution"></a>Mean-Field Solution</h3><p>平均场近似下，四体相互作用替换为两体相互作用：</p>
+<script type="math/tex; mode=display">
+c_{j \downarrow}^{\dagger} c_{j \uparrow}^{\dagger} c_{j \uparrow} c_{j \downarrow} \rightarrow\left\langle c_{j \downarrow}^{\dagger} c_{j \downarrow}\right\rangle c_{j \uparrow}^{\dagger} c_{j \uparrow}+\left\langle c_{j \uparrow}^{\dagger} c_{j \uparrow}\right\rangle c_{j \downarrow}^{\dagger} c_{j \downarrow}</script><p>预测反铁磁性，我们猜测平均磁场值：</p>
+</li>
+</ul>
+]]></content>
+  </entry>
+  <entry>
+    <title>Linux 基本命令</title>
+    <url>/2023/02/26/linux%20order/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="Linux-基本命令与-Shell-脚本"><a href="#Linux-基本命令与-Shell-脚本" class="headerlink" title="Linux 基本命令与 Shell 脚本"></a>Linux 基本命令与 Shell 脚本</h2><p>开个小坑，记一下要用的脚本命令啥的</p>
+]]></content>
+      <categories>
+        <category>Some Notes</category>
+      </categories>
+      <tags>
+        <tag>linux</tag>
+      </tags>
+  </entry>
 </search>
