@@ -1567,8 +1567,42 @@ c_{j \downarrow}^{\dagger} c_{j \uparrow}^{\dagger} c_{j \uparrow} c_{j \downarr
 ]]></content>
   </entry>
   <entry>
+    <title>自旋轨道耦合（Spin–orbit interaction）</title>
+    <url>/2023/03/06/%E8%87%AA%E6%97%8B%E8%BD%A8%E9%81%93%E8%80%A6%E5%90%88/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="Spin–orbit-interaction"><a href="#Spin–orbit-interaction" class="headerlink" title="Spin–orbit interaction"></a>Spin–orbit interaction</h2><h3 id="1-自旋轨道耦合效应的起源："><a href="#1-自旋轨道耦合效应的起源：" class="headerlink" title="1 自旋轨道耦合效应的起源："></a>1 自旋轨道耦合效应的起源：</h3><p>​    自旋轨道耦合效应其实就是电子绕原子核旋转产生的轨道磁矩与电子自身具有的自旋磁矩的相互作用，略去磁矩就称之为自旋轨道耦合效应：</p>
+<script type="math/tex; mode=display">
+U_{S} = -\mu_{s}B_{R}</script><p>​    狭义相对论给出：</p>
+<script type="math/tex; mode=display">
+U_s=\left(g_s-1\right) \frac{1}{2} \frac{1}{4 \pi \varepsilon_0} \frac{Z e^2}{r^3} \frac{1}{m^2 c^2} \mathbf{1} \cdot \mathbf{S}</script><script type="math/tex; mode=display">
+H_{s o}=-\frac{\hbar}{4 m^2 c^2} \sigma \cdot p \times \quad\left(\nabla V_0\right)</script><p>​    关于对称性P，T：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+& T H(k) T^{-1}=H(-k)^* \\
+& T: t \rightarrow-t \\
+& P H(k) P^{-1}=H(-k) \\
+& P: x, y, z \rightarrow-x,-y,-z
+\end{aligned}</script><p>​    在 k→−k 不变的那些时间反演动量不变点（TRIM）上有：</p>
+<p>​    如果存在空间反演对称性P，那么每个TRIM 上的点都和 P 对易，每个本征态都可以用 P 的本征值+-1 来标记。如果有 T，那么由 Kramer简并 ，每个 TRIM 上的本征态都是二重简并的。如果同时具有俩种对称性那么，整个布里渊区上由于 Kramer degeneracy 都是二重简并的。</p>
+<p>​    对于无中心反演对称的情况，SOC的出现会破坏Kramer degeneracy ，导致能级的退简并，而对于时间反演对称性无关，所以说Kramer degeneracy是受时间反演对称性保护的。所以通常的拓扑绝缘体都是无磁有时间反演对称的SOC的材料。如果其中一个对称性破缺，但是体系仍然具有PT联合的 对称性，那么整个布里渊区上由于 Kramer degeneracy 都是二重简并的结论仍然成立。</p>
+<p>​    </p>
+<h3 id="2-自旋轨道耦合效应分类："><a href="#2-自旋轨道耦合效应分类：" class="headerlink" title="2 自旋轨道耦合效应分类："></a>2 自旋轨道耦合效应分类：</h3><h4 id="1-Rashba自旋轨道耦合效应"><a href="#1-Rashba自旋轨道耦合效应" class="headerlink" title="1 Rashba自旋轨道耦合效应"></a>1 Rashba自旋轨道耦合效应</h4><p>​    由于材料的结构反演不对称导致的能带倾斜的情况，在二维垂直平面内再加一个有效点场后，带电粒子在此平面的运动就会受到磁场的作用。门电压调节强度</p>
+<script type="math/tex; mode=display">
+H_R=-\alpha_R(\sigma \times p) \cdot z=-\alpha_R\left(\sigma_x p_y-\sigma_y p_x\right)</script><h4 id="2-Dresselhauss自旋轨道耦合"><a href="#2-Dresselhauss自旋轨道耦合" class="headerlink" title="2 Dresselhauss自旋轨道耦合"></a>2 Dresselhauss自旋轨道耦合</h4><p>​    在没有反演对称性的晶体结构中，导带由于自旋轨道耦合而引起的能级劈裂，劈裂的大小正比于波函数的3次方:</p>
+<script type="math/tex; mode=display">
+H=\beta\left[\sigma_x k_x\left(k_y^2-k_x^2\right)+\sigma_y k_y\left(k_z^2-k_x^2\right)+\sigma_z k_z\left(k_z^2-k_y^{2)}\right]\right.</script><p>​    两者线性项产生等效的磁场：</p>
+<div  align="center">    
+<img src=https://s2.loli.net/2023/03/06/eiWOcJSHIwrLUgE.jpg />
+</div>]]></content>
+      <categories>
+        <category>Some Notes</category>
+      </categories>
+      <tags>
+        <tag>physics</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Linux 基本命令</title>
-    <url>/2023/02/26/linux%20order/</url>
+    <url>/2023/02/26/linux%20command/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="Linux-基本命令与-Shell-脚本"><a href="#Linux-基本命令与-Shell-脚本" class="headerlink" title="Linux 基本命令与 Shell 脚本"></a>Linux 基本命令与 Shell 脚本</h2><p>开个小坑，记一下要用的脚本命令啥的</p>
 ]]></content>
       <categories>

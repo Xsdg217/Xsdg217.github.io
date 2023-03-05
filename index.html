@@ -182,7 +182,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/02/26/linux%20order/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/03/06/%E8%87%AA%E6%97%8B%E8%BD%A8%E9%81%93%E8%80%A6%E5%90%88/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -196,7 +196,107 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2023/02/26/linux%20order/" class="post-title-link" itemprop="url">Linux 基本命令</a>
+            <a href="/2023/03/06/%E8%87%AA%E6%97%8B%E8%BD%A8%E9%81%93%E8%80%A6%E5%90%88/" class="post-title-link" itemprop="url">自旋轨道耦合（Spin–orbit interaction）</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2023-03-06 00:05:30 / 修改时间：00:06:28" itemprop="dateCreated datePublished" datetime="2023-03-06T00:05:30+08:00">2023-03-06</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Some-Notes/" itemprop="url" rel="index"><span itemprop="name">Some Notes</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-users"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="firestore-visitors-count"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="Spin–orbit-interaction"><a href="#Spin–orbit-interaction" class="headerlink" title="Spin–orbit interaction"></a>Spin–orbit interaction</h2><h3 id="1-自旋轨道耦合效应的起源："><a href="#1-自旋轨道耦合效应的起源：" class="headerlink" title="1 自旋轨道耦合效应的起源："></a>1 自旋轨道耦合效应的起源：</h3><p>​    自旋轨道耦合效应其实就是电子绕原子核旋转产生的轨道磁矩与电子自身具有的自旋磁矩的相互作用，略去磁矩就称之为自旋轨道耦合效应：</p>
+<script type="math/tex; mode=display">
+U_{S} = -\mu_{s}B_{R}</script><p>​    狭义相对论给出：</p>
+<script type="math/tex; mode=display">
+U_s=\left(g_s-1\right) \frac{1}{2} \frac{1}{4 \pi \varepsilon_0} \frac{Z e^2}{r^3} \frac{1}{m^2 c^2} \mathbf{1} \cdot \mathbf{S}</script><script type="math/tex; mode=display">
+H_{s o}=-\frac{\hbar}{4 m^2 c^2} \sigma \cdot p \times \quad\left(\nabla V_0\right)</script><p>​    关于对称性P，T：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+& T H(k) T^{-1}=H(-k)^* \\
+& T: t \rightarrow-t \\
+& P H(k) P^{-1}=H(-k) \\
+& P: x, y, z \rightarrow-x,-y,-z
+\end{aligned}</script><p>​    在 k→−k 不变的那些时间反演动量不变点（TRIM）上有：</p>
+<p>​    如果存在空间反演对称性P，那么每个TRIM 上的点都和 P 对易，每个本征态都可以用 P 的本征值+-1 来标记。如果有 T，那么由 Kramer简并 ，每个 TRIM 上的本征态都是二重简并的。如果同时具有俩种对称性那么，整个布里渊区上由于 Kramer degeneracy 都是二重简并的。</p>
+<p>​    对于无中心反演对称的情况，SOC的出现会破坏Kramer degeneracy ，导致能级的退简并，而对于时间反演对称性无关，所以说Kramer degeneracy是受时间反演对称性保护的。所以通常的拓扑绝缘体都是无磁有时间反演对称的SOC的材料。如果其中一个对称性破缺，但是体系仍然具有PT联合的 对称性，那么整个布里渊区上由于 Kramer degeneracy 都是二重简并的结论仍然成立。</p>
+<p>​    </p>
+<h3 id="2-自旋轨道耦合效应分类："><a href="#2-自旋轨道耦合效应分类：" class="headerlink" title="2 自旋轨道耦合效应分类："></a>2 自旋轨道耦合效应分类：</h3><h4 id="1-Rashba自旋轨道耦合效应"><a href="#1-Rashba自旋轨道耦合效应" class="headerlink" title="1 Rashba自旋轨道耦合效应"></a>1 Rashba自旋轨道耦合效应</h4><p>​    由于材料的结构反演不对称导致的能带倾斜的情况，在二维垂直平面内再加一个有效点场后，带电粒子在此平面的运动就会受到磁场的作用。门电压调节强度</p>
+<script type="math/tex; mode=display">
+H_R=-\alpha_R(\sigma \times p) \cdot z=-\alpha_R\left(\sigma_x p_y-\sigma_y p_x\right)</script><h4 id="2-Dresselhauss自旋轨道耦合"><a href="#2-Dresselhauss自旋轨道耦合" class="headerlink" title="2 Dresselhauss自旋轨道耦合"></a>2 Dresselhauss自旋轨道耦合</h4><p>​    在没有反演对称性的晶体结构中，导带由于自旋轨道耦合而引起的能级劈裂，劈裂的大小正比于波函数的3次方:</p>
+<script type="math/tex; mode=display">
+H=\beta\left[\sigma_x k_x\left(k_y^2-k_x^2\right)+\sigma_y k_y\left(k_z^2-k_x^2\right)+\sigma_z k_z\left(k_z^2-k_y^{2)}\right]\right.</script><p>​    两者线性项产生等效的磁场：</p>
+<div  align="center">    
+<img src=https://s2.loli.net/2023/03/06/eiWOcJSHIwrLUgE.jpg />
+</div>
+      
+    </div>
+
+    
+    
+    
+	
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/02/26/linux%20command/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Hsu Quinn">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="BLOG">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/02/26/linux%20command/" class="post-title-link" itemprop="url">Linux 基本命令</a>
         </h2>
 
         <div class="post-meta">
@@ -1656,97 +1756,6 @@ hzSz I I I I I I I I
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/30/Semiconductor%20physics1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Hsu Quinn">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="BLOG">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/10/30/Semiconductor%20physics1/" class="post-title-link" itemprop="url">Semiconductor Physics(section 1)</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2022-10-30 21:50:00 / 修改时间：21:52:55" itemprop="dateCreated datePublished" datetime="2022-10-30T21:50:00+08:00">2022-10-30</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Semiconductor-Physics/" itemprop="url" rel="index"><span itemprop="name">Semiconductor Physics</span></a>
-                </span>
-            </span>
-
-          
-            <span class="post-meta-item" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-users"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="firestore-visitors-count"></span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="A-Quantum-mechanics"><a href="#A-Quantum-mechanics" class="headerlink" title="A. Quantum mechanics"></a>A. Quantum mechanics</h3><p>Suppose you have learnt Quantum Mechanics, here is just a brief review.<br>Some assumptions:</p>
-<ol>
-<li>Energy quantization:<br> Different from traditional physics, we’re only allowed to exchange energy in individual packets, called photons, and the energy of this packet is just ‘h’ times the frequency ‘f’, i.e.:<script type="math/tex; mode=display">E = h\times f</script></li>
-<li>Uncertainty principle:<br> The position of a moving particle and its momentum cannot be determined simultaneously, i.e.:<script type="math/tex; mode=display">\Delta x \Delta p \geq \frac{\hbar}{2}</script> another version with energy:<script type="math/tex; mode=display">\Delta E\Delta t \geq {\hbar}</script></li>
-<li>Particles are waves:<script type="math/tex; mode=display">\lambda = \dfrac{h}{p}</script>Electrons must be described by $\Psi$, probability density $\propto |\Psi|^2$</li>
-</ol>
-<p>Based on these three assumptions, how do we “do” QM? Answer is Schroedinger Equation(S.Eq):</p>
-<script type="math/tex; mode=display">H\phi = -\dfrac{\hbar}{2m}\nabla^2\phi+V\phi=E\phi</script><h3 id="B-Wave-number-‘k’"><a href="#B-Wave-number-‘k’" class="headerlink" title="B. Wave number ‘k’"></a>B. Wave number ‘k’</h3><p>The usual solution of S.Eq is :</p>
-<script type="math/tex; mode=display">\phi = A\sin kx +B\cos kx</script><p>​    where $k = \sqrt{\dfrac{2mE}{\hbar^2}}$</p>
-<p>​    So what’s the meaning of k? We know that k usually is the wave number in sine wave. </p>
-<p>​    Like $T = 2 \pi /w$， k represents the spatial frequency or how fast something changes in space.</p>
-<p>​    In QM, k is related to momentum:</p>
-<script type="math/tex; mode=display">p = \hbar k</script><p>​    for $E =p^2/2m$, we have:</p>
-<script type="math/tex; mode=display">k = p/ \hbar = \sqrt{\dfrac{2mE}{\hbar^2}}</script><p>​    S.Eq gives the relationship between wave number k and energy E. i.e. E(k)    </p>
-
-      
-    </div>
-
-    
-    
-    
-	
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1818,7 +1827,7 @@ hzSz I I I I I I I I
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">19</span>
+          <span class="site-state-item-count">20</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
