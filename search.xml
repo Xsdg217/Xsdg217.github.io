@@ -1601,9 +1601,9 @@ H=\beta\left[\sigma_x k_x\left(k_y^2-k_x^2\right)+\sigma_y k_y\left(k_z^2-k_x^2\
       </tags>
   </entry>
   <entry>
-    <title>Linux 基本命令1</title>
+    <title>Linux 基本命令与 Shell 脚本(1)</title>
     <url>/2023/02/26/linux%20command/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="Linux-基本命令与-Shell-脚本-1"><a href="#Linux-基本命令与-Shell-脚本-1" class="headerlink" title="Linux 基本命令与 Shell 脚本(1)"></a>Linux 基本命令与 Shell 脚本(1)</h2><p>开个小坑，记一下要用的脚本命令啥的</p>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>开个小坑，记一下要用的脚本命令啥的</p>
 <p>pwd —打印出当前工作目录名</p>
 <p>cd —更改目录</p>
 <p>ls —列出目录内容</p>
@@ -1655,12 +1655,17 @@ H=\beta\left[\sigma_x k_x\left(k_y^2-k_x^2\right)+\sigma_y k_y\left(k_z^2-k_x^2\
       </tags>
   </entry>
   <entry>
-    <title>Linux 基本命令2</title>
+    <title>Linux 基本命令与 Shell 脚本(2)</title>
     <url>/2023/03/06/2023-3-6-Linux-%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A42/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="Linux-基本命令与-Shell-脚本-2"><a href="#Linux-基本命令与-Shell-脚本-2" class="headerlink" title="Linux 基本命令与 Shell 脚本(2)"></a>Linux 基本命令与 Shell 脚本(2)</h2><h4 id="tar"><a href="#tar" class="headerlink" title="tar"></a>tar</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-c: 建立压缩档案</span><br><span class="line">-x：解压</span><br><span class="line">-t：查看内容</span><br><span class="line">-r：向压缩归档文件末尾追加文件</span><br><span class="line">-u：更新原压缩包中的文件</span><br></pre></td></tr></table></figure>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-z：有gzip属性的</span><br><span class="line">-j：有bz2属性的</span><br><span class="line">-Z：有compress属性的</span><br><span class="line">-v：显示所有过程</span><br><span class="line">-O：将文件解开到标准输出</span><br></pre></td></tr></table></figure>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-f: 使用档案名字，切记，这个参数是最后一个参数，后面只能接档案名。</span><br></pre></td></tr></table></figure>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">*.tar 用 tar -xvf 解压</span><br><span class="line">*.gz 用 gzip -d或者gunzip 解压</span><br><span class="line">.tar.gz和.tgz 用 tar -xzf 解压</span><br><span class="line">*.bz2 用 bzip2 -d或者用bunzip2 解压</span><br><span class="line">*.tar.bz2用tar -xjf 解压</span><br><span class="line">*.Z 用 uncompress 解压</span><br><span class="line">*.tar.Z 用tar -xZf 解压</span><br><span class="line">*.rar 用 unrar e解压</span><br><span class="line">*.zip 用 unzip 解压</span><br></pre></td></tr></table></figure>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h3 id="1-tar"><a href="#1-tar" class="headerlink" title="1. tar"></a>1. tar</h3><h3 id="About-tar"><a href="#About-tar" class="headerlink" title="About tar"></a>About tar</h3><p>-c: 建立压缩档案<br>-x：解压<br>-t：查看内容<br>-r：向压缩归档文件末尾追加文件<br>-u：更新原压缩包中的文件</p>
+<p>-z：有gzip属性的<br>-j：有bz2属性的<br>-Z：有compress属性的<br>-v：显示所有过程<br>-O：将文件解开到标准输出</p>
+<p>-f: 使用档案名字，切记，这个参数是最后一个参数，后面只能接档案名。</p>
+<p><strong>Summary：</strong></p>
+<p><em>.tar 用 tar -xvf 解压
+</em>.gz 用 gzip -d或者gunzip 解压<br>.tar.gz和.tgz 用 tar -xzf 解压<br><em>.bz2 用 bzip2 -d或者用bunzip2 解压
+</em>.tar.bz2用tar -xjf 解压<br><em>.Z 用 uncompress 解压
+</em>.tar.Z 用tar -xZf 解压<br><em>.rar 用 unrar e解压
+</em>.zip 用 unzip 解压</p>
 ]]></content>
       <categories>
         <category>Some Notes</category>
