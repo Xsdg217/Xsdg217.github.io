@@ -182,6 +182,87 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/03/06/2023-3-6-Linux-%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A42/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Hsu Quinn">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="BLOG">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/03/06/2023-3-6-Linux-%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A42/" class="post-title-link" itemprop="url">Linux 基本命令2</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2023-03-06 13:03:04 / 修改时间：13:05:15" itemprop="dateCreated datePublished" datetime="2023-03-06T13:03:04+08:00">2023-03-06</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Some-Notes/" itemprop="url" rel="index"><span itemprop="name">Some Notes</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-users"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="firestore-visitors-count"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="Linux-基本命令与-Shell-脚本-2"><a href="#Linux-基本命令与-Shell-脚本-2" class="headerlink" title="Linux 基本命令与 Shell 脚本(2)"></a>Linux 基本命令与 Shell 脚本(2)</h2><h4 id="tar"><a href="#tar" class="headerlink" title="tar"></a>tar</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">-c: 建立压缩档案</span><br><span class="line">-x：解压</span><br><span class="line">-t：查看内容</span><br><span class="line">-r：向压缩归档文件末尾追加文件</span><br><span class="line">-u：更新原压缩包中的文件</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">-z：有gzip属性的</span><br><span class="line">-j：有bz2属性的</span><br><span class="line">-Z：有compress属性的</span><br><span class="line">-v：显示所有过程</span><br><span class="line">-O：将文件解开到标准输出</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-f: 使用档案名字，切记，这个参数是最后一个参数，后面只能接档案名。</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">*.tar 用 tar -xvf 解压</span><br><span class="line">*.gz 用 gzip -d或者gunzip 解压</span><br><span class="line">.tar.gz和.tgz 用 tar -xzf 解压</span><br><span class="line">*.bz2 用 bzip2 -d或者用bunzip2 解压</span><br><span class="line">*.tar.bz2用tar -xjf 解压</span><br><span class="line">*.Z 用 uncompress 解压</span><br><span class="line">*.tar.Z 用tar -xZf 解压</span><br><span class="line">*.rar 用 unrar e解压</span><br><span class="line">*.zip 用 unzip 解压</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+	
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2023/03/06/%E8%87%AA%E6%97%8B%E8%BD%A8%E9%81%93%E8%80%A6%E5%90%88/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -296,7 +377,7 @@ H=\beta\left[\sigma_x k_x\left(k_y^2-k_x^2\right)+\sigma_y k_y\left(k_z^2-k_x^2\
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2023/02/26/linux%20command/" class="post-title-link" itemprop="url">Linux 基本命令</a>
+            <a href="/2023/02/26/linux%20command/" class="post-title-link" itemprop="url">Linux 基本命令1</a>
         </h2>
 
         <div class="post-meta">
@@ -305,10 +386,16 @@ H=\beta\left[\sigma_x k_x\left(k_y^2-k_x^2\right)+\sigma_y k_y\left(k_z^2-k_x^2\
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2023-02-26 23:06:04 / 修改时间：23:12:24" itemprop="dateCreated datePublished" datetime="2023-02-26T23:06:04+08:00">2023-02-26</time>
+              <time title="创建时间：2023-02-26 23:06:04" itemprop="dateCreated datePublished" datetime="2023-02-26T23:06:04+08:00">2023-02-26</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-03-06 13:03:52" itemprop="dateModified" datetime="2023-03-06T13:03:52+08:00">2023-03-06</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -337,7 +424,49 @@ H=\beta\left[\sigma_x k_x\left(k_y^2-k_x^2\right)+\sigma_y k_y\left(k_z^2-k_x^2\
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="Linux-基本命令与-Shell-脚本"><a href="#Linux-基本命令与-Shell-脚本" class="headerlink" title="Linux 基本命令与 Shell 脚本"></a>Linux 基本命令与 Shell 脚本</h2><p>开个小坑，记一下要用的脚本命令啥的</p>
+          <h2 id="Linux-基本命令与-Shell-脚本-1"><a href="#Linux-基本命令与-Shell-脚本-1" class="headerlink" title="Linux 基本命令与 Shell 脚本(1)"></a>Linux 基本命令与 Shell 脚本(1)</h2><p>开个小坑，记一下要用的脚本命令啥的</p>
+<p>pwd —打印出当前工作目录名</p>
+<p>cd —更改目录</p>
+<p>ls —列出目录内容</p>
+<p>cd /usr/bin——回到绝对路径下的目录</p>
+<p>cd ..——回到上级目录</p>
+<p>ls——在当前目 录下所有文件和子目录的列表</p>
+<p>ls /usr 查看指定目录下的文件</p>
+<p>ls -1 查看目录下文件的更多信息</p>
+<p>ls -a 列出所有文件 </p>
+<p>ls -h 以字节数显示文件大小</p>
+<p>ls -t 按照修改时间</p>
+<p>ls -r 反向排序</p>
+<p>less filename 浏览文件内容</p>
+<p>cp —复制文件和目录 </p>
+<p>mv —移动/重命名文件和目录 </p>
+<p>mkdir —创建目录 </p>
+<p>rm —删除文件和目录 </p>
+<p> ln —创建硬链接和符号链接</p>
+<p>type –说明怎样解释一个命令名 </p>
+<p>which –显示会执行哪个可执行程序 </p>
+<p>man –显示命令手册页 </p>
+<p>apropos –显示一系列适合的命令 </p>
+<p>info –显示命令 info </p>
+<p>whatis –显示一个命令的简洁描述 </p>
+<p>alias –创建命令别名</p>
+<p>cat －连接文件 </p>
+<p>sort －排序文本行 </p>
+<p>uniq －报道或省略重复行 </p>
+<p>grep －打印匹配行 </p>
+<p>wc －打印文件中换行符，字，和字节个数 </p>
+<p>head －输出文件第一部分 </p>
+<p>tail - 输出文件最后一部分 </p>
+<p>tee - 从标准输入读取数据，并同时写到标准输出和文件</p>
+<p>clear - 清空屏幕</p>
+<p>history - 显示历史记录</p>
+<p>grep “cm-1” OUTCAR-查看频率</p>
+<p>grep “f/i” OUTCAR 查看虚频</p>
+<p> tail -f OSZICAR 查看收敛能量</p>
+<p>grep E-fermi OUTCAR 查看费米能级</p>
+<p>grep irreducible OUTCAR 查看倒格矢</p>
+<p>grep ZVAL OUTCAR 查看价电子</p>
+<p>grep TIT POTCAR 检查赝势</p>
 
       
     </div>
@@ -1472,294 +1601,10 @@ x:
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/11/06/HW_MPO/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Hsu Quinn">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="BLOG">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/11/06/HW_MPO/" class="post-title-link" itemprop="url">Matrix Product Operators (MPOs) in compass model</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2022-11-06 01:02:30 / 修改时间：01:14:57" itemprop="dateCreated datePublished" datetime="2022-11-06T01:02:30+08:00">2022-11-06</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Computational-Quantum-Physics/" itemprop="url" rel="index"><span itemprop="name">Computational Quantum Physics</span></a>
-                </span>
-            </span>
-
-          
-            <span class="post-meta-item" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-users"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="firestore-visitors-count"></span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <font size = 5> Homework </font>
-
-<ul>
-<li><p>write down the MPO for the compass model on a square lattice</p>
-<p>  $H=-J_x \sum_{\langle i, j\rangle_H} \sigma_i^x \sigma_j^x-J_y \sum_{\langle i, j\rangle_V} \sigma_i^y \sigma_j^y+h_z \sum_i \sigma_i^z$</p>
-<p>  $\langle i, j\rangle_H \in(0,3),(3,6),(1,4),(4,7),(2,5),(5,8)$</p>
-<p>  $\langle i, j\rangle_V \in(0,1),(1,2),(2,0),(3,4),(4,5),(5,3),(6,7),(7,8),(8,6)$</p>
-<p>  $J_x=0.3, J_y=1.4, h_z=0.5, \sigma^x$ and $\sigma^y$ are Pauli matrices</p>
-  <div  align="left">    
-  <img src=https://s2.loli.net/2022/11/06/MaEcbXDkrLWsGYC.png style="zoom:90%" />  
-  </div>
-</li>
-<li><p>(1) show the finite automata figure like this：</p>
-<p>  <a href="https://sm.ms/image/6zLvtHqX4pJ2UNI" target="_blank"><img src="https://s2.loli.net/2022/11/06/6zLvtHqX4pJ2UNI.png" ></a></p>
-</li>
-<li><p>(2) write a code to generate these MPO, contract MPO tensors to obtain the Hamiltonian. </p>
-<p>  show the lowest 20 eigenvalues, compare Hamiltonian and eigenvalues with exact diagonalization</p>
-</li>
-</ul>
-<font size =4> A brief summary of theory and algorithm </font>
-
-<ul>
-<li><p>根据参考文献$ ^{[1]}$，对于一般的哈密顿量，其 Finite automata for MPO 构造规则如下：</p>
-<ul>
-<li><p>(1) 首先在第1行设置一个出发点0，一个与 Hamiltonian 同阶的单位阵Identity是必要的，先来处理site间的问题，先观察Hamiltonian中求和下标i的不同算符有多少，假设有N个，则分别从0发射N个不同的箭头线，然后将各自的算符ABC标记在箭头线上，如果这个求和项有非1的常系数，则只加在这一步所写的算符前，将箭头的终点按序编号;</p>
-</li>
-<li><p>(2) 从第2行的最左侧开始，观察跟在求和下标i之后的下标i+N的不同算符，同样方法地从每个点发射等同于不同算符数目的箭头线，箭头线根据N分为N段，仅在最后一段箭头线上标记下标i+N对应的算符，其它段标记 Identity ，则这一支对应i和i+N的求和项。对箭头线中间的端点进行编号，注意带有非 Identity 算符箭头线的终点不参与编号。编号按行从左到右从上到下依次增大;</p>
-</li>
-<li><p>(3) 重复步骤2直到所有 site 间的求和项都写完，把所有带有非 Identity 算符的未参与编号的箭头线末端都指向一个共同终点，如果中间一共写了 K-1 个点，那么终点按同样的规则编号为K。on-site 作用项直接写在出发点0直接指向终点K的连线上即可;</p>
-<p><a href="https://sm.ms/image/z1mhMtesy4UDvqr" target="_blank"><img src="https://s2.loli.net/2022/11/06/z1mhMtesy4UDvqr.jpg" ></a></p>
-</li>
-<li><p>(4) 生成一个 (K+1)×(K+1)  的矩阵框架，行序号和列序号均为 0~K，然后按照 行→列（或者 列→行，这样得到的结果是前者的转置，是等价的）应用上图填满整个矩阵，就得到了MPO。比如0→1箭头线上是A，则在矩阵的0行1列填A。注意这里得到的矩阵是 $W^{[i]}$ ，它的第0行是 $W^{[1]}$ ，第K列是 $W^{[N]}$ （如果是列→行，则第K行是 $W^{[1]}$ ，第0列是 $W^{[N]}$ ）。</p>
-</li>
-</ul>
-</li>
-</ul>
-<font size =4> An original attempt: problems encountered and solutions </font>
-
-<ul>
-<li><p>最初的想法：根据课件和上述参考文献，写出 MPO，然后类似下文中的 <em>MPO generate Hamiltonian OP</em> 生成哈密顿量来 check</p>
-</li>
-<li><p>遇到的问题：发现对于 onsite 项（Sz）和 H 方向项（Sx），哈密顿量是对的；但是 V 方向项（Sy）的哈密顿量不正确。具体如下（先忽略 onsite 的 trival 项）：</p>
-  <div  align="center">    
-  <img src=https://s2.loli.net/2022/11/06/nowRJUjTvdcDgua.png style="zoom:90%" />   
-  </div>
-</li>
-<li><p>可以注意到，Sx 相关项是正确的，Sy 相关项不正确：似乎多描述了一些 interaction。</p>
-</li>
-<li><p>这是因为，最开始我构造 MPO 时默认 9 个矩阵都是一样的，或者说相互作用是有平移对称的。但是注意到</p>
-<p>  $\langle i, j\rangle_H \in(0,3),(3,6),(1,4),(4,7),(2,5),(5,8)$</p>
-<p>  $\langle i, j\rangle_V \in(0,1),(1,2),(2,0),(3,4),(4,5),(5,3),(6,7),(7,8),(8,6)$</p>
-<p>  这里可以做个分类，分为“近邻”相互作用，“次近邻”相互作用，“次次近邻”相互作用（引号表示不是物理意义上的近邻，而是标号意义上的）：</p>
-<p>  $\underline{(0,1)}\ \underline{(1,2)}\ (2,3)\ \underline{(3,4)}\ \underline{(4,5)}\ (5,6)\ …$</p>
-<p>  $\underline{(0,2)}\ (1,3)\ (2,4)\ \underline{(3,5)}\ (4,6)\ (5,7)\ …$</p>
-<p>  $\underline{(0,3)}\ \underline{(1,4)}\ \underline{(2,5)}\ \underline{(3,6)}\ \underline{(4,7)}\ \underline{(5,8)}\ $</p>
-<p>  下划线表示 compass model 中存在的相互作用。可以见得，Sx 相关项是“次次近邻”相互作用，平移对称完备；Sy 相关项“近邻”相互作用，“次近邻”相互作用并不是完备的。如果“构造 MPO 时默认 9 个矩阵都是一样”，显然没法反应这种 site 间的不同性，或者说 MPO 构造时没考虑 H,V 显然不合理。</p>
-</li>
-<li><p>解决方法：</p>
-<p>  显然地有两种思路解决：</p>
-<ol>
-<li><p>考虑这种 site 间的不等价性，先画 finite automata figure， 对应地写出不同 site 间的 MPO（最后用下文中的 <em>MPO generate Hamiltonian OP</em> 来看生成的哈密顿量是否正确）；</p>
-</li>
-<li><p>针对 compass model， 注意到 Sx 相关的 N 个 MPO 是相等的，这是因为“次次近邻”相互作用是完备的；那么，如果我重新定义下标，即原来的 “036147258” 定义为 “012345678”，可以发现这时候 Sy 相关的 $<i,j>_{V}$ 完备，也就是说可以写成 N 个相等的 MPO。原有的哈密顿量 H 可以分成 H_{x} 和 H_{y}, 分别拆成 N 个相同的 MPO_{x} 或者 MPO_{y} 相乘。</p>
-<p>考虑到后续的简单 MPS 算法，本文后续沿用第一个思路，即生成 N 个不同的 MPO。</p>
-</li>
-</ol>
-</li>
-</ul>
-<font size =4> Question 1 </font>
-
-<ul>
-<li><p>如下图所示，可见 $D = 6$</p>
-  <div  align="center">    
-  <img src=https://s2.loli.net/2022/11/06/D9RkN7M8Y4oPayK.png style="zoom:60%" />   
-  </div>
-
-  <div  align="center">    
-  <img src=https://s2.loli.net/2022/11/06/PpdcK78Wsi65mtu.png style="zoom:60%" />   
-  </div>
-</li>
-<li><p>根据上面的 automata figure 得到 MPOs：</p>
-</li>
-</ul>
-<script type="math/tex; mode=display">
-\left(\begin{array}{llll}
-I & -J_{x}\sigma^{x} & -J_{y}\sigma^{y} & h_{z}\sigma^{z}
-\end{array}\right)\left(\begin{array}{ccccc}
-I & -J_{x}\sigma^{x} & 0 & -J_{y}\sigma^{y} & h_{z}\sigma^{z} \\
-0 & 0 & I & 0 & 0 \\
-0 & 0 & 0 & I & \sigma^{y} \\
-0 & 0 & 0 & 0 & I
-\end{array}\right)\left(\begin{array}{ccccc}
-I & -J_{x}\sigma^{x} & 0 & 0 & h_{z}\sigma^{z} \\
-0 & 0 & I & 0 & 0 \\
-0 & 0 & 0 & I & 0 \\
-0 & 0 & 0 & 0 & \sigma^{y} \\
-0 & 0 & 0 & 0 & I
-\end{array}\right)</script><script type="math/tex; mode=display">
-\left(\begin{array}{cccccc}
-I & -J_{x}\sigma^{x} & 0 & 0 &  -J_{y}\sigma^{y} & h_{z}\sigma^{z} \\
-0 & 0 & I & 0 & 0 & 0\\
-0 & 0 & 0 & I & 0 & 0\\
-0 & 0 & 0 & 0 & 0 & \sigma^{x}\\
-0 & 0 & 0 & 0 &  0 & I
-\end{array}\right)\left(\begin{array}{cccccc}
-I & -J_{x}\sigma^{x} & 0 & 0 &  -J_{y}\sigma^{y} & h_{z}\sigma^{z} \\
-0 & 0 & I & 0 & 0 & 0\\
-0 & 0 & 0 & I & 0 & 0\\
-0 & 0 & 0 & 0 & 0 & \sigma^{x}\\
-0 & 0 & 0 & 0 & I & \sigma^{y}\\
-0 & 0 & 0 & 0 &  0 & I
-\end{array}\right)\left(\begin{array}{ccccc}
-I & -J_{x}\sigma^{x} & 0 & 0 & h_{z}\sigma^{z} \\
-0 & 0 & I & 0 & 0 \\
-0 & 0 & 0 & I & 0 \\
-0 & 0 & 0 & 0 & \sigma^{x} \\
-0 & 0 & 0 & 0 & \sigma^{y} \\
-0 & 0 & 0 & 0 & I
-\end{array}\right)</script><script type="math/tex; mode=display">
-\left(\begin{array}{ccccc}
-I & 0 & 0 & -J_{y}\sigma^{y} & h_{z}\sigma^{z} \\
-0 & I & 0 & 0 & 0\\
-0 & 0 & I & 0 & 0\\
-0 & 0 & 0 & 0 & \sigma^{x}\\
-0 & 0 & 0 & 0 & I
-\end{array}\right)\left(\begin{array}{cccc}
-I & 0 &  -J_{y}\sigma^{y} & h_{z}\sigma^{z} \\
-0 & I & 0 & 0 \\
-0 & 0 & 0 & \sigma^{x}\\
-0 & 0 & I & \sigma^{y}\\
-0 & 0 & 0 & I
-\end{array}\right)\left(\begin{array}{c}
-h_{z}\sigma^{z} \\
-\sigma^{x} \\
-\sigma^{y} \\
-I
-\end{array}\right)</script><font size =4> Question 2 </font>
-
-<ul>
-<li><p><em>MPO generate Hamiltonian OP</em> 程序如下，分成了两部分：1.Operator Expression ; 2.Matrix and eigenvalues</p>
-</li>
-<li><p>Operator Expression 代码部分实现的是将上述的 MPO 相乘，得到哈密顿量的算符形式表达，验证 MPO 正确性</p>
-</li>
-<li><p>Matrix and eigenvalues 代码部分是将哈密顿量矩阵写出来，并求20个本征值</p>
-</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># MPO generate Hamiltonian OP -- Operator Expression </span></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line">N = <span class="number">9</span></span><br><span class="line">D = <span class="number">6</span></span><br><span class="line">row = [<span class="number">1</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">6</span>, <span class="number">5</span>, <span class="number">5</span>, <span class="number">4</span>]</span><br><span class="line">col = [<span class="number">4</span>, <span class="number">5</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">6</span>, <span class="number">5</span>, <span class="number">5</span>, <span class="number">4</span>, <span class="number">1</span>]</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">OPdot</span>(<span class="params">La,Lb</span>):                                   <span class="comment">#算符作为字符串存储起来，乘积对应字符串加法</span></span><br><span class="line">    Lc = []</span><br><span class="line">    <span class="keyword">for</span> str1 <span class="keyword">in</span> La:</span><br><span class="line">        <span class="keyword">for</span> str2 <span class="keyword">in</span> Lb:</span><br><span class="line">            Lc.append(str1+str2)</span><br><span class="line">    <span class="keyword">return</span> Lc</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">mply</span>(<span class="params">A,B</span>):                                      <span class="comment">#mply(A,B) 返回 矩阵 C = A*B</span></span><br><span class="line">    II = <span class="built_in">len</span>(A)                                      </span><br><span class="line">    JJ = <span class="built_in">len</span>(B[<span class="number">0</span>])</span><br><span class="line">    KK = <span class="built_in">len</span>(B)</span><br><span class="line">    C = [[[] <span class="keyword">for</span> c <span class="keyword">in</span> <span class="built_in">range</span>(JJ)] <span class="keyword">for</span> r <span class="keyword">in</span> <span class="built_in">range</span>(II)]</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(II):</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(JJ):</span><br><span class="line">            <span class="keyword">for</span> k <span class="keyword">in</span> <span class="built_in">range</span>(KK):</span><br><span class="line">                <span class="keyword">if</span>(A[i][k] <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span> <span class="keyword">and</span> B[k][j] <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>):</span><br><span class="line">                    C[i][j] += OPdot(A[i][k],B[k][j])</span><br><span class="line">    <span class="keyword">return</span> C</span><br><span class="line"></span><br><span class="line">MPO = []                                               <span class="comment">#MPS存储这9个矩阵，根据Q1的自动机图示来赋值</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(N):</span><br><span class="line">    M = [[<span class="literal">None</span> <span class="keyword">for</span> c <span class="keyword">in</span> <span class="built_in">range</span>(col[i])] <span class="keyword">for</span> r <span class="keyword">in</span> <span class="built_in">range</span>(row[i])]</span><br><span class="line">    MPO.append(M)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">6</span>):</span><br><span class="line">    MPO[i][<span class="number">0</span>][<span class="number">1</span>] = [<span class="string">&quot;-JxSx &quot;</span>]</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">9</span>):</span><br><span class="line">    MPO[i][<span class="number">0</span>][col[i]-<span class="number">1</span>] = [<span class="string">&quot;hzSz &quot;</span>]</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> [<span class="number">0</span>,<span class="number">1</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">6</span>,<span class="number">7</span>]:</span><br><span class="line">    MPO[i][<span class="number">0</span>][col[i]-<span class="number">2</span>] = [<span class="string">&quot;-JySy &quot;</span>]</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> [<span class="number">1</span>,<span class="number">2</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">7</span>,<span class="number">8</span>]:</span><br><span class="line">    MPO[i][row[i]-<span class="number">2</span>][col[i]-<span class="number">1</span>] = [<span class="string">&quot;Sy &quot;</span>]</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> [<span class="number">3</span>,<span class="number">6</span>]:</span><br><span class="line">    MPO[i][row[i]-<span class="number">2</span>][col[i]-<span class="number">1</span>] = [<span class="string">&quot;Sx &quot;</span>]</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> [<span class="number">4</span>,<span class="number">5</span>,<span class="number">7</span>,<span class="number">8</span>]:</span><br><span class="line">    MPO[i][row[i]-<span class="number">3</span>][col[i]-<span class="number">1</span>] = [<span class="string">&quot;Sx &quot;</span>]</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">8</span>):</span><br><span class="line">    MPO[i][<span class="number">0</span>][<span class="number">0</span>] = [<span class="string">&quot;I &quot;</span>]</span><br><span class="line">    MPO[i+<span class="number">1</span>][row[i+<span class="number">1</span>]-<span class="number">1</span>][col[i+<span class="number">1</span>]-<span class="number">1</span>] = [<span class="string">&quot;I &quot;</span>]</span><br><span class="line">    <span class="keyword">if</span> i &gt;= <span class="number">1</span> <span class="keyword">and</span> i &lt;= <span class="number">5</span>:</span><br><span class="line">        MPO[i][<span class="number">1</span>][<span class="number">2</span>] = MPO[i][<span class="number">2</span>][<span class="number">3</span>] = [<span class="string">&quot;I &quot;</span>]</span><br><span class="line">MPO[<span class="number">4</span>][<span class="number">4</span>][<span class="number">4</span>] = MPO[<span class="number">6</span>][<span class="number">1</span>][<span class="number">1</span>] = MPO[<span class="number">6</span>][<span class="number">2</span>][<span class="number">2</span>] = MPO[<span class="number">7</span>][<span class="number">1</span>][<span class="number">1</span>] = MPO[<span class="number">7</span>][<span class="number">3</span>][<span class="number">2</span>] = [<span class="string">&quot;I &quot;</span>]</span><br><span class="line"></span><br><span class="line">ANS = MPO[<span class="number">0</span>]                                                    </span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(N-<span class="number">1</span>):                                                <span class="comment">#将 MPO 乘起来</span></span><br><span class="line">    ANS = mply(ANS,MPO[i+<span class="number">1</span>])</span><br><span class="line"><span class="keyword">for</span> item <span class="keyword">in</span> ANS[<span class="number">0</span>][<span class="number">0</span>]:</span><br><span class="line">    <span class="built_in">print</span>(item)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<pre><code>I I I I I I I I hzSz 
-I I I I I -JxSx I I Sx 
-I I I I I I I -JySy Sy 
-I I I I I I -JySy I Sy 
-I I I I I I I hzSz I 
-I I I I -JxSx I I Sx I 
-I I I I I I -JySy Sy I 
-I I I I I I hzSz I I 
-I I I -JxSx I I Sx I I 
-I I I I I hzSz I I I 
-I I -JxSx I I Sx I I I 
-I I I I -JySy Sy I I I 
-I I I -JySy I Sy I I I 
-I I I I hzSz I I I I 
-I -JxSx I I Sx I I I I 
-I I I -JySy Sy I I I I 
-I I I hzSz I I I I I 
--JxSx I I Sx I I I I I 
-I I hzSz I I I I I I 
-I -JySy Sy I I I I I I 
--JySy I Sy I I I I I I 
-I hzSz I I I I I I I 
--JySy Sy I I I I I I I 
-hzSz I I I I I I I I 
-</code></pre><ul>
-<li><p>共有 24 项，分别对应 x, y, z 项数为 6 + 9 + 9 = 24</p>
-</li>
-<li><p>和 compass model Hamiltonian 比较相一致，说明 MPOs 合理</p>
-</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># MPO generate Hamiltonian OP -- Matrix and eigenvalues</span></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> scipy.sparse.linalg <span class="keyword">as</span> LA</span><br><span class="line">N = <span class="number">9</span></span><br><span class="line">D = <span class="number">6</span></span><br><span class="line">row = [<span class="number">1</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">6</span>, <span class="number">5</span>, <span class="number">5</span>, <span class="number">4</span>]</span><br><span class="line">col = [<span class="number">4</span>, <span class="number">5</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">6</span>, <span class="number">5</span>, <span class="number">5</span>, <span class="number">4</span>, <span class="number">1</span>]</span><br><span class="line"></span><br><span class="line">Jx = <span class="number">0.3</span></span><br><span class="line">Jy = <span class="number">1.4</span></span><br><span class="line">hz = <span class="number">0.5</span></span><br><span class="line">Sx = [[<span class="number">0</span>, <span class="number">1</span>], [<span class="number">1</span>, <span class="number">0</span>]]</span><br><span class="line">Sy = [[<span class="number">0</span>, -<span class="number">1.0j</span>], [<span class="number">1.0j</span>, <span class="number">0</span>]]</span><br><span class="line">Sz = [[<span class="number">1</span>, <span class="number">0</span>], [<span class="number">0</span>, -<span class="number">1</span>]]</span><br><span class="line">O = [[<span class="number">0</span>, <span class="number">0</span>], [<span class="number">0</span>, <span class="number">0</span>]]</span><br><span class="line">I = [[<span class="number">1</span>, <span class="number">0</span>], [<span class="number">0</span>, <span class="number">1</span>]]</span><br><span class="line">_JxSx = [[<span class="number">0</span>, -Jx], [-Jx, <span class="number">0</span>]]</span><br><span class="line">_JySy = [[<span class="number">0</span>, -<span class="number">1.0j</span> * -Jy], [<span class="number">1.0j</span> * -Jy, <span class="number">0</span>]]</span><br><span class="line">hzSz = [[hz, <span class="number">0</span>], [<span class="number">0</span>, -hz]]</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">OPdot</span>(<span class="params">La,Lb</span>):                                   <span class="comment">#做直积操作</span></span><br><span class="line">    <span class="keyword">return</span> np.kron(La,Lb)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">mply</span>(<span class="params">A,B</span>):                                      <span class="comment">#mply(A,B) 返回 矩阵 C = A*B</span></span><br><span class="line">    II = <span class="built_in">len</span>(A)                                      </span><br><span class="line">    JJ = <span class="built_in">len</span>(B[<span class="number">0</span>])</span><br><span class="line">    KK = <span class="built_in">len</span>(B)</span><br><span class="line">    C = [[<span class="literal">None</span> <span class="keyword">for</span> c <span class="keyword">in</span> <span class="built_in">range</span>(JJ)] <span class="keyword">for</span> r <span class="keyword">in</span> <span class="built_in">range</span>(II)]</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(II):</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(JJ):</span><br><span class="line">            <span class="keyword">for</span> k <span class="keyword">in</span> <span class="built_in">range</span>(KK):</span><br><span class="line">                <span class="keyword">if</span> (C[i][j] <span class="keyword">is</span> <span class="literal">None</span>):               <span class="comment"># 判断 None 是为了方便数据类型不出问题</span></span><br><span class="line">                    C[i][j] = OPdot(A[i][k],B[k][j])</span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    C[i][j] = C[i][j] + OPdot(A[i][k],B[k][j])</span><br><span class="line">    <span class="keyword">return</span> C</span><br><span class="line"></span><br><span class="line">MPO = []                                               <span class="comment">#MPS存储这9个矩阵，根据 Q1 的自动机图示来赋值</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(N):</span><br><span class="line">    M = [[<span class="literal">None</span> <span class="keyword">for</span> c <span class="keyword">in</span> <span class="built_in">range</span>(col[i])] <span class="keyword">for</span> r <span class="keyword">in</span> <span class="built_in">range</span>(row[i])]</span><br><span class="line">    <span class="keyword">for</span> r <span class="keyword">in</span> <span class="built_in">range</span>(row[i]):</span><br><span class="line">        <span class="keyword">for</span> c <span class="keyword">in</span> <span class="built_in">range</span>(col[i]):</span><br><span class="line">            M[r][c] = O</span><br><span class="line">    MPO.append(M)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">6</span>):</span><br><span class="line">    MPO[i][<span class="number">0</span>][<span class="number">1</span>] = _JxSx</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">9</span>):</span><br><span class="line">    MPO[i][<span class="number">0</span>][col[i]-<span class="number">1</span>] = hzSz</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> [<span class="number">0</span>,<span class="number">1</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">6</span>,<span class="number">7</span>]:</span><br><span class="line">    MPO[i][<span class="number">0</span>][col[i]-<span class="number">2</span>] = _JySy</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> [<span class="number">1</span>,<span class="number">2</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">7</span>,<span class="number">8</span>]:</span><br><span class="line">    MPO[i][row[i]-<span class="number">2</span>][col[i]-<span class="number">1</span>] = Sy</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> [<span class="number">3</span>,<span class="number">6</span>]:</span><br><span class="line">    MPO[i][row[i]-<span class="number">2</span>][col[i]-<span class="number">1</span>] = Sx</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> [<span class="number">4</span>,<span class="number">5</span>,<span class="number">7</span>,<span class="number">8</span>]:</span><br><span class="line">    MPO[i][row[i]-<span class="number">3</span>][col[i]-<span class="number">1</span>] = Sx</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">8</span>):</span><br><span class="line">    MPO[i][<span class="number">0</span>][<span class="number">0</span>] = I</span><br><span class="line">    MPO[i+<span class="number">1</span>][row[i+<span class="number">1</span>]-<span class="number">1</span>][col[i+<span class="number">1</span>]-<span class="number">1</span>] = I</span><br><span class="line">    <span class="keyword">if</span> i &gt;= <span class="number">1</span> <span class="keyword">and</span> i &lt;= <span class="number">5</span>:</span><br><span class="line">        MPO[i][<span class="number">1</span>][<span class="number">2</span>] = MPO[i][<span class="number">2</span>][<span class="number">3</span>] = I</span><br><span class="line">MPO[<span class="number">4</span>][<span class="number">4</span>][<span class="number">4</span>] = MPO[<span class="number">6</span>][<span class="number">1</span>][<span class="number">1</span>] = MPO[<span class="number">6</span>][<span class="number">2</span>][<span class="number">2</span>] = MPO[<span class="number">7</span>][<span class="number">1</span>][<span class="number">1</span>] = MPO[<span class="number">7</span>][<span class="number">3</span>][<span class="number">2</span>] = I</span><br><span class="line"></span><br><span class="line">ANS = MPO[<span class="number">0</span>]                                                </span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(N-<span class="number">1</span>):                                                <span class="comment">#将 MPO 乘起来</span></span><br><span class="line">    ANS = mply(ANS,MPO[i+<span class="number">1</span>])</span><br><span class="line">ANS = np.real(ANS)</span><br><span class="line"><span class="built_in">print</span>(ANS[<span class="number">0</span>][<span class="number">0</span>])</span><br><span class="line">E,W = LA.eigsh(ANS[<span class="number">0</span>][<span class="number">0</span>],<span class="number">20</span>,which = <span class="string">&#x27;SA&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(E)</span><br></pre></td></tr></table></figure>
-<pre><code>[[ 4.5  0.   0.  ...  0.   0.   0. ]
- [ 0.   3.5 -1.4 ...  0.   0.   0. ]
- [ 0.  -1.4  3.5 ...  0.   0.   0. ]
- ...
- [ 0.   0.   0.  ... -3.5 -1.4  0. ]
- [ 0.   0.   0.  ... -1.4 -3.5  0. ]
- [ 0.   0.   0.  ...  0.   0.  -4.5]]
-[-13.12646931 -13.07866474 -13.07575853 -13.06893675 -13.03230613
- -13.02946844 -13.02304559 -12.9880016   -8.68300191  -8.56677243
-  -8.56586155  -8.37964052  -8.37964052  -8.26479657  -8.23663151
-  -8.23248641  -8.2288993   -8.21755532  -8.21755532  -8.21213607]
-</code></pre><ul>
-<li>作为对比，精确对角化如下：</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> scipy.sparse.linalg <span class="keyword">as</span> LA</span><br><span class="line"></span><br><span class="line">Jx = <span class="number">0.3</span></span><br><span class="line">Jy = <span class="number">1.4</span></span><br><span class="line">hz = <span class="number">0.5</span></span><br><span class="line"></span><br><span class="line">N = <span class="number">9</span></span><br><span class="line">n = <span class="number">1</span>&lt;&lt;N</span><br><span class="line"></span><br><span class="line">H_Near = [(<span class="number">0</span>,<span class="number">3</span>),(<span class="number">3</span>,<span class="number">6</span>),(<span class="number">1</span>,<span class="number">4</span>),(<span class="number">4</span>,<span class="number">7</span>),(<span class="number">2</span>,<span class="number">5</span>),(<span class="number">5</span>,<span class="number">8</span>)]</span><br><span class="line">V_Near = [(<span class="number">0</span>,<span class="number">1</span>),(<span class="number">1</span>,<span class="number">2</span>),(<span class="number">2</span>,<span class="number">0</span>),(<span class="number">3</span>,<span class="number">4</span>),(<span class="number">4</span>,<span class="number">5</span>),(<span class="number">5</span>,<span class="number">3</span>),(<span class="number">6</span>,<span class="number">7</span>),(<span class="number">7</span>,<span class="number">8</span>),(<span class="number">8</span>,<span class="number">6</span>)]</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">FlipBit</span>(<span class="params">i,n</span>):</span><br><span class="line">    <span class="keyword">return</span> i^(<span class="number">1</span>&lt;&lt;n)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">ReadBit</span>(<span class="params">i,n</span>):</span><br><span class="line">    <span class="keyword">return</span> (i&amp;(<span class="number">1</span>&lt;&lt;n))&gt;&gt;n</span><br><span class="line"></span><br><span class="line">H = np.zeros([n,n])</span><br><span class="line"><span class="keyword">for</span> state <span class="keyword">in</span> <span class="built_in">range</span>(n):</span><br><span class="line">    <span class="keyword">for</span> (i,j) <span class="keyword">in</span> H_Near:</span><br><span class="line">        res = FlipBit( FlipBit(state,j) ,i)</span><br><span class="line">        H[state][res] = - Jx</span><br><span class="line">    <span class="keyword">for</span> (i,j) <span class="keyword">in</span> V_Near:</span><br><span class="line">        res = FlipBit( FlipBit(state,j) ,i)</span><br><span class="line">        flag = ReadBit(state, i) ^ ReadBit(state, j) </span><br><span class="line">        H[state][res] = - Jy <span class="keyword">if</span> flag == <span class="number">1</span> <span class="keyword">else</span> Jy</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(N):</span><br><span class="line">        flag = ReadBit(state, i)</span><br><span class="line">        H[state][state] +=  hz <span class="keyword">if</span> flag == <span class="number">1</span> <span class="keyword">else</span> -hz</span><br><span class="line"><span class="built_in">print</span>(H)</span><br><span class="line">E,W = LA.eigsh(H,<span class="number">20</span>,which = <span class="string">&#x27;SA&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(E)</span><br></pre></td></tr></table></figure>
-<pre><code>[[-4.5  0.   0.  ...  0.   0.   0. ]
- [ 0.  -3.5 -1.4 ...  0.   0.   0. ]
- [ 0.  -1.4 -3.5 ...  0.   0.   0. ]
- ...
- [ 0.   0.   0.  ...  3.5 -1.4  0. ]
- [ 0.   0.   0.  ... -1.4  3.5  0. ]
- [ 0.   0.   0.  ...  0.   0.   4.5]]
-[-13.12646931 -13.07866474 -13.07575853 -13.06893675 -13.03230613
- -13.02946844 -13.02304559 -12.9880016   -8.68300191  -8.56677243
-  -8.56586155  -8.37964052  -8.37964052  -8.26479657  -8.23663151
-  -8.23248641  -8.2288993   -8.21755532  -8.21755532  -8.21213607]
-</code></pre><ul>
-<li>比较发现，MPO 相乘得到的哈密顿量矩阵和前 20 个特征值，与 ED 得到的结果一致。</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-	
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1827,7 +1672,7 @@ hzSz I I I I I I I I
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">20</span>
+          <span class="site-state-item-count">21</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

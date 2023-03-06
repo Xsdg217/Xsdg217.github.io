@@ -1601,9 +1601,66 @@ H=\beta\left[\sigma_x k_x\left(k_y^2-k_x^2\right)+\sigma_y k_y\left(k_z^2-k_x^2\
       </tags>
   </entry>
   <entry>
-    <title>Linux 基本命令</title>
+    <title>Linux 基本命令1</title>
     <url>/2023/02/26/linux%20command/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="Linux-基本命令与-Shell-脚本"><a href="#Linux-基本命令与-Shell-脚本" class="headerlink" title="Linux 基本命令与 Shell 脚本"></a>Linux 基本命令与 Shell 脚本</h2><p>开个小坑，记一下要用的脚本命令啥的</p>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="Linux-基本命令与-Shell-脚本-1"><a href="#Linux-基本命令与-Shell-脚本-1" class="headerlink" title="Linux 基本命令与 Shell 脚本(1)"></a>Linux 基本命令与 Shell 脚本(1)</h2><p>开个小坑，记一下要用的脚本命令啥的</p>
+<p>pwd —打印出当前工作目录名</p>
+<p>cd —更改目录</p>
+<p>ls —列出目录内容</p>
+<p>cd /usr/bin——回到绝对路径下的目录</p>
+<p>cd ..——回到上级目录</p>
+<p>ls——在当前目 录下所有文件和子目录的列表</p>
+<p>ls /usr 查看指定目录下的文件</p>
+<p>ls -1 查看目录下文件的更多信息</p>
+<p>ls -a 列出所有文件 </p>
+<p>ls -h 以字节数显示文件大小</p>
+<p>ls -t 按照修改时间</p>
+<p>ls -r 反向排序</p>
+<p>less filename 浏览文件内容</p>
+<p>cp —复制文件和目录 </p>
+<p>mv —移动/重命名文件和目录 </p>
+<p>mkdir —创建目录 </p>
+<p>rm —删除文件和目录 </p>
+<p> ln —创建硬链接和符号链接</p>
+<p>type –说明怎样解释一个命令名 </p>
+<p>which –显示会执行哪个可执行程序 </p>
+<p>man –显示命令手册页 </p>
+<p>apropos –显示一系列适合的命令 </p>
+<p>info –显示命令 info </p>
+<p>whatis –显示一个命令的简洁描述 </p>
+<p>alias –创建命令别名</p>
+<p>cat －连接文件 </p>
+<p>sort －排序文本行 </p>
+<p>uniq －报道或省略重复行 </p>
+<p>grep －打印匹配行 </p>
+<p>wc －打印文件中换行符，字，和字节个数 </p>
+<p>head －输出文件第一部分 </p>
+<p>tail - 输出文件最后一部分 </p>
+<p>tee - 从标准输入读取数据，并同时写到标准输出和文件</p>
+<p>clear - 清空屏幕</p>
+<p>history - 显示历史记录</p>
+<p>grep “cm-1” OUTCAR-查看频率</p>
+<p>grep “f/i” OUTCAR 查看虚频</p>
+<p> tail -f OSZICAR 查看收敛能量</p>
+<p>grep E-fermi OUTCAR 查看费米能级</p>
+<p>grep irreducible OUTCAR 查看倒格矢</p>
+<p>grep ZVAL OUTCAR 查看价电子</p>
+<p>grep TIT POTCAR 检查赝势</p>
+]]></content>
+      <categories>
+        <category>Some Notes</category>
+      </categories>
+      <tags>
+        <tag>linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Linux 基本命令2</title>
+    <url>/2023/03/06/2023-3-6-Linux-%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A42/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="Linux-基本命令与-Shell-脚本-2"><a href="#Linux-基本命令与-Shell-脚本-2" class="headerlink" title="Linux 基本命令与 Shell 脚本(2)"></a>Linux 基本命令与 Shell 脚本(2)</h2><h4 id="tar"><a href="#tar" class="headerlink" title="tar"></a>tar</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-c: 建立压缩档案</span><br><span class="line">-x：解压</span><br><span class="line">-t：查看内容</span><br><span class="line">-r：向压缩归档文件末尾追加文件</span><br><span class="line">-u：更新原压缩包中的文件</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-z：有gzip属性的</span><br><span class="line">-j：有bz2属性的</span><br><span class="line">-Z：有compress属性的</span><br><span class="line">-v：显示所有过程</span><br><span class="line">-O：将文件解开到标准输出</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-f: 使用档案名字，切记，这个参数是最后一个参数，后面只能接档案名。</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">*.tar 用 tar -xvf 解压</span><br><span class="line">*.gz 用 gzip -d或者gunzip 解压</span><br><span class="line">.tar.gz和.tgz 用 tar -xzf 解压</span><br><span class="line">*.bz2 用 bzip2 -d或者用bunzip2 解压</span><br><span class="line">*.tar.bz2用tar -xjf 解压</span><br><span class="line">*.Z 用 uncompress 解压</span><br><span class="line">*.tar.Z 用tar -xZf 解压</span><br><span class="line">*.rar 用 unrar e解压</span><br><span class="line">*.zip 用 unzip 解压</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>Some Notes</category>
