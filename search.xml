@@ -1657,15 +1657,11 @@ H=\beta\left[\sigma_x k_x\left(k_y^2-k_x^2\right)+\sigma_y k_y\left(k_z^2-k_x^2\
   <entry>
     <title>Linux 基本命令与 Shell 脚本(2)</title>
     <url>/2023/03/06/2023-3-6-Linux-%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A42/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h3 id="1-tar"><a href="#1-tar" class="headerlink" title="1. tar"></a>1. tar</h3><h3 id="About-tar"><a href="#About-tar" class="headerlink" title="About tar"></a>About tar</h3><p>-c: 建立压缩档案<br>-x：解压<br>-t：查看内容<br>-r：向压缩归档文件末尾追加文件<br>-u：更新原压缩包中的文件</p>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h3 id=""><a href="#" class="headerlink" title=" "></a> </h3><h3 id="About-tar"><a href="#About-tar" class="headerlink" title="About tar"></a>About tar</h3><p>-c: 建立压缩档案<br>-x：解压<br>-t：查看内容<br>-r：向压缩归档文件末尾追加文件<br>-u：更新原压缩包中的文件</p>
 <p>-z：有gzip属性的<br>-j：有bz2属性的<br>-Z：有compress属性的<br>-v：显示所有过程<br>-O：将文件解开到标准输出</p>
 <p>-f: 使用档案名字，切记，这个参数是最后一个参数，后面只能接档案名。</p>
 <p><strong>Summary：</strong></p>
-<p><em>.tar 用 tar -xvf 解压
-</em>.gz 用 gzip -d或者gunzip 解压<br>.tar.gz和.tgz 用 tar -xzf 解压<br><em>.bz2 用 bzip2 -d或者用bunzip2 解压
-</em>.tar.bz2用tar -xjf 解压<br><em>.Z 用 uncompress 解压
-</em>.tar.Z 用tar -xZf 解压<br><em>.rar 用 unrar e解压
-</em>.zip 用 unzip 解压</p>
+<p>*.tar 用 tar -xvf 解压<br>*.gz 用 gzip -d或者gunzip 解压<br>.tar.gz和.tgz 用 tar -xzf 解压<br>*.bz2 用 bzip2 -d或者用bunzip2 解压<br>*.tar.bz2用tar -xjf 解压<br>*.Z 用 uncompress 解压<br>*.tar.Z 用tar -xZf 解压<br>*.zip 用 unzip 解压</p>
 ]]></content>
       <categories>
         <category>Some Notes</category>
