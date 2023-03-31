@@ -1670,4 +1670,27 @@ H=\beta\left[\sigma_x k_x\left(k_y^2-k_x^2\right)+\sigma_y k_y\left(k_z^2-k_x^2\
         <tag>linux</tag>
       </tags>
   </entry>
+  <entry>
+    <title>Abacus 编译</title>
+    <url>/2023/03/31/2023-3-31-Abacus-%E7%BC%96%E8%AF%91/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>编译 develop-surface-hopping 分支版本，在003集群上可以完美编译。</p>
+<p>①下载abacus：git clone <a href="https://link.zhihu.com/?target=https%3A//gitee.com/deepmodeling/abacus-develop.git">https://gitee.com/deepmodeling/abacus-develop.git</a></p>
+<p>②下载elpa-2021.05.002.tar.gz：</p>
+<p>wget <a href="https://link.zhihu.com/?target=https%3A//elpa.mpcdf.mpg.de/software/tarball-archive/Releases/2021.05.002/elpa-2021.05.002.tar.gz">https://elpa.mpcdf.mpg.de/software/tarball-archive/Releases/2021.05.002/elpa-2021.05.002.tar.gz</a></p>
+<p>③source 一下编译器：source /opt/intel/oneapi/setvars.sh</p>
+<p>④解压进入elpa-2021.05.002文件夹：./configure —prefix=$(pwd) FCFLAGS=”-mkl=cluster” CC=mpiicc FC=mpiifort</p>
+<p>⑤安装elpa-2021.05.002： make -j &amp;&amp; make install</p>
+<p>⑥任意位置新建 bin 目录用以存放 abacus的二进制文件，如：mkdir ~/ABACUS/bin/</p>
+<p>⑦回到 abacus-develop 目录：cd abacus-develop/ 并且 cmake -B build -DCMAKE_INSTALL_PREFIX=第⑥步创建的目录 -DELPA_DIR=第⑤步安装的目录</p>
+<p>⑧cmake 配置 abacus 所需要的的并行核数：cmake —build build -j2</p>
+<p>⑨cmake 安装 abacus ：cmake —install build</p>
+<p>⑩进入abacus-develop 目录下的 example/01a_Si_diamond_pw_scf 算例，运行 mpirun -np 2 ~/ABACUS/bin//abacus &gt; log，有输出文件夹</p>
+]]></content>
+      <categories>
+        <category>Some Notes</category>
+      </categories>
+      <tags>
+        <tag>physics</tag>
+      </tags>
+  </entry>
 </search>
