@@ -196,7 +196,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2023/11/08/1108/" class="post-title-link" itemprop="url">paper notes</a>
+            <a href="/2023/11/08/1108/" class="post-title-link" itemprop="url">paper notes 1</a>
         </h2>
 
         <div class="post-meta">
@@ -213,7 +213,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-11-10 19:55:12" itemprop="dateModified" datetime="2023-11-10T19:55:12+08:00">2023-11-10</time>
+                <time title="修改时间：2023-11-11 23:53:47" itemprop="dateModified" datetime="2023-11-11T23:53:47+08:00">2023-11-11</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -246,6 +246,7 @@
           <h3 id="Effects-of-Temperature-Control-Algorithms-on-Transport-Properties-and-Kinetics-in-Molecular-Dynamics-Simulations"><a href="#Effects-of-Temperature-Control-Algorithms-on-Transport-Properties-and-Kinetics-in-Molecular-Dynamics-Simulations" class="headerlink" title="Effects of Temperature Control Algorithms on Transport Properties and Kinetics in Molecular Dynamics Simulations"></a>Effects of Temperature Control Algorithms on Transport Properties and Kinetics in Molecular Dynamics Simulations</h3><h5 id="dx-doi-org-10-1021-ct400109a-J-Chem-Theory-Comput-2013-9-2887−2899"><a href="#dx-doi-org-10-1021-ct400109a-J-Chem-Theory-Comput-2013-9-2887−2899" class="headerlink" title="dx.doi.org/10.1021/ct400109a | J. Chem. Theory Comput. 2013, 9, 2887−2899"></a>dx.doi.org/10.1021/ct400109a | J. Chem. Theory Comput. 2013, 9, 2887−2899</h5><hr>
 <p>​    关于温度控制算法对分子动力学模拟中的输运性质和动力学的影响。六种成熟的恒温器算法包括: Andersen恒温器、Langevin动力学、Berendsen恒温器、Bussi和其同事的随机速度重标定方法、Nose-Hoover恒温器以及一种通过与溶剂粒子热接触的恒温器。研究测量了水的平移和旋转自扩散、剪切粘度、溶解小分子的扩散以及水中聚合物链的动态结构因子。</p>
 <p>​    比较结论是，（强耦合时），随机化粒子速度的算法，如Andersen恒温和Langevin动力学，显著抑制了水的输运性质。通过缩放速度的算法，如Berendsen恒温器、Bussi及其同事的随机速度重新缩放方法，以及Nose-Hoover恒温器，只要它们在全局应用，就会产生与微规范系综在统计上无法区分的输运性质。</p>
+<hr>
 <h3 id="Surface-hopping-dynamics-in-periodic-solid-state-materials-with-a-linear-vibronic-coupling-model"><a href="#Surface-hopping-dynamics-in-periodic-solid-state-materials-with-a-linear-vibronic-coupling-model" class="headerlink" title="Surface hopping dynamics in periodic solid-state materials with a linear vibronic coupling model"></a>Surface hopping dynamics in periodic solid-state materials with a linear vibronic coupling model</h3><h5 id="J-Chem-Phys-156-154116-2022-doi-10-1063-5-0085759"><a href="#J-Chem-Phys-156-154116-2022-doi-10-1063-5-0085759" class="headerlink" title="J. Chem. Phys. 156, 154116 (2022); doi: 10.1063/5.0085759"></a>J. Chem. Phys. 156, 154116 (2022); doi: 10.1063/5.0085759</h5><hr>
 <h4 id="Intro："><a href="#Intro：" class="headerlink" title="Intro："></a>Intro：</h4><p>基本框架还是FSSH，提出单Γ方法的局域性，即便建超胞，也可能忽略了重要的电子-声子散射过程和弛豫路径，会减慢估计的非绝热延迟过程。以平衡位置的布洛赫态作为非绝热表示的电子波函数在互易空间中传播，DPFT+MLWFs。计算实例是一维碳链。</p>
 <h4 id="Method："><a href="#Method：" class="headerlink" title="Method："></a>Method：</h4><ol>
@@ -278,7 +279,7 @@ H_p=\sum_{\mathbf{q} v}\left(\frac{1}{2} \omega_{\mathbf{q} v}^2\left|Q_{\mathbf
 <ol>
 <li><h5 id="FSSH-in-LVC"><a href="#FSSH-in-LVC" class="headerlink" title="FSSH in LVC:"></a>FSSH in LVC:</h5><p>normal mode Q 的 单电子哈密顿量：</p>
 <script type="math/tex; mode=display">
-H_e(Q)=\sum_{n \mathbf{k}} \varepsilon_{n \mathbf{k}} \hat{c}_{n \mathbf{k}}^{+} \hat{c}_{n \mathbf{k}}+\frac{1}{\sqrt{N_p}} \sum_{\substack{\mathbf{k}, \mathbf{q} \\ m n v}} g_{m n v}(\mathbf{k}, \mathbf{q}) \hat{c}_{m \mathbf{k}+\mathbf{q}}^{+} \hat{c}_{n \mathbf{k}} Q_{\mathbf{q} v} \sqrt{\frac{2 \omega_{\mathbf{q} v}}{\hbar}}</script><p>对角化He(Q)，得到透热bloch轨道表述的绝热基 $\left{\Phi<em>i(Q)=\sum</em>{n \mathbf{k}} p_{i, n \mathbf{k}}(Q)|n \mathbf{k}\rangle\right}$ ,以及绝热势能面。</p>
+H_e(Q)=\sum_{n \mathbf{k}} \varepsilon_{n \mathbf{k}} \hat{c}_{n \mathbf{k}}^{+} \hat{c}_{n \mathbf{k}}+\frac{1}{\sqrt{N_p}} \sum_{\substack{\mathbf{k}, \mathbf{q} \\ m n v}} g_{m n v}(\mathbf{k}, \mathbf{q}) \hat{c}_{m \mathbf{k}+\mathbf{q}}^{+} \hat{c}_{n \mathbf{k}} Q_{\mathbf{q} v} \sqrt{\frac{2 \omega_{\mathbf{q} v}}{\hbar}}</script><p>​    对角化He(Q)，得到透热bloch轨道表述的绝热基 $\left{\Phi<em>i(Q)=\sum</em>{n \mathbf{k}} p_{i, n \mathbf{k}}(Q)|n \mathbf{k}\rangle\right}$ ,以及绝热势能面。</p>
 <p>FSSH 那一套；绝热基组展开，电子/核子含时演化方程</p>
 <script type="math/tex; mode=display">
 |\Phi(t)\rangle=\sum_i c_i(t)\left|\Phi_i(Q(t))\right\rangle</script><script type="math/tex; mode=display">
@@ -295,13 +296,16 @@ d_{i j}^{\mathbf{q} v}=\frac{1}{E_j-E_i} \sqrt{\frac{2 \omega_{\mathbf{q} v}}{\h
 \end{gathered}</script><p>概率</p>
 <script type="math/tex; mode=display">
 g_{a i}=\frac{2 \operatorname{Re}\left[c_a c_i^* \sum_{\mathbf{q} v} \dot{Q}_{\mathbf{q} v} d_{a i}^{\mathbf{q} v}\right]}{c_a c_a^*} \cdot d t</script></li>
-<li><p><strong>Wannier  插值</strong>：<br>$$<br>\left|w<em>{n \mathbf{R}}\right\rangle=\frac{V}{(2 \pi)^3} \int</em>{\mathrm{BZ}} d \mathbf{k} e^{-i \mathbf{k} \cdot \mathbf{R}} \sum<em>{m=1}^j U</em>{m n}^{\mathbf{k}}|m \mathbf{k}\rangle,</p>
+<li><p><strong>Wannier  插值</strong>：</p>
 </li>
 </ol>
 <script type="math/tex; mode=display">
-</script><p>\begin{gathered}<br>   H<em>{\mathbf{R}_e, \mathbf{R}_e^{\prime}}^{e l}=\sum</em>{\mathbf{k}} e^{-i \mathbf{k} \cdot\left(\mathbf{R}<em>e^{\prime}-\mathbf{R}_e\right)} U</em>{\mathbf{k}}^{\dagger} H<em>{\mathbf{k}}^{e l} U</em>{\mathbf{k}}, \<br>   D<em>{\mathbf{R}_p, \mathbf{R}_p^{\prime}}^{p h}=\sum</em>{\mathbf{q}} e^{-i \mathbf{q} \cdot\left(\mathbf{R}<em>p^{\prime}-\mathbf{R}_p\right)} \mathbf{e}</em>{\mathbf{q}} D<em>{\mathbf{q}}^{p h} \mathbf{e}</em>{\mathbf{q}}^{\dagger}, \<br>   g\left(\mathbf{R}<em>e, \mathbf{R}_p\right)=\frac{1}{N_p} \sum</em>{\mathbf{k}, \mathbf{q}} e^{-i\left(\mathbf{k} \cdot \mathbf{R}<em>e+\mathbf{q} \cdot \mathbf{R}_p\right)} U</em>{\mathbf{k}+\mathbf{q}}^{\dagger} g(\mathbf{k}, \mathbf{q}) U<em>{\mathbf{k}} \mathbf{u}</em>{\mathbf{q}}^{-1}<br>   \end{gathered}</p>
-<p>$$</p>
-<ol>
+\left|w_{n \mathbf{R}}\right\rangle=\frac{V}{(2 \pi)^3} \int_{\mathrm{BZ}} d \mathbf{k} e^{-i \mathbf{k} \cdot \mathbf{R}} \sum_{m=1}^j U_{m n}^{\mathbf{k}}|m \mathbf{k}\rangle,</script><script type="math/tex; mode=display">
+\begin{gathered}
+   H_{\mathbf{R}_e, \mathbf{R}_e^{\prime}}^{e l}=\sum_{\mathbf{k}} e^{-i \mathbf{k} \cdot\left(\mathbf{R}_e^{\prime}-\mathbf{R}_e\right)} U_{\mathbf{k}}^{\dagger} H_{\mathbf{k}}^{e l} U_{\mathbf{k}}, \\
+   D_{\mathbf{R}_p, \mathbf{R}_p^{\prime}}^{p h}=\sum_{\mathbf{q}} e^{-i \mathbf{q} \cdot\left(\mathbf{R}_p^{\prime}-\mathbf{R}_p\right)} \mathbf{e}_{\mathbf{q}} D_{\mathbf{q}}^{p h} \mathbf{e}_{\mathbf{q}}^{\dagger}, \\
+   g\left(\mathbf{R}_e, \mathbf{R}_p\right)=\frac{1}{N_p} \sum_{\mathbf{k}, \mathbf{q}} e^{-i\left(\mathbf{k} \cdot \mathbf{R}_e+\mathbf{q} \cdot \mathbf{R}_p\right)} U_{\mathbf{k}+\mathbf{q}}^{\dagger} g(\mathbf{k}, \mathbf{q}) U_{\mathbf{k}} \mathbf{u}_{\mathbf{q}}^{-1}
+   \end{gathered}</script><ol>
 <li><strong>Computational details：</strong></li>
 </ol>
 <p>​        Gaussian  6-31G(d) B3LYP </p>
